@@ -137,6 +137,30 @@ const routeMeta = {
     keySignals: ['Structured details', 'Seller evidence', 'Customers say', 'Verified buyer media', 'Transaction certainty'],
     kpi: ['PDP → ATC', 'Why-link usage', 'Return confidence']
   },
+  'product-details': {
+    label: 'PDP · Product details',
+    title: 'Full category-specific product details',
+    persona: 'Shared purchase screen',
+    summary: 'A dedicated information view makes the listing fully judgeable with measurements, material, care, pack quantity and return-relevant facts.',
+    keySignals: ['Exact measurements', 'Material and fit', 'Care and pack quantity', 'Expectation setting'],
+    kpi: ['Detail views', 'PDP → ATC', 'Lower returns']
+  },
+  'group-save': {
+    label: 'Growth · Share & Save',
+    title: 'Share & Save group flow',
+    persona: 'Shared growth screen',
+    summary: 'An optional social-shopping flow makes the group-price rule explicit while retaining the same product and trust context.',
+    keySignals: ['Group price', 'Invite logic', 'Transparent unlock condition'],
+    kpi: ['Group creation', 'Incremental orders', 'Revenue uplift']
+  },
+  'group-created': {
+    label: 'Growth · Group created',
+    title: 'Group created successfully',
+    persona: 'Shared growth screen',
+    summary: 'A clear confirmation state closes the Share & Save loop and routes back into purchase.',
+    keySignals: ['Share link', 'Participants needed', 'Return to purchase'],
+    kpi: ['Invite rate', 'Group completion', 'Checkout conversion']
+  },
   'seller-profile': {
     label: 'Trust · Seller profile',
     title: 'Seller profile and credibility',
@@ -271,10 +295,37 @@ const toastEl = $('#toast');
 
 function money(v) { return `₹${v}`; }
 
+function vectorArt(token, variant = 0) {
+  const art = {
+    '👔': `<svg viewBox="0 0 120 120" aria-hidden="true"><path d="M37 23 50 16h20l13 7 19 20-14 13-9-9v53H41V47l-9 9-14-13 19-20Z" fill="#20242d"/><path d="M50 16 60 30l10-14" fill="#fff" opacity=".9"/><path d="M60 30v70" stroke="#555d6b" stroke-width="2"/><circle cx="61" cy="45" r="2" fill="#d4d8df"/><circle cx="61" cy="58" r="2" fill="#d4d8df"/><circle cx="61" cy="71" r="2" fill="#d4d8df"/></svg>`,
+    '👖': `<svg viewBox="0 0 120 120" aria-hidden="true"><path d="M40 16h40l5 82-20 4-5-55-5 55-20-4 5-82Z" fill="#343843"/><path d="M43 26h34" stroke="#676d78" stroke-width="3"/><path d="M60 17v31" stroke="#6d737e" stroke-width="2"/></svg>`,
+    '👟': `<svg viewBox="0 0 120 120" aria-hidden="true"><path d="M20 72c10 0 18-4 27-17l9-13 11 7c5 4 8 11 15 14l20 8c7 3 8 14 1 19-5 4-69 5-83 2-9-2-9-18 0-20Z" fill="#fff" stroke="#d8dce4" stroke-width="3"/><path d="M38 67h39M43 60h30M33 75h45" stroke="#c7cbd3" stroke-width="3"/><path d="M19 88h86" stroke="#9da4b0" stroke-width="4"/></svg>`,
+    '🎒': `<svg viewBox="0 0 120 120" aria-hidden="true"><path d="M40 31c2-12 10-18 20-18s18 6 20 18" fill="none" stroke="#6e557d" stroke-width="6"/><rect x="30" y="28" width="60" height="73" rx="17" fill="#563e66"/><rect x="38" y="62" width="44" height="28" rx="10" fill="#7d648f"/><path d="M48 41h24" stroke="#d7c9df" stroke-width="4"/></svg>`,
+    '⌚': `<svg viewBox="0 0 120 120" aria-hidden="true"><path d="M49 10h22l5 27H44l5-27Zm-5 73h32l-5 27H49l-5-27Z" fill="#2a2d38"/><circle cx="60" cy="60" r="29" fill="#242832" stroke="#aaa4bc" stroke-width="5"/><circle cx="60" cy="60" r="22" fill="#f9f7fb"/><path d="M60 47v15l10 7" stroke="#7a4e8e" stroke-width="4" stroke-linecap="round"/></svg>`,
+    '🧥': `<svg viewBox="0 0 120 120" aria-hidden="true"><path d="M37 22 52 15h16l15 7 19 24-15 11-9-12v56H42V45l-9 12-15-11 19-24Z" fill="#65705d"/><path d="M52 15 60 32l8-17" fill="#efe9df"/><path d="M60 32v69" stroke="#919c88" stroke-width="2"/><path d="M44 61h13M63 61h13" stroke="#adb7a5" stroke-width="3"/></svg>`,
+    '👜': `<svg viewBox="0 0 120 120" aria-hidden="true"><path d="M39 40c0-16 8-26 21-26s21 10 21 26" fill="none" stroke="#b06b8e" stroke-width="6"/><path d="M25 38h70l-7 65H32l-7-65Z" fill="#e3a7c3"/><path d="M45 54h30" stroke="#fff" stroke-width="4"/></svg>`,
+    '🏋️': `<svg viewBox="0 0 120 120" aria-hidden="true"><path d="M38 28 51 18h18l13 10 13 17-13 9-7-9v57H45V45l-7 9-13-9 13-17Z" fill="#9d7fa8"/><path d="M51 18 60 31l9-13" fill="#fff" opacity=".85"/><rect x="54" y="48" width="12" height="29" rx="6" fill="#f4e9f2"/></svg>`,
+    '👗': `<svg viewBox="0 0 120 120" aria-hidden="true"><path d="M49 13h22l6 24-9 10 20 53H32l20-53-9-10 6-24Z" fill="#d9579b"/><path d="M49 13c0 12 22 12 22 0" fill="#f5b8d5"/><path d="M45 65h30" stroke="#f5c8df" stroke-width="3"/></svg>`,
+    '🧴': `<svg viewBox="0 0 120 120" aria-hidden="true"><rect x="45" y="12" width="30" height="15" rx="4" fill="#334f77"/><rect x="39" y="25" width="42" height="78" rx="13" fill="#8fc7d8"/><rect x="45" y="45" width="30" height="28" rx="8" fill="#f6fafb"/><path d="M49 57h22M52 64h16" stroke="#56879c" stroke-width="3"/></svg>`,
+    '🪒': `<svg viewBox="0 0 120 120" aria-hidden="true"><rect x="31" y="18" width="58" height="22" rx="8" fill="#4d5d7a"/><rect x="44" y="36" width="32" height="11" rx="5" fill="#9aa8bd"/><path d="M54 45h12l7 55H47l7-55Z" fill="#e7e9ee" stroke="#9299a6" stroke-width="2"/></svg>`,
+    '🧔': `<svg viewBox="0 0 120 120" aria-hidden="true"><circle cx="60" cy="48" r="24" fill="#e5b18e"/><path d="M36 48c3-28 45-35 50-3-12-6-19-16-30-8-7 5-12 11-20 11Z" fill="#2e2a2a"/><path d="M39 56c5 28 12 45 21 45s16-17 21-45c-11 11-31 11-42 0Z" fill="#4a3731"/><circle cx="52" cy="49" r="2"/><circle cx="68" cy="49" r="2"/></svg>`,
+    '🌿': `<svg viewBox="0 0 120 120" aria-hidden="true"><rect x="43" y="21" width="34" height="14" rx="4" fill="#315949"/><rect x="38" y="33" width="44" height="69" rx="11" fill="#9bc8ae"/><path d="M51 57c15-2 24-12 29-26-1 18-8 33-26 41-6 3-9-10-3-15Z" fill="#407b5c"/></svg>`,
+    '🎁': `<svg viewBox="0 0 120 120" aria-hidden="true"><rect x="19" y="46" width="82" height="58" rx="8" fill="#ec6c89"/><rect x="16" y="36" width="88" height="18" rx="7" fill="#f49eb1"/><rect x="55" y="36" width="10" height="68" fill="#fff2d9"/><path d="M60 36c-28 0-29-24-11-22 11 1 11 22 11 22Zm0 0c28 0 29-24 11-22-11 1-11 22-11 22Z" fill="#fff2d9"/></svg>`,
+    '✨': `<svg viewBox="0 0 120 120" aria-hidden="true"><path d="M60 13 68 44 98 52 68 60 60 91 52 60 22 52 52 44 60 13Z" fill="#ffc94d"/><path d="M92 75 96 89 110 93 96 97 92 111 88 97 74 93 88 89 92 75Z" fill="#f492c1"/></svg>`,
+    '🍽️': `<svg viewBox="0 0 120 120" aria-hidden="true"><circle cx="60" cy="62" r="36" fill="#f7eee2" stroke="#c8a885" stroke-width="4"/><circle cx="60" cy="62" r="22" fill="#fffaf2" stroke="#dbc4aa" stroke-width="3"/><path d="M21 25v77M99 25v77M13 42h16M91 42h16" stroke="#7c6b5d" stroke-width="4"/></svg>`,
+    '🧳': `<svg viewBox="0 0 120 120" aria-hidden="true"><path d="M48 27V16h24v11" fill="none" stroke="#675579" stroke-width="6"/><rect x="26" y="27" width="68" height="73" rx="14" fill="#8b6b9d"/><path d="M60 28v72M36 50h48" stroke="#c7b1d3" stroke-width="3"/><circle cx="42" cy="104" r="5" fill="#4b4055"/><circle cx="78" cy="104" r="5" fill="#4b4055"/></svg>`,
+    '👘': `<svg viewBox="0 0 120 120" aria-hidden="true"><path d="M37 20 52 12h16l15 8 15 25-13 10-9-11v59H44V44l-9 11-13-10 15-25Z" fill="#d98d52"/><path d="M52 12 60 29l8-17" fill="#fff0d5"/><path d="M60 29v74" stroke="#f1bc85" stroke-width="3"/><path d="M45 62h30" stroke="#f7d6ae" stroke-width="3"/></svg>`,
+    '🏠': `<svg viewBox="0 0 120 120" aria-hidden="true"><path d="M18 58 60 21l42 37v48H18V58Z" fill="#d9b09d"/><path d="M35 104V66h50v38" fill="#f4e4da"/><rect x="50" y="72" width="20" height="32" rx="4" fill="#a77867"/><path d="M12 60 60 17l48 43" fill="none" stroke="#8e675b" stroke-width="6"/></svg>`,
+    '📷': `<svg viewBox="0 0 120 120" aria-hidden="true"><rect x="19" y="33" width="82" height="58" rx="13" fill="#6f557d"/><path d="M42 33l7-12h22l7 12" fill="#8e6e9f"/><circle cx="60" cy="62" r="19" fill="#f5ecf8"/><circle cx="60" cy="62" r="11" fill="#b994c5"/></svg>`,
+    '🎥': `<svg viewBox="0 0 120 120" aria-hidden="true"><rect x="17" y="33" width="66" height="55" rx="12" fill="#6f557d"/><path d="m83 49 22-12v48L83 72V49Z" fill="#b78dc7"/><circle cx="49" cy="60" r="13" fill="#f4edf7"/></svg>`
+  };
+  return art[token] || `<svg viewBox="0 0 120 120" aria-hidden="true"><rect x="18" y="18" width="84" height="84" rx="24" fill="#efe8f4"/><circle cx="60" cy="60" r="26" fill="#cfb6db"/><path d="M42 62h36" stroke="#8a6799" stroke-width="6" stroke-linecap="round"/></svg>`;
+}
+
 function productCard({ title, price, oldPrice = '', rating = '4.4', ratingCount = '8.1K', meta = '', art = '•', route = 'pdp-core', badge = '', badge2 = '' }) {
   return `
     <button class="product-card" data-go="${route}">
-      <div class="product-image" data-art="${art}">
+      <div class="product-image">${vectorArt(art)}
         <div class="product-badges">
           ${badge ? `<span class="badge-pill">${badge}</span>` : ''}
           ${badge2 ? `<span class="tiny-pill">${badge2}</span>` : ''}
@@ -295,7 +346,7 @@ function productCard({ title, price, oldPrice = '', rating = '4.4', ratingCount 
 function categoryCard({ icon, title, subtitle, route }) {
   return `
     <button class="category-card" data-go="${route}">
-      <div class="art-box">${icon}</div>
+      <div class="art-box">${vectorArt(icon)}</div>
       <b>${title}</b>
       <span>${subtitle}</span>
     </button>
@@ -853,7 +904,7 @@ function pdpCore() {
       ${appBar({ brand: false, title: 'PRODUCT', subtitle: 'Proof-first product detail page', searchText: 'Search related products', backRoute: state.persona === 'mall' ? 'category-grooming' : 'category-fashion' })}
       <div class="product-detail-hero">
         <div>
-          <div class="sku-image">👔</div>
+          <div class="sku-image">${vectorArt('👔')}</div>
           <div class="thumbnail-row">
             <button class="thumbnail" data-go="ugc-gallery">1</button>
             <button class="thumbnail" data-go="ugc-gallery">2</button>
@@ -877,8 +928,8 @@ function pdpCore() {
         </div>
       </div>
 
-      <div class="info-card" data-go="pdp-core">
-        ${sectionHeader('Product details', 'Category-specific information standardisation.', 'View all details', 'pdp-core')}
+      <div class="info-card" data-go="product-details">
+        ${sectionHeader('Product details', 'Category-specific information standardisation.', 'View all details', 'product-details')}
         <div class="details-grid">
           <div class="detail-item"><b>Fabric</b><span>Cotton blend</span></div>
           <div class="detail-item"><b>Fit</b><span>Regular fit</span></div>
@@ -912,9 +963,9 @@ function pdpCore() {
       <div class="info-card" data-go="ugc-gallery">
         ${sectionHeader('Real buyer photos & videos', 'Verified purchase content', 'View gallery', 'ugc-gallery')}
         <div class="ugc-row">
-          <div class="ugc-thumb">📷</div>
-          <div class="ugc-thumb">🎥</div>
-          <div class="ugc-thumb">📷</div>
+          <div class="ugc-thumb">${vectorArt('📷')}</div>
+          <div class="ugc-thumb">${vectorArt('🎥')}</div>
+          <div class="ugc-thumb">${vectorArt('📷')}</div>
         </div>
         <div class="review-quote">
           <b>Verified Purchase · Size L</b>
@@ -934,67 +985,16 @@ function pdpCore() {
   });
 }
 
-function sellerProfile() {
+function productDetailsScreen() {
   return phoneTemplate({
     nav: 'home',
-    ctas: ctaBar({ label: 'Back to PDP', route: 'pdp-core' }, { label: 'View trusted products', route: 'mtrusted-home' }),
+    ctas: ctaBar({ label: 'Back to PDP', route: 'pdp-core' }, { label: 'Add to cart', route: 'cart' }),
     content: `
-      ${appBar({ brand: false, title: 'SELLER PROFILE', subtitle: 'Trust evidence made legible', searchText: 'Search this seller', backRoute: 'pdp-core' })}
+      ${appBar({ brand: false, title: 'PRODUCT DETAILS', subtitle: 'Decision-critical information', searchText: 'Search product help', backRoute: 'pdp-core' })}
       <div class="list-card">
-        <h4>XYZ Fashion</h4>
-        <p style="margin:0;color:var(--muted);font-size:.75rem;line-height:1.45;">Seller performance in Men’s Fashion · Illustrative profile for prototype demonstration.</p>
-        <div class="badge-grid">
-          <div class="mini-card center"><h4>4.6 / 5</h4><p>Average buyer satisfaction</p></div>
-          <div class="mini-card center"><h4>95%</h4><p>On-time fulfilment</p></div>
-          <div class="mini-card center"><h4>Low</h4><p>Issue incidence</p></div>
-        </div>
+        <h4>Men’s Regular Fit Casual Shirt</h4>
+        <p style="margin:0;color:var(--muted);font-size:.75rem;line-height:1.45;">Category-specific information standard for fashion. The goal is to remove ambiguity before the user commits.</p>
       </div>
       <div class="list-card">
-        <h4>Why this seller feels trustworthy</h4>
-        <div class="detail-list">
-          <div class="detail-list-item"><b>Strong category history</b><span>Consistent performance in Men’s Fashion, helping the shopper reduce evaluation effort.</span></div>
-          <div class="detail-list-item"><b>Reliable fulfilment</b><span>Good shipping consistency and operational outcomes on similar listings.</span></div>
-          <div class="detail-list-item"><b>Lower issue signals</b><span>Cleaner post-order experience relative to marketplace baselines.</span></div>
-          <div class="detail-list-item"><b>Listing quality discipline</b><span>Better description completeness and clearer buyer expectations.</span></div>
-        </div>
-      </div>
-    `
-  });
-}
-
-function reviewsScreen() {
-  return phoneTemplate({
-    nav: 'home',
-    ctas: ctaBar({ label: 'Back to PDP', route: 'pdp-core' }, { label: 'See buyer gallery', route: 'ugc-gallery' }),
-    content: `
-      ${appBar({ brand: false, title: 'REVIEW INTELLIGENCE', subtitle: 'Summarised + traceable buyer evidence', searchText: 'Search reviews', backRoute: 'pdp-core' })}
-      <div class="list-card">
-        <h4>What buyers are saying</h4>
-        <div class="detail-tags"><span class="detail-tag">Fit: mostly true to size</span><span class="detail-tag">Fabric: soft & lightweight</span><span class="detail-tag">Colour: close to image</span><span class="detail-tag">Quality: good for price</span></div>
-      </div>
-      <div class="list-card">
-        <h4>Pros & cons</h4>
-        <div class="two-up">
-          <div class="mini-card"><h4>Pros</h4><p>Good fit, value-for-money, wearable for daily college use.</p></div>
-          <div class="mini-card"><h4>Watch-outs</h4><p>Fabric is lightweight, so expectations should be set clearly.</p></div>
-        </div>
-      </div>
-      <div class="list-card">
-        <h4>Traceable verified reviews</h4>
-        <div class="detail-list">
-          <div class="detail-list-item"><b>Verified buyer · size L</b><span>“Looked close to the listing and fit me well. Great for everyday wear.”</span></div>
-          <div class="detail-list-item"><b>Verified buyer · size M</b><span>“Soft fabric and neat stitching. Delivery timeline was accurate too.”</span></div>
-          <div class="detail-list-item"><b>Verified buyer · size XL</b><span>“Value for money, but best for casual use rather than formal occasions.”</span></div>
-        </div>
-      </div>
-    `
-  });
-}
-
-function ugcGalleryScreen() {
-  return phoneTemplate({
-    nav: 'home',
-    ctas: ctaBar({ label: 'Back to PDP', route: 'pdp-core' }, { label: 'See reviews', route: 'reviews' }),
-    content: `
-      ${appBar({ brand: false, title: 'VERIFIED BUYER GALLERY', subtitle: 'Real buyer photos & videos', searchText: 'Search buyer content', backRoute: 'pdp-core' })}
-      <div class="list-card">
+        <h4>Core specifications</h4>
+        <div class="details-grid">
