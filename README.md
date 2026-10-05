@@ -48,7 +48,7 @@ Then open `http://localhost:8080`.
 2. In Netlify choose **Add new project → Import an existing project**.
 3. Select GitHub and choose the repository.
 4. Build command: **leave blank**.
-5. Publish directory: **.`** (project root).
+5. Publish directory: **`.`** (project root).
 6. Deploy.
 7. Future pushes to the selected branch will redeploy automatically.
 

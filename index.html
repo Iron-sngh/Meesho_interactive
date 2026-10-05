@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#9f2089" />
+  <meta name="description" content="Interactive Meesho concept prototype for persona-led discovery, regional relevance, Meesho Mall, MTrusted and proof-first product detail experiences." />
+  <title>Meesho Interactive Experience Lab</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="page-glow glow-one"></div>
+  <div class="page-glow glow-two"></div>
+  <main class="site-shell">
+    <header class="site-header">
+      <div class="brand-lockup">
+        <div class="logo-mark">m</div>
+        <div>
+          <span class="eyebrow">MEESHO · INTERACTIVE EXPERIENCE LAB</span>
+          <h1>Personalise the mission. <span>Universalise the trust.</span></h1>
+          <p>Five cross-linked prototype journeys derived from the DICE Challenge deck and your product mockups.</p>
+        </div>
+      </div>
+      <div class="header-actions">
+        <button id="hotspot-toggle" class="toolbar-button" type="button">Show click map</button>
+        <button id="restart-button" class="toolbar-button primary-tool" type="button">Restart journey</button>
+      </div>
+    </header>
+
+    <section class="prototype-layout">
+      <aside class="persona-panel glass-panel">
+        <div class="panel-title-row">
+          <div>
+            <span class="panel-kicker">PERSONA SWITCHER</span>
+            <h2>Choose a use case</h2>
+          </div>
+          <span class="count-pill">5 journeys</span>
+        </div>
+        <div id="persona-list" class="persona-list"></div>
+        <div class="principle-card">
+          <span class="principle-icon">✦</span>
+          <div>
+            <b>Prototype principle</b>
+            <p>Context → intent → trust → proof → Order #1.</p>
+          </div>
+        </div>
+      </aside>
+
+      <section class="phone-stage" aria-label="Interactive phone prototype">
+        <div class="stage-toolbar">
+          <span id="stage-label" class="stage-label">HOME · COLLEGE STYLE</span>
+          <span class="live-pill"><i></i> Interactive</span>
+        </div>
+        <div id="device-canvas" class="device-canvas"></div>
+        <p class="stage-help">Click inside the phone. Use <b>Show click map</b> if you want to reveal every interactive region.</p>
+      </section>
+
+      <aside class="detail-panel glass-panel">
+        <div id="detail-panel"></div>
+      </aside>
+    </section>
+
+    <section class="journey-strip glass-panel" aria-label="Cross-linked prototype map">
+      <div class="journey-strip-copy">
+        <span class="panel-kicker">CROSS-LINKED EXPERIENCE</span>
+        <b>Every trust and discovery surface routes into the same purchase system.</b>
+      </div>
+      <div class="journey-nodes">
+        <button data-route="college-home">Guided home</button><i>→</i>
+        <button data-route="category-fashion">Category</button><i>→</i>
+        <button data-route="pdp-core">Proof-first PDP</button><i>→</i>
+        <button data-route="seller-profile">Seller proof</button><i>→</i>
+        <button data-route="reviews">Buyer evidence</button><i>→</i>
+        <button data-route="pdp-growth">Mission expansion</button>
+      </div>
+    </section>
+
+    <footer class="site-footer">
+      <span>Meesho DICE Challenge · Team Alcheringa</span>
+      <span>Concept prototype · Mockups and regional examples are illustrative</span>
+    </footer>
+  </main>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <script src="app.js"></script>
+</body>
+</html>
