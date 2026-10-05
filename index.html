@@ -6,10 +6,623 @@
   <meta name="theme-color" content="#9f2089" />
   <meta name="description" content="Interactive Meesho concept prototype built from scratch for persona-led discovery, regional relevance, Meesho Mall, MTrusted and proof-first purchase journeys." />
   <title>Meesho Interactive Experience Lab</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css" />
+<style>
+:root {
+  --bg: #fff7fc;
+  --panel: rgba(255, 255, 255, 0.88);
+  --border: rgba(159, 32, 137, 0.14);
+  --text: #1f1832;
+  --muted: #6f6583;
+  --brand: #f11b8d;
+  --brand-dark: #9f2089;
+  --brand-soft: #fde8f5;
+  --purple-soft: #efe8ff;
+  --purple-mid: #d7c5ff;
+  --lime: #eff9ee;
+  --green: #23a458;
+  --amber: #ffb800;
+  --shadow: 0 24px 60px rgba(120, 36, 110, 0.12);
+  --shadow-soft: 0 16px 35px rgba(101, 46, 108, 0.1);
+  --radius-xl: 24px;
+  --radius-lg: 18px;
+  --radius-md: 14px;
+  --radius-sm: 10px;
+  --phone-width: 390px;
+  --surface: #ffffff;
+  --hotspot: rgba(241, 27, 141, 0.16);
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; min-height: 100%; }
+body {
+  font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background: radial-gradient(circle at top left, #ffe6f6, transparent 30%), radial-gradient(circle at bottom right, #efe6ff, transparent 28%), var(--bg);
+  color: var(--text);
+}
+button, input { font: inherit; }
+button { cursor: pointer; }
+
+.page-glow {
+  position: fixed;
+  inset: auto;
+  width: 280px;
+  height: 280px;
+  border-radius: 999px;
+  filter: blur(20px);
+  opacity: .45;
+  pointer-events: none;
+  z-index: 0;
+}
+.glow-one { top: 70px; left: -60px; background: rgba(241, 27, 141, .12); }
+.glow-two { right: -40px; bottom: 110px; background: rgba(130, 91, 250, .12); }
+
+.site-shell {
+  position: relative;
+  z-index: 1;
+  max-width: 1500px;
+  margin: 0 auto;
+  padding: 28px;
+}
+
+.glass-panel {
+  background: var(--panel);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, .55);
+  box-shadow: var(--shadow-soft);
+}
+
+.site-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 24px;
+  padding: 24px 26px;
+  border-radius: var(--radius-xl);
+}
+.brand-lockup {
+  display: flex;
+  gap: 18px;
+  align-items: flex-start;
+  max-width: 920px;
+}
+.logo-mark {
+  width: 56px;
+  height: 56px;
+  border-radius: 16px;
+  background: linear-gradient(135deg, var(--brand-dark), var(--brand));
+  display: grid;
+  place-items: center;
+  color: #fff;
+  font-weight: 800;
+  font-size: 1.65rem;
+  box-shadow: 0 10px 25px rgba(159, 32, 137, 0.25);
+}
+.eyebrow, .panel-kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  font-size: .72rem;
+  font-weight: 700;
+  color: var(--brand-dark);
+}
+.site-header h1 {
+  margin: 8px 0 10px;
+  font-size: clamp(1.8rem, 2.6vw, 2.8rem);
+  line-height: 1.08;
+}
+.site-header h1 span { color: var(--brand-dark); }
+.site-header p { margin: 0; color: var(--muted); max-width: 760px; line-height: 1.55; }
+.header-actions { display: flex; gap: 12px; flex-wrap: wrap; justify-content: flex-end; }
+.toolbar-button {
+  border: 1px solid var(--border);
+  background: #fff;
+  color: var(--text);
+  padding: 12px 16px;
+  border-radius: 999px;
+  font-weight: 700;
+  box-shadow: 0 8px 20px rgba(93, 53, 98, 0.06);
+}
+.toolbar-button:hover { transform: translateY(-1px); }
+.primary-tool { background: linear-gradient(135deg, var(--brand-dark), var(--brand)); color: #fff; border-color: transparent; }
+
+.prototype-layout {
+  margin-top: 24px;
+  display: grid;
+  grid-template-columns: 320px minmax(400px, 1fr) 340px;
+  gap: 22px;
+  align-items: start;
+}
+.persona-panel, .detail-panel {
+  border-radius: var(--radius-xl);
+  padding: 20px;
+}
+.panel-title-row {
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+  gap: 12px;
+}
+.panel-title-row h2 { margin: 6px 0 0; font-size: 1.28rem; }
+.count-pill {
+  padding: 8px 12px;
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: .85rem;
+  background: var(--purple-soft);
+  color: #5c3cb3;
+}
+.persona-list { display: grid; gap: 12px; margin-top: 18px; }
+.persona-card {
+  padding: 14px 15px;
+  border-radius: 18px;
+  border: 1px solid rgba(120, 91, 250, .1);
+  background: rgba(255,255,255,.72);
+  transition: .18s ease;
+  text-align: left;
+}
+.persona-card:hover { transform: translateY(-1px); box-shadow: 0 10px 20px rgba(89, 53, 98, .08); }
+.persona-card.active {
+  background: linear-gradient(180deg, rgba(255,255,255,.96), rgba(252, 241, 251, .96));
+  border-color: rgba(159,32,137,.22);
+  box-shadow: 0 12px 28px rgba(159, 32, 137, .11);
+}
+.persona-card .persona-top { display: flex; justify-content: space-between; gap: 8px; align-items: center; }
+.persona-card b { font-size: 1rem; }
+.persona-card p { margin: 5px 0 10px; color: var(--muted); font-size: .92rem; line-height: 1.45; }
+.persona-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+.persona-tag {
+  padding: 6px 10px;
+  border-radius: 999px;
+  font-size: .74rem;
+  font-weight: 700;
+  background: #f6f3fb;
+  color: #67547e;
+}
+.principle-card {
+  margin-top: 16px;
+  padding: 16px;
+  border-radius: 18px;
+  background: linear-gradient(135deg, rgba(159,32,137,.08), rgba(136, 95, 251, .1));
+  display: flex;
+  gap: 14px;
+  align-items: start;
+}
+.principle-icon {
+  width: 32px; height: 32px; border-radius: 12px; display: grid; place-items: center;
+  background: #fff; color: var(--brand-dark); font-weight: 800;
+}
+.principle-card p { margin: 6px 0 0; color: var(--muted); line-height: 1.45; }
+
+.phone-stage { display: grid; gap: 14px; justify-items: center; }
+.stage-toolbar {
+  width: calc(var(--phone-width) + 50px);
+  display: flex; justify-content: space-between; align-items: center;
+  gap: 12px; padding: 10px 16px;
+  border-radius: 999px; background: rgba(255,255,255,.82);
+  border: 1px solid rgba(255,255,255,.65); box-shadow: var(--shadow-soft);
+}
+.stage-label { font-size: .78rem; letter-spacing: .12em; text-transform: uppercase; color: var(--brand-dark); font-weight: 800; }
+.live-pill {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-size: .82rem; font-weight: 700; color: var(--green);
+}
+.live-pill i { width: 10px; height: 10px; background: var(--green); border-radius: 999px; box-shadow: 0 0 0 6px rgba(35, 164, 88, .12); }
+.stage-help { margin: 0; color: var(--muted); text-align: center; max-width: 420px; line-height: 1.4; }
+
+.device-canvas {
+  position: relative;
+  width: calc(var(--phone-width) + 36px);
+  padding: 14px 18px 18px;
+  border-radius: 42px;
+  background: linear-gradient(180deg, #1f1f23, #0d0e11 18%, #23252a 65%, #15161a);
+  box-shadow: 0 30px 60px rgba(18, 9, 30, .22), inset 0 0 0 1px rgba(255,255,255,.08);
+}
+.device-canvas::before {
+  content: "";
+  position: absolute;
+  inset: 8px;
+  border-radius: 34px;
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.09), inset 0 0 16px rgba(255,255,255,.07);
+  pointer-events: none;
+}
+
+.phone-shell {
+  position: relative;
+  width: var(--phone-width);
+  height: 845px;
+  margin: 0 auto;
+  border-radius: 32px;
+  background: #fff;
+  overflow: hidden;
+}
+.phone-notch {
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 110px;
+  height: 28px;
+  border-radius: 18px;
+  background: #0a0a0d;
+  z-index: 8;
+}
+.phone-status {
+  position: absolute; top: 10px; left: 0; right: 0;
+  padding: 0 18px;
+  height: 22px;
+  display: flex; align-items: center; justify-content: space-between;
+  font-size: .72rem; font-weight: 700; color: #161326; z-index: 6;
+}
+.status-icons { display: flex; gap: 6px; align-items: center; }
+.status-dot { width: 10px; height: 10px; border-radius: 999px; border: 2px solid currentColor; }
+.status-bar { width: 15px; height: 9px; border: 2px solid currentColor; border-radius: 3px; position: relative; }
+.status-bar::after { content:""; position:absolute; inset:2px; background: currentColor; border-radius:1px; }
+.phone-content {
+  position: absolute;
+  inset: 34px 0 0;
+  overflow-y: auto;
+  background: linear-gradient(180deg, #fff, #fefcff);
+}
+.phone-content::-webkit-scrollbar { width: 0; height: 0; }
+
+.screen-root { min-height: calc(100% - 82px); padding-bottom: 94px; }
+.top-appbar {
+  position: sticky; top: 0; z-index: 5;
+  padding: 14px 16px 12px;
+  background: rgba(255,255,255,.95);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid #f0e8f2;
+}
+.appbar-row, .small-appbar {
+  display: flex; align-items: center; justify-content: space-between; gap: 10px;
+}
+.brand-wordmark { font-size: 1.65rem; font-weight: 800; color: var(--brand-dark); letter-spacing: -.04em; }
+.icon-row { display: flex; align-items: center; gap: 12px; }
+.circle-icon, .ghost-icon {
+  width: 34px; height: 34px; border-radius: 999px; border: 1px solid #ece6f3; background: #fff;
+  display: grid; place-items: center; color: #392b4d; font-size: .95rem; font-weight: 700;
+}
+.ghost-icon { background: #fff7fd; }
+.profile-chip { display: inline-flex; align-items: center; gap: 8px; font-size: .85rem; font-weight: 700; color: #48355a; }
+.profile-chip .avatar { width: 24px; height: 24px; border-radius: 999px; display: grid; place-items: center; background: linear-gradient(135deg, #f6d0ec, #ece5ff); font-size: .78rem; }
+.search-shell {
+  margin-top: 12px;
+  display: flex; align-items: center; gap: 10px;
+  padding: 10px 12px;
+  border: 1px solid #ece6f2;
+  border-radius: 12px;
+  background: #fbfafc;
+  color: #7a708b;
+  font-size: .84rem;
+}
+.utility-chips { margin-top: 10px; display: flex; gap: 8px; overflow-x: auto; }
+.utility-chip, .filter-chip, .sub-chip, .tab-chip {
+  display: inline-flex; align-items: center; gap: 6px;
+  white-space: nowrap;
+  padding: 7px 10px;
+  border-radius: 999px;
+  background: #f6f3fb;
+  color: #5d526e;
+  font-size: .73rem;
+  font-weight: 700;
+  border: 1px solid transparent;
+}
+.filter-chip.active, .tab-chip.active {
+  background: var(--brand-soft);
+  color: var(--brand-dark);
+  border-color: rgba(159,32,137,.14);
+}
+.screen-section { padding: 14px 14px 0; }
+.section-header { display: flex; justify-content: space-between; gap: 10px; align-items: end; margin-bottom: 10px; }
+.section-header h3 { margin: 0; font-size: 1rem; line-height: 1.1; }
+.section-header p { margin: 3px 0 0; color: var(--muted); font-size: .73rem; line-height: 1.3; }
+.link-action { font-size: .77rem; font-weight: 800; color: var(--brand); background: none; border: 0; padding: 0; }
+.cards-row, .product-grid, .trust-grid, .mini-grid, .brand-grid, .proof-grid, .hero-grid {
+  display: grid; gap: 10px;
+}
+.hero-banner {
+  position: relative;
+  padding: 16px;
+  border-radius: 18px;
+  overflow: hidden;
+  color: #fff;
+  min-height: 128px;
+  background: linear-gradient(120deg, #7d1c73, #f1439d 52%, #ff875c);
+}
+.hero-banner.purple { background: linear-gradient(135deg, #6d2be0, #8f55f8 55%, #c78dff); }
+.hero-banner.orange { background: linear-gradient(135deg, #942a37, #ff7d35 55%, #ffd36d); }
+.hero-banner.mall { background: linear-gradient(135deg, #f11b8d, #ff5ab3 55%, #ffb7da); color:#fff; }
+.hero-banner .eyebrow-inline { display: inline-block; padding: 5px 9px; border-radius: 999px; background: rgba(255,255,255,.18); font-size: .66rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
+.hero-banner h2 { margin: 10px 0 8px; font-size: 1.25rem; line-height: 1.1; max-width: 210px; }
+.hero-banner p { margin: 0; font-size: .75rem; max-width: 220px; line-height: 1.4; color: rgba(255,255,255,.88); }
+.hero-cta { margin-top: 12px; display: inline-flex; gap: 8px; align-items: center; padding: 9px 12px; border-radius: 999px; border: 0; font-weight: 800; font-size: .76rem; color: #902877; background: #fff; }
+.hero-badge {
+  position: absolute; right: 14px; bottom: 14px;
+  padding: 7px 10px; border-radius: 999px;
+  font-size: .68rem; font-weight: 800; background: rgba(255,255,255,.18); border: 1px solid rgba(255,255,255,.16);
+}
+.category-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+}
+.category-card {
+  padding: 10px 8px;
+  border-radius: 15px;
+  background: #fff;
+  border: 1px solid #efe7f2;
+  min-height: 98px;
+  text-align: left;
+}
+.category-card .art-box, .product-image, .brand-logo, .sku-image, .thumbnail, .look-tile-art {
+  border-radius: 12px;
+  background: linear-gradient(180deg, #f7f3fb, #efe8ff);
+}
+.category-card .art-box {
+  height: 48px;
+  display: grid; place-items: center;
+  font-size: 1.3rem; font-weight: 800; color: var(--brand-dark);
+}
+.category-card b { display: block; margin-top: 8px; font-size: .75rem; line-height: 1.25; }
+.category-card span { display:block; margin-top: 3px; color: var(--muted); font-size: .64rem; line-height: 1.2; }
+.two-up, .three-up, .four-up { display:grid; gap:10px; }
+.two-up { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.three-up { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.four-up { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.promo-card, .insight-card, .trust-card, .bundle-card, .profile-card, .review-card, .mini-card {
+  border-radius: 16px;
+  border: 1px solid #efe7f2;
+  background: #fff;
+}
+.promo-card { padding: 14px; min-height: 118px; }
+.promo-card h4, .trust-card h4, .mini-card h4 { margin: 0 0 6px; font-size: .92rem; }
+.promo-card p, .trust-card p, .mini-card p, .profile-card p { margin: 0; color: var(--muted); font-size: .72rem; line-height: 1.35; }
+.promo-card .pill-row, .chip-row, .proof-chip-row { margin-top: 10px; display: flex; flex-wrap: wrap; gap: 6px; }
+.subtle-pill, .tiny-pill, .badge-pill {
+  padding: 6px 9px; border-radius: 999px; font-size: .64rem; font-weight: 800;
+}
+.subtle-pill { background: #f4effb; color: #5c4984; }
+.badge-pill { background: #fff1f7; color: var(--brand-dark); border: 1px solid rgba(159,32,137,.1); }
+.tiny-pill { background: #ecf8ee; color: #16713d; }
+
+.product-card {
+  padding: 10px; border-radius: 16px; border: 1px solid #efe7f2; background: #fff;
+  display: grid; gap: 8px; min-width: 0;
+}
+.product-image {
+  position: relative; height: 95px; overflow: hidden;
+  display:flex; align-items:center; justify-content:center;
+}
+.product-image::after {
+  content: attr(data-art);
+  font-size: 1.5rem; font-weight: 800; color: rgba(81,58,114,.72);
+}
+.product-badges { position: absolute; top: 8px; left: 8px; display: flex; gap: 6px; flex-wrap: wrap; }
+.favorite-tag {
+  position: absolute; top: 8px; right: 8px; width: 24px; height: 24px; border-radius: 999px;
+  display: grid; place-items: center; background: rgba(255,255,255,.9); color: #f059a4; font-size: .75rem;
+}
+.product-card b { font-size: .76rem; line-height: 1.28; }
+.product-meta { color: var(--muted); font-size: .68rem; }
+.price-row { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.price { font-size: .98rem; font-weight: 800; color: #2b1c3e; }
+.old-price { font-size: .68rem; color: #9c92aa; text-decoration: line-through; }
+.rating { font-size: .68rem; color: #5d526e; }
+.rating b { font-size: .68rem; }
+
+.product-detail-hero {
+  padding: 14px;
+  display: grid; grid-template-columns: 150px 1fr; gap: 12px;
+}
+.sku-image { height: 178px; display: grid; place-items: center; position: relative; font-size: 2.7rem; font-weight: 900; color: #46335f; }
+.thumbnail-row { display:flex; gap:8px; margin-top: 10px; }
+.thumbnail { width: 38px; height: 38px; display: grid; place-items:center; color:#66537a; font-size: .85rem; }
+.info-stack h2 { margin: 2px 0 4px; font-size: 1.24rem; line-height: 1.15; }
+.info-subline { color: var(--muted); font-size: .74rem; }
+.hero-price { margin: 12px 0 10px; }
+.hero-price .price { font-size: 2rem; color: #3c2454; }
+.size-grid { display:flex; gap:8px; margin-top: 8px; flex-wrap: wrap; }
+.size-pill {
+  padding: 8px 12px; min-width: 36px; text-align: center; border-radius: 10px; border: 1px solid #e4dbe8; background:#fff; font-weight:700; font-size:.82rem;
+}
+.size-pill.active { background: var(--brand); color: #fff; border-color: var(--brand); }
+.info-card {
+  margin: 0 14px 12px; padding: 14px; border-radius: 16px; background: #fff; border: 1px solid #efe7f2;
+}
+.details-grid { display:grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; margin-top: 10px; }
+.detail-item {
+  padding: 10px; border-radius: 12px; background: #fbf9fd; border: 1px solid #f1eaf5;
+}
+.detail-item b { font-size: .66rem; color:#7b708d; text-transform: uppercase; letter-spacing:.05em; }
+.detail-item span { display:block; margin-top: 5px; font-size: .8rem; font-weight:700; }
+.badge-grid { display:grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap:10px; margin-top: 12px; }
+.mini-card { padding: 10px; }
+.mini-card.center { text-align:center; }
+.divider-head {
+  display:flex; justify-content:space-between; gap:10px; align-items:center;
+}
+.divider-head h3, .divider-head h4 { margin:0; }
+.divider-head small { color: var(--muted); }
+.seller-module .seller-name { font-size: 1rem; margin-top: 4px; font-weight: 800; }
+.trust-badges { margin-top: 10px; display:flex; gap: 8px; flex-wrap:wrap; }
+.trust-badge {
+  flex:1 1 0;
+  padding: 10px; border-radius: 12px; background:#fbf9fd; border:1px solid #f0e7f5; min-width: 80px;
+}
+.trust-badge b { display:block; font-size: .7rem; }
+.trust-badge span { display:block; margin-top: 4px; color:var(--muted); font-size:.65rem; line-height:1.25; }
+.review-pill-grid { display:grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap:10px; margin-top:12px; }
+.review-pill {
+  padding: 10px; border-radius: 12px; background: #fbf9fd; border:1px solid #f1e9f5;
+}
+.review-pill b { display:block; font-size:.72rem; }
+.review-pill span { display:block; margin-top:4px; color:var(--muted); font-size:.68rem; line-height:1.25; }
+.ugc-row { display:grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap:8px; margin-top:12px; }
+.ugc-thumb {
+  height: 96px; border-radius: 12px; background: linear-gradient(180deg, #ece5ff, #f9dcea); display:grid; place-items:center; color:#5b4a72; font-size:1.35rem; font-weight:800;
+}
+.review-quote {
+  margin-top: 12px; padding: 12px; border-radius: 14px; background: #fffdf2; border: 1px solid #f2e8a7;
+}
+.review-quote b { font-size: .8rem; }
+.review-quote p { margin: 6px 0 0; font-size: .76rem; color:#5d526e; line-height:1.45; }
+.transaction-list { display:grid; gap:10px; margin-top:12px; }
+.transaction-item {
+  display:flex; align-items:flex-start; gap:10px; padding: 10px 0; border-bottom:1px dashed #eee3f0;
+}
+.transaction-item:last-child { border-bottom:0; }
+.transaction-icon {
+  width: 34px; height: 34px; border-radius: 10px; background: #f6f3fb; display:grid; place-items:center; color:#654f82; font-weight:800;
+}
+.transaction-copy b { display:block; font-size:.79rem; }
+.transaction-copy span { display:block; color:var(--muted); font-size:.71rem; margin-top:3px; line-height:1.35; }
+.bottom-cta {
+  position: absolute; left: 0; right: 0; bottom: 58px; z-index: 4;
+  padding: 12px 14px 0;
+}
+.cta-bar {
+  display:grid; grid-template-columns: 1fr 1fr; gap: 10px;
+}
+.cta-button {
+  border-radius: 14px; padding: 14px 16px; border:1px solid var(--brand); background:#fff; color:var(--brand-dark); font-weight:800;
+}
+.cta-button.primary { background: linear-gradient(135deg, var(--brand-dark), var(--brand)); color:#fff; border-color:transparent; }
+.navbar {
+  position: absolute; left: 0; right: 0; bottom: 0; z-index: 4;
+  padding: 10px 10px 14px;
+  background: rgba(255,255,255,.97);
+  border-top:1px solid #ede5f1;
+}
+.navbar-grid { display:grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap:8px; }
+.nav-item {
+  padding: 8px 6px; border-radius: 12px; background: transparent; border:0; color:#6d617d; text-align:center;
+  display:grid; gap: 4px; justify-items:center; font-size:.66rem; font-weight:700;
+}
+.nav-item.active { color: var(--brand-dark); background: #fff2f9; }
+.nav-glyph { width: 24px; height: 24px; border-radius: 999px; background: #f4eff8; display:grid; place-items:center; font-size:.75rem; }
+
+.list-card, .cart-card, .checkout-card {
+  margin: 0 14px 12px; padding: 14px; border-radius: 16px; background:#fff; border:1px solid #efe7f2;
+}
+.list-card h4, .checkout-card h4 { margin:0 0 8px; font-size: .95rem; }
+.inline-row, .line-item, .price-line, .checkout-row { display:flex; justify-content:space-between; gap: 8px; align-items:center; }
+.inline-row + .inline-row, .price-line + .price-line, .checkout-row + .checkout-row { margin-top: 10px; }
+.line-item { align-items:flex-start; padding: 10px 0; border-bottom:1px dashed #eee4f1; }
+.line-item:last-child { border-bottom:0; }
+.qty-pill { padding:6px 9px; border-radius:999px; background:#f5f1fa; font-weight:700; font-size:.7rem; color:#69587c; }
+.order-state {
+  padding: 6px 10px; border-radius:999px; font-size:.68rem; font-weight:800; background:#ecf8ee; color:#1e874a;
+}
+.explainer-list { display:grid; gap:10px; margin-top:12px; }
+.explainer-point {
+  padding: 11px 12px; border-radius: 14px; background:#fbf9fd; border:1px solid #efe7f2;
+}
+.explainer-point b { display:block; font-size:.77rem; }
+.explainer-point span { display:block; margin-top: 4px; color:var(--muted); font-size:.69rem; line-height:1.35; }
+.shop-by-brand { display:grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap:10px; }
+.brand-logo {
+  height: 46px; display:grid; place-items:center; font-size:.7rem; font-weight:800; color:#4d3c67; text-transform:uppercase; background: linear-gradient(180deg, #fff, #f5f1fb); border:1px solid #efe7f2;
+}
+.brand-need-grid { display:grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap:10px; }
+.need-tile, .value-tile {
+  padding: 10px 8px; border-radius: 14px; background:#fff; border:1px solid #efe7f2; text-align:center;
+}
+.need-art { height:52px; border-radius:12px; background:linear-gradient(180deg, #f7f2ff, #ffe7f3); display:grid; place-items:center; font-size:1.15rem; color:#644f86; }
+.need-tile b, .value-tile b { display:block; margin-top:8px; font-size:.7rem; line-height:1.2; }
+.need-tile span, .value-tile span { display:block; margin-top:4px; color:var(--muted); font-size:.62rem; line-height:1.25; }
+
+.hotspot-mode [data-go], .hotspot-mode [data-route-shortcut] {
+  position: relative;
+  outline: 2px dashed rgba(241,27,141,.75);
+  outline-offset: 2px;
+  background-image: linear-gradient(135deg, rgba(241,27,141,.08), rgba(255,255,255,0));
+}
+[data-go], [data-route-shortcut] { cursor: pointer; }
+[data-go]:hover, [data-route-shortcut]:hover { filter: brightness(0.99); }
+
+.detail-block + .detail-block { margin-top: 18px; }
+.detail-panel h2 { margin: 6px 0 10px; font-size: 1.45rem; }
+.detail-panel p { margin: 0; color: var(--muted); line-height: 1.55; }
+.detail-stat-grid { display:grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; margin-top: 14px; }
+.detail-stat {
+  padding: 14px; border-radius: 16px; background:#fff; border:1px solid #efe7f2;
+}
+.detail-stat b { display:block; font-size: .74rem; color:#7f728f; text-transform:uppercase; letter-spacing:.05em; }
+.detail-stat span { display:block; margin-top:5px; font-size: .93rem; font-weight:800; }
+.detail-list { display:grid; gap: 10px; margin-top: 14px; }
+.detail-list-item {
+  padding: 12px 14px; border-radius: 16px; background:#fff; border:1px solid #efe7f2;
+}
+.detail-list-item b { display:block; font-size:.78rem; }
+.detail-list-item span { display:block; margin-top:4px; color:var(--muted); font-size:.73rem; line-height:1.35; }
+.detail-tags { display:flex; gap:8px; flex-wrap:wrap; margin-top:14px; }
+.detail-tag { padding:8px 11px; border-radius:999px; background:#f4effa; color:#624d7d; font-size:.72rem; font-weight:700; }
+
+.journey-strip {
+  margin-top: 22px;
+  padding: 18px 22px;
+  border-radius: var(--radius-xl);
+  display:grid; gap: 16px;
+}
+.journey-strip-copy b { display:block; margin-top: 6px; font-size: 1.05rem; }
+.journey-nodes { display:flex; align-items:center; gap: 10px; flex-wrap: wrap; }
+.journey-nodes button {
+  padding: 10px 14px; border-radius: 999px; border:1px solid var(--border); background:#fff; font-weight:700; color:#48385c;
+}
+.journey-nodes i { color:#967ea7; font-style:normal; font-weight:700; }
+.site-footer { margin-top: 18px; padding: 10px 6px 0; display:flex; justify-content:space-between; gap:12px; color:#867899; font-size:.84rem; }
+.toast {
+  position: fixed; left: 50%; bottom: 24px; transform: translateX(-50%) translateY(20px);
+  background:#291c3f; color:#fff; padding: 12px 16px; border-radius: 999px; box-shadow: var(--shadow);
+  font-size: .86rem; font-weight:700; opacity:0; pointer-events:none; transition: .2s ease; z-index: 20;
+}
+.toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+@media (max-width: 1280px) {
+  .prototype-layout { grid-template-columns: 300px minmax(400px,1fr); }
+  .detail-panel { grid-column: 1 / -1; }
+}
+
+@media (max-width: 980px) {
+  .site-shell { padding: 18px; }
+  .site-header { flex-direction: column; }
+  .prototype-layout { grid-template-columns: 1fr; }
+  .persona-panel, .detail-panel { order: 0; }
+  .phone-stage { order: -1; }
+  .stage-toolbar { width: min(100%, calc(var(--phone-width) + 50px)); }
+  .site-footer { flex-direction: column; }
+}
+
+@media (max-width: 560px) {
+  .site-shell { padding: 12px; }
+  .stage-toolbar, .device-canvas { width: 100%; }
+  .device-canvas { padding: 12px; }
+  .phone-shell { width: 100%; height: 82vh; min-height: 720px; }
+  .category-grid, .shop-by-brand, .brand-need-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .product-detail-hero { grid-template-columns: 1fr; }
+  .badge-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+/* Crisp vector product artwork: the reference mockups are design-only, not rendered assets. */
+.product-image::after{content:none!important}
+.product-image svg,.category-card .art-box svg,.sku-image svg,.ugc-thumb svg,.need-art svg{width:82%;height:82%;display:block;filter:drop-shadow(0 8px 10px rgba(52,33,69,.08))}
+.category-card .art-box svg{width:76%;height:76%}
+.sku-image svg{width:88%;height:88%}
+.ugc-thumb svg{width:72%;height:72%}
+.product-image{background:linear-gradient(145deg,#faf7fc,#f0e9f6 70%,#fff);border:1px solid #f0e8f3}
+.category-card .art-box{background:linear-gradient(145deg,#faf6fc,#f0e7f5)}
+.sku-image{background:linear-gradient(145deg,#f7f4f9,#ece6f0);overflow:hidden}
+.product-card{transition:transform .16s ease,box-shadow .16s ease,border-color .16s ease}
+.product-card:hover{transform:translateY(-2px);box-shadow:0 12px 24px rgba(88,49,95,.09);border-color:#e7d6eb}
+.hero-banner:before{content:"";position:absolute;inset:auto -24px -46px auto;width:150px;height:150px;border-radius:44px;transform:rotate(18deg);background:rgba(255,255,255,.11)}
+.hero-banner:after{content:"";position:absolute;right:18px;top:18px;width:68px;height:68px;border:12px solid rgba(255,255,255,.12);border-radius:50%}
+.hero-banner>*{position:relative;z-index:1}
+.phone-shell{box-shadow:inset 0 0 0 1px #eee7f0}
+.top-appbar{box-shadow:0 2px 14px rgba(64,35,71,.04)}
+
+</style>
 </head>
 <body>
   <div class="page-glow glow-one"></div>
@@ -86,6 +699,302 @@
   </main>
 
   <div id="toast" class="toast" role="status" aria-live="polite"></div>
-  <script src="app.js"></script>
-</body>
-</html>
+  <script>
+const state = {
+  persona: 'college',
+  route: 'college-home',
+  hotspotMode: false,
+  history: []
+};
+
+const personas = {
+  college: {
+    id: 'college',
+    title: 'College Style Starter',
+    subtitle: 'Aarav · college-going value seeker',
+    summary: 'Mission-first homepage for a young shopper looking for affordable fashion, complete looks and proof before purchase.',
+    entryRoute: 'college-home',
+    tags: ['Guided discovery', 'Men’s fashion', 'Proof-first PDP']
+  },
+  chhath: {
+    id: 'chhath',
+    title: 'Chhath Festival Mission',
+    subtitle: 'Rohit · Bihar festive shopper',
+    summary: 'Regional seasonal discovery that starts from Chhath needs and routes into trusted festive shopping journeys.',
+    entryRoute: 'chhath-home',
+    tags: ['Regional relevance', 'Festive homepage', 'Basket completion']
+  },
+  mall: {
+    id: 'mall',
+    title: 'Meesho Mall for Brands',
+    subtitle: 'Kabir · brand-conscious grooming shopper',
+    summary: 'A dedicated branded assortment destination that makes provenance and value easy to understand.',
+    entryRoute: 'mall-home',
+    tags: ['Brand destination', 'Provenance trust', 'Grooming']
+  },
+  mtrusted: {
+    id: 'mtrusted',
+    title: 'MTrusted Confidence',
+    subtitle: 'Vivek · trust-seeking first-time buyer',
+    summary: 'MTrusted explains seller and listing quality with clear evidence rather than unexplained badges.',
+    entryRoute: 'mtrusted-home',
+    tags: ['Seller confidence', 'Explainable trust', 'Trust routing']
+  },
+  assam: {
+    id: 'assam',
+    title: 'Assam Festive Context',
+    subtitle: 'Nayan · Assam seasonal shopper',
+    summary: 'Contextual homepage with festive discovery, regional merchandising and trust-led progression into PDPs.',
+    entryRoute: 'assam-home',
+    tags: ['Assam relevance', 'Mission-led home', 'Mall + MTrusted']
+  }
+};
+
+const routeMeta = {
+  'college-home': {
+    label: 'Home · College Style',
+    title: 'College mission-first homepage',
+    persona: 'College Style Starter',
+    summary: 'Fresh from-scratch recreation of the reference college homepage. Every major module is clickable, from category entry points to curated rails and trust destinations.',
+    keySignals: ['Your Style Edit', 'Category-led discovery', 'Mall and MTrusted trust routes', 'Continue Exploring'],
+    kpi: ['Mission taps', 'PDP visits', 'PDP → ATC']
+  },
+  'assam-home': {
+    label: 'Home · Assam Festive',
+    title: 'Assam contextual homepage',
+    persona: 'Assam Festive Context',
+    summary: 'Illustrative Assam festive home that uses context, utility missions and trending products to reduce cold-start friction.',
+    keySignals: ['Festive picks', 'What do you need today?', 'Trending in Assam', 'Mall + MTrusted routing'],
+    kpi: ['Category engagement', 'Relevant PDP visits', 'First-order conversion']
+  },
+  'chhath-home': {
+    label: 'Home · Bihar Chhath',
+    title: 'Bihar Chhath festive homepage',
+    persona: 'Chhath Festival Mission',
+    summary: 'Built from scratch in the same system to showcase how region and festival can drive more relevant merchandising and quicker mission completion.',
+    keySignals: ['Chhath picks', 'Offer-led urgency', 'Mission bundles', 'Trust-qualified products'],
+    kpi: ['Festive engagement', 'ATC', 'Basket size']
+  },
+  'mall-home': {
+    label: 'Destination · Meesho Mall',
+    title: 'Meesho Mall branded destination',
+    persona: 'Meesho Mall for Brands',
+    summary: 'A clean branded shopping surface focused on provenance, known brands and value confidence in grooming.',
+    keySignals: ['Branded assortment', 'Mall value promise', 'Shop by brand', 'Need-based navigation'],
+    kpi: ['Mall → PDP', 'Brand clicks', 'Conversion lift']
+  },
+  'mtrusted-home': {
+    label: 'Destination · MTrusted',
+    title: 'MTrusted trust destination',
+    persona: 'MTrusted Confidence',
+    summary: 'A rebuilt destination that explains why a product qualifies for MTrusted through seller reliability, fulfilment and listing quality.',
+    keySignals: ['Why MTrusted?', 'Proof pillars', 'Qualified picks', 'Seller evidence'],
+    kpi: ['Why-link CTR', 'Trust comprehension', 'PDP → ATC']
+  },
+  'category-fashion': {
+    label: 'Category · Men’s Fashion',
+    title: 'Men’s Fashion category screen',
+    persona: 'Shared category flow',
+    summary: 'The category screen continues intent capture with sub-categories, filters, trust shortcuts and relevant product clusters.',
+    keySignals: ['Category filters', 'MTrusted switch', 'Look-based merchandising'],
+    kpi: ['CTR', 'Product shortlist depth', 'ATC']
+  },
+  'category-grooming': {
+    label: 'Category · Men’s Grooming',
+    title: 'Men’s Grooming category screen',
+    persona: 'Shared category flow',
+    summary: 'Grooming category experience used by the Mall flow, featuring branded needs and curated trust shortcuts.',
+    keySignals: ['Branded picks', 'Need-based rows', 'Mall value proposition'],
+    kpi: ['Need tile CTR', 'Brand CTR', 'PDP visits']
+  },
+  'category-assam': {
+    label: 'Category · Assam Festive',
+    title: 'Assam festive product listing',
+    persona: 'Assam Festive Context',
+    summary: 'A regionally contextual category page for the Assam use case, tying trending needs to qualified products.',
+    keySignals: ['Utility segments', 'Trending lists', 'Trust-qualified products'],
+    kpi: ['Scroll depth', 'ATC', 'Repeat session relevance']
+  },
+  'category-chhath': {
+    label: 'Category · Chhath Festive',
+    title: 'Chhath festive product listing',
+    persona: 'Chhath Festival Mission',
+    summary: 'A festive category view linking apparel, décor, puja essentials and gifting into one occasion-driven journey.',
+    keySignals: ['Occasion segmentation', 'Bundles', 'Offer strips'],
+    kpi: ['Bundle engagement', 'AOV', 'Kept order #1']
+  },
+  search: {
+    label: 'Search · Guided',
+    title: 'Guided search result',
+    persona: 'Shared utility screen',
+    summary: 'Search uses the same trust and category framework so users can move from free-text intent to confident product evaluation.',
+    keySignals: ['Intent header', 'Result clusters', 'Trust filters'],
+    kpi: ['Search reformulation', 'Result CTR', 'PDP visits']
+  },
+  'pdp-core': {
+    label: 'PDP · Proof-first',
+    title: 'Proof-first product detail page',
+    persona: 'Shared purchase screen',
+    summary: 'The PDP is the heart of the system: product facts, seller proof, review intelligence, verified UGC and delivery certainty are all visible before asking for the purchase.',
+    keySignals: ['Structured details', 'Seller evidence', 'Customers say', 'Verified buyer media', 'Transaction certainty'],
+    kpi: ['PDP → ATC', 'Why-link usage', 'Return confidence']
+  },
+  'product-details': {
+    label: 'PDP · Product details',
+    title: 'Full category-specific product details',
+    persona: 'Shared purchase screen',
+    summary: 'A dedicated information view makes the listing fully judgeable with measurements, material, care, pack quantity and return-relevant facts.',
+    keySignals: ['Exact measurements', 'Material and fit', 'Care and pack quantity', 'Expectation setting'],
+    kpi: ['Detail views', 'PDP → ATC', 'Lower returns']
+  },
+  'group-save': {
+    label: 'Growth · Share & Save',
+    title: 'Share & Save group flow',
+    persona: 'Shared growth screen',
+    summary: 'An optional social-shopping flow makes the group-price rule explicit while retaining the same product and trust context.',
+    keySignals: ['Group price', 'Invite logic', 'Transparent unlock condition'],
+    kpi: ['Group creation', 'Incremental orders', 'Revenue uplift']
+  },
+  'group-created': {
+    label: 'Growth · Group created',
+    title: 'Group created successfully',
+    persona: 'Shared growth screen',
+    summary: 'A clear confirmation state closes the Share & Save loop and routes back into purchase.',
+    keySignals: ['Share link', 'Participants needed', 'Return to purchase'],
+    kpi: ['Invite rate', 'Group completion', 'Checkout conversion']
+  },
+  'seller-profile': {
+    label: 'Trust · Seller profile',
+    title: 'Seller profile and credibility',
+    persona: 'Shared trust screen',
+    summary: 'A dedicated seller screen explains category strength, fulfilment reliability and issue outcomes so the shopper can trust the merchant quickly.',
+    keySignals: ['Seller history', 'Fulfilment stats', 'Issue resolution'],
+    kpi: ['Seller profile views', 'Back-to-PDP conversion', 'Trust comprehension']
+  },
+  reviews: {
+    label: 'Trust · Review intelligence',
+    title: 'Summarised review intelligence',
+    persona: 'Shared trust screen',
+    summary: 'This screen turns fragmented reviews into scannable signals with traceability to real buyer evidence.',
+    keySignals: ['Pros and cons', 'Theme summary', 'Review traceability'],
+    kpi: ['Review module CTR', 'Time to confidence', 'ATC']
+  },
+  'ugc-gallery': {
+    label: 'Trust · Buyer UGC',
+    title: 'Verified buyer photos and videos',
+    persona: 'Shared proof screen',
+    summary: 'Real-buyer style content gives a tangible feel for fit, fabric and reality versus listing imagery.',
+    keySignals: ['Verified tags', 'Buyer captions', 'Visual proof'],
+    kpi: ['UGC CTR', 'Confidence', 'Conversion lift']
+  },
+  certainty: {
+    label: 'Trust · Transaction certainty',
+    title: 'Delivery, returns and payment certainty',
+    persona: 'Shared proof screen',
+    summary: 'Clear delivery, returns and payment information reduces last-mile hesitation at the moment of decision.',
+    keySignals: ['Delivery date', 'Returns', 'Refund status'],
+    kpi: ['ATC → Order', 'Cancellation rate', 'Return expectations']
+  },
+  'pdp-growth': {
+    label: 'PDP · Mission expansion',
+    title: 'Mission expansion and basket growth',
+    persona: 'Shared growth screen',
+    summary: 'After the base SKU earns confidence, this lower-PDP system helps the user complete the mission, explore adjacent styles and opt into group savings.',
+    keySignals: ['Complete the look', 'Similar styles', 'Share & Save', 'Mall + MTrusted explainers'],
+    kpi: ['AOV', 'Items per order', 'Category expansion']
+  },
+  'mall-explainer': {
+    label: 'Trust · Meesho Mall',
+    title: 'Meesho Mall explanation',
+    persona: 'Shared trust screen',
+    summary: 'Explains that Meesho Mall is a branded assortment destination for provenance-sensitive shopping missions.',
+    keySignals: ['Known brands', 'Clear source', 'Value confidence'],
+    kpi: ['Mall comprehension', 'Mall → PDP', 'Brand conversion']
+  },
+  'mtrusted-explainer': {
+    label: 'Trust · MTrusted',
+    title: 'MTrusted explanation',
+    persona: 'Shared trust screen',
+    summary: 'Explains MTrusted as organised seller and listing evidence that makes marketplace trust legible.',
+    keySignals: ['Seller quality', 'Fulfilment reliability', 'Listing completeness'],
+    kpi: ['Comprehension', 'Trust uplift', 'ATC lift']
+  },
+  cart: {
+    label: 'Purchase · Cart',
+    title: 'Cart and shortlist',
+    persona: 'Shared conversion screen',
+    summary: 'A lightweight cart with trust reminders and clear price presentation.',
+    keySignals: ['Order value clarity', 'Trust footer', 'Proceed to checkout'],
+    kpi: ['Cart → Checkout', 'Drop-off', 'Average cart value']
+  },
+  checkout: {
+    label: 'Purchase · Checkout',
+    title: 'Checkout confirmation',
+    persona: 'Shared conversion screen',
+    summary: 'A simplified checkout demonstrating address, payment, fulfilment and final trust reassurance.',
+    keySignals: ['Address certainty', 'Payment choice', 'Delivery promise'],
+    kpi: ['Checkout completion', 'Payment success', 'Cancellation risk']
+  },
+  'order-placed': {
+    label: 'Purchase · Success',
+    title: 'Order confirmation',
+    persona: 'Shared post-purchase screen',
+    summary: 'Final confirmation reinforces trust and gives a path to orders and continued shopping.',
+    keySignals: ['Order status', 'Track order', 'Explore more'],
+    kpi: ['Order completion', 'Return visits', 'Repeat purchase']
+  },
+  categories: {
+    label: 'Navigation · Categories',
+    title: 'Category directory',
+    persona: 'Shared navigation screen',
+    summary: 'A clean category directory that routes every persona into the right category or use-case flow.',
+    keySignals: ['Multi-entry navigation', 'Use-case routing', 'Theme continuity'],
+    kpi: ['Category taps', 'Navigation success', 'Route coverage']
+  },
+  account: {
+    label: 'Navigation · Account',
+    title: 'Account and saved shortcuts',
+    persona: 'Shared navigation screen',
+    summary: 'A lightweight account area to demonstrate that the global nav is interactive too.',
+    keySignals: ['Saved items', 'Region & language', 'Recent orders'],
+    kpi: ['Navigation coverage', 'Order revisit', 'Profile actions']
+  },
+  orders: {
+    label: 'Navigation · My orders',
+    title: 'Order history screen',
+    persona: 'Shared navigation screen',
+    summary: 'My Orders demonstrates post-purchase continuity and makes the bottom navigation fully functional.',
+    keySignals: ['Order cards', 'Status badges', 'Re-order'],
+    kpi: ['Repeat purchase', 'Support confidence', 'Order tracking']
+  },
+  wishlist: {
+    label: 'Navigation · Wishlist',
+    title: 'Saved products wishlist',
+    persona: 'Shared navigation screen',
+    summary: 'Saved products can be revisited, adding continuity to browsing and list-building behavior.',
+    keySignals: ['Saved products', 'Back-to-PDP'],
+    kpi: ['Save rate', 'Return to saved items', 'Wishlist → cart']
+  }
+};
+
+const routePersonaDefaults = {
+  'college-home': 'college',
+  'assam-home': 'assam',
+  'chhath-home': 'chhath',
+  'mall-home': 'mall',
+  'mtrusted-home': 'mtrusted',
+  'category-assam': 'assam',
+  'category-chhath': 'chhath',
+  'category-grooming': 'mall',
+  'category-fashion': 'college'
+};
+
+const $ = (s) => document.querySelector(s);
+const deviceCanvas = $('#device-canvas');
+const detailPanel = $('#detail-panel');
+const stageLabel = $('#stage-label');
+const toastEl = $('#toast');
+
+function money(v) { return `₹${v}`; }
+
+function vectorArt(token, variant = 0) {
