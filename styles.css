@@ -595,3 +595,20 @@ button { cursor: pointer; }
   .product-detail-hero { grid-template-columns: 1fr; }
   .badge-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
+
+/* Crisp vector product artwork: the reference mockups are design-only, not rendered assets. */
+.product-image::after{content:none!important}
+.product-image svg,.category-card .art-box svg,.sku-image svg,.ugc-thumb svg,.need-art svg{width:82%;height:82%;display:block;filter:drop-shadow(0 8px 10px rgba(52,33,69,.08))}
+.category-card .art-box svg{width:76%;height:76%}
+.sku-image svg{width:88%;height:88%}
+.ugc-thumb svg{width:72%;height:72%}
+.product-image{background:linear-gradient(145deg,#faf7fc,#f0e9f6 70%,#fff);border:1px solid #f0e8f3}
+.category-card .art-box{background:linear-gradient(145deg,#faf6fc,#f0e7f5)}
+.sku-image{background:linear-gradient(145deg,#f7f4f9,#ece6f0);overflow:hidden}
+.product-card{transition:transform .16s ease,box-shadow .16s ease,border-color .16s ease}
+.product-card:hover{transform:translateY(-2px);box-shadow:0 12px 24px rgba(88,49,95,.09);border-color:#e7d6eb}
+.hero-banner:before{content:"";position:absolute;inset:auto -24px -46px auto;width:150px;height:150px;border-radius:44px;transform:rotate(18deg);background:rgba(255,255,255,.11)}
+.hero-banner:after{content:"";position:absolute;right:18px;top:18px;width:68px;height:68px;border:12px solid rgba(255,255,255,.12);border-radius:50%}
+.hero-banner>*{position:relative;z-index:1}
+.phone-shell{box-shadow:inset 0 0 0 1px #eee7f0}
+.top-appbar{box-shadow:0 2px 14px rgba(64,35,71,.04)}
