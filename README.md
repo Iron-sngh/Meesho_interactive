@@ -1,53 +1,55 @@
-# Meesho Interactive Experience Lab
+# Meesho Interactive Experience — Final Functional Prototype
 
-A fresh, from-scratch interactive prototype for the Meesho DICE project.
+This repository contains a fresh, from-scratch Meesho concept prototype built in HTML/CSS/JavaScript. The low-resolution reference mockups are **not rendered inside the app**; they were used only as visual / information-architecture references.
 
-This version **does not use the supplied low-resolution mockups as the rendered screens**. Instead, they were treated as design and IA references, and the full experience was rebuilt in HTML/CSS/JS so the prototype is crisp, editable and scalable.
+## Persona journeys
 
-## What this prototype includes
+1. **College Style Starter** — mission-first college fashion homepage → fashion category → proof-first PDP.
+2. **Bihar / Chhath Mission** — regional festive homepage → Chhath category → trusted PDP.
+3. **Meesho Mall** — branded grooming destination → category / products → provenance explanation → PDP.
+4. **MTrusted** — marketplace-quality trust destination → seller proof → product → PDP.
+5. **Assam Festive Context** — regional contextual homepage → festive category → Mall / MTrusted → PDP.
 
-### Persona-led entry journeys
-1. **College Style Starter** — guided discovery for a college shopper.
-2. **Bihar / Chhath Mission** — festive homepage for a regional Chhath use case.
-3. **Meesho Mall** — branded grooming destination focused on provenance trust.
-4. **MTrusted** — explainable seller/listing-quality trust destination.
-5. **Assam Festive Context** — contextual homepage for an Assam regional use case.
+## Fully functional screens
 
-### Cross-linked interactive screens
-- Homepages for all personas
-- Category directory
+- College homepage
+- Assam festive homepage
+- Chhath homepage
+- Meesho Mall destination
+- MTrusted destination
 - Men’s Fashion category
 - Men’s Grooming category
-- Assam festive category
-- Chhath festive category
-- Guided search
+- Assam category
+- Chhath category
+- Search
 - Proof-first PDP
+- Full product details
 - Seller profile
-- Review intelligence screen
+- Review intelligence
 - Verified buyer UGC gallery
-- Transaction certainty screen
-- Lower PDP mission expansion screen
+- Transaction certainty
+- Mission-expansion PDP
+- Share & Save flow
+- Group-created confirmation
 - Meesho Mall explainer
 - MTrusted explainer
 - Cart
 - Checkout
-- Order success
-- Orders
-- Account
+- Order confirmation
+- Categories directory
 - Wishlist
+- My Orders
+- Account
 
-## Interaction model
-- Every important card, chip, category tile, product card, trust tile and CTA is clickable.
-- The **Show click map** button outlines interactive regions for demo use.
-- The **Restart journey** button resets the currently selected persona to its landing screen.
-- The persona switcher on the left changes the active journey instantly.
+## Interaction coverage
 
-## Tech
-- Plain HTML
-- Plain CSS
-- Plain JavaScript
-- No build step
-- Netlify-ready static site
+Every key homepage module, category tile, product card, trust card and major PDP section is clickable. Seller, review, UGC, product-information and transaction-certainty sections open dedicated screens. The bottom navigation and persona switcher are functional. The `Show click map` control highlights clickable regions for presentation/demo use.
+
+## Visual implementation
+
+- Screens are rendered from HTML/CSS/JS, not screenshot images.
+- Product illustrations are inline SVG vectors for crisp rendering.
+- The visual language follows the supplied Meesho references: Meesho pink, purple trust surfaces, compact card system, white product UI and phone-centric layout.
 
 ## Local run
 
@@ -55,26 +57,13 @@ This version **does not use the supplied low-resolution mockups as the rendered 
 python3 -m http.server 8080
 ```
 
-Open `http://localhost:8080`
+Open `http://localhost:8080`.
 
-## Deploy to Netlify
+## Netlify
 
-### Option 1 — GitHub import (recommended)
-1. Push this repo to GitHub.
-2. In Netlify, choose **Add new project → Import an existing project**.
-3. Select GitHub and choose this repository.
-4. Leave **Build command** blank.
-5. Set **Publish directory** to `.`
-6. Deploy.
+No build command is required.
 
-### Option 2 — Manual upload
-1. Zip the repository or folder.
-2. In Netlify, choose **Deploy manually**.
-3. Upload the folder that contains `index.html`.
+- Build command: leave blank
+- Publish directory: `.`
 
-## Notes
-- All commerce data is illustrative.
-- Regional merchandising examples are conceptual, based on the project thesis.
-- Meesho Mall and MTrusted are kept distinct:
-  - **Meesho Mall** = brand / provenance trust
-  - **MTrusted** = seller + listing quality trust
+`netlify.toml` is included.
