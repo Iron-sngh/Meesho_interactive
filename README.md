@@ -2,7 +2,7 @@
 
 ## [Open the working prototype](https://messhoprototype.netlify.app/)
 
-This prototype explores how Meesho can make the first shopping journey easier to **discover, evaluate and trust** — especially for users who are still deciding whether Meesho is right for a particular need.
+This prototype explores how Meesho can make the first shopping journey easier to **discover, evaluate and trust** - especially for users who are still deciding whether Meesho is right for a particular need.
 
 Instead of treating discovery, trust and purchase confidence as separate problems, the experience connects them into one journey:
 
@@ -14,7 +14,7 @@ The prototype is fully clickable and is designed around five different shopping 
 
 ## Personas
 
-### 1. Aarav — College Style Starter
+### 1. Aarav - College Style Starter
 
 **Context:** College-going, value-conscious shopper looking for affordable everyday fashion.
 
@@ -36,13 +36,13 @@ His journey starts with a **mission-guided homepage** where the experience helps
 
 ---
 
-### 2. Rohit — Bihar / Chhath Festival Shopper
+### 2. Rohit - Bihar / Chhath Festival Shopper
 
 **Context:** A shopper in Bihar preparing for Chhath and looking across multiple festive needs.
 
 A generic homepage may not reflect the reason Rohit has opened the app. For a high-intent seasonal session, region and festival context can provide a better starting point.
 
-The Chhath experience reorganises the homepage around the mission — festive fashion, gifting, home preparation and useful essentials — while keeping the underlying trust system consistent.
+The Chhath experience reorganises the homepage around the mission - festive fashion, gifting, home preparation and useful essentials - while keeping the underlying trust system consistent.
 
 **Journey**
 
@@ -58,11 +58,11 @@ The Chhath experience reorganises the homepage around the mission — festive fa
 
 ---
 
-### 3. Kabir — Meesho Mall / Brand-Conscious Grooming Shopper
+### 3. Kabir - Meesho Mall / Brand-Conscious Grooming Shopper
 
 **Context:** Shopper exploring grooming products who is more comfortable buying recognised brands.
 
-For Kabir, the key uncertainty is not simply whether a seller is reliable — it is whether the product is coming from a brand/source he recognises.
+For Kabir, the key uncertainty is not simply whether a seller is reliable - it is whether the product is coming from a brand/source he recognises.
 
 The prototype therefore treats **Meesho Mall as a dedicated brand and provenance destination**, not just another badge.
 
@@ -81,7 +81,7 @@ The prototype therefore treats **Meesho Mall as a dedicated brand and provenance
 
 ---
 
-### 4. Vivek — MTrusted / Seller Confidence Shopper
+### 4. Vivek - MTrusted / Seller Confidence Shopper
 
 **Context:** Shopper interested in a product but unsure whether an unfamiliar seller or listing can be trusted.
 
@@ -106,7 +106,7 @@ The experience shows **why** a listing deserves stronger confidence through evid
 
 ---
 
-### 5. Nayan — Assam / Festive Context Shopper
+### 5. Nayan - Assam / Festive Context Shopper
 
 **Context:** Shopper in Assam opening Meesho during a seasonal or festive shopping period.
 
