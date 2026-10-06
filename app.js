@@ -1415,8 +1415,7 @@ function pdpGrowth() {
       ${appBar({ brand: false, title: 'MORE FOR YOUR MISSION', subtitle: 'Useful next steps after product confidence', searchText: 'Search related products', backRoute: 'pdp-core' })}
 
       <section class="growth-module growth-module-featured">
-        <span class="growth-kicker">Complete Your Look</span>
-        ${sectionHeader(growth.completeTitle, '', '', '')}
+        ${sectionHeader('Complete Your Look', '', '', '')}
         ${growthProductRail(growth.complete)}
         <div class="growth-summary-row">
           <span><b>Complete set</b><small>${growth.complete.length} coordinated items</small></span>
@@ -1426,8 +1425,7 @@ function pdpGrowth() {
       </section>
 
       <section class="growth-module">
-        <span class="growth-kicker">Usually Bought Together</span>
-        ${sectionHeader('A practical bundle around this product', '', '', '')}
+        ${sectionHeader('Usually Bought Together', '', '', '')}
         ${bundleRows(growth.together)}
         <div class="bundle-summary">
           <span><b>Bundle total</b><small>${growth.together.length} items · free delivery shown at checkout</small></span>
@@ -1437,8 +1435,7 @@ function pdpGrowth() {
       </section>
 
       <section class="growth-module">
-        <span class="growth-kicker">Suggested Products</span>
-        ${sectionHeader('More picks for this mission', '', '', '')}
+        ${sectionHeader('Suggested Products', '', '', '')}
         ${growthProductRail(growth.suggested)}
       </section>
 
