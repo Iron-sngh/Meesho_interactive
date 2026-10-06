@@ -275,17 +275,6 @@ const routeMeta = {
   }
 };
 
-const routePersonaDefaults = {
-  'college-home': 'college',
-  'assam-home': 'assam',
-  'chhath-home': 'chhath',
-  'mall-home': 'mall',
-  'mtrusted-home': 'mtrusted',
-  'category-assam': 'assam',
-  'category-chhath': 'chhath',
-  'category-grooming': 'mall',
-  'category-fashion': 'college'
-};
 
 const $ = (s) => document.querySelector(s);
 const deviceCanvas = $('#device-canvas');
@@ -368,7 +357,7 @@ function sectionHeader(title, subtitle, actionLabel, actionRoute) {
 function appBar({ brand = true, title = '', subtitle = '', searchText = 'Search products, categories or needs', chips = [], backRoute = '' }) {
   const left = brand
     ? `<div class="brand-wordmark">meesho</div>`
-    : `<div class="profile-chip">${backRoute ? `<button class="circle-icon" data-go="${backRoute}">←</button>` : ''}<div><div style="font-weight:800">${title}</div>${subtitle ? `<div style="font-size:.68rem;color:var(--muted)">${subtitle}</div>` : ''}</div></div>`;
+    : `<div class="profile-chip appbar-title">${backRoute ? `<button class="circle-icon" data-action="back" data-back-fallback="${backRoute}" aria-label="Back">←</button>` : ''}<div class="appbar-title-copy"><div class="appbar-title-main">${title}</div>${subtitle ? `<div class="appbar-subtitle">${subtitle}</div>` : ''}</div></div>`;
   return `
     <div class="top-appbar">
       <div class="appbar-row">
@@ -427,8 +416,9 @@ function ctaBar(primary, secondary = { label: 'Add to cart', route: 'cart' }) {
 }
 
 function phoneTemplate({ content, nav = 'home', ctas = '', scrollClass = '' }) {
+  const hasCta = Boolean(ctas);
   return `
-    <div class="phone-shell ${scrollClass}">
+    <div class="phone-shell ${scrollClass} ${hasCta ? 'has-cta' : ''}">
       <div class="phone-notch"></div>
       <div class="phone-status">
         <span>9:41</span>
@@ -436,9 +426,9 @@ function phoneTemplate({ content, nav = 'home', ctas = '', scrollClass = '' }) {
       </div>
       <div class="phone-content">
         <div class="screen-root">${content}</div>
-        ${ctas}
-        ${bottomNav(nav)}
       </div>
+      ${ctas}
+      ${bottomNav(nav)}
     </div>
   `;
 }
@@ -998,3 +988,13 @@ function productDetailsScreen() {
       <div class="list-card">
         <h4>Core specifications</h4>
         <div class="details-grid">
+          <div class="detail-item"><b>Fabric</b><span>Cotton blend</span></div>
+          <div class="detail-item"><b>Fit</b><span>Regular fit</span></div>
+          <div class="detail-item"><b>Chest</b><span>42 in</span></div>
+          <div class="detail-item"><b>Length</b><span>29 in</span></div>
+          <div class="detail-item"><b>Sleeve</b><span>Full sleeve</span></div>
+          <div class="detail-item"><b>Pattern</b><span>Solid</span></div>
+          <div class="detail-item"><b>Care</b><span>Machine wash</span></div>
+          <div class="detail-item"><b>Pack</b><span>1 shirt</span></div>
+        </div>
+      </div>
