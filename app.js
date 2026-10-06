@@ -1372,8 +1372,7 @@ function inlineProductGrowthModules() {
     </section>
 
     <section class="growth-module inline-growth-section">
-      <span class="growth-kicker">Usually Bought Together</span>
-      ${sectionHeader('A practical bundle around this product', '', '', '')}
+      ${sectionHeader('Usually Bought Together', '', '', '')}
       ${bundleRows(growth.together)}
       <div class="bundle-summary">
         <span><b>Bundle total</b><small>${growth.together.length} items · free delivery shown at checkout</small></span>
@@ -1383,8 +1382,7 @@ function inlineProductGrowthModules() {
     </section>
 
     <section class="growth-module growth-module-featured inline-growth-section">
-      <span class="growth-kicker">Complete Your Look</span>
-      ${sectionHeader(growth.completeTitle, '', '', '')}
+      ${sectionHeader('Complete Your Look', '', '', '')}
       ${growthProductRail(growth.complete)}
       <div class="growth-summary-row">
         <span><b>Complete set</b><small>${growth.complete.length} coordinated items</small></span>
@@ -1394,8 +1392,7 @@ function inlineProductGrowthModules() {
     </section>
 
     <section class="growth-module inline-growth-section final-suggested-products">
-      <span class="growth-kicker">Suggested Products</span>
-      ${sectionHeader('More picks for this mission', '', '', '')}
+      ${sectionHeader('Suggested Products', '', '', '')}
       ${growthProductRail(growth.suggested)}
     </section>`;
 }
