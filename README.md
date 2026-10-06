@@ -139,6 +139,12 @@ His journey starts with a **mission-guided homepage** where the experience helps
 
 ---
 
+## Growth after product confidence
+
+Every persona now continues beyond the first trusted SKU with **Complete Your Look / Routine**, **Usually Bought Together**, **Suggested Products**, and **Share & Save**. Creating a Share & Save group leads to a dedicated **Group Created** confirmation state, while keeping the selected product, proof and trust context intact.
+
+---
+
 ## Key Product Ideas Demonstrated
 
 ### Mission-Guided Discovery
