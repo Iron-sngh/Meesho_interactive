@@ -1373,7 +1373,7 @@ function inlineProductGrowthModules() {
 
     <section class="growth-module inline-growth-section">
       <span class="growth-kicker">Usually Bought Together</span>
-      ${sectionHeader('A practical bundle around this product', 'A small, explainable bundle that stays relevant to the current mission.', '', '')}
+      ${sectionHeader('A practical bundle around this product', '', '', '')}
       ${bundleRows(growth.together)}
       <div class="bundle-summary">
         <span><b>Bundle total</b><small>${growth.together.length} items · free delivery shown at checkout</small></span>
@@ -1384,7 +1384,7 @@ function inlineProductGrowthModules() {
 
     <section class="growth-module growth-module-featured inline-growth-section">
       <span class="growth-kicker">Complete Your Look</span>
-      ${sectionHeader(growth.completeTitle, growth.completeSub, '', '')}
+      ${sectionHeader(growth.completeTitle, '', '', '')}
       ${growthProductRail(growth.complete)}
       <div class="growth-summary-row">
         <span><b>Complete set</b><small>${growth.complete.length} coordinated items</small></span>
@@ -1395,7 +1395,7 @@ function inlineProductGrowthModules() {
 
     <section class="growth-module inline-growth-section final-suggested-products">
       <span class="growth-kicker">Suggested Products</span>
-      ${sectionHeader('More picks for this mission', 'Recommendations stay anchored to the current persona, category and shopping intent.', '', '')}
+      ${sectionHeader('More picks for this mission', '', '', '')}
       ${growthProductRail(growth.suggested)}
     </section>`;
 }
@@ -1419,7 +1419,7 @@ function pdpGrowth() {
 
       <section class="growth-module growth-module-featured">
         <span class="growth-kicker">Complete Your Look</span>
-        ${sectionHeader(growth.completeTitle, growth.completeSub, '', '')}
+        ${sectionHeader(growth.completeTitle, '', '', '')}
         ${growthProductRail(growth.complete)}
         <div class="growth-summary-row">
           <span><b>Complete set</b><small>${growth.complete.length} coordinated items</small></span>
@@ -1430,7 +1430,7 @@ function pdpGrowth() {
 
       <section class="growth-module">
         <span class="growth-kicker">Usually Bought Together</span>
-        ${sectionHeader('A practical bundle around this product', 'A small, explainable bundle — not an unrelated recommendation dump.', '', '')}
+        ${sectionHeader('A practical bundle around this product', '', '', '')}
         ${bundleRows(growth.together)}
         <div class="bundle-summary">
           <span><b>Bundle total</b><small>${growth.together.length} items · free delivery shown at checkout</small></span>
@@ -1441,7 +1441,7 @@ function pdpGrowth() {
 
       <section class="growth-module">
         <span class="growth-kicker">Suggested Products</span>
-        ${sectionHeader('More picks for this mission', 'Recommendations stay anchored to the current persona, category and shopping intent.', '', '')}
+        ${sectionHeader('More picks for this mission', '', '', '')}
         ${growthProductRail(growth.suggested)}
       </section>
 
