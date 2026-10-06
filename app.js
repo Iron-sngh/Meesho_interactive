@@ -3,6 +3,7 @@ const state = {
   route: 'chhath-home',
   hotspotMode: false,
   history: [],
+  cartItems: [],
   product: { title: 'Men’s Regular Fit Casual Shirt', price: 313, image: 'assets/products/prod_black_shirt_main.webp', kind: 'fashion' }
 };
 
@@ -204,8 +205,8 @@ const routeMeta = {
     title: 'Mission expansion and basket growth',
     persona: 'Shared growth screen',
     summary: 'After the base SKU earns confidence, this lower-PDP system helps the user complete the mission, explore adjacent styles and opt into group savings.',
-    keySignals: ['Complete the look', 'Similar styles', 'Share & Save', 'Mall + MTrusted explainers'],
-    kpi: ['AOV', 'Items per order', 'Category expansion']
+    keySignals: ['Complete Your Look', 'Usually Bought Together', 'Suggested Products', 'Share & Save', 'Group Created'],
+    kpi: ['AOV', 'Items per order', 'Attach rate', 'Group completion']
   },
   'mall-explainer': {
     label: 'Trust · Meesho Mall',
@@ -1174,44 +1175,204 @@ function certaintyScreen() {
   });
 }
 
+function growthCatalog() {
+  const p = selectedProduct();
+  const current = { title: p.title, price: p.price, image: p.image, badge2: 'Current' };
+  const catalogs = {
+    chhath: {
+      completeTitle: 'Complete Your Festive Look',
+      completeSub: 'Build the celebration look and related festive needs around the product you already trust.',
+      complete: [
+        { title: 'Printed Kurta Set', price: 699, image: asset('chhath/chhath_kurta.webp'), badge: 'Festive' },
+        { title: 'Celebration Saree', price: 799, image: asset('chhath/chhath_saree.webp') },
+        { title: 'Travel Utility Pouch', price: 249, image: asset('chhath/chhath_travel_pouch.webp') }
+      ],
+      together: [
+        { title: 'Puja & Decor Pack', price: 249, image: asset('chhath/chhath_decor_pack.webp') },
+        { title: 'Gift Hamper', price: 299, image: asset('chhath/chhath_gift_hamper.webp') }
+      ],
+      suggested: [
+        { title: 'Celebration Saree', price: 799, image: asset('chhath/chhath_saree.webp'), badge: 'Festive' },
+        { title: 'Printed Kurta Set', price: 699, image: asset('chhath/chhath_kurta.webp') },
+        { title: 'Gift Hamper', price: 299, image: asset('chhath/chhath_gift_hamper.webp') },
+        { title: 'Puja & Decor Pack', price: 249, image: asset('chhath/chhath_decor_pack.webp') }
+      ]
+    },
+    assam: {
+      completeTitle: 'Complete Your Festive Look',
+      completeSub: 'Bring together celebration wear, gifting and practical seasonal essentials in one guided step.',
+      complete: [
+        { title: 'Assam Festive Kurta', price: 429, image: asset('assam/assam_kurta.webp'), badge: 'Festive' },
+        { title: 'Festive Decor Set', price: 299, image: asset('assam/assam_decor_set.webp') },
+        { title: 'Travel Utility Kit', price: 249, image: asset('assam/assam_travel_kit.webp') }
+      ],
+      together: [
+        { title: 'Self-Care Gift Box', price: 449, image: asset('assam/assam_selfcare_gift.webp') },
+        { title: 'Festive Decor Set', price: 299, image: asset('assam/assam_decor_set.webp') }
+      ],
+      suggested: [
+        { title: 'Assam Festive Kurta', price: 429, image: asset('assam/assam_kurta.webp'), badge: 'Popular near you' },
+        { title: 'Self-Care Gift Box', price: 449, image: asset('assam/assam_selfcare_gift.webp') },
+        { title: 'Travel Utility Kit', price: 249, image: asset('assam/assam_travel_kit.webp') },
+        { title: 'Festive Decor Set', price: 299, image: asset('assam/assam_decor_set.webp') }
+      ]
+    },
+    mall: {
+      completeTitle: 'Complete Your Routine',
+      completeSub: 'Build a practical grooming routine around the branded product you have already evaluated.',
+      complete: [
+        { title: 'Daily Face Wash', price: 199, image: asset('mall/mall_facewash.webp'), badge: 'Mall' },
+        { title: 'Beard Oil', price: 249, image: asset('mall/mall_beard_oil.webp'), badge: 'Mall' },
+        { title: 'Deodorant Body Spray', price: 179, image: asset('mall/mall_deodorant.webp'), badge: 'Mall' }
+      ],
+      together: [
+        { title: 'Shaving Essentials Kit', price: 279, image: asset('mall/mall_shaving_kit.webp') },
+        { title: 'Beard Oil', price: 249, image: asset('mall/mall_beard_oil.webp') }
+      ],
+      suggested: [
+        { title: 'Daily Face Wash', price: 199, image: asset('mall/mall_facewash.webp'), badge: 'Mall' },
+        { title: 'Beard Oil', price: 249, image: asset('mall/mall_beard_oil.webp'), badge: 'Mall' },
+        { title: 'Shaving Essentials Kit', price: 279, image: asset('mall/mall_shaving_kit.webp'), badge: 'Mall' },
+        { title: 'Deodorant Body Spray', price: 179, image: asset('mall/mall_deodorant.webp'), badge: 'Mall' }
+      ]
+    },
+    mtrusted: {
+      completeTitle: 'Complete Your Look',
+      completeSub: 'Add compatible wardrobe pieces while keeping the same evidence-led shopping flow.',
+      complete: [
+        { title: 'Black Casual Shirt', price: 329, image: asset('products/prod_black_shirt_main.webp'), badge: 'MTrusted' },
+        { title: 'Regular Fit Trousers', price: 449, image: asset('products/prod_trousers.webp'), badge: 'MTrusted' },
+        { title: 'Casual Sneakers', price: 699, image: asset('products/prod_sneakers.webp'), badge: 'MTrusted' }
+      ],
+      together: [
+        { title: 'Minimal Backpack', price: 499, image: asset('products/prod_backpack.webp') },
+        { title: 'Analog Watch', price: 399, image: asset('products/prod_watch.webp') }
+      ],
+      suggested: [
+        { title: 'Checked Shirt', price: 549, image: asset('products/prod_checked_shirt.webp'), badge: 'MTrusted' },
+        { title: 'Basic Polo T-Shirt', price: 239, image: asset('products/prod_polo.webp'), badge: 'MTrusted' },
+        { title: 'Regular Fit Trousers', price: 449, image: asset('products/prod_trousers.webp') },
+        { title: 'Casual Sneakers', price: 699, image: asset('products/prod_sneakers.webp') }
+      ]
+    },
+    college: {
+      completeTitle: 'Complete Your Look',
+      completeSub: 'Finish the college outfit around the product you already trust, without returning to a generic feed.',
+      complete: [
+        { title: 'Black Casual Shirt', price: 329, image: asset('products/prod_black_shirt_main.webp') },
+        { title: 'Regular Fit Trousers', price: 449, image: asset('products/prod_trousers.webp') },
+        { title: 'Everyday Sneakers', price: 699, image: asset('products/prod_sneakers.webp') }
+      ],
+      together: [
+        { title: 'Minimal Backpack', price: 499, image: asset('products/prod_backpack.webp') },
+        { title: 'Analog Watch', price: 399, image: asset('products/prod_watch.webp') }
+      ],
+      suggested: [
+        { title: 'Casual Checked Shirt', price: 299, image: asset('products/prod_checked_shirt.webp'), badge: 'MTrusted' },
+        { title: 'Polo Tee', price: 349, image: asset('products/prod_polo.webp') },
+        { title: 'Minimal Backpack', price: 499, image: asset('products/prod_backpack.webp') },
+        { title: 'Analog Watch', price: 399, image: asset('products/prod_watch.webp') }
+      ]
+    }
+  };
+
+  const catalog = catalogs[state.persona] || catalogs.college;
+  const dedupe = (items, max = 4) => {
+    const seen = new Set();
+    return items.filter(item => {
+      const key = item.title.trim().toLowerCase();
+      if (seen.has(key)) return false;
+      seen.add(key);
+      return true;
+    }).slice(0, max);
+  };
+
+  const complete = dedupe([current, ...catalog.complete], 3);
+  const together = dedupe([current, ...catalog.together], 3);
+  const suggested = dedupe(catalog.suggested.filter(item => item.title.toLowerCase() !== p.title.toLowerCase()), 4);
+  return { ...catalog, current, complete, together, suggested };
+}
+
+function growthProductRail(items = []) {
+  return `<div class="growth-product-rail">${items.map(item => productCard({
+    title: item.title,
+    price: item.price,
+    route: 'pdp-core',
+    image: item.image,
+    badge: item.badge || '',
+    badge2: item.badge2 || ''
+  })).join('')}</div>`;
+}
+
+function bundleRows(items = []) {
+  return `<div class="bundle-stack">${items.map((item, index) => `
+    <button class="bundle-line" data-go="pdp-core" data-product-title="${item.title.replace(/&/g, '&amp;').replace(/"/g, '&quot;')}" data-product-price="${item.price}" data-product-image="${item.image}" data-product-kind="${productKind(item.title)}">
+      <span class="bundle-check" aria-hidden="true">✓</span>
+      <img src="${item.image}" alt="${item.title}" loading="lazy" decoding="async">
+      <span class="bundle-copy"><b>${item.title}</b><small>${index === 0 ? 'Your selected product' : 'Frequently paired in this mission'}</small></span>
+      <strong>₹${item.price}</strong>
+    </button>
+  `).join('')}</div>`;
+}
+
 function pdpGrowth() {
   const p = selectedProduct();
-  const complements = p.kind === 'grooming'
-    ? [
-        {title:p.title, price:p.price, image:p.image, badge2:'Current'},
-        {title:'Beard Oil', price:249, image:asset('mall/mall_beard_oil.webp')},
-        {title:'Shaving Essentials Kit', price:279, image:asset('mall/mall_shaving_kit.webp')}
-      ]
-    : p.kind === 'utility'
-    ? [
-        {title:p.title, price:p.price, image:p.image, badge2:'Current'},
-        {title:'Gift Hamper', price:299, image:asset('chhath/chhath_gift_hamper.webp')},
-        {title:'Travel Utility Kit', price:249, image:asset('assam/assam_travel_kit.webp')}
-      ]
-    : [
-        {title:p.title, price:p.price, image:p.image, badge2:'Current'},
-        {title:'Regular Fit Trousers', price:449, image:asset('products/prod_trousers.webp')},
-        {title:'Casual Sneakers', price:699, image:asset('products/prod_sneakers.webp')}
-      ];
-  const missionTotal = complements.reduce((sum,x)=>sum+x.price,0);
-  const missionTitle = p.kind === 'grooming' ? 'Complete your routine' : p.kind === 'utility' ? 'Complete the occasion' : 'Complete your look';
-  const missionSub = p.kind === 'grooming' ? 'Build a simple grooming routine around the product you trust.' : p.kind === 'utility' ? 'Add practical adjacent items without returning to an endless feed.' : 'Build the rest of the look around the product you trust.';
+  const growth = growthCatalog();
+  const completeTotal = growth.complete.reduce((sum, item) => sum + item.price, 0);
+  const togetherTotal = growth.together.reduce((sum, item) => sum + item.price, 0);
   return phoneTemplate({
     nav: 'home',
-    ctas: ctaBar({ label: 'Buy now', route: 'checkout' }, { label: 'Add mission to cart', route: 'cart' }),
+    ctas: `
+      <div class="bottom-cta">
+        <div class="cta-bar">
+          <button class="cta-button" data-action="add-complete-cart">Add complete set</button>
+          <button class="cta-button primary" data-action="buy-selected-now">Buy selected item</button>
+        </div>
+      </div>`,
     content: `
-      ${appBar({ brand: false, title: 'COMPLETE THE MISSION', subtitle: 'Mission expansion without losing trust', searchText: 'Search related products', backRoute: 'pdp-core' })}
-      <div class="info-card">
-        ${sectionHeader(missionTitle, missionSub, '', '')}
-        <div class="three-up">${complements.map(x=>productCard({title:x.title,price:x.price,route:'pdp-core',image:x.image,badge2:x.badge2||''})).join('')}</div>
-        <div class="mission-total"><span>${p.kind === 'grooming' ? 'Routine bundle' : p.kind === 'utility' ? 'Mission bundle' : 'Complete set'}</span><b>₹${missionTotal.toLocaleString('en-IN')}</b></div>
-      </div>
-      <div class="info-card">
-        ${sectionHeader('Explore adjacent picks', 'Continue with useful, related choices — not a generic feed.', '', '')}
-        <div class="three-up">${p.kind === 'grooming' ? `${productCard({ title:'Daily Face Wash', price:199, route:'pdp-core', image:asset('mall/mall_facewash.webp') })}${productCard({ title:'Deodorant Body Spray', price:179, route:'pdp-core', image:asset('mall/mall_deodorant.webp') })}${productCard({ title:'Beard Oil', price:249, route:'pdp-core', image:asset('mall/mall_beard_oil.webp') })}` : `${productCard({ title:'Black Casual Shirt', price:329, route:'pdp-core', image:asset('products/prod_black_shirt_main.webp') })}${productCard({ title:'Men’s Checked Shirt', price:349, route:'pdp-core', image:asset('products/prod_checked_shirt.webp') })}${productCard({ title:'Polo Tee', price:378, route:'pdp-core', image:asset('products/prod_polo.webp') })}`}</div>
-      </div>
-      <div class="info-card">${sectionHeader('Share & Save', 'Optional group buying after the product earns confidence.', '', '')}<button class="share-save-card" data-go="group-save"><img src="${asset('share_save_visual.webp')}" alt="Friends sharing a shopping link"><span><b>Shop together, unlock a lower price</b><small>Create a group only after you have evaluated the product.</small></span></button></div>
-      <div class="info-card mission-trust-card">${sectionHeader('Trust shortcuts explained', 'Different trust signals answer different questions.', '', '')}${trustTwinCards()}</div>
+      ${appBar({ brand: false, title: 'MORE FOR YOUR MISSION', subtitle: 'Useful next steps after product confidence', searchText: 'Search related products', backRoute: 'pdp-core' })}
+
+      <section class="growth-module growth-module-featured">
+        <span class="growth-kicker">Complete Your Look</span>
+        ${sectionHeader(growth.completeTitle, growth.completeSub, '', '')}
+        ${growthProductRail(growth.complete)}
+        <div class="growth-summary-row">
+          <span><b>Complete set</b><small>${growth.complete.length} coordinated items</small></span>
+          <strong>₹${completeTotal.toLocaleString('en-IN')}</strong>
+          <button class="mini-action" data-action="add-complete-cart">Add set</button>
+        </div>
+      </section>
+
+      <section class="growth-module">
+        <span class="growth-kicker">Usually Bought Together</span>
+        ${sectionHeader('A practical bundle around this product', 'A small, explainable bundle — not an unrelated recommendation dump.', '', '')}
+        ${bundleRows(growth.together)}
+        <div class="bundle-summary">
+          <span><b>Bundle total</b><small>${growth.together.length} items · free delivery shown at checkout</small></span>
+          <strong>₹${togetherTotal.toLocaleString('en-IN')}</strong>
+          <button class="mini-action primary" data-action="add-bundle-cart">Add all</button>
+        </div>
+      </section>
+
+      <section class="growth-module">
+        <span class="growth-kicker">Suggested Products</span>
+        ${sectionHeader('More picks for this mission', 'Recommendations stay anchored to the current persona, category and shopping intent.', '', '')}
+        ${growthProductRail(growth.suggested)}
+      </section>
+
+      <section class="growth-module share-save-module">
+        <span class="growth-kicker">Share & Save</span>
+        ${sectionHeader('Shop together after you decide', 'Share the exact product and proof context with friends, then unlock the group price transparently.', '', '')}
+        <button class="share-save-card" data-go="group-save">
+          <img src="${asset('share_save_visual.webp')}" alt="Friends sharing a shopping link">
+          <span class="share-save-copy"><b>Start a Share & Save group</b><small>Invite friends without losing the product details, reviews or trust signals you used to decide.</small><em>Explore group price →</em></span>
+        </button>
+      </section>
+
+      <section class="growth-module mission-trust-card">
+        ${sectionHeader('Trust shortcuts stay visible', 'Growth features never replace the proof that earned confidence.', '', '')}
+        ${trustTwinCards()}
+      </section>
     `
   });
 }
@@ -1241,38 +1402,62 @@ function mtrustedExplainer() {
 }
 
 function groupSaveScreen() {
+  const p = selectedProduct();
+  const groupPrice = Math.max(99, Math.round(p.price * 0.92));
   return phoneTemplate({
     nav: 'home',
-    ctas: ctaBar({ label: 'Create group', route: 'group-created' }, { label: 'Back to mission', route: 'pdp-growth' }),
+    ctas: ctaBar({ label: 'Create group', route: 'group-created' }, { label: 'Back to recommendations', route: 'pdp-growth' }),
     content: `
-      ${appBar({ brand: false, title: 'SHARE & SAVE', subtitle: 'Optional group purchase', searchText: 'Search help', backRoute: 'pdp-growth' })}
-      <div class="group-visual-card"><img src="${asset('share_save_visual.webp')}" alt="Friends sharing a shopping link"><div><span class="badge-pill">Optional group buying</span><h4>Unlock a lower price together</h4><p>Create a group and invite friends after the product has already earned confidence.</p></div></div>
-      <div class="list-card"><div class="detail-stat-grid"><div class="detail-stat"><b>Standard</b><span>₹313</span></div><div class="detail-stat"><b>Group price</b><span>₹289</span></div></div></div>
-      <div class="list-card"><h4>How it works</h4><div class="detail-list"><div class="detail-list-item"><b>1 · Create a group</b><span>Start from the product you already evaluated.</span></div><div class="detail-list-item"><b>2 · Invite two friends</b><span>Share the same product proof and trust context.</span></div><div class="detail-list-item"><b>3 · Unlock when complete</b><span>No hidden conditions or surprise discount mechanics.</span></div></div></div>
+      ${appBar({ brand: false, title: 'SHARE & SAVE', subtitle: `${PERSONA_NAMES[state.persona]} · group purchase`, searchText: 'Search help', backRoute: 'pdp-growth' })}
+      <div class="group-product-card">
+        <img src="${p.image}" alt="${p.title}">
+        <div><span class="badge-pill">Selected product</span><h4>${p.title}</h4><p>Share the same listing, reviews and trust context with your group.</p></div>
+      </div>
+      <div class="group-visual-card"><img src="${asset('share_save_visual.webp')}" alt="Friends sharing a shopping link"><div class="group-visual-copy"><span class="badge-pill">Optional group buying</span><h4>Unlock a lower price together</h4><p>Create a group only after the product has already earned confidence.</p></div></div>
+      <div class="list-card"><div class="detail-stat-grid"><div class="detail-stat"><b>Standard price</b><span>₹${p.price}</span></div><div class="detail-stat"><b>Group price</b><span>₹${groupPrice}</span></div></div></div>
+      <div class="list-card"><h4>How it works</h4><div class="detail-list"><div class="detail-list-item"><b>1 · Create a group</b><span>Start from the exact product you evaluated.</span></div><div class="detail-list-item"><b>2 · Invite two friends</b><span>They see the same proof, seller context and reviews.</span></div><div class="detail-list-item"><b>3 · Unlock when complete</b><span>The lower price appears only when the group condition is met.</span></div></div></div>
     `
   });
 }
 
 function groupCreatedScreen() {
+  const p = selectedProduct();
+  const groupPrice = Math.max(99, Math.round(p.price * 0.92));
   return phoneTemplate({
     nav: 'home',
-    ctas: ctaBar({ label: 'Go to cart', route: 'cart' }, { label: 'Back to product', route: 'pdp-growth' }),
+    ctas: ctaBar({ label: 'Go to cart', route: 'cart' }, { label: 'Back to recommendations', route: 'pdp-growth' }),
     content: `
       ${appBar({ brand: false, title: 'GROUP CREATED', subtitle: 'Share & Save', searchText: 'Search more', backRoute: 'group-save' })}
-      <div class="list-card group-created-card"><div class="success-check">✓</div><h4>Your group is ready</h4><p class="body-copy">Invite two more shoppers to unlock the illustrative group price. Product proof and trust information remain available to everyone.</p><img src="${asset('share_save_visual.webp')}" alt="Friends sharing a shopping link"><button class="cta-button primary" data-action="copy-group-link">Copy share link</button></div>
+      <div class="list-card group-created-card">
+        <div class="success-check">✓</div>
+        <span class="growth-kicker">Group Created</span>
+        <h4>Your group is ready</h4>
+        <p class="body-copy">Invite two more shoppers to unlock the ₹${groupPrice} group price for ${p.title}. Everyone keeps access to the same product proof and trust information.</p>
+        <div class="group-created-product"><img src="${p.image}" alt="${p.title}"><span><b>${p.title}</b><small>Group price ₹${groupPrice}</small></span></div>
+        <div class="group-participants"><img src="${personaAvatar()}" alt="${PERSONA_NAMES[state.persona]}"><img src="${buyerAvatar(2)}" alt="Invite slot"><img src="${buyerAvatar(3)}" alt="Invite slot"><span>1 joined · 2 invites needed</span></div>
+        <img class="group-created-visual" src="${asset('share_save_visual.webp')}" alt="Friends sharing a shopping link">
+        <button class="cta-button primary" data-action="copy-group-link">Copy share link</button>
+      </div>
     `
   });
 }
 
 function cartScreen() {
   const p = selectedProduct();
+  const items = Array.isArray(state.cartItems) && state.cartItems.length ? state.cartItems : [p];
+  const total = items.reduce((sum, item) => sum + Number(item.price || 0), 0);
   return phoneTemplate({
     nav: 'orders',
     ctas: ctaBar({ label: 'Proceed to checkout', route: 'checkout' }, { label: 'Continue shopping', route: personas[state.persona].entryRoute }),
     content: `
-      ${appBar({ brand: false, title: 'CART', subtitle: 'Ready for checkout', searchText: 'Search more products', backRoute: 'pdp-core' })}
-      <div class="cart-card realistic-cart-line"><img src="${p.image}" alt="${p.title}"><div><b>${p.title}</b><div class="product-meta">Selected item · Qty 1</div><div class="price">₹${p.price}</div><div class="trust-line"><span class="tiny-pill">Trusted seller</span><span class="badge-pill">Easy returns</span></div></div><span class="qty-pill">Qty 1</span></div>
-      <div class="checkout-card"><h4>Price details</h4><div class="price-line"><span>Item total</span><b>₹${p.price}</b></div><div class="price-line"><span>Delivery</span><b>Free</b></div><div class="price-line"><span>Total</span><b>₹${p.price}</b></div></div>
+      ${appBar({ brand: false, title: 'CART', subtitle: `${items.length} ${items.length === 1 ? 'item' : 'items'} ready for checkout`, searchText: 'Search more products', backRoute: 'pdp-growth' })}
+      <div class="cart-list-card">${items.map(item => `
+        <div class="realistic-cart-line">
+          <img src="${item.image}" alt="${item.title}">
+          <div><b>${item.title}</b><div class="product-meta">Qty 1 · selected for this mission</div><div class="price">₹${item.price}</div><div class="trust-line"><span class="tiny-pill">Trusted seller</span><span class="badge-pill">Easy returns</span></div></div>
+          <span class="qty-pill">Qty 1</span>
+        </div>`).join('')}</div>
+      <div class="checkout-card"><h4>Price details</h4><div class="price-line"><span>Item total</span><b>₹${total.toLocaleString('en-IN')}</b></div><div class="price-line"><span>Delivery</span><b>Free</b></div><div class="price-line"><span>Total</span><b>₹${total.toLocaleString('en-IN')}</b></div></div>
       <div class="checkout-card cart-trust-note"><img src="${asset('trust/trust_delivery.webp')}" alt="Delivery"><div><b>Purchase confidence carries into checkout</b><span>Delivery, return and payment information stays visible through the final step.</span></div></div>
     `
   });
@@ -1280,6 +1465,8 @@ function cartScreen() {
 
 function checkoutScreen() {
   const p = selectedProduct();
+  const checkoutItems = Array.isArray(state.cartItems) && state.cartItems.length ? state.cartItems : [p];
+  const checkoutTotal = checkoutItems.reduce((sum, item) => sum + Number(item.price || 0), 0);
   const [buyerName] = profileCopy();
   const deliveryArea = { chhath: 'Patna, Bihar', assam: 'Guwahati, Assam', mall: 'Mumbai, Maharashtra', mtrusted: 'Jaipur, Rajasthan', college: 'Guwahati, Assam' }[state.persona] || 'India';
   return phoneTemplate({
@@ -1289,7 +1476,7 @@ function checkoutScreen() {
       ${appBar({ brand: false, title: 'CHECKOUT', subtitle: 'Final confirmation', searchText: 'Search help', backRoute: 'cart' })}
       <div class="checkout-card"><h4>Delivery address</h4><div class="detail-list-item"><b>${buyerName}</b><span>Saved delivery address · ${deliveryArea}</span></div></div>
       <div class="checkout-card checkout-product"><img src="${p.image}" alt="${p.title}"><div><h4>${p.title}</h4><span>Qty 1</span><b>₹${p.price}</b></div></div>
-      <div class="checkout-card"><h4>Order summary</h4><div class="checkout-row"><span>1 item</span><b>₹${p.price}</b></div><div class="checkout-row"><span>Delivery</span><b>Free</b></div><div class="checkout-row"><span>Expected by Tue, 8 Oct</span><b>Tracked</b></div></div>
+      <div class="checkout-card"><h4>Order summary</h4><div class="checkout-row"><span>${checkoutItems.length} ${checkoutItems.length === 1 ? 'item' : 'items'}</span><b>₹${checkoutTotal.toLocaleString('en-IN')}</b></div><div class="checkout-row"><span>Delivery</span><b>Free</b></div><div class="checkout-row"><span>Expected by Tue, 8 Oct</span><b>Tracked</b></div></div>
       <div class="checkout-card"><h4>Payment method</h4><div class="detail-list"><div class="detail-list-item"><b>UPI / Wallet</b><span>Fast and familiar for mobile-first shoppers.</span></div><div class="detail-list-item"><b>Cash on Delivery</b><span>Available for eligible orders.</span></div><div class="detail-list-item"><b>Cards & Netbanking</b><span>Secure payments with refund traceability.</span></div></div></div>
     `
   });
@@ -1537,6 +1724,25 @@ document.addEventListener('click', (event) => {
       showToast('Share link copied');
       return;
     }
+    if (actionButton.dataset.action === 'buy-selected-now') {
+      state.cartItems = [];
+      go('checkout');
+      return;
+    }
+    if (actionButton.dataset.action === 'add-complete-cart') {
+      const growth = growthCatalog();
+      state.cartItems = growth.complete.map(({ title, price, image }) => ({ title, price, image, kind: productKind(title) }));
+      go('cart');
+      showToast('Complete set added to cart');
+      return;
+    }
+    if (actionButton.dataset.action === 'add-bundle-cart') {
+      const growth = growthCatalog();
+      state.cartItems = growth.together.map(({ title, price, image }) => ({ title, price, image, kind: productKind(title) }));
+      go('cart');
+      showToast('Usually-bought-together bundle added');
+      return;
+    }
   }
 
   const navButton = event.target.closest('[data-go]');
@@ -1571,6 +1777,7 @@ $('#hotspot-toggle').addEventListener('click', () => {
 
 $('#restart-button').addEventListener('click', () => {
   state.history = [];
+  state.cartItems = [];
   state.route = personas[state.persona].entryRoute;
   renderRoute();
   showToast('Journey restarted');
