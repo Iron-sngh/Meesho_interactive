@@ -4,6 +4,7 @@ const state = {
   hotspotMode: false,
   history: [],
   cartItems: [],
+  groupCreated: false,
   product: { title: 'Printed Kurta Set', price: 699, image: 'assets/chhath/chhath_kurta.webp', kind: 'fashion' }
 };
 
@@ -140,8 +141,8 @@ const routeMeta = {
     label: 'PDP · Proof-first',
     title: 'Proof-first product detail page',
     persona: 'Shared purchase screen',
-    summary: 'The PDP is the heart of the system: product facts, seller proof, review intelligence, verified UGC and delivery certainty are all visible before asking for the purchase.',
-    keySignals: ['Structured details', 'Seller evidence', 'Customers say', 'Verified buyer media', 'Transaction certainty'],
+    summary: 'The PDP is the heart of the system: product facts, seller proof, review intelligence, verified UGC, transaction certainty and post-confidence growth modules now live in one continuous scroll.',
+    keySignals: ['Structured details', 'Seller evidence', 'Verified buyer media', 'Share & Save', 'Usually Bought Together', 'Complete Your Look', 'Suggested Products'],
     kpi: ['PDP → ATC', 'Why-link usage', 'Return confidence']
   },
   'product-details': {
@@ -999,8 +1000,8 @@ function categoryChhath() {
       <section class="screen-section">
         ${sectionHeader('Festival bundles', 'Complete the mission, not just one item.', '', '')}
         <div class="two-up">
-          <button class="promo-card" data-go="pdp-growth"><h4>Chhath home prep bundle</h4><p>Decor, serving and hosting essentials in one easy-to-add cluster.</p></button>
-          <button class="promo-card" data-go="pdp-growth"><h4>Celebration look bundle</h4><p>Apparel plus footwear and accessories for the full festive outfit.</p></button>
+          <button class="promo-card" data-go="pdp-core"><h4>Chhath home prep bundle</h4><p>Decor, serving and hosting essentials in one easy-to-add cluster.</p></button>
+          <button class="promo-card" data-go="pdp-core"><h4>Celebration look bundle</h4><p>Apparel plus footwear and accessories for the full festive outfit.</p></button>
         </div>
       </section>
     `
@@ -1092,7 +1093,7 @@ function pdpCore() {
         <div class="transaction-list"><div class="transaction-item"><div class="transaction-icon">🚚</div><div class="transaction-copy"><b>Delivery estimate shown upfront</b><span>Visible near the purchase decision.</span></div></div><div class="transaction-item"><div class="transaction-icon">↩</div><div class="transaction-copy"><b>Eligible return / replacement</b><span>Policy shown before purchase.</span></div></div><div class="transaction-item"><div class="transaction-icon">₹</div><div class="transaction-copy"><b>Refund status traceable</b><span>Payment and reverse-flow clarity.</span></div></div></div>
       </div>
 
-      <div class="pdp-next-step"><button class="link-action" data-go="pdp-growth">Continue below for Complete the Mission →</button></div>
+      ${inlineProductGrowthModules()}
     `
   });
 }
@@ -1326,6 +1327,79 @@ function bundleRows(items = []) {
   `).join('')}</div>`;
 }
 
+
+function inlineGroupCreatedMarkup(p, created = state.groupCreated) {
+  const groupPrice = Math.max(99, Math.round(p.price * 0.92));
+  if (!created) {
+    return `
+      <div class="inline-group-pending">
+        <div class="group-pending-icon">2+</div>
+        <div>
+          <b>No group created yet</b>
+          <span>Create a Share & Save group above. The confirmation and participant progress will appear here without leaving this product page.</span>
+        </div>
+      </div>`;
+  }
+  return `
+    <div class="inline-group-created">
+      <div class="inline-success-row"><span class="success-check compact">✓</span><span><b>Your group is ready</b><small>Invite two more shoppers to unlock the group price.</small></span></div>
+      <div class="group-created-product"><img src="${p.image}" alt="${p.title}"><span><b>${p.title}</b><small>Group price ₹${groupPrice}</small></span></div>
+      <div class="group-participants"><img src="${personaAvatar()}" alt="${PERSONA_NAMES[state.persona]}"><img src="${buyerAvatar(2)}" alt="Invite slot"><img src="${buyerAvatar(3)}" alt="Invite slot"><span>1 joined · 2 invites needed</span></div>
+      <div class="inline-group-actions"><button class="mini-action primary" data-action="copy-group-link">Copy share link</button><button class="mini-action" data-go="cart">Go to cart</button></div>
+    </div>`;
+}
+
+function inlineProductGrowthModules() {
+  const p = selectedProduct();
+  const growth = growthCatalog();
+  const groupPrice = Math.max(99, Math.round(p.price * 0.92));
+  const completeTotal = growth.complete.reduce((sum, item) => sum + item.price, 0);
+  const togetherTotal = growth.together.reduce((sum, item) => sum + item.price, 0);
+  return `
+    <section class="growth-module share-save-module inline-growth-section">
+      <span class="growth-kicker">Share & Save</span>
+      ${sectionHeader('Shop together after you decide', 'Share this exact product with its reviews and trust context, then unlock the group price transparently.', '', '')}
+      <button class="share-save-card" data-action="create-group-inline">
+        <img src="${asset('share_save_visual.webp')}" alt="Friends sharing a shopping link">
+        <span class="share-save-copy"><b>Start a Share & Save group</b><small>Standard price ₹${p.price} · group price ₹${groupPrice}</small><em>${state.groupCreated ? 'Group created on this page ✓' : 'Create group on this page →'}</em></span>
+      </button>
+    </section>
+
+    <section class="growth-module inline-growth-section inline-group-module">
+      <span class="growth-kicker">Group Created</span>
+      ${sectionHeader('Group status', 'The Share & Save confirmation stays inside the product page so the shopper never loses product context.', '', '')}
+      <div class="inline-group-state ${state.groupCreated ? 'is-created' : 'is-pending'}">${inlineGroupCreatedMarkup(p)}</div>
+    </section>
+
+    <section class="growth-module inline-growth-section">
+      <span class="growth-kicker">Usually Bought Together</span>
+      ${sectionHeader('A practical bundle around this product', 'A small, explainable bundle that stays relevant to the current mission.', '', '')}
+      ${bundleRows(growth.together)}
+      <div class="bundle-summary">
+        <span><b>Bundle total</b><small>${growth.together.length} items · free delivery shown at checkout</small></span>
+        <strong>₹${togetherTotal.toLocaleString('en-IN')}</strong>
+        <button class="mini-action primary" data-action="add-bundle-cart">Add all</button>
+      </div>
+    </section>
+
+    <section class="growth-module growth-module-featured inline-growth-section">
+      <span class="growth-kicker">Complete Your Look</span>
+      ${sectionHeader(growth.completeTitle, growth.completeSub, '', '')}
+      ${growthProductRail(growth.complete)}
+      <div class="growth-summary-row">
+        <span><b>Complete set</b><small>${growth.complete.length} coordinated items</small></span>
+        <strong>₹${completeTotal.toLocaleString('en-IN')}</strong>
+        <button class="mini-action" data-action="add-complete-cart">Add set</button>
+      </div>
+    </section>
+
+    <section class="growth-module inline-growth-section final-suggested-products">
+      <span class="growth-kicker">Suggested Products</span>
+      ${sectionHeader('More picks for this mission', 'Recommendations stay anchored to the current persona, category and shopping intent.', '', '')}
+      ${growthProductRail(growth.suggested)}
+    </section>`;
+}
+
 function pdpGrowth() {
   const p = selectedProduct();
   const growth = growthCatalog();
@@ -1391,9 +1465,9 @@ function pdpGrowth() {
 function mallExplainer() {
   return phoneTemplate({
     nav: 'home',
-    ctas: ctaBar({ label: 'Explore Mall products', route: 'mall-home' }, { label: 'Back', route: 'pdp-growth' }),
+    ctas: ctaBar({ label: 'Explore Mall products', route: 'mall-home' }, { label: 'Back', route: 'pdp-core' }),
     content: `
-      ${appBar({ brand: false, title: 'MEESHO MALL', subtitle: 'Brand / provenance trust', searchText: 'Search Mall', backRoute: 'pdp-growth' })}
+      ${appBar({ brand: false, title: 'MEESHO MALL', subtitle: 'Brand / provenance trust', searchText: 'Search Mall', backRoute: 'pdp-core' })}
       <div class="explainer-visual"><img src="${asset('mall/mall_grooming_banner.webp')}" alt="Men’s grooming campaign"></div>
       <div class="list-card"><h4>What Meesho Mall means</h4><p class="body-copy">Mall is the destination for shoppers who want brand recognition and clearer source confidence. It is a distinct branded assortment system, not a generic trust badge.</p><div class="explainer-list"><div class="explainer-point"><b>Brand recognition</b><span>Known brands help the shopper trust the source more quickly.</span></div><div class="explainer-point"><b>Clear source</b><span>Products come from organised branded assortment pathways.</span></div><div class="explainer-point"><b>Value confidence</b><span>Brand-sensitive shopping missions become easier and faster.</span></div></div></div>
     `
@@ -1403,9 +1477,9 @@ function mallExplainer() {
 function mtrustedExplainer() {
   return phoneTemplate({
     nav: 'home',
-    ctas: ctaBar({ label: 'Explore MTrusted picks', route: 'mtrusted-home' }, { label: 'Back', route: 'pdp-growth' }),
+    ctas: ctaBar({ label: 'Explore MTrusted picks', route: 'mtrusted-home' }, { label: 'Back', route: 'pdp-core' }),
     content: `
-      ${appBar({ brand: false, title: 'MTRUSTED', subtitle: 'Seller + listing quality trust', searchText: 'Search MTrusted', backRoute: 'pdp-growth' })}
+      ${appBar({ brand: false, title: 'MTRUSTED', subtitle: 'Seller + listing quality trust', searchText: 'Search MTrusted', backRoute: 'pdp-core' })}
       <div class="evidence-photo-grid explainer-evidence"><div class="evidence-photo-card static"><img src="${asset('mtrusted/quality_check_fashion.webp')}" alt="Fashion quality check"><span><b>Listing discipline</b><small>Clearer product information</small></span></div><div class="evidence-photo-card static"><img src="${asset('mtrusted/fulfilment_package.webp')}" alt="Fulfilment package"><span><b>Fulfilment evidence</b><small>More dependable operations</small></span></div></div>
       <div class="list-card"><h4>What MTrusted means</h4><p class="body-copy">MTrusted organises evidence about the seller and listing so the user does not need to inspect scattered marketplace signals manually.</p><div class="explainer-list"><div class="explainer-point"><b>Seller reliability</b><span>Signals from category history and better issue outcomes.</span></div><div class="explainer-point"><b>Reliable fulfilment</b><span>Operational consistency reduces hesitation before purchase.</span></div><div class="explainer-point"><b>Listing completeness</b><span>Better product information lowers expectation gaps.</span></div></div></div>
     `
@@ -1417,9 +1491,9 @@ function groupSaveScreen() {
   const groupPrice = Math.max(99, Math.round(p.price * 0.92));
   return phoneTemplate({
     nav: 'home',
-    ctas: ctaBar({ label: 'Create group', route: 'group-created' }, { label: 'Back to recommendations', route: 'pdp-growth' }),
+    ctas: ctaBar({ label: 'Create group', route: 'group-created' }, { label: 'Back to recommendations', route: 'pdp-core' }),
     content: `
-      ${appBar({ brand: false, title: 'SHARE & SAVE', subtitle: `${PERSONA_NAMES[state.persona]} · group purchase`, searchText: 'Search help', backRoute: 'pdp-growth' })}
+      ${appBar({ brand: false, title: 'SHARE & SAVE', subtitle: `${PERSONA_NAMES[state.persona]} · group purchase`, searchText: 'Search help', backRoute: 'pdp-core' })}
       <div class="group-product-card">
         <img src="${p.image}" alt="${p.title}">
         <div><span class="badge-pill">Selected product</span><h4>${p.title}</h4><p>Share the same listing, reviews and trust context with your group.</p></div>
@@ -1436,7 +1510,7 @@ function groupCreatedScreen() {
   const groupPrice = Math.max(99, Math.round(p.price * 0.92));
   return phoneTemplate({
     nav: 'home',
-    ctas: ctaBar({ label: 'Go to cart', route: 'cart' }, { label: 'Back to recommendations', route: 'pdp-growth' }),
+    ctas: ctaBar({ label: 'Go to cart', route: 'cart' }, { label: 'Back to recommendations', route: 'pdp-core' }),
     content: `
       ${appBar({ brand: false, title: 'GROUP CREATED', subtitle: 'Share & Save', searchText: 'Search more', backRoute: 'group-save' })}
       <div class="list-card group-created-card">
@@ -1461,7 +1535,7 @@ function cartScreen() {
     nav: 'orders',
     ctas: ctaBar({ label: 'Proceed to checkout', route: 'checkout' }, { label: 'Continue shopping', route: personas[state.persona].entryRoute }),
     content: `
-      ${appBar({ brand: false, title: 'CART', subtitle: `${items.length} ${items.length === 1 ? 'item' : 'items'} ready for checkout`, searchText: 'Search more products', backRoute: 'pdp-growth' })}
+      ${appBar({ brand: false, title: 'CART', subtitle: `${items.length} ${items.length === 1 ? 'item' : 'items'} ready for checkout`, searchText: 'Search more products', backRoute: 'pdp-core' })}
       <div class="cart-list-card">${items.map(item => `
         <div class="realistic-cart-line">
           <img src="${item.image}" alt="${item.title}">
@@ -1588,9 +1662,9 @@ const routes = {
   reviews: reviewsScreen,
   'ugc-gallery': ugcGalleryScreen,
   certainty: certaintyScreen,
-  'pdp-growth': pdpGrowth,
-  'group-save': groupSaveScreen,
-  'group-created': groupCreatedScreen,
+  'pdp-growth': pdpCore,
+  'group-save': pdpCore,
+  'group-created': pdpCore,
   'mall-explainer': mallExplainer,
   'mtrusted-explainer': mtrustedExplainer,
   cart: cartScreen,
@@ -1660,6 +1734,7 @@ function setPersona(personaId, preserveRoute = false) {
   state.persona = personaId;
   state.history = [];
   state.cartItems = [];
+  state.groupCreated = false;
   state.product = defaultProductForPersona(personaId);
   state.route = preserveRoute ? state.route : personas[personaId].entryRoute;
   renderRoute();
@@ -1739,6 +1814,18 @@ document.addEventListener('click', (event) => {
       showToast('Share link copied');
       return;
     }
+    if (actionButton.dataset.action === 'create-group-inline') {
+      state.groupCreated = true;
+      const groupState = deviceCanvas.querySelector('.inline-group-state');
+      if (groupState) {
+        groupState.classList.remove('is-pending');
+        groupState.classList.add('is-created');
+        groupState.innerHTML = inlineGroupCreatedMarkup(selectedProduct(), true);
+      }
+      actionButton.querySelector('em')?.replaceChildren('Group created on this page ✓');
+      showToast('Share & Save group created');
+      return;
+    }
     if (actionButton.dataset.action === 'buy-selected-now') {
       state.cartItems = [];
       go('checkout');
@@ -1762,17 +1849,26 @@ document.addEventListener('click', (event) => {
 
   const navButton = event.target.closest('[data-go]');
   if (navButton) {
-    if (navButton.dataset.productTitle) {
+    const selectedAnotherProduct = Boolean(navButton.dataset.productTitle);
+    if (selectedAnotherProduct) {
       state.product = {
         title: navButton.dataset.productTitle,
         price: Number(navButton.dataset.productPrice || 313),
         image: navButton.dataset.productImage || asset('products/prod_black_shirt_main.webp'),
         kind: navButton.dataset.productKind || 'fashion'
       };
+      state.groupCreated = false;
+      state.cartItems = [];
     }
     const route = navButton.dataset.go;
     if (route === state.route) {
-      handleInlineAction(navButton);
+      if (selectedAnotherProduct && route === 'pdp-core') {
+        renderRoute();
+        requestAnimationFrame(() => deviceCanvas.querySelector('.phone-content')?.scrollTo({ top: 0, behavior: 'smooth' }));
+        showToast(`${state.product.title} opened`);
+      } else {
+        handleInlineAction(navButton);
+      }
     } else {
       go(route);
     }
@@ -1793,6 +1889,7 @@ $('#hotspot-toggle').addEventListener('click', () => {
 $('#restart-button').addEventListener('click', () => {
   state.history = [];
   state.cartItems = [];
+  state.groupCreated = false;
   state.route = personas[state.persona].entryRoute;
   renderRoute();
   showToast('Journey restarted');
