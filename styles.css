@@ -1308,3 +1308,34 @@ img { display:block; max-width:100%; }
   .growth-summary-row, .bundle-summary { grid-template-columns: minmax(0,1fr) auto; }
   .growth-summary-row .mini-action, .bundle-summary .mini-action { grid-column: 1 / -1; width: 100%; }
 }
+
+/* Final cart / checkout continuity polish */
+.checkout-items-list { display:grid; gap:0; margin-top:8px; }
+.checkout-mini-item { display:grid; grid-template-columns:48px minmax(0,1fr) auto; gap:9px; align-items:center; padding:8px 0; border-bottom:1px solid #f0e9f1; }
+.checkout-mini-item:last-child { border-bottom:0; }
+.checkout-mini-item img { width:48px; height:52px; object-fit:contain; border-radius:9px; background:#faf9fa; border:1px solid #eee5ef; }
+.checkout-mini-item span { min-width:0; }
+.checkout-mini-item b { display:block; font-size:.66rem; line-height:1.22; overflow-wrap:anywhere; }
+.checkout-mini-item small { display:block; margin-top:2px; color:var(--muted); font-size:.57rem; }
+.checkout-mini-item strong { font-size:.65rem; white-space:nowrap; }
+.order-success-products { display:flex; justify-content:center; gap:7px; margin:12px 0 9px; }
+.order-success-products img { width:62px; height:68px; object-fit:contain; border-radius:11px; background:#faf9fa; border:1px solid #eee5ef; }
+
+/* Keep the intended two-sidebar + centered-phone presentation on laptop widths. */
+@media (min-width: 1000px) and (max-width: 1280px) {
+  .site-shell { padding: 14px; }
+  .prototype-layout {
+    grid-template-columns: minmax(220px, 260px) 426px minmax(230px, 270px);
+    gap: 14px;
+    justify-content: center;
+  }
+  .detail-panel { grid-column: auto; }
+  .persona-panel, .detail-panel {
+    position: sticky;
+    top: 14px;
+    max-height: calc(100vh - 28px);
+    overflow: auto;
+    padding: 15px;
+  }
+  .device-canvas { width: 426px; padding-inline: 18px; }
+}

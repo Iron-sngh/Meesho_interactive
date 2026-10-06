@@ -4,7 +4,7 @@ const state = {
   hotspotMode: false,
   history: [],
   cartItems: [],
-  product: { title: 'Men’s Regular Fit Casual Shirt', price: 313, image: 'assets/products/prod_black_shirt_main.webp', kind: 'fashion' }
+  product: { title: 'Printed Kurta Set', price: 699, image: 'assets/chhath/chhath_kurta.webp', kind: 'fashion' }
 };
 
 const personas = {
@@ -414,6 +414,17 @@ function productKind(title = '') {
   if (/(face wash|beard|shaving|deodorant|body spray|grooming)/.test(t)) return 'grooming';
   if (/(shirt|trouser|jean|sneaker|shoe|polo|tee|kurta|saree|fashion)/.test(t)) return 'fashion';
   return 'utility';
+}
+
+function defaultProductForPersona(id = state.persona) {
+  const defaults = {
+    chhath: { title: 'Printed Kurta Set', price: 699, image: asset('chhath/chhath_kurta.webp'), kind: 'fashion' },
+    assam: { title: 'Assam Festive Kurta', price: 429, image: asset('assam/assam_kurta.webp'), kind: 'fashion' },
+    mall: { title: 'Daily Face Wash', price: 199, image: asset('mall/mall_facewash.webp'), kind: 'grooming' },
+    mtrusted: { title: 'Black Casual Shirt', price: 299, image: asset('products/prod_black_shirt_main.webp'), kind: 'fashion' },
+    college: { title: 'Casual Checked Shirt', price: 299, image: asset('products/prod_checked_shirt.webp'), kind: 'fashion' }
+  };
+  return { ...(defaults[id] || defaults.college) };
 }
 
 function selectedProduct() {
@@ -1475,7 +1486,7 @@ function checkoutScreen() {
     content: `
       ${appBar({ brand: false, title: 'CHECKOUT', subtitle: 'Final confirmation', searchText: 'Search help', backRoute: 'cart' })}
       <div class="checkout-card"><h4>Delivery address</h4><div class="detail-list-item"><b>${buyerName}</b><span>Saved delivery address · ${deliveryArea}</span></div></div>
-      <div class="checkout-card checkout-product"><img src="${p.image}" alt="${p.title}"><div><h4>${p.title}</h4><span>Qty 1</span><b>₹${p.price}</b></div></div>
+      <div class="checkout-card checkout-items-card"><h4>Items in this order</h4><div class="checkout-items-list">${checkoutItems.map(item => `<div class="checkout-mini-item"><img src="${item.image}" alt="${item.title}"><span><b>${item.title}</b><small>Qty 1</small></span><strong>₹${item.price}</strong></div>`).join('')}</div></div>
       <div class="checkout-card"><h4>Order summary</h4><div class="checkout-row"><span>${checkoutItems.length} ${checkoutItems.length === 1 ? 'item' : 'items'}</span><b>₹${checkoutTotal.toLocaleString('en-IN')}</b></div><div class="checkout-row"><span>Delivery</span><b>Free</b></div><div class="checkout-row"><span>Expected by Tue, 8 Oct</span><b>Tracked</b></div></div>
       <div class="checkout-card"><h4>Payment method</h4><div class="detail-list"><div class="detail-list-item"><b>UPI / Wallet</b><span>Fast and familiar for mobile-first shoppers.</span></div><div class="detail-list-item"><b>Cash on Delivery</b><span>Available for eligible orders.</span></div><div class="detail-list-item"><b>Cards & Netbanking</b><span>Secure payments with refund traceability.</span></div></div></div>
     `
@@ -1484,12 +1495,14 @@ function checkoutScreen() {
 
 function orderPlacedScreen() {
   const p = selectedProduct();
+  const orderedItems = Array.isArray(state.cartItems) && state.cartItems.length ? state.cartItems : [p];
+  const orderTotal = orderedItems.reduce((sum, item) => sum + Number(item.price || 0), 0);
   return phoneTemplate({
     nav: 'orders',
     ctas: ctaBar({ label: 'Track my order', route: 'orders' }, { label: 'Explore more', route: personas[state.persona].entryRoute }),
     content: `
       ${appBar({ brand: false, title: 'ORDER PLACED', subtitle: 'Purchase complete', searchText: 'Search more', backRoute: 'checkout' })}
-      <div class="list-card order-success-card"><div class="success-check">✓</div><h4>Your order is confirmed</h4><img src="${p.image}" alt="${p.title}"><b>${p.title}</b><p>Expected by Tue, 8 Oct · Payment and refund status remain trackable.</p><div class="detail-stat-grid"><div class="detail-stat"><b>Order ID</b><span>MS-248136</span></div><div class="detail-stat"><b>Status</b><span>Packed</span></div></div></div>
+      <div class="list-card order-success-card"><div class="success-check">✓</div><h4>Your order is confirmed</h4><div class="order-success-products">${orderedItems.slice(0,3).map(item => `<img src="${item.image}" alt="${item.title}">`).join('')}</div><b>${orderedItems.length === 1 ? orderedItems[0].title : `${orderedItems.length} items for your mission`}</b><p>₹${orderTotal.toLocaleString('en-IN')} · Expected by Tue, 8 Oct · Payment and refund status remain trackable.</p><div class="detail-stat-grid"><div class="detail-stat"><b>Order ID</b><span>MS-248136</span></div><div class="detail-stat"><b>Status</b><span>Packed</span></div></div></div>
       <div class="list-card"><h4>Next helpful actions</h4><div class="detail-list"><div class="detail-list-item"><b>Track progress</b><span>View delivery milestones from My Orders.</span></div><div class="detail-list-item"><b>Continue the mission</b><span>Return to relevant discovery instead of a generic feed.</span></div></div></div>
     `
   });
@@ -1646,6 +1659,8 @@ function setPersona(personaId, preserveRoute = false) {
   if (!personas[personaId]) return;
   state.persona = personaId;
   state.history = [];
+  state.cartItems = [];
+  state.product = defaultProductForPersona(personaId);
   state.route = preserveRoute ? state.route : personas[personaId].entryRoute;
   renderRoute();
   showToast(`${personas[personaId].title} activated`);
