@@ -998,3 +998,609 @@ function productDetailsScreen() {
           <div class="detail-item"><b>Pack</b><span>1 shirt</span></div>
         </div>
       </div>
+      <div class="list-card">
+        <h4>Expectation setting</h4>
+        <div class="detail-list">
+          <div class="detail-list-item"><b>Colour</b><span>Black; buyer feedback says it generally matches listing images.</span></div>
+          <div class="detail-list-item"><b>Size guidance</b><span>Most buyers report the product is true to size.</span></div>
+          <div class="detail-list-item"><b>Returns</b><span>7-day eligible return / replacement for this illustrative listing.</span></div>
+        </div>
+      </div>
+    `
+  });
+}
+
+function sellerProfile() {
+  return phoneTemplate({
+    nav: 'home',
+    ctas: ctaBar({ label: 'Back to PDP', route: 'pdp-core' }, { label: 'View trusted products', route: 'mtrusted-home' }),
+    content: `
+      ${appBar({ brand: false, title: 'SELLER PROFILE', subtitle: 'Trust evidence made legible', searchText: 'Search this seller', backRoute: 'pdp-core' })}
+      <div class="list-card">
+        <h4>XYZ Fashion</h4>
+        <p style="margin:0;color:var(--muted);font-size:.75rem;line-height:1.45;">Seller performance in Men’s Fashion · Illustrative profile for prototype demonstration.</p>
+        <div class="badge-grid">
+          <div class="mini-card center"><h4>4.6 / 5</h4><p>Average buyer satisfaction</p></div>
+          <div class="mini-card center"><h4>95%</h4><p>On-time fulfilment</p></div>
+          <div class="mini-card center"><h4>Low</h4><p>Issue incidence</p></div>
+        </div>
+      </div>
+      <div class="list-card">
+        <h4>Why this seller feels trustworthy</h4>
+        <div class="detail-list">
+          <div class="detail-list-item"><b>Strong category history</b><span>Consistent performance in Men’s Fashion, helping the shopper reduce evaluation effort.</span></div>
+          <div class="detail-list-item"><b>Reliable fulfilment</b><span>Good shipping consistency and operational outcomes on similar listings.</span></div>
+          <div class="detail-list-item"><b>Lower issue signals</b><span>Cleaner post-order experience relative to marketplace baselines.</span></div>
+          <div class="detail-list-item"><b>Listing quality discipline</b><span>Better description completeness and clearer buyer expectations.</span></div>
+        </div>
+      </div>
+    `
+  });
+}
+
+function reviewsScreen() {
+  return phoneTemplate({
+    nav: 'home',
+    ctas: ctaBar({ label: 'Back to PDP', route: 'pdp-core' }, { label: 'See buyer gallery', route: 'ugc-gallery' }),
+    content: `
+      ${appBar({ brand: false, title: 'REVIEW INTELLIGENCE', subtitle: 'Summarised + traceable buyer evidence', searchText: 'Search reviews', backRoute: 'pdp-core' })}
+      <div class="list-card">
+        <h4>What buyers are saying</h4>
+        <div class="detail-tags"><span class="detail-tag">Fit: mostly true to size</span><span class="detail-tag">Fabric: soft & lightweight</span><span class="detail-tag">Colour: close to image</span><span class="detail-tag">Quality: good for price</span></div>
+      </div>
+      <div class="list-card">
+        <h4>Pros & cons</h4>
+        <div class="two-up">
+          <div class="mini-card"><h4>Pros</h4><p>Good fit, value-for-money, wearable for daily college use.</p></div>
+          <div class="mini-card"><h4>Watch-outs</h4><p>Fabric is lightweight, so expectations should be set clearly.</p></div>
+        </div>
+      </div>
+      <div class="list-card">
+        <h4>Traceable verified reviews</h4>
+        <div class="detail-list">
+          <div class="detail-list-item"><b>Verified buyer · size L</b><span>“Looked close to the listing and fit me well. Great for everyday wear.”</span></div>
+          <div class="detail-list-item"><b>Verified buyer · size M</b><span>“Soft fabric and neat stitching. Delivery timeline was accurate too.”</span></div>
+          <div class="detail-list-item"><b>Verified buyer · size XL</b><span>“Value for money, but best for casual use rather than formal occasions.”</span></div>
+        </div>
+      </div>
+    `
+  });
+}
+
+function ugcGalleryScreen() {
+  return phoneTemplate({
+    nav: 'home',
+    ctas: ctaBar({ label: 'Back to PDP', route: 'pdp-core' }, { label: 'See reviews', route: 'reviews' }),
+    content: `
+      ${appBar({ brand: false, title: 'VERIFIED BUYER GALLERY', subtitle: 'Real buyer photos & videos', searchText: 'Search buyer content', backRoute: 'pdp-core' })}
+      <div class="list-card">
+        <h4>Verified purchase media</h4>
+        <div class="three-up">
+          <button class="ugc-thumb" data-go="ugc-gallery">${vectorArt('📷')}</button>
+          <button class="ugc-thumb" data-go="ugc-gallery">${vectorArt('🎥')}</button>
+          <button class="ugc-thumb" data-go="ugc-gallery">${vectorArt('📷')}</button>
+          <button class="ugc-thumb" data-go="ugc-gallery">${vectorArt('🎥')}</button>
+          <button class="ugc-thumb" data-go="ugc-gallery">${vectorArt('📷')}</button>
+          <button class="ugc-thumb" data-go="ugc-gallery">${vectorArt('📷')}</button>
+        </div>
+      </div>
+      <div class="list-card">
+        <h4>What this helps the user judge</h4>
+        <div class="detail-list">
+          <div class="detail-list-item"><b>Fit in reality</b><span>How the shirt sits on actual buyers instead of only polished listing imagery.</span></div>
+          <div class="detail-list-item"><b>Fabric feel</b><span>Texture and weight cues surfaced visually.</span></div>
+          <div class="detail-list-item"><b>Colour confidence</b><span>More realistic understanding of shade and finish.</span></div>
+        </div>
+      </div>
+    `
+  });
+}
+
+function certaintyScreen() {
+  return phoneTemplate({
+    nav: 'home',
+    ctas: ctaBar({ label: 'Proceed to checkout', route: 'checkout' }, { label: 'Back to PDP', route: 'pdp-core' }),
+    content: `
+      ${appBar({ brand: false, title: 'TRANSACTION CERTAINTY', subtitle: 'Delivery, returns and payments', searchText: 'Search policy help', backRoute: 'pdp-core' })}
+      <div class="list-card">
+        <h4>Delivery promise</h4>
+        <div class="transaction-list">
+          <div class="transaction-item"><div class="transaction-icon">🚚</div><div class="transaction-copy"><b>Expected by Tue, 8 Oct</b><span>Prominent pre-purchase estimate lowers arrival uncertainty.</span></div></div>
+          <div class="transaction-item"><div class="transaction-icon">📍</div><div class="transaction-copy"><b>Delivery available to your location</b><span>Clear availability before the final step.</span></div></div>
+        </div>
+      </div>
+      <div class="list-card">
+        <h4>Returns and refund confidence</h4>
+        <div class="detail-list">
+          <div class="detail-list-item"><b>7-day eligible return / replacement</b><span>Simple, visible and consistent policy wording.</span></div>
+          <div class="detail-list-item"><b>Refund status traceable</b><span>Buyer can follow the refund after initiation.</span></div>
+          <div class="detail-list-item"><b>Secure payment options</b><span>Payment trust is not left to chance or hidden copy.</span></div>
+        </div>
+      </div>
+    `
+  });
+}
+
+function pdpGrowth() {
+  return phoneTemplate({
+    nav: 'home',
+    ctas: ctaBar({ label: 'Buy now', route: 'checkout' }, { label: 'Add all to cart', route: 'cart' }),
+    content: `
+      ${appBar({ brand: false, title: 'COMPLETE THE MISSION', subtitle: 'Mission expansion without losing trust', searchText: 'Search similar styles', backRoute: 'pdp-core' })}
+      <div class="info-card">
+        ${sectionHeader('Complete your look', 'Build the rest of your casual look.', '', '')}
+        <div class="three-up">
+          ${productCard({ title: 'Regular Fit Casual Shirt', price: 313, art: '👔', route: 'pdp-core', badge2: 'Current' })}
+          ${productCard({ title: 'Regular Fit Trousers', price: 449, art: '👖', route: 'pdp-core' })}
+          ${productCard({ title: 'Casual Sneakers', price: 699, art: '👟', route: 'pdp-core' })}
+        </div>
+        <div class="chip-row" style="margin-top:10px;"><span class="badge-pill">Casual</span><span class="subtle-pill">College</span><span class="tiny-pill">Add all 3 to cart · ₹1,461</span></div>
+      </div>
+      <div class="info-card">
+        ${sectionHeader('Pair with similar styles', 'Popular with shoppers who viewed this shirt', '', '')}
+        <div class="three-up">
+          ${productCard({ title: 'Men’s Casual Shirt', price: 329, art: '👔', route: 'pdp-core' })}
+          ${productCard({ title: 'Men’s Checked Shirt', price: 349, art: '🧵', route: 'pdp-core' })}
+          ${productCard({ title: 'Men’s Linen Blend', price: 378, art: '👕', route: 'pdp-core' })}
+        </div>
+      </div>
+      <div class="info-card">
+        ${sectionHeader('Share & save', 'Invite friends to unlock a lower price.', '', '')}
+        <div class="two-up">
+          <button class="promo-card" data-go="group-save"><h4>Lower price with more shoppers</h4><p>Shop together and save on this product.</p></button>
+          <button class="promo-card" data-go="group-save"><h4>Create a group</h4><p>Start a simple flow for group purchase and sharing.</p></button>
+        </div>
+      </div>
+      <div class="info-card" style="margin-bottom: 18px;">
+        ${sectionHeader('Trust shortcuts explained', 'Different trust signals answer different questions.', '', '')}
+        ${trustTwinCards()}
+        <div class="three-up" style="margin-top:10px;">
+          <div class="mini-card center"><h4>100% genuine</h4><p>Products sourced from verified sellers.</p></div>
+          <div class="mini-card center"><h4>Easy returns</h4><p>7-day return policy.</p></div>
+          <div class="mini-card center"><h4>Safe payments</h4><p>Reliable and secure payment options.</p></div>
+        </div>
+      </div>
+    `
+  });
+}
+
+function mallExplainer() {
+  return phoneTemplate({
+    nav: 'home',
+    ctas: ctaBar({ label: 'Explore Mall products', route: 'mall-home' }, { label: 'Back', route: 'pdp-growth' }),
+    content: `
+      ${appBar({ brand: false, title: 'MEESHO MALL', subtitle: 'Brand / provenance trust', searchText: 'Search Mall', backRoute: 'pdp-growth' })}
+      <div class="list-card">
+        <h4>What Meesho Mall means</h4>
+        <p style="margin:0;color:var(--muted);font-size:.75rem;line-height:1.45;">Mall is the destination for shoppers who want brand recognition and clearer source confidence. It is not just another badge — it is a distinct branded assortment system.</p>
+        <div class="explainer-list">
+          <div class="explainer-point"><b>Brand recognition</b><span>Known brands help the shopper trust the source more quickly.</span></div>
+          <div class="explainer-point"><b>Clear source</b><span>Products come from organised branded assortment pathways.</span></div>
+          <div class="explainer-point"><b>Value confidence</b><span>Brand-sensitive shopping missions become easier and faster.</span></div>
+        </div>
+      </div>
+    `
+  });
+}
+
+function mtrustedExplainer() {
+  return phoneTemplate({
+    nav: 'home',
+    ctas: ctaBar({ label: 'Explore MTrusted picks', route: 'mtrusted-home' }, { label: 'Back', route: 'pdp-growth' }),
+    content: `
+      ${appBar({ brand: false, title: 'MTRUSTED', subtitle: 'Seller + listing quality trust', searchText: 'Search MTrusted', backRoute: 'pdp-growth' })}
+      <div class="list-card">
+        <h4>What MTrusted means</h4>
+        <p style="margin:0;color:var(--muted);font-size:.75rem;line-height:1.45;">MTrusted organises evidence about the seller and listing so the user does not need to inspect scattered marketplace signals manually.</p>
+        <div class="explainer-list">
+          <div class="explainer-point"><b>Seller reliability</b><span>Signals from category history and better issue outcomes.</span></div>
+          <div class="explainer-point"><b>Reliable fulfilment</b><span>Operational consistency reduces hesitation before purchase.</span></div>
+          <div class="explainer-point"><b>Listing completeness</b><span>Better product information lowers expectation gaps.</span></div>
+        </div>
+      </div>
+    `
+  });
+}
+
+function groupSaveScreen() {
+  return phoneTemplate({
+    nav: 'home',
+    ctas: ctaBar({ label: 'Create group', route: 'group-created' }, { label: 'Back to mission', route: 'pdp-growth' }),
+    content: `
+      ${appBar({ brand: false, title: 'SHARE & SAVE', subtitle: 'Optional group purchase', searchText: 'Search help', backRoute: 'pdp-growth' })}
+      <div class="list-card">
+        <h4>Unlock a lower price together</h4>
+        <p style="margin:0;color:var(--muted);font-size:.75rem;line-height:1.45;">Create a group and invite friends. The price unlock condition is shown before sharing so the mechanism remains understandable.</p>
+        <div class="detail-stat-grid">
+          <div class="detail-stat"><b>Standard</b><span>₹313</span></div>
+          <div class="detail-stat"><b>Group price</b><span>₹289</span></div>
+        </div>
+      </div>
+      <div class="list-card">
+        <h4>How it works</h4>
+        <div class="detail-list">
+          <div class="detail-list-item"><b>1 · Create a group</b><span>Start from the product you already evaluated.</span></div>
+          <div class="detail-list-item"><b>2 · Invite two friends</b><span>Share the same product proof and trust context.</span></div>
+          <div class="detail-list-item"><b>3 · Unlock when complete</b><span>No hidden conditions or surprise discount mechanics.</span></div>
+        </div>
+      </div>
+    `
+  });
+}
+
+function groupCreatedScreen() {
+  return phoneTemplate({
+    nav: 'home',
+    ctas: ctaBar({ label: 'Go to cart', route: 'cart' }, { label: 'Back to product', route: 'pdp-growth' }),
+    content: `
+      ${appBar({ brand: false, title: 'GROUP CREATED', subtitle: 'Share & Save', searchText: 'Search more', backRoute: 'group-save' })}
+      <div class="list-card" style="text-align:center;padding:28px 18px;">
+        <div style="width:64px;height:64px;border-radius:50%;background:#ecf8ee;color:var(--green);display:grid;place-items:center;font-size:28px;font-weight:800;margin:0 auto 12px;">✓</div>
+        <h4 style="font-size:1.05rem;">Your group is ready</h4>
+        <p style="margin:0;color:var(--muted);font-size:.76rem;line-height:1.45;">Invite two more shoppers to unlock the illustrative group price. Product proof and trust information remain available to everyone.</p>
+        <button class="cta-button primary" style="margin-top:16px;width:100%;" data-action="copy-group-link">Copy share link</button>
+      </div>
+    `
+  });
+}
+
+function cartScreen() {
+  return phoneTemplate({
+    nav: 'orders',
+    ctas: ctaBar({ label: 'Proceed to checkout', route: 'checkout' }, { label: 'Continue shopping', route: state.persona === 'mall' ? 'mall-home' : 'college-home' }),
+    content: `
+      ${appBar({ brand: false, title: 'CART', subtitle: 'Cart + shortlist', searchText: 'Search more products', backRoute: 'pdp-growth' })}
+      <div class="cart-card">
+        <div class="line-item">
+          <div>
+            <b>Regular Fit Casual Shirt</b>
+            <div class="product-meta">Black · Size L</div>
+            <div class="price">₹313</div>
+          </div>
+          <span class="qty-pill">Qty 1</span>
+        </div>
+        <div class="line-item">
+          <div>
+            <b>Regular Fit Trousers</b>
+            <div class="product-meta">Charcoal · 32</div>
+            <div class="price">₹449</div>
+          </div>
+          <span class="qty-pill">Qty 1</span>
+        </div>
+        <div class="line-item">
+          <div>
+            <b>Casual Sneakers</b>
+            <div class="product-meta">White · UK 8</div>
+            <div class="price">₹699</div>
+          </div>
+          <span class="qty-pill">Qty 1</span>
+        </div>
+      </div>
+      <div class="checkout-card">
+        <h4>Price details</h4>
+        <div class="price-line"><span>Subtotal</span><b>₹1,461</b></div>
+        <div class="price-line"><span>Delivery</span><b>Free</b></div>
+        <div class="price-line"><span>Group savings</span><b style="color:var(--green)">− ₹90</b></div>
+        <div class="price-line"><span>Total</span><b>₹1,371</b></div>
+      </div>
+    `
+  });
+}
+
+function checkoutScreen() {
+  return phoneTemplate({
+    nav: 'orders',
+    ctas: ctaBar({ label: 'Place order', route: 'order-placed' }, { label: 'Back to cart', route: 'cart' }),
+    content: `
+      ${appBar({ brand: false, title: 'CHECKOUT', subtitle: 'Final confirmation', searchText: 'Search help', backRoute: 'cart' })}
+      <div class="checkout-card">
+        <h4>Delivery address</h4>
+        <div class="detail-list-item"><b>Aarav Sharma</b><span>221 Lake View Hostel Road, Guwahati, Assam · 781014</span></div>
+      </div>
+      <div class="checkout-card">
+        <h4>Order summary</h4>
+        <div class="checkout-row"><span>3 items</span><b>₹1,371</b></div>
+        <div class="checkout-row"><span>Delivery by Tue, 8 Oct</span><b>Free</b></div>
+      </div>
+      <div class="checkout-card">
+        <h4>Payment method</h4>
+        <div class="detail-list">
+          <div class="detail-list-item"><b>UPI / Wallet</b><span>Fast and familiar for mobile-first shoppers.</span></div>
+          <div class="detail-list-item"><b>Cash on Delivery</b><span>Available for eligible orders.</span></div>
+          <div class="detail-list-item"><b>Cards & Netbanking</b><span>Secure payments with refund traceability.</span></div>
+        </div>
+      </div>
+    `
+  });
+}
+
+function orderPlacedScreen() {
+  return phoneTemplate({
+    nav: 'orders',
+    ctas: ctaBar({ label: 'Track my order', route: 'orders' }, { label: 'Explore more', route: state.persona === 'assam' ? 'assam-home' : 'college-home' }),
+    content: `
+      ${appBar({ brand: false, title: 'ORDER PLACED', subtitle: 'Purchase complete', searchText: 'Search more', backRoute: 'checkout' })}
+      <div class="list-card">
+        <h4>Your order is confirmed 🎉</h4>
+        <p style="margin:0;color:var(--muted);font-size:.76rem;line-height:1.45;">Thank you. Your order is now in progress and expected by Tue, 8 Oct.</p>
+        <div class="detail-stat-grid">
+          <div class="detail-stat"><b>Order ID</b><span>MS-248136</span></div>
+          <div class="detail-stat"><b>Status</b><span>Packed</span></div>
+        </div>
+      </div>
+      <div class="list-card">
+        <h4>Next helpful actions</h4>
+        <div class="detail-list">
+          <div class="detail-list-item"><b>Track progress</b><span>View delivery milestones from My Orders.</span></div>
+          <div class="detail-list-item"><b>Continue shopping</b><span>Explore more products in the same style mission.</span></div>
+        </div>
+      </div>
+    `
+  });
+}
+
+function categoriesScreen() {
+  return phoneTemplate({
+    nav: 'categories',
+    content: `
+      ${appBar({ brand: false, title: 'CATEGORIES', subtitle: 'Browse by mission or department', searchText: 'Search categories', backRoute: state.persona === 'mall' ? 'mall-home' : state.persona === 'assam' ? 'assam-home' : state.persona === 'chhath' ? 'chhath-home' : 'college-home' })}
+      <section class="screen-section">
+        ${sectionHeader('Popular categories', 'Everything here is interactive.', '', '')}
+        <div class="category-grid">
+          ${categoryCard({ icon:'👔', title:'Men’s Fashion', subtitle:'Shirts · jeans', route:'category-fashion' })}
+          ${categoryCard({ icon:'👗', title:'Women’s Fashion', subtitle:'Ethnic wear', route:'category-chhath' })}
+          ${categoryCard({ icon:'🧴', title:'Men’s Grooming', subtitle:'Face care', route:'category-grooming' })}
+          ${categoryCard({ icon:'🎉', title:'Assam Festive', subtitle:'Regional picks', route:'category-assam' })}
+          ${categoryCard({ icon:'🪔', title:'Chhath Festive', subtitle:'Occasion shopping', route:'category-chhath' })}
+          ${categoryCard({ icon:'⌚', title:'Electronics', subtitle:'Accessories', route:'search' })}
+          ${categoryCard({ icon:'🏠', title:'Home Utility', subtitle:'Kitchen & more', route:'search' })}
+          ${categoryCard({ icon:'🎁', title:'Gifting', subtitle:'Budget finds', route:'search' })}
+        </div>
+      </section>
+    `
+  });
+}
+
+function accountScreen() {
+  return phoneTemplate({
+    nav: 'account',
+    content: `
+      ${appBar({ brand: false, title: 'ACCOUNT', subtitle: 'Saved shortcuts and preferences', searchText: 'Search help or settings', backRoute: state.persona === 'mall' ? 'mall-home' : state.persona === 'assam' ? 'assam-home' : 'college-home' })}
+      <div class="list-card">
+        <h4>Profile</h4>
+        <div class="detail-list-item"><b>Aarav Sharma</b><span>Student shopper · Guwahati, Assam · English + Hindi</span></div>
+      </div>
+      <div class="list-card">
+        <h4>Quick actions</h4>
+        <div class="detail-list">
+          <button class="detail-list-item" data-go="wishlist"><b>Saved products</b><span>Revisit products you liked earlier.</span></button>
+          <button class="detail-list-item" data-go="orders"><b>My Orders</b><span>Track active orders and repeat purchases.</span></button>
+          <button class="detail-list-item" data-go="assam-home"><b>Region & language</b><span>Example of contextual preferences driving relevance.</span></button>
+        </div>
+      </div>
+    `
+  });
+}
+
+function ordersScreen() {
+  return phoneTemplate({
+    nav: 'orders',
+    content: `
+      ${appBar({ brand: false, title: 'MY ORDERS', subtitle: 'Track post-purchase progress', searchText: 'Search orders', backRoute: 'account' })}
+      <div class="list-card">
+        <h4>Recent orders</h4>
+        <div class="line-item"><div><b>Regular Fit Casual Shirt</b><div class="product-meta">Expected by Tue, 8 Oct</div></div><span class="order-state">Packed</span></div>
+        <div class="line-item"><div><b>Daily Face Wash</b><div class="product-meta">Delivered last week</div></div><span class="order-state">Delivered</span></div>
+        <div class="line-item"><div><b>Casual Sneakers</b><div class="product-meta">Delivered 12 Sep</div></div><button class="qty-pill" data-go="pdp-core">Buy again</button></div>
+      </div>
+    `
+  });
+}
+
+function wishlistScreen() {
+  return phoneTemplate({
+    nav: 'account',
+    content: `
+      ${appBar({ brand: false, title: 'WISHLIST', subtitle: 'Saved items', searchText: 'Search saved products', backRoute: 'account' })}
+      <section class="screen-section">
+        ${sectionHeader('Saved products', 'Shortlisted for later comparison or purchase.', '', '')}
+        <div class="two-up">
+          ${productCard({ title: 'Casual Checked Shirt', price: 299, art: '👔', route: 'pdp-core' })}
+          ${productCard({ title: 'Daily Face Wash', price: 199, art: '🧴', route: 'pdp-core', badge: 'Mall' })}
+          ${productCard({ title: 'Home Decor Set', price: 199, art: '🏠', route: 'pdp-core' })}
+          ${productCard({ title: 'Gift Hamper', price: 299, art: '🎁', route: 'pdp-core' })}
+        </div>
+      </section>
+    `
+  });
+}
+
+const routes = {
+  'college-home': collegeHome,
+  'assam-home': assamHome,
+  'chhath-home': chhathHome,
+  'mall-home': mallHome,
+  'mtrusted-home': mtrustedHome,
+  'category-fashion': categoryFashion,
+  'category-grooming': categoryGrooming,
+  'category-assam': categoryAssam,
+  'category-chhath': categoryChhath,
+  search: searchScreen,
+  'pdp-core': pdpCore,
+  'product-details': productDetailsScreen,
+  'seller-profile': sellerProfile,
+  reviews: reviewsScreen,
+  'ugc-gallery': ugcGalleryScreen,
+  certainty: certaintyScreen,
+  'pdp-growth': pdpGrowth,
+  'group-save': groupSaveScreen,
+  'group-created': groupCreatedScreen,
+  'mall-explainer': mallExplainer,
+  'mtrusted-explainer': mtrustedExplainer,
+  cart: cartScreen,
+  checkout: checkoutScreen,
+  'order-placed': orderPlacedScreen,
+  categories: categoriesScreen,
+  account: accountScreen,
+  orders: ordersScreen,
+  wishlist: wishlistScreen
+};
+
+function renderPersonas() {
+  const root = $('#persona-list');
+  root.innerHTML = Object.values(personas).map(persona => `
+    <button class="persona-card ${state.persona === persona.id ? 'active' : ''}" data-persona="${persona.id}">
+      <div class="persona-top">
+        <b>${persona.title}</b>
+        <span class="badge-pill">${persona.id === state.persona ? 'Active' : 'Switch'}</span>
+      </div>
+      <p>${persona.subtitle}<br>${persona.summary}</p>
+      <div class="persona-tags">${persona.tags.map(tag => `<span class="persona-tag">${tag}</span>`).join('')}</div>
+    </button>
+  `).join('');
+}
+
+function renderDetails() {
+  const meta = routeMeta[state.route] || { label: state.route, title: state.route, persona: personas[state.persona]?.title || '', summary: '', keySignals: [], kpi: [] };
+  detailPanel.innerHTML = `
+    <div class="detail-block">
+      <span class="panel-kicker">CURRENT SCREEN</span>
+      <h2>${meta.title}</h2>
+      <p>${meta.summary}</p>
+      <div class="detail-tags">
+        <span class="detail-tag">${meta.persona}</span>
+        <span class="detail-tag">${meta.label}</span>
+      </div>
+    </div>
+    <div class="detail-block">
+      <span class="panel-kicker">EXPERIENCE SIGNALS</span>
+      <div class="detail-list">
+        ${(meta.keySignals || []).map(item => `<div class="detail-list-item"><b>${item}</b><span>Interactive within the prototype and connected to adjacent trust or commerce screens.</span></div>`).join('')}
+      </div>
+    </div>
+    <div class="detail-block">
+      <span class="panel-kicker">WHAT THIS SCREEN SHOULD IMPROVE</span>
+      <div class="detail-stat-grid">
+        ${(meta.kpi || []).map(item => `<div class="detail-stat"><b>KPI</b><span>${item}</span></div>`).join('')}
+      </div>
+    </div>
+  `;
+  if (stageLabel) stageLabel.textContent = (meta.label || state.route).toUpperCase();
+}
+
+function renderRoute() {
+  const renderer = routes[state.route] || collegeHome;
+  deviceCanvas.innerHTML = renderer();
+  renderDetails();
+  renderPersonas();
+  if (state.hotspotMode) deviceCanvas.classList.add('hotspot-mode');
+  else deviceCanvas.classList.remove('hotspot-mode');
+}
+
+function setPersona(personaId, preserveRoute = false) {
+  if (!personas[personaId]) return;
+  state.persona = personaId;
+  state.history = [];
+  state.route = preserveRoute ? state.route : personas[personaId].entryRoute;
+  renderRoute();
+  showToast(`${personas[personaId].title} activated`);
+}
+
+function homeRoute() {
+  return personas[state.persona]?.entryRoute || 'college-home';
+}
+
+function go(route, { pushHistory = true } = {}) {
+  if (!routes[route]) {
+    showToast('This screen is not available in the prototype yet');
+    return;
+  }
+  if (route === state.route) return;
+  if (pushHistory) state.history.push(state.route);
+  state.route = route;
+  renderRoute();
+}
+
+function goBack(fallback = '') {
+  const previous = state.history.pop();
+  const target = previous && routes[previous] ? previous : (fallback && routes[fallback] ? fallback : homeRoute());
+  state.route = target;
+  renderRoute();
+}
+
+function handleInlineAction(el) {
+  const label = (el.innerText || el.getAttribute('aria-label') || 'Option').trim().replace(/\s+/g, ' ');
+  if (el.classList.contains('filter-chip') || el.classList.contains('utility-chip')) {
+    el.classList.toggle('active');
+    showToast(`${label} ${el.classList.contains('active') ? 'selected' : 'cleared'}`);
+    return;
+  }
+  if (el.classList.contains('size-pill')) {
+    el.parentElement?.querySelectorAll('.size-pill').forEach(item => item.classList.remove('active'));
+    el.classList.add('active');
+    showToast(`Size ${label} selected`);
+    return;
+  }
+  if (el.classList.contains('thumbnail') || el.classList.contains('ugc-thumb')) {
+    showToast('Buyer media preview selected');
+    return;
+  }
+  showToast(`${label} selected`);
+}
+
+function showToast(text) {
+  toastEl.textContent = text;
+  toastEl.classList.add('show');
+  clearTimeout(showToast.timer);
+  showToast.timer = setTimeout(() => toastEl.classList.remove('show'), 1500);
+}
+
+document.addEventListener('click', (event) => {
+  const personaButton = event.target.closest('[data-persona]');
+  if (personaButton) {
+    setPersona(personaButton.dataset.persona);
+    return;
+  }
+
+  const actionButton = event.target.closest('[data-action]');
+  if (actionButton) {
+    if (actionButton.dataset.action === 'back') {
+      goBack(actionButton.dataset.backFallback || '');
+      return;
+    }
+    if (actionButton.dataset.action === 'copy-group-link') {
+      showToast('Share link copied');
+      return;
+    }
+  }
+
+  const navButton = event.target.closest('[data-go]');
+  if (navButton) {
+    const route = navButton.dataset.go;
+    if (route === state.route) {
+      handleInlineAction(navButton);
+    } else {
+      go(route);
+    }
+    return;
+  }
+
+  const shortcut = event.target.closest('[data-route-shortcut]');
+  if (shortcut) go(shortcut.dataset.routeShortcut);
+});
+
+$('#hotspot-toggle').addEventListener('click', () => {
+  state.hotspotMode = !state.hotspotMode;
+  renderRoute();
+  $('#hotspot-toggle').textContent = state.hotspotMode ? 'Hide click map' : 'Show click map';
+  showToast(state.hotspotMode ? 'Clickable regions highlighted' : 'Click map hidden');
+});
+
+$('#restart-button').addEventListener('click', () => {
+  state.history = [];
+  state.route = personas[state.persona].entryRoute;
+  renderRoute();
+  showToast('Journey restarted');
+});
+
+renderRoute();
