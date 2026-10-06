@@ -1,42 +1,19 @@
 const state = {
-  persona: 'college',
-  route: 'college-home',
+  persona: 'chhath',
+  route: 'chhath-home',
   hotspotMode: false,
   history: []
 };
 
 const personas = {
-  college: {
-    id: 'college',
-    title: 'College Style Starter',
-    subtitle: 'Aarav · college-going value seeker',
-    summary: 'Mission-first homepage for a young shopper looking for affordable fashion, complete looks and proof before purchase.',
-    entryRoute: 'college-home',
-    tags: ['Guided discovery', 'Men’s fashion', 'Proof-first PDP']
-  },
   chhath: {
     id: 'chhath',
     title: 'Chhath Festival Mission',
     subtitle: 'Rohit · Bihar festive shopper',
     summary: 'Regional seasonal discovery that starts from Chhath needs and routes into trusted festive shopping journeys.',
     entryRoute: 'chhath-home',
-    tags: ['Regional relevance', 'Festive homepage', 'Basket completion']
-  },
-  mall: {
-    id: 'mall',
-    title: 'Meesho Mall for Brands',
-    subtitle: 'Kabir · brand-conscious grooming shopper',
-    summary: 'A dedicated branded assortment destination that makes provenance and value easy to understand.',
-    entryRoute: 'mall-home',
-    tags: ['Brand destination', 'Provenance trust', 'Grooming']
-  },
-  mtrusted: {
-    id: 'mtrusted',
-    title: 'MTrusted Confidence',
-    subtitle: 'Vivek · trust-seeking first-time buyer',
-    summary: 'MTrusted explains seller and listing quality with clear evidence rather than unexplained badges.',
-    entryRoute: 'mtrusted-home',
-    tags: ['Seller confidence', 'Explainable trust', 'Trust routing']
+    tags: ['Regional relevance', 'Festive homepage', 'Basket completion'],
+    avatar: 'profiles/profile_avatar_rohit.webp'
   },
   assam: {
     id: 'assam',
@@ -44,7 +21,35 @@ const personas = {
     subtitle: 'Nayan · Assam seasonal shopper',
     summary: 'Contextual homepage with festive discovery, regional merchandising and trust-led progression into PDPs.',
     entryRoute: 'assam-home',
-    tags: ['Assam relevance', 'Mission-led home', 'Mall + MTrusted']
+    tags: ['Assam relevance', 'Mission-led home', 'Mall + MTrusted'],
+    avatar: 'profiles/profile_avatar_nayan.webp'
+  },
+  mall: {
+    id: 'mall',
+    title: 'Meesho Mall for Brands',
+    subtitle: 'Kabir · brand-conscious grooming shopper',
+    summary: 'A dedicated branded assortment destination that makes provenance and value easy to understand.',
+    entryRoute: 'mall-home',
+    tags: ['Brand destination', 'Provenance trust', 'Grooming'],
+    avatar: 'profiles/profile_avatar_kabir.webp'
+  },
+  mtrusted: {
+    id: 'mtrusted',
+    title: 'MTrusted Confidence',
+    subtitle: 'Vivek · trust-seeking first-time buyer',
+    summary: 'MTrusted explains seller and listing quality with clear evidence rather than unexplained badges.',
+    entryRoute: 'mtrusted-home',
+    tags: ['Seller confidence', 'Explainable trust', 'Trust routing'],
+    avatar: 'profiles/profile_avatar_vivek.webp'
+  },
+  college: {
+    id: 'college',
+    title: 'College Style Starter',
+    subtitle: 'Aarav · college-going value seeker',
+    summary: 'Mission-first homepage for a young shopper looking for affordable fashion, complete looks and proof before purchase.',
+    entryRoute: 'college-home',
+    tags: ['Guided discovery', 'Men’s fashion', 'Proof-first PDP'],
+    avatar: 'profiles/profile_avatar_aarav.webp'
   }
 };
 
@@ -284,6 +289,92 @@ const toastEl = $('#toast');
 
 function money(v) { return `₹${v}`; }
 
+const ASSET_ROOT = 'assets/';
+const asset = (path) => `${ASSET_ROOT}${path}`;
+
+function personaAvatar() {
+  return asset(personas[state.persona]?.avatar || 'profiles/profile_avatar_aarav.webp');
+}
+
+function productImageFor(title = '', art = '') {
+  const t = title.toLowerCase();
+  if (t.includes('black shirt') || t.includes('regular fit casual shirt')) return asset('products/prod_black_shirt_main.webp');
+  if (t.includes('checked')) return asset('products/prod_checked_shirt.webp');
+  if (t.includes('trouser') || t.includes('jean')) return asset('products/prod_trousers.webp');
+  if (t.includes('sneaker') || t.includes('shoe')) return asset('products/prod_sneakers.webp');
+  if (t.includes('backpack') || t.includes('college tote')) return asset('products/prod_backpack.webp');
+  if (t.includes('watch')) return asset('products/prod_watch.webp');
+  if (t.includes('polo') || t.includes('tee') || t.includes('t-shirt')) return asset('products/prod_polo.webp');
+  if (t.includes('overshirt') || t.includes('linen blend') || t.includes('formal shirt') || t.includes('casual shirt') || t.includes('striped shirt')) return asset('products/prod_checked_shirt.webp');
+
+  if (t.includes('face wash')) return asset('mall/mall_facewash.webp');
+  if (t.includes('beard')) return asset('mall/mall_beard_oil.webp');
+  if (t.includes('shaving')) return asset('mall/mall_shaving_kit.webp');
+  if (t.includes('body spray') || t.includes('deo')) return asset('mall/mall_deodorant.webp');
+
+  if (t.includes('assam') || state.persona === 'assam') {
+    if (t.includes('kurta')) return asset('assam/assam_kurta.webp');
+    if (t.includes('decor')) return asset('assam/assam_decor_set.webp');
+    if (t.includes('self-care') || t.includes('gift box')) return asset('assam/assam_selfcare_gift.webp');
+    if (t.includes('travel') || t.includes('utility')) return asset('assam/assam_travel_kit.webp');
+  }
+  if (t.includes('saree')) return asset('chhath/chhath_saree.webp');
+  if (t.includes('kurta set') || t.includes('kurtas combo') || (state.persona === 'chhath' && t.includes('kurta'))) return asset('chhath/chhath_kurta.webp');
+  if (t.includes('decor') || t.includes('serving') || t.includes('puja')) return asset('chhath/chhath_decor_pack.webp');
+  if (t.includes('gift hamper')) return asset('chhath/chhath_gift_hamper.webp');
+  if (t.includes('travel pouch')) return asset('chhath/chhath_travel_pouch.webp');
+
+  const fallbacks = {
+    '👔': 'products/prod_black_shirt_main.webp',
+    '👖': 'products/prod_trousers.webp',
+    '👟': 'products/prod_sneakers.webp',
+    '🎒': 'products/prod_backpack.webp',
+    '⌚': 'products/prod_watch.webp',
+    '🧥': 'products/prod_checked_shirt.webp',
+    '👜': 'products/prod_backpack.webp',
+    '🏋️': 'products/prod_polo.webp',
+    '👕': 'products/prod_polo.webp',
+    '🧴': 'mall/mall_facewash.webp',
+    '🪒': 'mall/mall_shaving_kit.webp',
+    '🧔': 'mall/mall_beard_oil.webp',
+    '🌿': 'mall/mall_deodorant.webp',
+    '🎁': 'chhath/chhath_gift_hamper.webp',
+    '🧳': 'assam/assam_travel_kit.webp',
+    '👘': 'chhath/chhath_kurta.webp',
+    '🏠': 'assam/assam_decor_set.webp'
+  };
+  return asset(fallbacks[art] || 'products/prod_black_shirt_main.webp');
+}
+
+function categoryImageFor(title = '') {
+  const t = title.toLowerCase();
+  if (t.includes("men’s fashion") || t.includes("men's fashion")) return asset('categories/cat_mens_fashion.webp');
+  if (t.includes("women")) return asset('categories/cat_womens_fashion.webp');
+  if (t.includes('footwear')) return asset('categories/cat_footwear.webp');
+  if (t.includes('grooming')) return asset('categories/cat_grooming.webp');
+  if (t.includes('electronic')) return asset('categories/cat_electronics.webp');
+  if (t.includes('sport') || t.includes('active')) return asset('categories/cat_sports.webp');
+  if (t.includes('home')) return asset('categories/cat_home.webp');
+  if (t.includes('gift')) return asset('categories/cat_gifting.webp');
+  if (t.includes('assam')) return asset('assam/assam_festive_banner.webp');
+  if (t.includes('chhath')) return asset('chhath/chhath_hero_banner.webp');
+  return asset('categories/cat_mens_fashion.webp');
+}
+
+function heroImage(path, position = 'center') {
+  return `style="--hero-photo:url('${asset(path)}');--hero-position:${position};"`;
+}
+
+function img(path, alt, cls = '') {
+  return `<img class="${cls}" src="${asset(path)}" alt="${alt}" loading="lazy" decoding="async">`;
+}
+
+function buyerAvatar(index = 1) {
+  const n = String(Math.max(1, Math.min(index, 6))).padStart(2, '0');
+  return asset(`profiles/buyer_avatar_${n}.webp`);
+}
+
+
 function vectorArt(token, variant = 0) {
   const art = {
     '👔': `<svg viewBox="0 0 120 120" aria-hidden="true"><path d="M37 23 50 16h20l13 7 19 20-14 13-9-9v53H41V47l-9 9-14-13 19-20Z" fill="#20242d"/><path d="M50 16 60 30l10-14" fill="#fff" opacity=".9"/><path d="M60 30v70" stroke="#555d6b" stroke-width="2"/><circle cx="61" cy="45" r="2" fill="#d4d8df"/><circle cx="61" cy="58" r="2" fill="#d4d8df"/><circle cx="61" cy="71" r="2" fill="#d4d8df"/></svg>`,
@@ -311,31 +402,36 @@ function vectorArt(token, variant = 0) {
   return art[token] || `<svg viewBox="0 0 120 120" aria-hidden="true"><rect x="18" y="18" width="84" height="84" rx="24" fill="#efe8f4"/><circle cx="60" cy="60" r="26" fill="#cfb6db"/><path d="M42 62h36" stroke="#8a6799" stroke-width="6" stroke-linecap="round"/></svg>`;
 }
 
-function productCard({ title, price, oldPrice = '', rating = '4.4', ratingCount = '8.1K', meta = '', art = '•', route = 'pdp-core', badge = '', badge2 = '' }) {
+function productCard({ title, price, oldPrice = '', rating = '4.4', ratingCount = '8.1K', meta = '', art = '•', route = 'pdp-core', badge = '', badge2 = '', image = '' }) {
+  const photo = image || productImageFor(title, art);
   return `
-    <button class="product-card" data-go="${route}">
-      <div class="product-image">${vectorArt(art)}
+    <button class="product-card" data-go="${route}" aria-label="Open ${title}">
+      <div class="product-image real-photo">
+        <img src="${photo}" alt="${title}" loading="lazy" decoding="async">
         <div class="product-badges">
           ${badge ? `<span class="badge-pill">${badge}</span>` : ''}
           ${badge2 ? `<span class="tiny-pill">${badge2}</span>` : ''}
         </div>
         <span class="favorite-tag">♡</span>
       </div>
-      <b>${title}</b>
+      <b class="product-title">${title}</b>
       ${meta ? `<div class="product-meta">${meta}</div>` : ''}
       <div class="price-row">
         <span class="price">${money(price)}</span>
         ${oldPrice ? `<span class="old-price">${money(oldPrice)}</span>` : ''}
       </div>
-      <div class="rating">★ <b>${rating}</b> (${ratingCount})</div>
+      <div class="rating">★ <b>${rating}</b> <span>(${ratingCount})</span></div>
     </button>
   `;
 }
 
-function categoryCard({ icon, title, subtitle, route }) {
+function categoryCard({ icon, title, subtitle, route, image = '' }) {
+  const photo = image || categoryImageFor(title);
   return `
-    <button class="category-card" data-go="${route}">
-      <div class="art-box">${vectorArt(icon)}</div>
+    <button class="category-card" data-go="${route}" aria-label="Open ${title}">
+      <div class="art-box real-category-photo">
+        <img src="${photo}" alt="${title}" loading="lazy" decoding="async">
+      </div>
       <b>${title}</b>
       <span>${subtitle}</span>
     </button>
@@ -363,15 +459,15 @@ function appBar({ brand = true, title = '', subtitle = '', searchText = 'Search 
       <div class="appbar-row">
         ${left}
         <div class="icon-row">
-          <button class="circle-icon" data-go="search">⌕</button>
-          <button class="circle-icon" data-go="wishlist">♡</button>
-          <button class="ghost-icon" data-go="cart">🛒</button>
+          <button class="circle-icon" data-go="search" aria-label="Search">⌕</button>
+          <button class="circle-icon" data-go="wishlist" aria-label="Wishlist">♡</button>
+          <button class="ghost-icon" data-go="cart" aria-label="Cart">🛒</button>
         </div>
       </div>
       ${brand ? `
-        <div class="profile-chip" style="margin-top:10px;justify-content:space-between;">
-          <div class="profile-chip"><span class="avatar">👤</span> Hello, A</div>
-          <button class="badge-pill" data-go="account">KYC Safe</button>
+        <div class="profile-chip profile-greeting">
+          <div class="profile-chip"><img class="mini-profile-avatar" src="${personaAvatar()}" alt="${personas[state.persona].title} profile"> <span>Hello, ${state.persona === 'college' ? 'Aarav' : state.persona === 'chhath' ? 'Rohit' : state.persona === 'assam' ? 'Nayan' : state.persona === 'mall' ? 'Kabir' : 'Vivek'}</span></div>
+          <button class="badge-pill" data-go="account">My account</button>
         </div>
       ` : ''}
       <button class="search-shell" data-go="search">
@@ -479,22 +575,30 @@ function collegeHome() {
 
       <section class="screen-section">
         ${sectionHeader('Your Style Edit', 'Casual · College · Office · Occasion', 'See all', 'category-fashion')}
-        <div class="hero-banner purple">
-          <span class="eyebrow-inline">Curated for campus</span>
-          <h2>Upgrade your everyday style</h2>
-          <p>Affordable shirts, chinos, sneakers and accessories for class, hangouts and everyday dressing.</p>
-          <button class="hero-cta" data-go="category-fashion">Shop Your Style →</button>
-          <span class="hero-badge">College · Office · Everyday</span>
+        <div class="hero-banner photo-hero photo-hero-light" ${heroImage('college/college_hero_banner.webp', 'center')}>
+          <div class="hero-copy-card">
+            <span class="eyebrow-inline">Curated for campus</span>
+            <h2>Upgrade your everyday style</h2>
+            <p>Affordable shirts, trousers, sneakers and accessories for class, hangouts and everyday dressing.</p>
+            <button class="hero-cta" data-go="category-fashion">Shop Your Style →</button>
+          </div>
         </div>
+      </section>
+
+      <section class="screen-section">
+        <button class="wide-promo-card" data-go="category-fashion">
+          <img src="${asset('promo_college_under499.webp')}" alt="College fashion picks under 499" loading="lazy">
+          <div class="wide-promo-copy"><span>COLLEGE READY</span><b>Everyday campus picks under ₹499</b><small>Shirts · basics · accessories</small></div>
+        </button>
       </section>
 
       <section class="screen-section">
         ${sectionHeader('For Your Style', 'Recommended products aligned to your guided mission.', 'See all', 'category-fashion')}
         <div class="four-up">
-          ${productCard({ title: 'Casual Checked Shirt', price: 299, oldPrice: 449, art: '👔', route: 'pdp-core', badge: 'MTrusted' })}
-          ${productCard({ title: 'Slim Fit Jeans', price: 499, oldPrice: 699, art: '👖', route: 'pdp-core' })}
-          ${productCard({ title: 'Everyday Sneakers', price: 699, oldPrice: 999, art: '👟', route: 'pdp-core', badge: 'Top rated' })}
-          ${productCard({ title: 'Minimal Backpack', price: 499, oldPrice: 749, art: '🎒', route: 'pdp-core' })}
+          ${productCard({ title: 'Casual Checked Shirt', price: 299, oldPrice: 449, art: '👔', route: 'pdp-core', badge: 'MTrusted', image: asset('products/prod_checked_shirt.webp') })}
+          ${productCard({ title: 'Regular Fit Trousers', price: 499, oldPrice: 699, art: '👖', route: 'pdp-core', image: asset('products/prod_trousers.webp') })}
+          ${productCard({ title: 'Everyday Sneakers', price: 699, oldPrice: 999, art: '👟', route: 'pdp-core', badge: 'Top rated', image: asset('products/prod_sneakers.webp') })}
+          ${productCard({ title: 'Minimal Backpack', price: 499, oldPrice: 749, art: '🎒', route: 'pdp-core', image: asset('products/prod_backpack.webp') })}
         </div>
       </section>
 
@@ -505,10 +609,10 @@ function collegeHome() {
       <section class="screen-section">
         ${sectionHeader('Continue Exploring', 'Bundles, style adjacency and more budget-smart picks.', 'See all', 'search')}
         <div class="four-up">
-          ${productCard({ title: 'Analog Watch', price: 399, oldPrice: 599, art: '⌚', route: 'pdp-core' })}
-          ${productCard({ title: 'Overshirt Jacket', price: 749, oldPrice: 999, art: '🧥', route: 'pdp-core', badge2: 'Less returned' })}
-          ${productCard({ title: 'College Tote', price: 329, art: '👜', route: 'pdp-core' })}
-          ${productCard({ title: 'Gym Tee Combo', price: 349, art: '🏋️', route: 'pdp-core' })}
+          ${productCard({ title: 'Analog Watch', price: 399, oldPrice: 599, art: '⌚', route: 'pdp-core', image: asset('products/prod_watch.webp') })}
+          ${productCard({ title: 'Black Casual Shirt', price: 749, oldPrice: 999, art: '🧥', route: 'pdp-core', badge2: 'Less returned', image: asset('products/prod_black_shirt_main.webp') })}
+          ${productCard({ title: 'College Backpack', price: 329, art: '👜', route: 'pdp-core', image: asset('products/prod_backpack.webp') })}
+          ${productCard({ title: 'Polo Tee', price: 349, art: '🏋️', route: 'pdp-core', image: asset('products/prod_polo.webp') })}
         </div>
       </section>
     `
@@ -530,35 +634,33 @@ function assamHome() {
       })}
 
       <section class="screen-section">
-        <div class="hero-banner orange">
-          <span class="eyebrow-inline">Festive picks for Assam</span>
-          <h2>Celebration looks, gifting and home essentials curated for the season</h2>
-          <button class="hero-cta" data-go="category-assam">Explore festive picks →</button>
-          <span class="hero-badge">Illustrative regional personalisation</span>
+        <div class="hero-banner photo-hero photo-hero-dark" ${heroImage('assam/assam_festive_banner.webp', 'center')}>
+          <div class="hero-copy-card">
+            <span class="eyebrow-inline">Festive picks for Assam</span>
+            <h2>Celebration looks, gifting and home essentials for the season</h2>
+            <p>Regional context changes the ordering — not the underlying Meesho experience.</p>
+            <button class="hero-cta" data-go="category-assam">Explore festive picks →</button>
+          </div>
         </div>
       </section>
 
       <section class="screen-section">
         ${sectionHeader('What do you need today?', 'Choose a mission, discover faster — or browse freely.', '', '')}
-        <div class="three-up">
-          <button class="promo-card" data-go="category-assam"><h4>Festive Style</h4><p>Celebration looks under ₹699.</p><div class="pill-row"><span class="badge-pill">Apparel</span><span class="subtle-pill">Puja-ready</span></div></button>
-          <button class="promo-card" data-go="category-grooming"><h4>Self-Care</h4><p>Grooming picks under ₹499.</p><div class="pill-row"><span class="badge-pill">Beauty</span><span class="subtle-pill">Ready-to-gift</span></div></button>
-          <button class="promo-card" data-go="search"><h4>Home Utility</h4><p>Travel and tech essentials under ₹349.</p><div class="pill-row"><span class="badge-pill">Utility</span><span class="subtle-pill">Practical</span></div></button>
-        </div>
-        <div class="three-up" style="margin-top:10px;">
-          <button class="promo-card" data-go="category-fashion"><h4>Everyday Style</h4><p>Basic casuals and easy wardrobe upgrades.</p></button>
-          <button class="promo-card" data-go="search"><h4>Active</h4><p>Sports and fitness essentials for daily use.</p></button>
-          <button class="promo-card" data-go="search"><h4>Gifting</h4><p>Budget gifting picks for friends and family.</p></button>
+        <div class="mission-photo-grid">
+          <button class="mission-photo-card" data-go="category-assam"><img src="${asset('assam/assam_kurta.webp')}" alt="Festive style"><span><b>Festive Style</b><small>Celebration looks under ₹699</small></span></button>
+          <button class="mission-photo-card" data-go="category-grooming"><img src="${asset('assam/assam_selfcare_gift.webp')}" alt="Self care"><span><b>Self-Care</b><small>Grooming picks under ₹499</small></span></button>
+          <button class="mission-photo-card" data-go="search"><img src="${asset('assam/assam_travel_kit.webp')}" alt="Utility"><span><b>Utility</b><small>Travel & everyday essentials</small></span></button>
+          <button class="mission-photo-card" data-go="category-assam"><img src="${asset('assam/assam_decor_set.webp')}" alt="Festive home"><span><b>Home & Gifting</b><small>Seasonal accents and giftable picks</small></span></button>
         </div>
       </section>
 
       <section class="screen-section">
         ${sectionHeader('Trending in Assam', 'Popular products & categories shaped by regional context.', 'See all', 'category-assam')}
         <div class="four-up">
-          ${productCard({ title: 'Men’s Kurta', price: 429, art: '🧵', route: 'pdp-core', badge: 'Festive' })}
-          ${productCard({ title: 'Casual Shoes', price: 449, art: '👟', route: 'pdp-core' })}
-          ${productCard({ title: 'Grooming Kit', price: 249, art: '🧴', route: 'pdp-core' })}
-          ${productCard({ title: 'Home Decor Set', price: 199, art: '🏠', route: 'pdp-core' })}
+          ${productCard({ title: 'Assam Festive Kurta', price: 429, route: 'pdp-core', badge: 'Festive', image: asset('assam/assam_kurta.webp') })}
+          ${productCard({ title: 'Festive Home Decor Set', price: 449, route: 'pdp-core', image: asset('assam/assam_decor_set.webp') })}
+          ${productCard({ title: 'Self-care Gift Box', price: 249, route: 'pdp-core', image: asset('assam/assam_selfcare_gift.webp') })}
+          ${productCard({ title: 'Travel Utility Kit', price: 199, route: 'pdp-core', image: asset('assam/assam_travel_kit.webp') })}
         </div>
       </section>
 
@@ -583,32 +685,40 @@ function chhathHome() {
         ]
       })}
       <section class="screen-section">
-        <div class="hero-banner orange">
-          <span class="eyebrow-inline">Chhath special</span>
-          <h2>Festive offers for the Chhath season</h2>
-          <p>Occasion-led shopping for outfits, puja décor, gifting and home preparation — all in one place.</p>
-          <button class="hero-cta" data-go="category-chhath">Shop Chhath picks →</button>
-          <span class="hero-badge">Bihar regional festive mission</span>
+        <div class="hero-banner photo-hero photo-hero-dark" ${heroImage('chhath/chhath_hero_banner.webp', 'center')}>
+          <div class="hero-copy-card">
+            <span class="eyebrow-inline">Chhath special</span>
+            <h2>Festive fashion, gifting and home prep in one journey</h2>
+            <p>Start from the occasion and move directly into useful, trusted product missions.</p>
+            <button class="hero-cta" data-go="category-chhath">Shop Chhath picks →</button>
+          </div>
         </div>
       </section>
+
       <section class="screen-section">
         ${sectionHeader('Shop by need', 'Start with the mission you want to complete.', '', '')}
-        <div class="two-up">
-          <button class="promo-card" data-go="category-chhath"><h4>Festive Fashion</h4><p>Sarees, kurtas and celebration outfits curated for Chhath gatherings.</p><div class="pill-row"><span class="badge-pill">Popular</span><span class="subtle-pill">Offer zone</span></div></button>
-          <button class="promo-card" data-go="category-chhath"><h4>Puja & Home Décor</h4><p>Thali, décor accents, lights and useful home essentials.</p><div class="pill-row"><span class="badge-pill">Mission bundle</span></div></button>
-        </div>
-        <div class="two-up" style="margin-top:10px;">
-          <button class="promo-card" data-go="search"><h4>Gift Picks</h4><p>Shareable gifting ideas for family visits and festival moments.</p></button>
-          <button class="promo-card" data-go="search"><h4>Travel & Utility</h4><p>Travel pouches, bottles and value essentials for seasonal movement.</p></button>
+        <div class="mission-photo-grid">
+          <button class="mission-photo-card featured" data-go="category-chhath"><img src="${asset('chhath/chhath_saree.webp')}" alt="Festive fashion"><span><b>Festive Fashion</b><small>Sarees, kurtas and celebration looks</small></span></button>
+          <button class="mission-photo-card" data-go="category-chhath"><img src="${asset('chhath/chhath_decor_pack.webp')}" alt="Puja and home decor"><span><b>Puja & Home</b><small>Decor and useful home preparation</small></span></button>
+          <button class="mission-photo-card" data-go="search"><img src="${asset('chhath/chhath_gift_hamper.webp')}" alt="Gift picks"><span><b>Gift Picks</b><small>Easy gifts for family visits</small></span></button>
+          <button class="mission-photo-card" data-go="search"><img src="${asset('chhath/chhath_travel_pouch.webp')}" alt="Travel utility"><span><b>Travel & Utility</b><small>Seasonal travel essentials</small></span></button>
         </div>
       </section>
+
+      <section class="screen-section">
+        <button class="wide-promo-card warm" data-go="category-chhath">
+          <img src="${asset('promo_festive_under699.webp')}" alt="Festive products under 699" loading="lazy">
+          <div class="wide-promo-copy"><span>FESTIVE VALUE</span><b>Celebration picks under ₹699</b><small>Fashion · gifting · home</small></div>
+        </button>
+      </section>
+
       <section class="screen-section">
         ${sectionHeader('Festive favourites', 'Qualified listings with value-led merchandising.', 'See all', 'category-chhath')}
         <div class="four-up">
-          ${productCard({ title: 'Printed Kurta Set', price: 699, oldPrice: 999, art: '👘', route: 'pdp-core', badge: 'Mall' })}
-          ${productCard({ title: 'Decor Light String', price: 179, art: '✨', route: 'pdp-core' })}
-          ${productCard({ title: 'Serving Tray Set', price: 249, art: '🍽️', route: 'pdp-core', badge2: 'Top rated' })}
-          ${productCard({ title: 'Travel Pouch Combo', price: 229, art: '🧳', route: 'pdp-core' })}
+          ${productCard({ title: 'Printed Kurta Set', price: 699, oldPrice: 999, route: 'pdp-core', badge: 'Mall', image: asset('chhath/chhath_kurta.webp') })}
+          ${productCard({ title: 'Celebration Saree', price: 799, route: 'pdp-core', image: asset('chhath/chhath_saree.webp') })}
+          ${productCard({ title: 'Puja & Decor Pack', price: 249, route: 'pdp-core', badge2: 'Top rated', image: asset('chhath/chhath_decor_pack.webp') })}
+          ${productCard({ title: 'Gift Hamper', price: 299, route: 'pdp-core', image: asset('chhath/chhath_gift_hamper.webp') })}
         </div>
       </section>
       <section class="screen-section">${trustTwinCards()}</section>
@@ -623,60 +733,59 @@ function mallHome() {
       ${appBar({
         brand: false,
         title: 'MEN’S GROOMING',
-        subtitle: 'Self care · Men’s Grooming',
+        subtitle: 'Self care · Meesho Mall',
         searchText: 'Search in Men’s Grooming',
         chips: [
-          { label: 'Shop by Trust', route: 'mall-home' },
           { label: 'Meesho Mall', route: 'mall-home' },
-          { label: 'MTrusted', route: 'mtrusted-home' }
+          { label: 'MTrusted', route: 'mtrusted-home' },
+          { label: 'Why Mall?', route: 'mall-explainer' }
         ],
         backRoute: 'categories'
       })}
 
       <section class="screen-section">
-        <div class="hero-banner mall">
-          <span class="eyebrow-inline">Meesho Mall</span>
-          <h2>Brands you know. Value you expect.</h2>
-          <p>Shop branded grooming from curated sellers, with clear source confidence and price-value framing.</p>
-          <div class="pill-row" style="margin-top:12px;"><span class="tiny-pill">Original brands</span><span class="tiny-pill">Mall authorised seller</span></div>
-          <button class="hero-cta" data-go="mall-explainer">What does Mall mean? →</button>
+        <div class="hero-banner photo-hero photo-hero-dark" ${heroImage('mall/mall_grooming_banner.webp', 'center')}>
+          <div class="hero-copy-card">
+            <span class="eyebrow-inline">Meesho Mall</span>
+            <h2>Brands you know. Value you expect.</h2>
+            <p>A branded destination for shoppers who care about source confidence and provenance.</p>
+            <button class="hero-cta" data-go="mall-explainer">What does Mall mean? →</button>
+          </div>
         </div>
       </section>
 
       <section class="screen-section">
         <div class="three-up">
           <button class="value-tile" data-go="mall-explainer"><b>Brand confidence</b><span>Known brands reduce source-checking.</span></button>
-          <button class="value-tile" data-go="mall-explainer"><b>Authorised sellers</b><span>Products from verified brand-linked sources.</span></button>
-          <button class="value-tile" data-go="mall-explainer"><b>Value on trusted brands</b><span>Brand discovery with price-value context.</span></button>
+          <button class="value-tile" data-go="mall-explainer"><b>Source assurance</b><span>Clear provenance for brand-sensitive missions.</span></button>
+          <button class="value-tile" data-go="mall-explainer"><b>Value confidence</b><span>Compare trusted products without losing price context.</span></button>
         </div>
       </section>
 
       <section class="screen-section">
-        ${sectionHeader('Shop your brand', 'Trusted brand entries for faster grooming discovery.', 'See all', 'category-grooming')}
-        <div class="shop-by-brand">
-          ${['Nivea', 'Dabur', 'Mamaearth', 'Bombay Shaving', 'Himalaya', 'Ponds', 'L’Oréal', 'Beardo'].map(name => `<button class="brand-logo" data-go="category-grooming">${name}</button>`).join('')}
+        ${sectionHeader('Shop branded grooming by need', 'Start from the grooming task you want to complete.', '', '')}
+        <div class="mall-need-grid">
+          <button class="mall-need-card" data-go="category-grooming"><img src="${asset('mall/mall_shaving_kit.webp')}" alt="Shaving"><b>Shaving</b><span>Razors · foam · after-care</span></button>
+          <button class="mall-need-card" data-go="category-grooming"><img src="${asset('mall/mall_facewash.webp')}" alt="Face care"><b>Face care</b><span>Wash · skincare basics</span></button>
+          <button class="mall-need-card" data-go="category-grooming"><img src="${asset('mall/mall_beard_oil.webp')}" alt="Beard care"><b>Beard care</b><span>Oil · grooming essentials</span></button>
+          <button class="mall-need-card" data-go="category-grooming"><img src="${asset('mall/mall_deodorant.webp')}" alt="Fragrance"><b>Fragrance</b><span>Daily freshness</span></button>
         </div>
       </section>
 
       <section class="screen-section">
-        ${sectionHeader('Shop branded grooming by need', 'Find the exact sub-mission you want to complete.', '', '')}
-        <div class="brand-need-grid">
-          ${[
-            ['🪒', 'Shaving', 'Razors · cream'],
-            ['🧴', 'Face care', 'Cleansers · serums'],
-            ['💇', 'Beard care', 'Beard oil · wash'],
-            ['🌿', 'Fragrance', 'Daily freshness']
-          ].map(([icon, title, sub]) => `<button class="need-tile" data-go="category-grooming"><div class="need-art">${icon}</div><b>${title}</b><span>${sub}</span></button>`).join('')}
-        </div>
+        <button class="wide-promo-card" data-go="category-grooming">
+          <img src="${asset('promo_grooming_under499.webp')}" alt="Grooming picks under 499" loading="lazy">
+          <div class="wide-promo-copy"><span>GROOMING RESET</span><b>Routine essentials under ₹499</b><small>Face care · shaving · beard care</small></div>
+        </button>
       </section>
 
       <section class="screen-section">
-        ${sectionHeader('Branded picks for you', 'Mall-qualified assortment for grooming routines.', 'See all', 'category-grooming')}
+        ${sectionHeader('Mall picks for you', 'Branded-looking assortment for grooming routines.', 'See all', 'category-grooming')}
         <div class="four-up">
-          ${productCard({ title: 'Daily Face Wash', price: 199, art: '🧴', route: 'pdp-core', badge: 'Mall' })}
-          ${productCard({ title: 'Beard Oil Kit', price: 249, art: '🧔', route: 'pdp-core', badge: 'Mall' })}
-          ${productCard({ title: 'Shaving Foam Duo', price: 279, art: '🪒', route: 'pdp-core', badge: 'Mall' })}
-          ${productCard({ title: 'Deo Body Spray', price: 179, art: '🌿', route: 'pdp-core', badge: 'Mall' })}
+          ${productCard({ title: 'Daily Face Wash', price: 199, route: 'pdp-core', badge: 'Mall', image: asset('mall/mall_facewash.webp') })}
+          ${productCard({ title: 'Beard Oil', price: 249, route: 'pdp-core', badge: 'Mall', image: asset('mall/mall_beard_oil.webp') })}
+          ${productCard({ title: 'Shaving Essentials Kit', price: 279, route: 'pdp-core', badge: 'Mall', image: asset('mall/mall_shaving_kit.webp') })}
+          ${productCard({ title: 'Deodorant Body Spray', price: 179, route: 'pdp-core', badge: 'Mall', image: asset('mall/mall_deodorant.webp') })}
         </div>
       </section>
     `
@@ -690,22 +799,32 @@ function mtrustedHome() {
       ${appBar({
         brand: false,
         title: 'MEN’S FASHION',
-        subtitle: 'Fashion · Men’s Fashion',
+        subtitle: 'Fashion · MTrusted',
         searchText: 'Search in Men’s Fashion',
         chips: [
-          { label: 'Shop by Trust', route: 'mtrusted-home' },
+          { label: 'MTrusted', route: 'mtrusted-home' },
           { label: 'Meesho Mall', route: 'mall-home' },
-          { label: 'MTrusted', route: 'mtrusted-home' }
+          { label: 'Why MTrusted?', route: 'mtrusted-explainer' }
         ],
         backRoute: 'category-fashion'
       })}
 
       <section class="screen-section">
-        <div class="hero-banner purple">
-          <span class="eyebrow-inline">MTrusted picks</span>
-          <h2>Shop with stronger seller confidence</h2>
-          <p>Discover products from listings where seller reliability and marketplace-quality signals are easier to understand.</p>
-          <button class="hero-cta" data-go="mtrusted-explainer">Why MTrusted? →</button>
+        <div class="hero-banner photo-hero photo-hero-dark" ${heroImage('mtrusted/mtrusted_fashion_banner.webp', 'center')}>
+          <div class="hero-copy-card">
+            <span class="eyebrow-inline">MTrusted picks</span>
+            <h2>Shop with stronger seller confidence</h2>
+            <p>Seller reliability and listing-quality signals are organised into one explainable trust system.</p>
+            <button class="hero-cta" data-go="mtrusted-explainer">Why MTrusted? →</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="screen-section">
+        ${sectionHeader('Evidence behind the signal', 'The user can inspect why a listing feels more dependable.', '', '')}
+        <div class="evidence-photo-grid">
+          <button class="evidence-photo-card" data-go="mtrusted-explainer"><img src="${asset('mtrusted/quality_check_fashion.webp')}" alt="Fashion quality check"><span><b>Listing & quality discipline</b><small>Better product information and inspection cues</small></span></button>
+          <button class="evidence-photo-card" data-go="seller-profile"><img src="${asset('mtrusted/fulfilment_package.webp')}" alt="Reliable fulfilment"><span><b>Reliable fulfilment</b><small>Seller operations that reduce post-order uncertainty</small></span></button>
         </div>
       </section>
 
@@ -722,26 +841,20 @@ function mtrustedHome() {
       </section>
 
       <section class="screen-section">
-        ${sectionHeader('What matters to you?', '', '', '')}
-        <div class="chip-row">
-          ${['Complete return info', 'Strong category history', 'Low issue signals', 'Reliable fulfilment'].map(label => `<button class="filter-chip" data-go="mtrusted-explainer">${label}</button>`).join('')}
-        </div>
-      </section>
-
-      <section class="screen-section">
         ${sectionHeader('MTrusted in men’s fashion', 'Qualified products based on seller and listing signals.', 'See all', 'category-fashion')}
         <div class="four-up">
-          ${productCard({ title: 'Basic Polo T-Shirt', price: 239, art: '👕', route: 'pdp-core', badge: 'MTrusted' })}
-          ${productCard({ title: 'Striped Shirt', price: 549, art: '👔', route: 'pdp-core', badge: 'MTrusted' })}
-          ${productCard({ title: 'Formal Shirt', price: 299, art: '🧵', route: 'pdp-core', badge: 'MTrusted' })}
-          ${productCard({ title: 'Casual Trousers', price: 449, art: '👖', route: 'pdp-core', badge: 'MTrusted' })}
+          ${productCard({ title: 'Basic Polo T-Shirt', price: 239, route: 'pdp-core', badge: 'MTrusted', image: asset('products/prod_polo.webp') })}
+          ${productCard({ title: 'Checked Shirt', price: 549, route: 'pdp-core', badge: 'MTrusted', image: asset('products/prod_checked_shirt.webp') })}
+          ${productCard({ title: 'Black Casual Shirt', price: 299, route: 'pdp-core', badge: 'MTrusted', image: asset('products/prod_black_shirt_main.webp') })}
+          ${productCard({ title: 'Casual Trousers', price: 449, route: 'pdp-core', badge: 'MTrusted', image: asset('products/prod_trousers.webp') })}
         </div>
       </section>
 
       <section class="screen-section">
-        <div class="two-up">
-          <button class="promo-card" data-go="mtrusted-explainer"><h4>Why this product is MTrusted</h4><p>Eligible seller in men’s fashion, stable fulfilment history and better listing completeness.</p></button>
-          <button class="promo-card" data-go="seller-profile"><h4>About the seller</h4><p>XYZ Fashion has strong category performance and a reliable buyer experience.</p></button>
+        <div class="seller-mini-strip" data-go="seller-profile">
+          <img src="${asset('seller/seller_xyz_logo.webp')}" alt="XYZ Fashion logo">
+          <div><b>XYZ Fashion</b><span>Strong category performance · reliable fulfilment · low issue incidence</span></div>
+          <span>→</span>
         </div>
       </section>
     `
@@ -885,722 +998,3 @@ function searchScreen() {
     `
   });
 }
-
-function pdpCore() {
-  return phoneTemplate({
-    nav: 'home',
-    ctas: ctaBar({ label: 'Buy now', route: 'checkout' }, { label: 'Add to cart', route: 'cart' }),
-    content: `
-      ${appBar({ brand: false, title: 'PRODUCT', subtitle: 'Proof-first product detail page', searchText: 'Search related products', backRoute: state.persona === 'mall' ? 'category-grooming' : 'category-fashion' })}
-      <div class="product-detail-hero">
-        <div>
-          <div class="sku-image">${vectorArt('👔')}</div>
-          <div class="thumbnail-row">
-            <button class="thumbnail" data-go="ugc-gallery">1</button>
-            <button class="thumbnail" data-go="ugc-gallery">2</button>
-            <button class="thumbnail" data-go="ugc-gallery">3</button>
-            <button class="thumbnail" data-go="ugc-gallery">+3</button>
-          </div>
-        </div>
-        <div class="info-stack">
-          <h2>Men’s Regular Fit Casual Shirt</h2>
-          <div class="info-subline">Black · Size L</div>
-          <div class="hero-price"><span class="price">₹313</span></div>
-          <div class="info-subline">Other variants ₹233–₹313</div>
-          <div style="margin-top:12px;font-size:.78rem;font-weight:800;color:#7b718a;">Size</div>
-          <div class="size-grid">
-            <button class="size-pill" data-go="pdp-core">S</button>
-            <button class="size-pill" data-go="pdp-core">M</button>
-            <button class="size-pill active" data-go="pdp-core">L</button>
-            <button class="size-pill" data-go="pdp-core">XL</button>
-            <button class="size-pill" data-go="pdp-core">XXL</button>
-          </div>
-        </div>
-      </div>
-
-      <div class="info-card" data-go="product-details">
-        ${sectionHeader('Product details', 'Category-specific information standardisation.', 'View all details', 'product-details')}
-        <div class="details-grid">
-          <div class="detail-item"><b>Fabric</b><span>Cotton blend</span></div>
-          <div class="detail-item"><b>Fit</b><span>Regular fit</span></div>
-          <div class="detail-item"><b>Sleeve</b><span>Full sleeve</span></div>
-          <div class="detail-item"><b>Pattern</b><span>Solid</span></div>
-          <div class="detail-item"><b>Care</b><span>Machine wash</span></div>
-          <div class="detail-item"><b>Pack</b><span>1 shirt</span></div>
-        </div>
-      </div>
-
-      <div class="info-card seller-module" data-go="seller-profile">
-        ${sectionHeader('Sold by', 'Seller performance in Men’s Fashion', 'View seller profile', 'seller-profile')}
-        <div class="seller-name">XYZ Fashion</div>
-        <div class="trust-badges">
-          <div class="trust-badge"><b>Strong category performance</b><span>Stable category quality history.</span></div>
-          <div class="trust-badge"><b>Reliable fulfilment</b><span>Consistent shipping and delivery outcomes.</span></div>
-          <div class="trust-badge"><b>Low issue incidence</b><span>Healthier post-order outcomes.</span></div>
-        </div>
-      </div>
-
-      <div class="info-card" data-go="reviews">
-        ${sectionHeader('Customers say', 'Based on verified buyer feedback', 'View review intelligence', 'reviews')}
-        <div class="review-pill-grid">
-          <div class="review-pill"><b>Fit</b><span>Mostly true to size</span></div>
-          <div class="review-pill"><b>Fabric</b><span>Soft and lightweight</span></div>
-          <div class="review-pill"><b>Colour</b><span>Generally matches images</span></div>
-          <div class="review-pill"><b>Quality</b><span>Mostly positive — some durability concerns</span></div>
-        </div>
-      </div>
-
-      <div class="info-card" data-go="ugc-gallery">
-        ${sectionHeader('Real buyer photos & videos', 'Verified purchase content', 'View gallery', 'ugc-gallery')}
-        <div class="ugc-row">
-          <div class="ugc-thumb">${vectorArt('📷')}</div>
-          <div class="ugc-thumb">${vectorArt('🎥')}</div>
-          <div class="ugc-thumb">${vectorArt('📷')}</div>
-        </div>
-        <div class="review-quote">
-          <b>Verified Purchase · Size L</b>
-          <p>“The fit matched the size guide and the fabric looked close to the listing. Good for daily college wear.”</p>
-        </div>
-      </div>
-
-      <div class="info-card" data-go="certainty" style="margin-bottom:20px;">
-        ${sectionHeader('Transaction certainty', 'Reduce last-mile hesitation', 'View certainty', 'certainty')}
-        <div class="transaction-list">
-          <div class="transaction-item"><div class="transaction-icon">🚚</div><div class="transaction-copy"><b>Delivery by Tue, 8 Oct</b><span>Visible near decision, not hidden inside checkout.</span></div></div>
-          <div class="transaction-item"><div class="transaction-icon">↩</div><div class="transaction-copy"><b>7-day eligible return / replacement</b><span>Simple promise before purchase.</span></div></div>
-          <div class="transaction-item"><div class="transaction-icon">₹</div><div class="transaction-copy"><b>Refund status traceable after initiation</b><span>Payment and reverse-flow clarity.</span></div></div>
-        </div>
-      </div>
-    `
-  });
-}
-
-function productDetailsScreen() {
-  return phoneTemplate({
-    nav: 'home',
-    ctas: ctaBar({ label: 'Back to PDP', route: 'pdp-core' }, { label: 'Add to cart', route: 'cart' }),
-    content: `
-      ${appBar({ brand: false, title: 'PRODUCT DETAILS', subtitle: 'Decision-critical information', searchText: 'Search product help', backRoute: 'pdp-core' })}
-      <div class="list-card">
-        <h4>Men’s Regular Fit Casual Shirt</h4>
-        <p style="margin:0;color:var(--muted);font-size:.75rem;line-height:1.45;">Category-specific information standard for fashion. The goal is to remove ambiguity before the user commits.</p>
-      </div>
-      <div class="list-card">
-        <h4>Core specifications</h4>
-        <div class="details-grid">
-          <div class="detail-item"><b>Fabric</b><span>Cotton blend</span></div>
-          <div class="detail-item"><b>Fit</b><span>Regular fit</span></div>
-          <div class="detail-item"><b>Chest</b><span>42 in</span></div>
-          <div class="detail-item"><b>Length</b><span>29 in</span></div>
-          <div class="detail-item"><b>Sleeve</b><span>Full sleeve</span></div>
-          <div class="detail-item"><b>Pattern</b><span>Solid</span></div>
-          <div class="detail-item"><b>Care</b><span>Machine wash</span></div>
-          <div class="detail-item"><b>Pack</b><span>1 shirt</span></div>
-        </div>
-      </div>
-      <div class="list-card">
-        <h4>Expectation setting</h4>
-        <div class="detail-list">
-          <div class="detail-list-item"><b>Colour</b><span>Black; buyer feedback says it generally matches listing images.</span></div>
-          <div class="detail-list-item"><b>Size guidance</b><span>Most buyers report the product is true to size.</span></div>
-          <div class="detail-list-item"><b>Returns</b><span>7-day eligible return / replacement for this illustrative listing.</span></div>
-        </div>
-      </div>
-    `
-  });
-}
-
-function sellerProfile() {
-  return phoneTemplate({
-    nav: 'home',
-    ctas: ctaBar({ label: 'Back to PDP', route: 'pdp-core' }, { label: 'View trusted products', route: 'mtrusted-home' }),
-    content: `
-      ${appBar({ brand: false, title: 'SELLER PROFILE', subtitle: 'Trust evidence made legible', searchText: 'Search this seller', backRoute: 'pdp-core' })}
-      <div class="list-card">
-        <h4>XYZ Fashion</h4>
-        <p style="margin:0;color:var(--muted);font-size:.75rem;line-height:1.45;">Seller performance in Men’s Fashion · Illustrative profile for prototype demonstration.</p>
-        <div class="badge-grid">
-          <div class="mini-card center"><h4>4.6 / 5</h4><p>Average buyer satisfaction</p></div>
-          <div class="mini-card center"><h4>95%</h4><p>On-time fulfilment</p></div>
-          <div class="mini-card center"><h4>Low</h4><p>Issue incidence</p></div>
-        </div>
-      </div>
-      <div class="list-card">
-        <h4>Why this seller feels trustworthy</h4>
-        <div class="detail-list">
-          <div class="detail-list-item"><b>Strong category history</b><span>Consistent performance in Men’s Fashion, helping the shopper reduce evaluation effort.</span></div>
-          <div class="detail-list-item"><b>Reliable fulfilment</b><span>Good shipping consistency and operational outcomes on similar listings.</span></div>
-          <div class="detail-list-item"><b>Lower issue signals</b><span>Cleaner post-order experience relative to marketplace baselines.</span></div>
-          <div class="detail-list-item"><b>Listing quality discipline</b><span>Better description completeness and clearer buyer expectations.</span></div>
-        </div>
-      </div>
-    `
-  });
-}
-
-function reviewsScreen() {
-  return phoneTemplate({
-    nav: 'home',
-    ctas: ctaBar({ label: 'Back to PDP', route: 'pdp-core' }, { label: 'See buyer gallery', route: 'ugc-gallery' }),
-    content: `
-      ${appBar({ brand: false, title: 'REVIEW INTELLIGENCE', subtitle: 'Summarised + traceable buyer evidence', searchText: 'Search reviews', backRoute: 'pdp-core' })}
-      <div class="list-card">
-        <h4>What buyers are saying</h4>
-        <div class="detail-tags"><span class="detail-tag">Fit: mostly true to size</span><span class="detail-tag">Fabric: soft & lightweight</span><span class="detail-tag">Colour: close to image</span><span class="detail-tag">Quality: good for price</span></div>
-      </div>
-      <div class="list-card">
-        <h4>Pros & cons</h4>
-        <div class="two-up">
-          <div class="mini-card"><h4>Pros</h4><p>Good fit, value-for-money, wearable for daily college use.</p></div>
-          <div class="mini-card"><h4>Watch-outs</h4><p>Fabric is lightweight, so expectations should be set clearly.</p></div>
-        </div>
-      </div>
-      <div class="list-card">
-        <h4>Traceable verified reviews</h4>
-        <div class="detail-list">
-          <div class="detail-list-item"><b>Verified buyer · size L</b><span>“Looked close to the listing and fit me well. Great for everyday wear.”</span></div>
-          <div class="detail-list-item"><b>Verified buyer · size M</b><span>“Soft fabric and neat stitching. Delivery timeline was accurate too.”</span></div>
-          <div class="detail-list-item"><b>Verified buyer · size XL</b><span>“Value for money, but best for casual use rather than formal occasions.”</span></div>
-        </div>
-      </div>
-    `
-  });
-}
-
-function ugcGalleryScreen() {
-  return phoneTemplate({
-    nav: 'home',
-    ctas: ctaBar({ label: 'Back to PDP', route: 'pdp-core' }, { label: 'See reviews', route: 'reviews' }),
-    content: `
-      ${appBar({ brand: false, title: 'VERIFIED BUYER GALLERY', subtitle: 'Real buyer photos & videos', searchText: 'Search buyer content', backRoute: 'pdp-core' })}
-      <div class="list-card">
-        <h4>Verified purchase media</h4>
-        <div class="three-up">
-          <button class="ugc-thumb" data-go="ugc-gallery">${vectorArt('📷')}</button>
-          <button class="ugc-thumb" data-go="ugc-gallery">${vectorArt('🎥')}</button>
-          <button class="ugc-thumb" data-go="ugc-gallery">${vectorArt('📷')}</button>
-          <button class="ugc-thumb" data-go="ugc-gallery">${vectorArt('🎥')}</button>
-          <button class="ugc-thumb" data-go="ugc-gallery">${vectorArt('📷')}</button>
-          <button class="ugc-thumb" data-go="ugc-gallery">${vectorArt('📷')}</button>
-        </div>
-      </div>
-      <div class="list-card">
-        <h4>What this helps the user judge</h4>
-        <div class="detail-list">
-          <div class="detail-list-item"><b>Fit in reality</b><span>How the shirt sits on actual buyers instead of only polished listing imagery.</span></div>
-          <div class="detail-list-item"><b>Fabric feel</b><span>Texture and weight cues surfaced visually.</span></div>
-          <div class="detail-list-item"><b>Colour confidence</b><span>More realistic understanding of shade and finish.</span></div>
-        </div>
-      </div>
-    `
-  });
-}
-
-function certaintyScreen() {
-  return phoneTemplate({
-    nav: 'home',
-    ctas: ctaBar({ label: 'Proceed to checkout', route: 'checkout' }, { label: 'Back to PDP', route: 'pdp-core' }),
-    content: `
-      ${appBar({ brand: false, title: 'TRANSACTION CERTAINTY', subtitle: 'Delivery, returns and payments', searchText: 'Search policy help', backRoute: 'pdp-core' })}
-      <div class="list-card">
-        <h4>Delivery promise</h4>
-        <div class="transaction-list">
-          <div class="transaction-item"><div class="transaction-icon">🚚</div><div class="transaction-copy"><b>Expected by Tue, 8 Oct</b><span>Prominent pre-purchase estimate lowers arrival uncertainty.</span></div></div>
-          <div class="transaction-item"><div class="transaction-icon">📍</div><div class="transaction-copy"><b>Delivery available to your location</b><span>Clear availability before the final step.</span></div></div>
-        </div>
-      </div>
-      <div class="list-card">
-        <h4>Returns and refund confidence</h4>
-        <div class="detail-list">
-          <div class="detail-list-item"><b>7-day eligible return / replacement</b><span>Simple, visible and consistent policy wording.</span></div>
-          <div class="detail-list-item"><b>Refund status traceable</b><span>Buyer can follow the refund after initiation.</span></div>
-          <div class="detail-list-item"><b>Secure payment options</b><span>Payment trust is not left to chance or hidden copy.</span></div>
-        </div>
-      </div>
-    `
-  });
-}
-
-function pdpGrowth() {
-  return phoneTemplate({
-    nav: 'home',
-    ctas: ctaBar({ label: 'Buy now', route: 'checkout' }, { label: 'Add all to cart', route: 'cart' }),
-    content: `
-      ${appBar({ brand: false, title: 'COMPLETE THE MISSION', subtitle: 'Mission expansion without losing trust', searchText: 'Search similar styles', backRoute: 'pdp-core' })}
-      <div class="info-card">
-        ${sectionHeader('Complete your look', 'Build the rest of your casual look.', '', '')}
-        <div class="three-up">
-          ${productCard({ title: 'Regular Fit Casual Shirt', price: 313, art: '👔', route: 'pdp-core', badge2: 'Current' })}
-          ${productCard({ title: 'Regular Fit Trousers', price: 449, art: '👖', route: 'pdp-core' })}
-          ${productCard({ title: 'Casual Sneakers', price: 699, art: '👟', route: 'pdp-core' })}
-        </div>
-        <div class="chip-row" style="margin-top:10px;"><span class="badge-pill">Casual</span><span class="subtle-pill">College</span><span class="tiny-pill">Add all 3 to cart · ₹1,461</span></div>
-      </div>
-      <div class="info-card">
-        ${sectionHeader('Pair with similar styles', 'Popular with shoppers who viewed this shirt', '', '')}
-        <div class="three-up">
-          ${productCard({ title: 'Men’s Casual Shirt', price: 329, art: '👔', route: 'pdp-core' })}
-          ${productCard({ title: 'Men’s Checked Shirt', price: 349, art: '🧵', route: 'pdp-core' })}
-          ${productCard({ title: 'Men’s Linen Blend', price: 378, art: '👕', route: 'pdp-core' })}
-        </div>
-      </div>
-      <div class="info-card">
-        ${sectionHeader('Share & save', 'Invite friends to unlock a lower price.', '', '')}
-        <div class="two-up">
-          <button class="promo-card" data-go="group-save"><h4>Lower price with more shoppers</h4><p>Shop together and save on this product.</p></button>
-          <button class="promo-card" data-go="group-save"><h4>Create a group</h4><p>Start a simple flow for group purchase and sharing.</p></button>
-        </div>
-      </div>
-      <div class="info-card" style="margin-bottom: 18px;">
-        ${sectionHeader('Trust shortcuts explained', 'Different trust signals answer different questions.', '', '')}
-        ${trustTwinCards()}
-        <div class="three-up" style="margin-top:10px;">
-          <div class="mini-card center"><h4>100% genuine</h4><p>Products sourced from verified sellers.</p></div>
-          <div class="mini-card center"><h4>Easy returns</h4><p>7-day return policy.</p></div>
-          <div class="mini-card center"><h4>Safe payments</h4><p>Reliable and secure payment options.</p></div>
-        </div>
-      </div>
-    `
-  });
-}
-
-function mallExplainer() {
-  return phoneTemplate({
-    nav: 'home',
-    ctas: ctaBar({ label: 'Explore Mall products', route: 'mall-home' }, { label: 'Back', route: 'pdp-growth' }),
-    content: `
-      ${appBar({ brand: false, title: 'MEESHO MALL', subtitle: 'Brand / provenance trust', searchText: 'Search Mall', backRoute: 'pdp-growth' })}
-      <div class="list-card">
-        <h4>What Meesho Mall means</h4>
-        <p style="margin:0;color:var(--muted);font-size:.75rem;line-height:1.45;">Mall is the destination for shoppers who want brand recognition and clearer source confidence. It is not just another badge — it is a distinct branded assortment system.</p>
-        <div class="explainer-list">
-          <div class="explainer-point"><b>Brand recognition</b><span>Known brands help the shopper trust the source more quickly.</span></div>
-          <div class="explainer-point"><b>Clear source</b><span>Products come from organised branded assortment pathways.</span></div>
-          <div class="explainer-point"><b>Value confidence</b><span>Brand-sensitive shopping missions become easier and faster.</span></div>
-        </div>
-      </div>
-    `
-  });
-}
-
-function mtrustedExplainer() {
-  return phoneTemplate({
-    nav: 'home',
-    ctas: ctaBar({ label: 'Explore MTrusted picks', route: 'mtrusted-home' }, { label: 'Back', route: 'pdp-growth' }),
-    content: `
-      ${appBar({ brand: false, title: 'MTRUSTED', subtitle: 'Seller + listing quality trust', searchText: 'Search MTrusted', backRoute: 'pdp-growth' })}
-      <div class="list-card">
-        <h4>What MTrusted means</h4>
-        <p style="margin:0;color:var(--muted);font-size:.75rem;line-height:1.45;">MTrusted organises evidence about the seller and listing so the user does not need to inspect scattered marketplace signals manually.</p>
-        <div class="explainer-list">
-          <div class="explainer-point"><b>Seller reliability</b><span>Signals from category history and better issue outcomes.</span></div>
-          <div class="explainer-point"><b>Reliable fulfilment</b><span>Operational consistency reduces hesitation before purchase.</span></div>
-          <div class="explainer-point"><b>Listing completeness</b><span>Better product information lowers expectation gaps.</span></div>
-        </div>
-      </div>
-    `
-  });
-}
-
-function groupSaveScreen() {
-  return phoneTemplate({
-    nav: 'home',
-    ctas: ctaBar({ label: 'Create group', route: 'group-created' }, { label: 'Back to mission', route: 'pdp-growth' }),
-    content: `
-      ${appBar({ brand: false, title: 'SHARE & SAVE', subtitle: 'Optional group purchase', searchText: 'Search help', backRoute: 'pdp-growth' })}
-      <div class="list-card">
-        <h4>Unlock a lower price together</h4>
-        <p style="margin:0;color:var(--muted);font-size:.75rem;line-height:1.45;">Create a group and invite friends. The price unlock condition is shown before sharing so the mechanism remains understandable.</p>
-        <div class="detail-stat-grid">
-          <div class="detail-stat"><b>Standard</b><span>₹313</span></div>
-          <div class="detail-stat"><b>Group price</b><span>₹289</span></div>
-        </div>
-      </div>
-      <div class="list-card">
-        <h4>How it works</h4>
-        <div class="detail-list">
-          <div class="detail-list-item"><b>1 · Create a group</b><span>Start from the product you already evaluated.</span></div>
-          <div class="detail-list-item"><b>2 · Invite two friends</b><span>Share the same product proof and trust context.</span></div>
-          <div class="detail-list-item"><b>3 · Unlock when complete</b><span>No hidden conditions or surprise discount mechanics.</span></div>
-        </div>
-      </div>
-    `
-  });
-}
-
-function groupCreatedScreen() {
-  return phoneTemplate({
-    nav: 'home',
-    ctas: ctaBar({ label: 'Go to cart', route: 'cart' }, { label: 'Back to product', route: 'pdp-growth' }),
-    content: `
-      ${appBar({ brand: false, title: 'GROUP CREATED', subtitle: 'Share & Save', searchText: 'Search more', backRoute: 'group-save' })}
-      <div class="list-card" style="text-align:center;padding:28px 18px;">
-        <div style="width:64px;height:64px;border-radius:50%;background:#ecf8ee;color:var(--green);display:grid;place-items:center;font-size:28px;font-weight:800;margin:0 auto 12px;">✓</div>
-        <h4 style="font-size:1.05rem;">Your group is ready</h4>
-        <p style="margin:0;color:var(--muted);font-size:.76rem;line-height:1.45;">Invite two more shoppers to unlock the illustrative group price. Product proof and trust information remain available to everyone.</p>
-        <button class="cta-button primary" style="margin-top:16px;width:100%;" data-action="copy-group-link">Copy share link</button>
-      </div>
-    `
-  });
-}
-
-function cartScreen() {
-  return phoneTemplate({
-    nav: 'orders',
-    ctas: ctaBar({ label: 'Proceed to checkout', route: 'checkout' }, { label: 'Continue shopping', route: state.persona === 'mall' ? 'mall-home' : 'college-home' }),
-    content: `
-      ${appBar({ brand: false, title: 'CART', subtitle: 'Cart + shortlist', searchText: 'Search more products', backRoute: 'pdp-growth' })}
-      <div class="cart-card">
-        <div class="line-item">
-          <div>
-            <b>Regular Fit Casual Shirt</b>
-            <div class="product-meta">Black · Size L</div>
-            <div class="price">₹313</div>
-          </div>
-          <span class="qty-pill">Qty 1</span>
-        </div>
-        <div class="line-item">
-          <div>
-            <b>Regular Fit Trousers</b>
-            <div class="product-meta">Charcoal · 32</div>
-            <div class="price">₹449</div>
-          </div>
-          <span class="qty-pill">Qty 1</span>
-        </div>
-        <div class="line-item">
-          <div>
-            <b>Casual Sneakers</b>
-            <div class="product-meta">White · UK 8</div>
-            <div class="price">₹699</div>
-          </div>
-          <span class="qty-pill">Qty 1</span>
-        </div>
-      </div>
-      <div class="checkout-card">
-        <h4>Price details</h4>
-        <div class="price-line"><span>Subtotal</span><b>₹1,461</b></div>
-        <div class="price-line"><span>Delivery</span><b>Free</b></div>
-        <div class="price-line"><span>Group savings</span><b style="color:var(--green)">− ₹90</b></div>
-        <div class="price-line"><span>Total</span><b>₹1,371</b></div>
-      </div>
-    `
-  });
-}
-
-function checkoutScreen() {
-  return phoneTemplate({
-    nav: 'orders',
-    ctas: ctaBar({ label: 'Place order', route: 'order-placed' }, { label: 'Back to cart', route: 'cart' }),
-    content: `
-      ${appBar({ brand: false, title: 'CHECKOUT', subtitle: 'Final confirmation', searchText: 'Search help', backRoute: 'cart' })}
-      <div class="checkout-card">
-        <h4>Delivery address</h4>
-        <div class="detail-list-item"><b>Aarav Sharma</b><span>221 Lake View Hostel Road, Guwahati, Assam · 781014</span></div>
-      </div>
-      <div class="checkout-card">
-        <h4>Order summary</h4>
-        <div class="checkout-row"><span>3 items</span><b>₹1,371</b></div>
-        <div class="checkout-row"><span>Delivery by Tue, 8 Oct</span><b>Free</b></div>
-      </div>
-      <div class="checkout-card">
-        <h4>Payment method</h4>
-        <div class="detail-list">
-          <div class="detail-list-item"><b>UPI / Wallet</b><span>Fast and familiar for mobile-first shoppers.</span></div>
-          <div class="detail-list-item"><b>Cash on Delivery</b><span>Available for eligible orders.</span></div>
-          <div class="detail-list-item"><b>Cards & Netbanking</b><span>Secure payments with refund traceability.</span></div>
-        </div>
-      </div>
-    `
-  });
-}
-
-function orderPlacedScreen() {
-  return phoneTemplate({
-    nav: 'orders',
-    ctas: ctaBar({ label: 'Track my order', route: 'orders' }, { label: 'Explore more', route: state.persona === 'assam' ? 'assam-home' : 'college-home' }),
-    content: `
-      ${appBar({ brand: false, title: 'ORDER PLACED', subtitle: 'Purchase complete', searchText: 'Search more', backRoute: 'checkout' })}
-      <div class="list-card">
-        <h4>Your order is confirmed 🎉</h4>
-        <p style="margin:0;color:var(--muted);font-size:.76rem;line-height:1.45;">Thank you. Your order is now in progress and expected by Tue, 8 Oct.</p>
-        <div class="detail-stat-grid">
-          <div class="detail-stat"><b>Order ID</b><span>MS-248136</span></div>
-          <div class="detail-stat"><b>Status</b><span>Packed</span></div>
-        </div>
-      </div>
-      <div class="list-card">
-        <h4>Next helpful actions</h4>
-        <div class="detail-list">
-          <div class="detail-list-item"><b>Track progress</b><span>View delivery milestones from My Orders.</span></div>
-          <div class="detail-list-item"><b>Continue shopping</b><span>Explore more products in the same style mission.</span></div>
-        </div>
-      </div>
-    `
-  });
-}
-
-function categoriesScreen() {
-  return phoneTemplate({
-    nav: 'categories',
-    content: `
-      ${appBar({ brand: false, title: 'CATEGORIES', subtitle: 'Browse by mission or department', searchText: 'Search categories', backRoute: state.persona === 'mall' ? 'mall-home' : state.persona === 'assam' ? 'assam-home' : state.persona === 'chhath' ? 'chhath-home' : 'college-home' })}
-      <section class="screen-section">
-        ${sectionHeader('Popular categories', 'Everything here is interactive.', '', '')}
-        <div class="category-grid">
-          ${categoryCard({ icon:'👔', title:'Men’s Fashion', subtitle:'Shirts · jeans', route:'category-fashion' })}
-          ${categoryCard({ icon:'👗', title:'Women’s Fashion', subtitle:'Ethnic wear', route:'category-chhath' })}
-          ${categoryCard({ icon:'🧴', title:'Men’s Grooming', subtitle:'Face care', route:'category-grooming' })}
-          ${categoryCard({ icon:'🎉', title:'Assam Festive', subtitle:'Regional picks', route:'category-assam' })}
-          ${categoryCard({ icon:'🪔', title:'Chhath Festive', subtitle:'Occasion shopping', route:'category-chhath' })}
-          ${categoryCard({ icon:'⌚', title:'Electronics', subtitle:'Accessories', route:'search' })}
-          ${categoryCard({ icon:'🏠', title:'Home Utility', subtitle:'Kitchen & more', route:'search' })}
-          ${categoryCard({ icon:'🎁', title:'Gifting', subtitle:'Budget finds', route:'search' })}
-        </div>
-      </section>
-    `
-  });
-}
-
-function accountScreen() {
-  return phoneTemplate({
-    nav: 'account',
-    content: `
-      ${appBar({ brand: false, title: 'ACCOUNT', subtitle: 'Saved shortcuts and preferences', searchText: 'Search help or settings', backRoute: state.persona === 'mall' ? 'mall-home' : state.persona === 'assam' ? 'assam-home' : 'college-home' })}
-      <div class="list-card">
-        <h4>Profile</h4>
-        <div class="detail-list-item"><b>Aarav Sharma</b><span>Student shopper · Guwahati, Assam · English + Hindi</span></div>
-      </div>
-      <div class="list-card">
-        <h4>Quick actions</h4>
-        <div class="detail-list">
-          <button class="detail-list-item" data-go="wishlist"><b>Saved products</b><span>Revisit products you liked earlier.</span></button>
-          <button class="detail-list-item" data-go="orders"><b>My Orders</b><span>Track active orders and repeat purchases.</span></button>
-          <button class="detail-list-item" data-go="assam-home"><b>Region & language</b><span>Example of contextual preferences driving relevance.</span></button>
-        </div>
-      </div>
-    `
-  });
-}
-
-function ordersScreen() {
-  return phoneTemplate({
-    nav: 'orders',
-    content: `
-      ${appBar({ brand: false, title: 'MY ORDERS', subtitle: 'Track post-purchase progress', searchText: 'Search orders', backRoute: 'account' })}
-      <div class="list-card">
-        <h4>Recent orders</h4>
-        <div class="line-item"><div><b>Regular Fit Casual Shirt</b><div class="product-meta">Expected by Tue, 8 Oct</div></div><span class="order-state">Packed</span></div>
-        <div class="line-item"><div><b>Daily Face Wash</b><div class="product-meta">Delivered last week</div></div><span class="order-state">Delivered</span></div>
-        <div class="line-item"><div><b>Casual Sneakers</b><div class="product-meta">Delivered 12 Sep</div></div><button class="qty-pill" data-go="pdp-core">Buy again</button></div>
-      </div>
-    `
-  });
-}
-
-function wishlistScreen() {
-  return phoneTemplate({
-    nav: 'account',
-    content: `
-      ${appBar({ brand: false, title: 'WISHLIST', subtitle: 'Saved items', searchText: 'Search saved products', backRoute: 'account' })}
-      <section class="screen-section">
-        ${sectionHeader('Saved products', 'Shortlisted for later comparison or purchase.', '', '')}
-        <div class="two-up">
-          ${productCard({ title: 'Casual Checked Shirt', price: 299, art: '👔', route: 'pdp-core' })}
-          ${productCard({ title: 'Daily Face Wash', price: 199, art: '🧴', route: 'pdp-core', badge: 'Mall' })}
-          ${productCard({ title: 'Home Decor Set', price: 199, art: '🏠', route: 'pdp-core' })}
-          ${productCard({ title: 'Gift Hamper', price: 299, art: '🎁', route: 'pdp-core' })}
-        </div>
-      </section>
-    `
-  });
-}
-
-const routes = {
-  'college-home': collegeHome,
-  'assam-home': assamHome,
-  'chhath-home': chhathHome,
-  'mall-home': mallHome,
-  'mtrusted-home': mtrustedHome,
-  'category-fashion': categoryFashion,
-  'category-grooming': categoryGrooming,
-  'category-assam': categoryAssam,
-  'category-chhath': categoryChhath,
-  search: searchScreen,
-  'pdp-core': pdpCore,
-  'product-details': productDetailsScreen,
-  'seller-profile': sellerProfile,
-  reviews: reviewsScreen,
-  'ugc-gallery': ugcGalleryScreen,
-  certainty: certaintyScreen,
-  'pdp-growth': pdpGrowth,
-  'group-save': groupSaveScreen,
-  'group-created': groupCreatedScreen,
-  'mall-explainer': mallExplainer,
-  'mtrusted-explainer': mtrustedExplainer,
-  cart: cartScreen,
-  checkout: checkoutScreen,
-  'order-placed': orderPlacedScreen,
-  categories: categoriesScreen,
-  account: accountScreen,
-  orders: ordersScreen,
-  wishlist: wishlistScreen
-};
-
-function renderPersonas() {
-  const root = $('#persona-list');
-  root.innerHTML = Object.values(personas).map(persona => `
-    <button class="persona-card ${state.persona === persona.id ? 'active' : ''}" data-persona="${persona.id}">
-      <div class="persona-top">
-        <b>${persona.title}</b>
-        <span class="badge-pill">${persona.id === state.persona ? 'Active' : 'Switch'}</span>
-      </div>
-      <p>${persona.subtitle}<br>${persona.summary}</p>
-      <div class="persona-tags">${persona.tags.map(tag => `<span class="persona-tag">${tag}</span>`).join('')}</div>
-    </button>
-  `).join('');
-}
-
-function renderDetails() {
-  const meta = routeMeta[state.route] || { label: state.route, title: state.route, persona: personas[state.persona]?.title || '', summary: '', keySignals: [], kpi: [] };
-  detailPanel.innerHTML = `
-    <div class="detail-block">
-      <span class="panel-kicker">CURRENT SCREEN</span>
-      <h2>${meta.title}</h2>
-      <p>${meta.summary}</p>
-      <div class="detail-tags">
-        <span class="detail-tag">${meta.persona}</span>
-        <span class="detail-tag">${meta.label}</span>
-      </div>
-    </div>
-    <div class="detail-block">
-      <span class="panel-kicker">EXPERIENCE SIGNALS</span>
-      <div class="detail-list">
-        ${(meta.keySignals || []).map(item => `<div class="detail-list-item"><b>${item}</b><span>Interactive within the prototype and connected to adjacent trust or commerce screens.</span></div>`).join('')}
-      </div>
-    </div>
-    <div class="detail-block">
-      <span class="panel-kicker">WHAT THIS SCREEN SHOULD IMPROVE</span>
-      <div class="detail-stat-grid">
-        ${(meta.kpi || []).map(item => `<div class="detail-stat"><b>KPI</b><span>${item}</span></div>`).join('')}
-      </div>
-    </div>
-  `;
-  if (stageLabel) stageLabel.textContent = (meta.label || state.route).toUpperCase();
-}
-
-function renderRoute() {
-  const renderer = routes[state.route] || collegeHome;
-  deviceCanvas.innerHTML = renderer();
-  renderDetails();
-  renderPersonas();
-  if (state.hotspotMode) deviceCanvas.classList.add('hotspot-mode');
-  else deviceCanvas.classList.remove('hotspot-mode');
-}
-
-function setPersona(personaId, preserveRoute = false) {
-  if (!personas[personaId]) return;
-  state.persona = personaId;
-  state.history = [];
-  state.route = preserveRoute ? state.route : personas[personaId].entryRoute;
-  renderRoute();
-  showToast(`${personas[personaId].title} activated`);
-}
-
-function homeRoute() {
-  return personas[state.persona]?.entryRoute || 'college-home';
-}
-
-function go(route, { pushHistory = true } = {}) {
-  if (!routes[route]) {
-    showToast('This screen is not available in the prototype yet');
-    return;
-  }
-  if (route === state.route) return;
-  if (pushHistory) state.history.push(state.route);
-  state.route = route;
-  renderRoute();
-}
-
-function goBack(fallback = '') {
-  const previous = state.history.pop();
-  const target = previous && routes[previous] ? previous : (fallback && routes[fallback] ? fallback : homeRoute());
-  state.route = target;
-  renderRoute();
-}
-
-function handleInlineAction(el) {
-  const label = (el.innerText || el.getAttribute('aria-label') || 'Option').trim().replace(/\s+/g, ' ');
-  if (el.classList.contains('filter-chip') || el.classList.contains('utility-chip')) {
-    el.classList.toggle('active');
-    showToast(`${label} ${el.classList.contains('active') ? 'selected' : 'cleared'}`);
-    return;
-  }
-  if (el.classList.contains('size-pill')) {
-    el.parentElement?.querySelectorAll('.size-pill').forEach(item => item.classList.remove('active'));
-    el.classList.add('active');
-    showToast(`Size ${label} selected`);
-    return;
-  }
-  if (el.classList.contains('thumbnail') || el.classList.contains('ugc-thumb')) {
-    showToast('Buyer media preview selected');
-    return;
-  }
-  showToast(`${label} selected`);
-}
-
-function showToast(text) {
-  toastEl.textContent = text;
-  toastEl.classList.add('show');
-  clearTimeout(showToast.timer);
-  showToast.timer = setTimeout(() => toastEl.classList.remove('show'), 1500);
-}
-
-document.addEventListener('click', (event) => {
-  const personaButton = event.target.closest('[data-persona]');
-  if (personaButton) {
-    setPersona(personaButton.dataset.persona);
-    return;
-  }
-
-  const actionButton = event.target.closest('[data-action]');
-  if (actionButton) {
-    if (actionButton.dataset.action === 'back') {
-      goBack(actionButton.dataset.backFallback || '');
-      return;
-    }
-    if (actionButton.dataset.action === 'copy-group-link') {
-      showToast('Share link copied');
-      return;
-    }
-  }
-
-  const navButton = event.target.closest('[data-go]');
-  if (navButton) {
-    const route = navButton.dataset.go;
-    if (route === state.route) {
-      handleInlineAction(navButton);
-    } else {
-      go(route);
-    }
-    return;
-  }
-
-  const shortcut = event.target.closest('[data-route-shortcut]');
-  if (shortcut) go(shortcut.dataset.routeShortcut);
-});
-
-$('#hotspot-toggle').addEventListener('click', () => {
-  state.hotspotMode = !state.hotspotMode;
-  renderRoute();
-  $('#hotspot-toggle').textContent = state.hotspotMode ? 'Hide click map' : 'Show click map';
-  showToast(state.hotspotMode ? 'Clickable regions highlighted' : 'Click map hidden');
-});
-
-$('#restart-button').addEventListener('click', () => {
-  state.history = [];
-  state.route = personas[state.persona].entryRoute;
-  renderRoute();
-  showToast('Journey restarted');
-});
-
-renderRoute();

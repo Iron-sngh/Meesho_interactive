@@ -824,3 +824,177 @@ body { overflow-x: hidden; }
   .four-up { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .product-detail-hero { grid-template-columns: 1fr; }
 }
+/* =========================================================
+   REALISTIC ASSET PASS — October 2026
+   ========================================================= */
+
+/* Photographic content system */
+img { max-width: 100%; }
+.real-photo,
+.real-category-photo,
+.pdp-main-image,
+.photo-thumb,
+.ugc-gallery-grid figure,
+.detail-proof-grid figure,
+.mission-photo-card,
+.mall-need-card,
+.evidence-photo-card,
+.certainty-photo-card,
+.wide-promo-card,
+.share-save-card,
+.group-visual-card,
+.seller-cover,
+.seller-ops-card { overflow: hidden; }
+
+.persona-card-main {
+  display: grid;
+  grid-template-columns: 44px minmax(0, 1fr);
+  gap: 10px;
+  align-items: start;
+}
+.persona-avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 14px;
+  object-fit: cover;
+  border: 2px solid #fff;
+  box-shadow: 0 5px 14px rgba(58, 33, 64, .12);
+}
+.persona-card-copy { min-width: 0; }
+.persona-card .persona-tags { margin-top: 10px; }
+
+.profile-greeting {
+  margin-top: 10px;
+  justify-content: space-between;
+  width: 100%;
+}
+.mini-profile-avatar {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid #eadfea;
+}
+
+/* Hero photography */
+.hero-banner.photo-hero {
+  min-height: 178px;
+  padding: 14px;
+  background-image: var(--hero-photo);
+  background-position: var(--hero-position, center);
+  background-size: cover;
+  background-repeat: no-repeat;
+  display: flex;
+  align-items: stretch;
+  isolation: isolate;
+}
+.hero-banner.photo-hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(90deg, rgba(23, 11, 33, .68) 0%, rgba(23, 11, 33, .34) 46%, rgba(23, 11, 33, .03) 78%);
+}
+.hero-banner.photo-hero.photo-hero-light::before {
+  background: linear-gradient(90deg, rgba(41, 20, 49, .76) 0%, rgba(41, 20, 49, .35) 47%, rgba(41, 20, 49, 0) 80%);
+}
+.hero-copy-card {
+  width: min(245px, 74%);
+  align-self: center;
+  color: #fff;
+  text-align: left;
+  text-shadow: 0 1px 6px rgba(16, 6, 20, .2);
+}
+.hero-copy-card h2 { margin: 8px 0 7px; max-width: none; font-size: 1.16rem; line-height: 1.12; }
+.hero-copy-card p { margin: 0; max-width: none; color: rgba(255,255,255,.92); font-size: .71rem; line-height: 1.4; }
+.hero-copy-card .hero-cta { margin-top: 10px; text-shadow: none; }
+.hero-copy-card .eyebrow-inline { background: rgba(255,255,255,.22); backdrop-filter: blur(4px); }
+
+/* Wide promotional rails */
+.wide-promo-card {
+  position: relative;
+  width: 100%;
+  min-height: 112px;
+  border: 1px solid #eee3ef;
+  border-radius: 18px;
+  background: #fff;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 44% 1fr;
+  text-align: left;
+}
+.wide-promo-card > img {
+  width: 100%;
+  height: 112px;
+  object-fit: cover;
+  object-position: center;
+}
+.wide-promo-card .wide-promo-copy {
+  padding: 12px;
+  align-self: center;
+  min-width: 0;
+}
+.wide-promo-copy span { display:block; color: var(--brand-dark); font-size:.61rem; font-weight:800; letter-spacing:.08em; }
+.wide-promo-copy b { display:block; margin-top:5px; font-size:.82rem; line-height:1.25; }
+.wide-promo-copy small { display:block; margin-top:5px; color:var(--muted); font-size:.64rem; line-height:1.25; }
+.wide-promo-card.warm { background:#fff9f2; }
+
+/* Product photography */
+.product-card { overflow: hidden; }
+.product-image.real-photo {
+  background: #f8f7f8;
+  border: 1px solid #f0ebf1;
+  height: 138px;
+}
+.product-image.real-photo > img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  transition: transform .22s ease;
+}
+.product-card:hover .product-image.real-photo > img { transform: scale(1.025); }
+.product-title { min-height: 2.45em !important; }
+.rating { display:flex; align-items:center; gap:3px; flex-wrap:wrap; }
+.rating > span { color:#8c8397; }
+
+/* Category photography */
+.category-card { padding: 7px; }
+.category-card .art-box.real-category-photo {
+  height: 60px;
+  border-radius: 11px;
+  overflow: hidden;
+  background:#f7f4f7;
+}
+.real-category-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display:block;
+}
+.category-card b { font-size:.71rem; }
+.category-card span { font-size:.6rem; }
+
+/* Photo mission grids */
+.mission-photo-grid,
+.mall-need-grid,
+.evidence-photo-grid,
+.certainty-photo-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0,1fr));
+  gap: 9px;
+}
+.mission-photo-card,
+.mall-need-card,
+.evidence-photo-card,
+.certainty-photo-card {
+  padding: 0;
+  border: 1px solid #eee5ef;
+  background:#fff;
+  border-radius: 15px;
+  text-align:left;
+  min-width:0;
+}
+.mission-photo-card img,
+.mall-need-card img,
