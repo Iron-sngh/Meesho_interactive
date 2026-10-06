@@ -1,6 +1,6 @@
 # Meesho Interactive Prototype
 
-## [Open the working prototype](https://messhoprototype.netlify.app/)
+## [Open the working prototype](https://iron-sngh.github.io/Meesho_interactive/)
 
 This prototype explores how Meesho can make the first shopping journey easier to **discover, evaluate and trust** - especially for users who are still deciding whether Meesho is right for a particular need.
 
