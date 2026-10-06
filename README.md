@@ -14,29 +14,7 @@ The prototype is fully clickable and is designed around five different shopping 
 
 ## Personas
 
-### 1. Aarav - College Style Starter
-
-**Context:** College-going, value-conscious shopper looking for affordable everyday fashion.
-
-Aarav does not necessarily arrive knowing exactly what product or seller to choose. The current feed-first experience can make him do too much of the discovery work himself.
-
-His journey starts with a **mission-guided homepage** where the experience helps narrow the shopping intent through categories such as college, casual and everyday style.
-
-**Journey**
-
-**Guided Home → Men’s Fashion → Product Detail Page → Seller & Review Proof → Complete the Look**
-
-**What this persona demonstrates**
-- Mission-guided discovery instead of an endless generic feed
-- “Your Style Edit” and category-led entry points
-- Relevant product recommendations based on shopping intent
-- MTrusted and Meesho Mall as distinct trust destinations
-- Proof-first PDP before purchase
-- Complete-the-Mission bundles and similar-style discovery after trust is established
-
----
-
-### 2. Rohit - Bihar / Chhath Festival Shopper
+### 1. Rohit - Bihar / Chhath Festival Shopper
 
 **Context:** A shopper in Bihar preparing for Chhath and looking across multiple festive needs.
 
@@ -55,6 +33,33 @@ The Chhath experience reorganises the homepage around the mission - festive fash
 - Trust-qualified products within the seasonal journey
 - Basket completion across related needs
 - The same Mall, MTrusted and PDP trust architecture regardless of region
+
+---
+
+---
+
+### 2. Nayan - Assam / Festive Context Shopper
+
+**Context:** Shopper in Assam opening Meesho during a seasonal or festive shopping period.
+
+This persona demonstrates how Meesho can use **region, language and season as initial context** without permanently locking the user into demographic assumptions.
+
+The first session starts with contextual content such as festive picks, utility needs and products trending within the regional experience. As the shopper interacts, real behaviour should increasingly drive personalisation.
+
+**Journey**
+
+**Assam Homepage → Mission Choice → Regional / Seasonal Products → Mall or MTrusted → Trusted PDP**
+
+**What this persona demonstrates**
+- Region + language + season as first-session context
+- “What do you need today?” mission selection
+- Festive and seasonal merchandising
+- Regional discovery connected to universal trust systems
+- Behaviour-led personalisation taking over after initial interaction
+
+> The regional merchandising shown in the prototype is illustrative and demonstrates the personalisation logic rather than actual regional demand data.
+
+---
 
 ---
 
@@ -78,6 +83,8 @@ The prototype therefore treats **Meesho Mall as a dedicated brand and provenance
 - A consistent handoff from Mall into the same PDP evidence system
 
 > **Meesho Mall answers:** “Is this the brand/source I trust?”
+
+---
 
 ---
 
@@ -106,26 +113,29 @@ The experience shows **why** a listing deserves stronger confidence through evid
 
 ---
 
-### 5. Nayan - Assam / Festive Context Shopper
+---
 
-**Context:** Shopper in Assam opening Meesho during a seasonal or festive shopping period.
+### 5. Aarav - College Style Starter
 
-This persona demonstrates how Meesho can use **region, language and season as initial context** without permanently locking the user into demographic assumptions.
+**Context:** College-going, value-conscious shopper looking for affordable everyday fashion.
 
-The first session starts with contextual content such as festive picks, utility needs and products trending within the regional experience. As the shopper interacts, real behaviour should increasingly drive personalisation.
+Aarav does not necessarily arrive knowing exactly what product or seller to choose. The current feed-first experience can make him do too much of the discovery work himself.
+
+His journey starts with a **mission-guided homepage** where the experience helps narrow the shopping intent through categories such as college, casual and everyday style.
 
 **Journey**
 
-**Assam Homepage → Mission Choice → Regional / Seasonal Products → Mall or MTrusted → Trusted PDP**
+**Guided Home → Men’s Fashion → Product Detail Page → Seller & Review Proof → Complete the Look**
 
 **What this persona demonstrates**
-- Region + language + season as first-session context
-- “What do you need today?” mission selection
-- Festive and seasonal merchandising
-- Regional discovery connected to universal trust systems
-- Behaviour-led personalisation taking over after initial interaction
+- Mission-guided discovery instead of an endless generic feed
+- “Your Style Edit” and category-led entry points
+- Relevant product recommendations based on shopping intent
+- MTrusted and Meesho Mall as distinct trust destinations
+- Proof-first PDP before purchase
+- Complete-the-Mission bundles and similar-style discovery after trust is established
 
-> The regional merchandising shown in the prototype is illustrative and demonstrates the personalisation logic rather than actual regional demand data.
+---
 
 ---
 
