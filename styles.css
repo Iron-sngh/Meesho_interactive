@@ -1393,7 +1393,7 @@ img { display:block; max-width:100%; }
    Uses the available desktop canvas so both side panels show
    their complete information without internal scrolling.
    ========================================================= */
-@media (min-width: 1200px) {
+@media (min-width: 1280px) and (min-height: 760px) {
   .site-shell {
     width: 100%;
     max-width: none;
@@ -1677,7 +1677,7 @@ img { display:block; max-width:100%; }
 
 /* Slightly tighter desktop layout for shorter laptop screens while
    still keeping both information rails fully visible. */
-@media (min-width: 1200px) and (max-height: 850px) {
+@media (min-width: 1280px) and (min-height: 760px) and (max-height: 850px) {
   .persona-panel,
   .detail-panel {
     padding: 13px 15px;
