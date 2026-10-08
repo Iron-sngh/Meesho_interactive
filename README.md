@@ -1,7 +1,8 @@
 # Meesho Interactive Prototype
 
-**Live prototype:** https://iron-sngh.github.io/Meesho_interactive/
-**Deck Link:** https://drive.google.com/file/d/10sdDxFJ4x0P0fKoClPCTn7K5_KqDU4Vl/view?usp=sharing
+[Live Prototype](https://iron-sngh.github.io/Meesho_interactive/)
+
+[Deck](https://drive.google.com/file/d/10sdDxFJ4x0P0fKoClPCTn7K5_KqDU4Vl/view?usp=sharing)
 
 This repository contains the interactive prototype created for the **Meesho DICE Challenge Season 3 - Business Track**. The prototype focuses on a simple question: how can Meesho help a shopper move from an uncertain first session to a confident first order, and then into the next relevant shopping mission?
 
