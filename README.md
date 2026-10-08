@@ -1,8 +1,9 @@
 # Meesho Interactive Prototype
 
 **Live prototype:** https://iron-sngh.github.io/Meesho_interactive/
+**Deck Link:** https://drive.google.com/file/d/10sdDxFJ4x0P0fKoClPCTn7K5_KqDU4Vl/view?usp=sharing
 
-This repository contains the interactive prototype created for the **Meesho DICE Challenge Season 3 — Business Track**. The prototype focuses on a simple question: how can Meesho help a shopper move from an uncertain first session to a confident first order, and then into the next relevant shopping mission?
+This repository contains the interactive prototype created for the **Meesho DICE Challenge Season 3 - Business Track**. The prototype focuses on a simple question: how can Meesho help a shopper move from an uncertain first session to a confident first order, and then into the next relevant shopping mission?
 
 The experience connects discovery, trust and purchase confidence in one flow:
 
@@ -24,11 +25,11 @@ The right-hand panel updates with the phone. It explains what the current screen
 
 | Persona | Starting point | What the journey demonstrates |
 | --- | --- | --- |
-| **Rohit — Chhath Festival Mission** | Bihar festive shopping | Region and season as lightweight context, occasion-led discovery, festive basket completion |
-| **Nayan — Assam Festive Context** | Assam seasonal shopping | Regional context without permanently locking the experience to demographics |
-| **Kabir — Meesho Mall for Brands** | Branded grooming | Brand and source confidence through a dedicated Mall destination |
-| **Vivek — MTrusted Confidence** | Unfamiliar seller/listing | Explainable seller and marketplace-quality evidence |
-| **Aarav — College Style Starter** | Affordable college fashion | Mission-led discovery, proof-first evaluation and basket expansion |
+| **Rohit - Chhath Festival Mission** | Bihar festive shopping | Region and season as lightweight context, occasion-led discovery, festive basket completion |
+| **Nayan - Assam Festive Context** | Assam seasonal shopping | Regional context without permanently locking the experience to demographics |
+| **Kabir - Meesho Mall for Brands** | Branded grooming | Brand and source confidence through a dedicated Mall destination |
+| **Vivek - MTrusted Confidence** | Unfamiliar seller/listing | Explainable seller and marketplace-quality evidence |
+| **Aarav - College Style Starter** | Affordable college fashion | Mission-led discovery, proof-first evaluation and basket expansion |
 
 The regional merchandising shown in the prototype is illustrative. It demonstrates the interaction logic rather than actual regional demand data.
 
