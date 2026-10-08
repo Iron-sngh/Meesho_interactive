@@ -1688,26 +1688,56 @@ function renderPersonas() {
 
 function renderDetails() {
   const meta = routeMeta[state.route] || { label: state.route, title: state.route, persona: personas[state.persona]?.title || '', summary: '', keySignals: [], kpi: [] };
+  const signals = meta.keySignals || [];
+  const kpis = meta.kpi || [];
   detailPanel.innerHTML = `
-    <div class="detail-block">
-      <span class="panel-kicker">CURRENT SCREEN</span>
-      <h2>${meta.title}</h2>
-      <p>${meta.summary}</p>
-      <div class="detail-tags">
-        <span class="detail-tag">${meta.persona}</span>
-        <span class="detail-tag">${meta.label}</span>
+    <div class="detail-block current-screen-block">
+      <div class="detail-section-heading">
+        <span class="panel-kicker">CURRENT SCREEN</span>
+        <span class="detail-section-meta">Live journey context</span>
+      </div>
+      <div class="current-screen-grid">
+        <div class="current-screen-copy">
+          <h2>${meta.title}</h2>
+          <p>${meta.summary}</p>
+        </div>
+        <div class="screen-context-card">
+          <span>Journey</span>
+          <b>${meta.persona}</b>
+          <em>${meta.label}</em>
+        </div>
       </div>
     </div>
-    <div class="detail-block">
-      <span class="panel-kicker">EXPERIENCE SIGNALS</span>
+
+    <div class="detail-block experience-signals-block">
+      <div class="detail-section-heading">
+        <span class="panel-kicker">EXPERIENCE SIGNALS</span>
+        <span class="detail-section-meta">${signals.length} connected cues</span>
+      </div>
       <div class="detail-list">
-        ${(meta.keySignals || []).map(item => `<div class="detail-list-item"><b>${item}</b><span>Interactive within the prototype and connected to adjacent trust or commerce screens.</span></div>`).join('')}
+        ${signals.map((item, index) => `
+          <div class="detail-list-item">
+            <span class="signal-index">${String(index + 1).padStart(2, '0')}</span>
+            <div>
+              <b>${item}</b>
+              <span>Interactive within the prototype and connected to adjacent trust or commerce screens.</span>
+            </div>
+          </div>`).join('')}
       </div>
     </div>
-    <div class="detail-block">
-      <span class="panel-kicker">WHAT THIS SCREEN SHOULD IMPROVE</span>
+
+    <div class="detail-block improvement-block">
+      <div class="detail-section-heading">
+        <span class="panel-kicker">WHAT THIS SCREEN SHOULD IMPROVE</span>
+        <span class="detail-section-meta">Screen outcomes</span>
+      </div>
       <div class="detail-stat-grid">
-        ${(meta.kpi || []).map(item => `<div class="detail-stat"><b>KPI</b><span>${item}</span></div>`).join('')}
+        ${kpis.map((item, index) => `
+          <div class="detail-stat">
+            <span class="kpi-index">${String(index + 1).padStart(2, '0')}</span>
+            <b>KPI</b>
+            <span>${item}</span>
+          </div>`).join('')}
       </div>
     </div>
   `;
