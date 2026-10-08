@@ -1756,3 +1756,164 @@ img { display:block; max-width:100%; }
     gap: 6px;
   }
 }
+
+
+/* =========================================================
+   JUDGE-FACING DESKTOP SIDE RAILS
+   Left = persona switching. Right = controls + screen rationale.
+   Keeps all existing information visible without side-panel scrolling.
+   ========================================================= */
+.persona-rail-label {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  margin-bottom:10px;
+}
+.rail-hint {
+  color:var(--muted);
+  font-size:.66rem;
+  font-weight:700;
+  white-space:nowrap;
+}
+.prototype-control-card {
+  flex:0 0 auto;
+  padding:14px 15px;
+  border-radius:18px;
+  background:linear-gradient(135deg,#fff 0%,#fff7fc 100%);
+  border:1px solid rgba(159,32,137,.13);
+  box-shadow:0 8px 22px rgba(92,50,101,.05);
+}
+.prototype-control-heading {
+  display:grid;
+  grid-template-columns:minmax(0,1fr) auto;
+  gap:14px;
+  align-items:start;
+}
+.prototype-control-heading > div { min-width:0; }
+.prototype-control-heading h2 {
+  margin:5px 0 4px;
+  font-size:1.08rem;
+  line-height:1.08;
+}
+.prototype-control-heading p {
+  margin:0;
+  max-width:520px;
+  color:var(--muted);
+  font-size:.69rem;
+  line-height:1.35;
+}
+.prototype-control-card .panel-actions {
+  margin:11px 0 0;
+}
+
+@media (min-width:1280px) and (min-height:760px) {
+  .persona-panel {
+    display:flex;
+    flex-direction:column;
+  }
+
+  .persona-panel .persona-list {
+    flex:1 1 auto;
+    min-height:0;
+    margin-top:0;
+    grid-template-rows:repeat(5,minmax(0,1fr));
+    gap:10px;
+  }
+
+  .persona-panel .persona-card {
+    grid-template-columns:minmax(0,1.55fr) minmax(118px,.7fr);
+  }
+
+  .detail-panel {
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+  }
+
+  .detail-panel #detail-panel {
+    flex:1 1 auto;
+    min-height:0;
+    width:100%;
+    display:grid;
+    grid-template-rows:auto 1fr auto;
+    gap:10px;
+    align-content:stretch;
+  }
+
+  .detail-panel .detail-block {
+    min-height:0;
+    padding:13px 14px;
+    border:1px solid #eee7f2;
+    border-radius:16px;
+    background:rgba(255,255,255,.72);
+  }
+
+  .detail-panel .detail-block + .detail-block {
+    margin-top:0;
+  }
+
+  .detail-panel .detail-block:nth-child(2) {
+    display:flex;
+    flex-direction:column;
+  }
+
+  .detail-panel .detail-block:nth-child(2) .detail-list {
+    flex:1 1 auto;
+    align-content:center;
+  }
+
+  .detail-panel .detail-list {
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:8px;
+    margin-top:9px;
+  }
+
+  .detail-panel .detail-stat-grid {
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    margin-top:9px;
+    gap:8px;
+  }
+
+  .detail-panel h2 {
+    margin:5px 0 7px;
+    font-size:clamp(1.12rem,1.18vw,1.4rem);
+  }
+
+  .detail-panel p {
+    font-size:clamp(.7rem,.63vw,.82rem);
+    line-height:1.38;
+  }
+
+  .detail-panel .detail-list-item {
+    padding:10px 11px;
+  }
+
+  .detail-panel .detail-list-item b {
+    font-size:.7rem;
+  }
+
+  .detail-panel .detail-list-item span {
+    font-size:.62rem;
+    line-height:1.28;
+  }
+
+  .detail-panel .detail-stat {
+    padding:10px 11px;
+  }
+
+  .detail-panel .detail-stat span {
+    font-size:.8rem;
+  }
+}
+
+@media (min-width:1280px) and (min-height:760px) and (max-height:850px) {
+  .persona-rail-label { margin-bottom:7px; }
+  .prototype-control-card { padding:10px 12px; border-radius:15px; }
+  .prototype-control-heading h2 { font-size:.98rem; }
+  .prototype-control-heading p { font-size:.62rem; line-height:1.25; }
+  .prototype-control-card .panel-actions { margin-top:8px; }
+  .detail-panel { gap:8px; }
+  .detail-panel #detail-panel { gap:7px; }
+  .detail-panel .detail-block { padding:9px 10px; border-radius:13px; }
+}

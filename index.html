@@ -15,25 +15,11 @@
   <main class="site-shell">
     <section class="prototype-layout">
       <aside class="persona-panel glass-panel">
-        <div class="panel-title-row">
-          <div>
-            <span class="panel-kicker">MEESHO · INTERACTIVE PROTOTYPE</span>
-            <h2>Choose a use case</h2>
-          </div>
-          <span class="count-pill">5 journeys</span>
-        </div>
-        <div class="panel-actions">
-          <button id="hotspot-toggle" class="toolbar-button" type="button">Show click map</button>
-          <button id="restart-button" class="toolbar-button primary-tool" type="button">Restart</button>
+        <div class="persona-rail-label">
+          <span class="panel-kicker">PERSONA JOURNEYS</span>
+          <span class="rail-hint">Switch journeys</span>
         </div>
         <div id="persona-list" class="persona-list"></div>
-        <div class="principle-card">
-          <span class="principle-icon">✦</span>
-          <div>
-            <b>Prototype principle</b>
-            <p>Context → intent → trust → proof → order #1 → mission expansion.</p>
-          </div>
-        </div>
       </aside>
 
       <section class="phone-stage" aria-label="Interactive phone prototype">
@@ -41,6 +27,20 @@
       </section>
 
       <aside class="detail-panel glass-panel">
+        <section class="prototype-control-card" aria-label="Prototype controls">
+          <div class="prototype-control-heading">
+            <div>
+              <span class="panel-kicker">MEESHO · INTERACTIVE PROTOTYPE</span>
+              <h2>Choose a use case</h2>
+              <p>Select any persona from the left rail, then explore the phone journey in the centre.</p>
+            </div>
+            <span class="count-pill">5 journeys</span>
+          </div>
+          <div class="panel-actions">
+            <button id="hotspot-toggle" class="toolbar-button" type="button">Show click map</button>
+            <button id="restart-button" class="toolbar-button primary-tool" type="button">Restart journey</button>
+          </div>
+        </section>
         <div id="detail-panel"></div>
       </aside>
     </section>
