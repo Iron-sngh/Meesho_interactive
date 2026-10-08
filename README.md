@@ -5,7 +5,7 @@
 **Live prototype:** https://iron-sngh.github.io/Meesho_interactive/  
 **Submission deck:** https://drive.google.com/file/d/10sdDxFJ4x0P0fKoClPCTn7K5_KqDU4Vl/view?usp=sharing
 
-Interactive product prototype for the **Meesho DICE Challenge Season 3 — Business Track**.
+Interactive product prototype for the **Meesho DICE Challenge Season 3 - Business Track**.
 
 The prototype explores how Meesho can make an uncertain first shopping session easier to navigate, evaluate and trust. The experience is built around one progression:
 
@@ -25,35 +25,35 @@ Use **Show click map** to reveal interactive regions. **Restart journey** return
 
 ## Persona journeys
 
-### 1. Rohit — Chhath Festival Mission
+### 1. Rohit f Chhath Festival Mission
 A Bihar festive shopper whose session starts with a clear seasonal need.
 
 **Flow:** Chhath homepage → festive mission → relevant products → trusted PDP → cart / checkout
 
 **Focus:** regional and seasonal context, occasion-led discovery, festive basket completion and trust-qualified merchandising.
 
-### 2. Nayan — Assam Festive Context
+### 2. Nayan - Assam Festive Context
 A shopper entering during a seasonal shopping period in Assam.
 
 **Flow:** Assam homepage → mission choice → regional / seasonal products → Mall or MTrusted → trusted PDP
 
 **Focus:** region, language and season as lightweight first-session context, followed by behaviour-led personalisation.
 
-### 3. Kabir — Meesho Mall for Brands
+### 3. Kabir - Meesho Mall for Brands
 A brand-conscious grooming shopper who wants clearer confidence in product source and provenance.
 
 **Flow:** Meesho Mall → shop by brand / need → branded product → proof-first PDP → purchase
 
 **Meesho Mall answers:** *“Is this the brand or source I trust?”*
 
-### 4. Vivek — MTrusted Confidence
+### 4. Vivek - MTrusted Confidence
 A first-time buyer who likes a product but is unsure about an unfamiliar seller or listing.
 
 **Flow:** MTrusted destination → explainable evidence → qualified product → seller profile → PDP
 
 **MTrusted answers:** *“Is this seller or listing reliably good?”*
 
-### 5. Aarav — College Style Starter
+### 5. Aarav - College Style Starter
 A value-conscious college shopper looking for affordable everyday fashion.
 
 **Flow:** mission-guided home → Men’s Fashion → PDP → seller / review proof → Complete Your Look
@@ -70,8 +70,8 @@ The homepage prioritises the shopper’s immediate need instead of relying on a 
 ### Distinct trust routes
 The prototype deliberately keeps the two trust systems separate:
 
-- **Meesho Mall — brand / provenance trust**
-- **MTrusted — seller + marketplace-quality trust**
+- **Meesho Mall - brand / provenance trust**
+- **MTrusted - seller + marketplace-quality trust**
 
 Both routes feed into the same product-evaluation experience rather than becoming isolated storefronts.
 
@@ -153,9 +153,3 @@ This repository contains a **concept prototype**, not production Meesho software
 Prices, seller metrics, recommendations, regional merchandising and some commerce imagery are illustrative. Fictional or generated assets are used where appropriate so the prototype does not imply real merchant performance or unsupported marketplace statistics.
 
 Meesho names, marks and product references are used only in the context of the challenge submission and remain the property of their respective owners.
-
-## Project links
-
-- **Prototype:** https://iron-sngh.github.io/Meesho_interactive/
-- **Submission deck:** https://drive.google.com/file/d/10sdDxFJ4x0P0fKoClPCTn7K5_KqDU4Vl/view?usp=sharing
-- **Repository:** https://github.com/Iron-sngh/Meesho_interactive
