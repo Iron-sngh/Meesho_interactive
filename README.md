@@ -1,98 +1,161 @@
 # Meesho Interactive Prototype
 
-[Live Prototype](https://iron-sngh.github.io/Meesho_interactive/)
+[![Deploy GitHub Pages](https://github.com/Iron-sngh/Meesho_interactive/actions/workflows/pages.yml/badge.svg)](https://github.com/Iron-sngh/Meesho_interactive/actions/workflows/pages.yml)
 
-[Deck](https://drive.google.com/file/d/10sdDxFJ4x0P0fKoClPCTn7K5_KqDU4Vl/view?usp=sharing)
+**Live prototype:** https://iron-sngh.github.io/Meesho_interactive/  
+**Submission deck:** https://drive.google.com/file/d/10sdDxFJ4x0P0fKoClPCTn7K5_KqDU4Vl/view?usp=sharing
 
-This repository contains the interactive prototype created for the **Meesho DICE Challenge Season 3 - Business Track**. The prototype focuses on a simple question: how can Meesho help a shopper move from an uncertain first session to a confident first order, and then into the next relevant shopping mission?
+Interactive product prototype for the **Meesho DICE Challenge Season 3 — Business Track**.
 
-The experience connects discovery, trust and purchase confidence in one flow:
+The prototype explores how Meesho can make an uncertain first shopping session easier to navigate, evaluate and trust. The experience is built around one progression:
 
 **Context → Intent → Relevant Products → Trust → Proof → Order #1 → Next Mission**
 
-## How to view the prototype
+## Prototype walkthrough
 
-Open the live link on a desktop browser.
+The desktop presentation is split into three areas:
 
-The presentation has three parts:
+| Area | Purpose |
+| --- | --- |
+| **Persona journeys** | Switch between the five use cases without leaving the prototype |
+| **Interactive phone** | Explore the actual mobile journey by clicking and scrolling inside the device |
+| **Screen rationale** | See the purpose of the current screen, its experience signals and the KPIs it is intended to influence |
 
-- **Persona journeys, left:** switch between the five use cases.
-- **Interactive phone, centre:** scroll and click through the mobile experience.
-- **Screen rationale, right:** use **Show click map** to reveal interactive areas, **Restart journey** to reset the current use case, and read the screen-level signals and KPIs as the journey changes.
+Use **Show click map** to reveal interactive regions. **Restart journey** returns the active persona to its starting screen.
 
-The right-hand panel updates with the phone. It explains what the current screen is doing, which product signals it exposes, and which outcome it is intended to improve.
+## Persona journeys
 
-## Five journeys
+### 1. Rohit — Chhath Festival Mission
+A Bihar festive shopper whose session starts with a clear seasonal need.
 
-| Persona | Starting point | What the journey demonstrates |
-| --- | --- | --- |
-| **Rohit - Chhath Festival Mission** | Bihar festive shopping | Region and season as lightweight context, occasion-led discovery, festive basket completion |
-| **Nayan - Assam Festive Context** | Assam seasonal shopping | Regional context without permanently locking the experience to demographics |
-| **Kabir - Meesho Mall for Brands** | Branded grooming | Brand and source confidence through a dedicated Mall destination |
-| **Vivek - MTrusted Confidence** | Unfamiliar seller/listing | Explainable seller and marketplace-quality evidence |
-| **Aarav - College Style Starter** | Affordable college fashion | Mission-led discovery, proof-first evaluation and basket expansion |
+**Flow:** Chhath homepage → festive mission → relevant products → trusted PDP → cart / checkout
 
-The regional merchandising shown in the prototype is illustrative. It demonstrates the interaction logic rather than actual regional demand data.
+**Focus:** regional and seasonal context, occasion-led discovery, festive basket completion and trust-qualified merchandising.
 
-## Trust architecture
+### 2. Nayan — Assam Festive Context
+A shopper entering during a seasonal shopping period in Assam.
 
-The prototype keeps Meesho Mall and MTrusted separate because they answer different shopper questions.
+**Flow:** Assam homepage → mission choice → regional / seasonal products → Mall or MTrusted → trusted PDP
 
-**Meesho Mall** represents **brand / provenance trust**:  
-*Is this the brand or source I trust?*
+**Focus:** region, language and season as lightweight first-session context, followed by behaviour-led personalisation.
 
-**MTrusted** represents **seller + marketplace-quality trust**:  
-*Is this seller or listing reliably good?*
+### 3. Kabir — Meesho Mall for Brands
+A brand-conscious grooming shopper who wants clearer confidence in product source and provenance.
 
-Both routes eventually connect to the same product-evaluation system rather than becoming isolated storefronts.
+**Flow:** Meesho Mall → shop by brand / need → branded product → proof-first PDP → purchase
 
-## Proof-first product page
+**Meesho Mall answers:** *“Is this the brand or source I trust?”*
 
-The PDP is designed to make the listing judgeable before asking the shopper to trust it. Depending on the product, it brings together:
+### 4. Vivek — MTrusted Confidence
+A first-time buyer who likes a product but is unsure about an unfamiliar seller or listing.
+
+**Flow:** MTrusted destination → explainable evidence → qualified product → seller profile → PDP
+
+**MTrusted answers:** *“Is this seller or listing reliably good?”*
+
+### 5. Aarav — College Style Starter
+A value-conscious college shopper looking for affordable everyday fashion.
+
+**Flow:** mission-guided home → Men’s Fashion → PDP → seller / review proof → Complete Your Look
+
+**Focus:** guided discovery, proof-first evaluation and post-confidence basket expansion.
+
+> Regional merchandising shown in the prototype is illustrative. It demonstrates the interaction model rather than actual regional demand data.
+
+## Product systems demonstrated
+
+### Mission-led discovery
+The homepage prioritises the shopper’s immediate need instead of relying on a long undifferentiated feed. Region, season and category can help with cold start; observed behaviour should increasingly drive personalisation after interaction begins.
+
+### Distinct trust routes
+The prototype deliberately keeps the two trust systems separate:
+
+- **Meesho Mall — brand / provenance trust**
+- **MTrusted — seller + marketplace-quality trust**
+
+Both routes feed into the same product-evaluation experience rather than becoming isolated storefronts.
+
+### Proof-first PDP
+The product page brings decision-critical evidence together before purchase:
 
 - category-specific product details
 - selected-variant pricing
 - seller credibility
 - review intelligence
-- verified buyer photos and UGC
+- verified buyer imagery / UGC
 - delivery visibility
-- return / replacement information
+- return and replacement information
 - payment and refund certainty
 
-Seller information, reviews and buyer proof remain inspectable as separate interactive screens.
+Seller information, reviews and buyer proof can also be opened as dedicated screens.
 
-## Growth after product confidence
+### Growth after product confidence
+Once the shopper has enough evidence to evaluate the product, the PDP continues into:
 
-Once the shopper has evaluated the product, the next-step modules remain inside the same scrollable PDP:
+1. Share & Save
+2. Group Created
+3. Usually Bought Together
+4. Complete Your Look / Complete Your Routine
+5. Suggested Products
 
-1. **Share & Save**
-2. **Group Created**
-3. **Usually Bought Together**
-4. **Complete Your Look / Complete Your Routine**
-5. **Suggested Products**
+These modules stay in the same scrollable product page so the shopper does not lose the context that established confidence.
 
-Suggested Products is intentionally the last section. The idea is to preserve the product context that earned trust before broadening discovery again.
+## Suggested judge path
 
-## Useful paths to try
-
-A representative end-to-end path is:
+A representative end-to-end flow is:
 
 **Homepage → Category → Product → Product Details / Seller / Reviews / UGC → Transaction Certainty → Share & Save → Cart → Checkout → Order Confirmation**
 
-Other interactive areas include Mall and MTrusted explainers, wishlist, My Orders, account, bundle additions, group creation and persona-specific recommendations.
+Other working areas include Mall and MTrusted explainers, category browsing, wishlist, My Orders, account, group creation, bundles and persona-specific recommendations.
 
-The phone’s **Home / Categories / My Orders / Account** navigation stays fixed while the product content scrolls.
+The phone’s **Home / Categories / My Orders / Account** navigation remains fixed while the phone content scrolls.
 
-## Prototype scope
+## Technical setup
 
-This is a strategic product prototype rather than a production Meesho build. Prices, seller metrics, recommendations, regional merchandising and some commerce imagery are illustrative. Fictional or generated assets are used where appropriate so the prototype does not imply real merchant performance or unsupported marketplace statistics.
+The prototype is intentionally lightweight:
 
-## What the prototype is intended to show
+- semantic HTML
+- CSS
+- vanilla JavaScript
+- responsive desktop presentation shell
+- compressed WebP commerce assets
+- GitHub Pages deployment through GitHub Actions
+- no framework or runtime dependency
 
-The proposal is less about adding another feed or another trust badge, and more about reducing the amount of interpretation a new shopper has to do.
+### Repository structure
 
-The intended progression is:
+```text
+.
+├── index.html
+├── styles.css
+├── app.js
+├── assets/
+│   ├── assam/
+│   ├── categories/
+│   ├── chhath/
+│   ├── college/
+│   ├── mall/
+│   ├── mtrusted/
+│   ├── products/
+│   ├── profiles/
+│   ├── reviews/
+│   ├── seller/
+│   └── trust/
+└── .github/
+    └── workflows/
+        └── pages.yml
+```
 
-**more relevant discovery → clearer trust → easier evaluation → lower first-order hesitation → stronger next-mission relevance**
+## Scope and attribution
 
-The same trust and proof system is carried across festive, regional, branded, seller-confidence and college-style use cases so the experience stays recognisably Meesho rather than becoming five separate products.
+This repository contains a **concept prototype**, not production Meesho software.
+
+Prices, seller metrics, recommendations, regional merchandising and some commerce imagery are illustrative. Fictional or generated assets are used where appropriate so the prototype does not imply real merchant performance or unsupported marketplace statistics.
+
+Meesho names, marks and product references are used only in the context of the challenge submission and remain the property of their respective owners.
+
+## Project links
+
+- **Prototype:** https://iron-sngh.github.io/Meesho_interactive/
+- **Submission deck:** https://drive.google.com/file/d/10sdDxFJ4x0P0fKoClPCTn7K5_KqDU4Vl/view?usp=sharing
+- **Repository:** https://github.com/Iron-sngh/Meesho_interactive
