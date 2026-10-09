@@ -25,7 +25,7 @@ Use **Show click map** to reveal interactive regions. **Restart journey** return
 
 ## Persona journeys
 
-### 1. Rohit f Chhath Festival Mission
+### 1. Rohit - Chhath Festival Mission
 A Bihar festive shopper whose session starts with a clear seasonal need.
 
 **Flow:** Chhath homepage → festive mission → relevant products → trusted PDP → cart / checkout
