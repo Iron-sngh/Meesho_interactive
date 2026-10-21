@@ -100,7 +100,7 @@ try{
  }
  await visit(desktop,'guided discovery moves from need to task and product',async()=>{
   await goto(desktop,'college-home','college');
-  const need=desktop.locator('[data-mission-domain]').first();
+  const need=desktop.locator('[data-mission-domain="grooming"]').first();
   assert(await need.count()>0,'Need choice missing');
   await need.click();
   const task=desktop.locator('[data-mission-task]').first();

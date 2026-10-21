@@ -24,7 +24,7 @@ const personas = {
     id: 'chhath',
     title: 'Chhath Festival Mission',
     subtitle: 'Rohit · Bihar festive shopper',
-    summary: 'Regional seasonal discovery that starts from Chhath needs and routes into trusted festive shopping journeys.',
+    summary: 'Rohit can start with Chhath clothing, puja preparation or gifts, then compare products in the usual Meesho flow.',
     entryRoute: 'chhath-home',
     tags: ['Regional relevance', 'Festive homepage', 'Basket completion'],
     avatar: 'profiles/profile_avatar_rohit.webp'
@@ -33,7 +33,7 @@ const personas = {
     id: 'assam',
     title: 'Assam Festive Mission',
     subtitle: 'Nayan · Assam seasonal shopper',
-    summary: 'Contextual homepage with festive discovery, regional merchandising and trust-led progression into PDPs.',
+    summary: 'Nayan sees an Assam-focused selection of seasonal and everyday needs, while the usual categories stay available.',
     entryRoute: 'assam-home',
     tags: ['Assam relevance', 'Mission-led home', 'Mall + MTrusted'],
     avatar: 'profiles/profile_avatar_nayan.webp'
@@ -42,7 +42,7 @@ const personas = {
     id: 'mall',
     title: 'Meesho Mall for Brands',
     subtitle: 'Kabir · brand-conscious grooming shopper',
-    summary: 'A dedicated branded assortment destination that makes provenance and value easy to understand.',
+    summary: 'A place to understand brand and product-source assurance when those matter to the purchase.',
     entryRoute: 'mall-home',
     tags: ['Brand destination', 'Provenance trust', 'Grooming'],
     avatar: 'profiles/profile_avatar_kabir.webp'
@@ -51,7 +51,7 @@ const personas = {
     id: 'mtrusted',
     title: 'MTrusted Confidence',
     subtitle: 'Vivek · trust-seeking first-time buyer',
-    summary: 'MTrusted explains seller and listing quality with clear evidence rather than unexplained badges.',
+    summary: 'A closer look at seller track record, delivery and listing-quality information.',
     entryRoute: 'mtrusted-home',
     tags: ['Seller confidence', 'Explainable trust', 'Trust routing'],
     avatar: 'profiles/profile_avatar_vivek.webp'
@@ -60,7 +60,7 @@ const personas = {
     id: 'female',
     title: 'Familiar Shopping & Confidence',
     subtitle: 'Ananya · returning female shopper',
-    summary: 'Her familiar categories remain central while optional missions, Review Intelligence and explainable trust build confidence without disrupting existing habits.',
+    summary: 'Ananya keeps the Meesho shopping experience she knows, with clearer product information and optional ways to browse or buy gifts.',
     entryRoute: 'female-home',
     tags: ['Female experience safeguard', 'Familiar navigation', 'Universal trust'],
     avatar: 'profiles/buyer_avatar_03.webp'
@@ -69,7 +69,7 @@ const personas = {
     id: 'college',
     title: 'Everyday Needs Missions',
     subtitle: 'Aarav · purpose-led everyday shopper',
-    summary: 'Guided discovery across fashion, grooming, home essentials and electronics & accessories, with proof-first evaluation before purchase.',
+    summary: 'Aarav can shop for what he needs, compare relevant picks and check details, reviews and sellers before a first order.',
     entryRoute: 'college-home',
     tags: ['Shop by need', 'Guided missions', 'Proof-first PDP'],
     avatar: 'profiles/profile_avatar_aarav.webp'
@@ -85,12 +85,12 @@ const routeMeta = {
 
   'female-home': {label:'Home · Ananya',title:'Familiar female-first shopping',
     persona:'Familiar Shopping & Confidence',
-    summary:'Standard categories remain prominent. Optional mission prompts, universal trust and a secondary Gift for Him route expand useful choices.',
+    summary:'Ananya starts with familiar categories. Guided picks, clearer product details and Gift for Him are available when she needs them.',
     keySignals:['Familiar categories','Optional missions','Gift for Him','Proof-first evaluation'],
     kpi:['Female PDP → ATC','Kept order rate','Repeat']},
   'female-category': {label:'Category · Women’s shopping',title:'Women’s needs and occasions',
     persona:'Familiar Shopping & Confidence',
-    summary:'A familiar category list with optional purpose filters, proof-first products and Mall/MTrusted routes.',
+    summary:'Women’s categories stay familiar. Optional purpose filters help narrow the choice, with product details and trust routes close by.',
     keySignals:['Everyday products','Purpose filters','Trust destinations','Review evidence'],
     kpi:['Category CTR','PDP → ATC','Trust comprehension']},
   'female-gifts': {label:'Gifting · Apno Ke Liye',title:'Gift for Him',
@@ -103,7 +103,7 @@ const routeMeta = {
     label: 'Home · Everyday Needs Missions',
     title: 'Choose a need, then a purpose',
     persona: 'Everyday Needs Missions',
-    summary: 'Four familiar shopping needs lead into simple purpose-led choices. Product shortlists connect to the existing proof-first PDP, review intelligence and explainable trust destinations.',
+    summary: 'Choose fashion, grooming, home or electronics, then a purpose. The shortlist leads straight to product details, reviews and seller information.',
     keySignals: ['Fashion, grooming, home and electronics', 'Progressive two-step discovery', 'Relevant shortlists', 'Trust and product proof'],
     kpi: ['Need-to-mission selection', 'Mission-to-PDP CTR', 'PDP → ATC']
   },
@@ -111,7 +111,7 @@ const routeMeta = {
     label: 'Results · Guided mission',
     title: 'Need-matched product shortlist',
     persona: 'Everyday Needs Missions',
-    summary: 'A selected everyday purpose narrows the illustrative assortment while keeping product evaluation and trust routes available.',
+    summary: 'Products match the task the shopper chose. Details, seller information and trust explanations remain close at hand.',
     keySignals: ['Purpose-specific shortlist', 'Easy mission switching', 'Proof-first PDP', 'Mall and MTrusted explanation'],
     kpi: ['Mission-to-PDP CTR', 'Relevant PDP visits', 'PDP → ATC']
   },
@@ -119,7 +119,7 @@ const routeMeta = {
     label: 'Home · Assam Festive',
     title: 'Assam contextual homepage',
     persona: 'Assam Festive Context',
-    summary: 'Illustrative Assam festive home that uses context, utility missions and trending products to reduce cold-start friction.',
+    summary: 'An Assam-focused homepage brings seasonal wear, self-care, travel and home needs into view without changing the way Meesho works.',
     keySignals: ['Festive picks', 'What do you need today?', 'Trending in Assam', 'Mall + MTrusted routing'],
     kpi: ['Category engagement', 'Relevant PDP visits', 'First-order conversion']
   },
@@ -127,7 +127,7 @@ const routeMeta = {
     label: 'Home · Bihar Chhath',
     title: 'Bihar Chhath festive homepage',
     persona: 'Chhath Festival Mission',
-    summary: 'Built from scratch in the same system to showcase how region and festival can drive more relevant merchandising and quicker mission completion.',
+    summary: 'Chhath-specific clothing, puja preparation and gifts appear together, so Rohit can plan a festival purchase without starting from scratch.',
     keySignals: ['Chhath picks', 'Offer-led urgency', 'Mission bundles', 'Trust-qualified products'],
     kpi: ['Festive engagement', 'ATC', 'Basket size']
   },
@@ -191,7 +191,7 @@ const routeMeta = {
     label: 'PDP · Proof-first',
     title: 'Proof-first product detail page',
     persona: 'Shared purchase screen',
-    summary: 'The PDP is the heart of the system: product facts, seller proof, review intelligence, verified UGC, transaction certainty and post-confidence growth modules now live in one continuous scroll.',
+    summary: 'One product page brings together specifications, seller details, review summaries and delivery and return information. Bundles and sharing come after product evaluation.',
     keySignals: ['Structured details', 'Seller evidence', 'Verified buyer media', 'Share & Save', 'Usually Bought Together', 'Complete Your Look', 'Suggested Products'],
     kpi: ['PDP → ATC', 'Why-link usage', 'Return confidence']
   },
@@ -994,11 +994,11 @@ function femaleHome(){
     ${femaleProductGrid(['saree','fashion','care','decor'],'four-up')}
   </section>
   <section class="screen-section">
-    ${sectionHeader('What do you need today?','Optional guided choices, never a required step.','','')}
+    ${sectionHeader('What do you need today?','A few shortcuts when you want help choosing.','','')}
     ${femaleQuickMissions()}
   </section>
   <section class="screen-section">
-    ${sectionHeader('Thoughtful gifting','A secondary route for the people you care about.','','')}
+    ${sectionHeader('Thoughtful gifting','Find a useful gift without changing your usual shopping.','','')}
     ${femaleGiftTile()}
   </section>
   <section class="screen-section">
@@ -1113,7 +1113,7 @@ function collegeHome() {
       ${appBar({ brand: true, searchText: 'Search by need, product or occasion' })}
       <section class="screen-section">
         <div class="need-step-eyebrow">STEP 1 OF 2 · CHOOSE A SHOPPING NEED</div>
-        ${sectionHeader('What do you need today?', 'Start with a need. We’ll help you narrow it to a useful shortlist.', '', '')}
+        ${sectionHeader('What do you need today?', 'Choose what you’re shopping for. Then pick the purpose.', '', '')}
         ${missionDomainButtons()}
       </section>
       ${missionStepPanel()}
@@ -1172,7 +1172,7 @@ function assamHome() {
       </section>
 
       <section class="screen-section">
-        ${sectionHeader('What do you need today?', 'Choose a mission, discover faster — or browse freely.', '', '')}
+        ${sectionHeader('What do you need today?', 'Pick a need or browse the usual categories.', '', '')}
         <div class="mission-photo-grid">
           <button class="mission-photo-card featured" data-go="category-assam"><img src="${asset('assam/assam_kurta.webp')}" alt="Festive style"><span><b>Festive Style</b><small>Celebration looks under ₹699</small></span></button>
           <button class="mission-photo-card" data-go="category-grooming"><img src="${asset('assam/assam_selfcare_gift.webp')}" alt="Self care"><span><b>Self-Care</b><small>Grooming and gifting picks</small></span></button>
@@ -1182,11 +1182,11 @@ function assamHome() {
       </section>
 
       <section class="screen-section">
-        ${sectionHeader('Trending in Assam', 'Illustrative regional ordering, not a demand-data claim.', 'See all', 'category-assam')}
+        ${sectionHeader('Trending in Assam', 'A regional selection for this demo; not a live popularity ranking.', 'See all', 'category-assam')}
         <div class="four-up">
           ${productCard({ title: 'Assam Festive Kurta', price: 429, route: 'pdp-core', badge: 'Festive', image: asset('assam/assam_kurta.webp') })}
           ${productCard({ title: 'Festive Decor Set', price: 299, route: 'pdp-core', image: asset('assam/assam_decor_set.webp') })}
-          ${productCard({ title: 'Self-Care Gift Box', price: 449, route: 'pdp-core', badge: 'Mall', image: asset('assam/assam_selfcare_gift.webp') })}
+          ${productCard({ title: 'Self-Care Gift Box', price: 449, route: 'pdp-core',  image: asset('assam/assam_selfcare_gift.webp') })}
           ${productCard({ title: 'Travel Utility Kit', price: 249, route: 'pdp-core', image: asset('assam/assam_travel_kit.webp') })}
         </div>
       </section>
@@ -1231,9 +1231,9 @@ function chhathHome() {
         </button>
       </section>
       <section class="screen-section">
-        ${sectionHeader('Festive favourites', 'Qualified listings with value-led merchandising.', 'See all', 'category-chhath')}
+        ${sectionHeader('Festive favourites', 'Compare festive essentials, prices and product details.', 'See all', 'category-chhath')}
         <div class="four-up">
-          ${productCard({ title: 'Printed Kurta Set', price: 699, oldPrice: 999, route: 'pdp-core', badge: 'Mall', image: asset('chhath/chhath_kurta.webp') })}
+          ${productCard({ title: 'Printed Kurta Set', price: 699, oldPrice: 999, route: 'pdp-core',  image: asset('chhath/chhath_kurta.webp') })}
           ${productCard({ title: 'Celebration Saree', price: 799, route: 'pdp-core', image: asset('chhath/chhath_saree.webp') })}
           ${productCard({ title: 'Puja & Decor Pack', price: 249, route: 'pdp-core', badge2: 'Top rated', image: asset('chhath/chhath_decor_pack.webp') })}
           ${productCard({ title: 'Gift Hamper', price: 299, route: 'pdp-core', image: asset('chhath/chhath_gift_hamper.webp') })}
@@ -1429,10 +1429,10 @@ function mallHome() {
       <section class="screen-section">
         ${sectionHeader('Mall picks for you', 'Branded-looking assortment for grooming routines.', 'See all', 'category-grooming')}
         <div class="four-up">
-          ${productCard({ title: 'Daily Face Wash', price: 199, route: 'pdp-core', badge: 'Mall', image: asset('mall/mall_facewash.webp') })}
-          ${productCard({ title: 'Beard Oil', price: 249, route: 'pdp-core', badge: 'Mall', image: asset('mall/mall_beard_oil.webp') })}
-          ${productCard({ title: 'Shaving Essentials Kit', price: 279, route: 'pdp-core', badge: 'Mall', image: asset('mall/mall_shaving_kit.webp') })}
-          ${productCard({ title: 'Deodorant Body Spray', price: 179, route: 'pdp-core', badge: 'Mall', image: asset('mall/mall_deodorant.webp') })}
+          ${productCard({ title: 'Daily Face Wash', price: 199, route: 'pdp-core',  image: asset('mall/mall_facewash.webp') })}
+          ${productCard({ title: 'Beard Oil', price: 249, route: 'pdp-core',  image: asset('mall/mall_beard_oil.webp') })}
+          ${productCard({ title: 'Shaving Essentials Kit', price: 279, route: 'pdp-core',  image: asset('mall/mall_shaving_kit.webp') })}
+          ${productCard({ title: 'Deodorant Body Spray', price: 179, route: 'pdp-core',  image: asset('mall/mall_deodorant.webp') })}
         </div>
       </section>
       ${shopForHerTeaser()}
@@ -1476,7 +1476,7 @@ function mtrustedHome() {
           ${[
             ['Reliable seller?', 'Seller track record'],
             ['Can I rely on fulfilment?', 'Reliable fulfilment'],
-            ['Will the product issue me?', 'Product issue history'],
+            ['What if there’s a problem?', 'Product issue history'],
             ['Is the listing clear?', 'Complete listing proof']
           ].map(([h, s]) => `<button class="need-tile" data-go="mtrusted-explainer"><div class="need-art">✓</div><b>${h}</b><span>${s}</span></button>`).join('')}
         </div>
@@ -1851,7 +1851,7 @@ function pdpCore() {
           </div>
         </div>
         <div class="info-stack">
-          <div class="trust-line"><span class="badge-pill">${womenContext?'Product evidence':(state.persona==='mall'||p.kind==='grooming'?'Meesho Mall':'MTrusted')}</span><span class="tiny-pill">${womenContext?'Illustrative product':'Top rated'}</span></div>
+          <div class="trust-line"><span class="badge-pill">Product information</span><span class="tiny-pill">Check trust signals below</span></div>
           <h2>${p.title}</h2>
           <div class="info-subline">${p.kind === 'grooming' ? 'Daily-use grooming essential' : p.kind === 'utility' ? 'Everyday value pick' : 'Popular selected variant'}</div>
           <div class="hero-price"><span class="price">₹${p.price}</span></div>
@@ -1870,19 +1870,19 @@ function pdpCore() {
         <div class="trust-badges"><div class="trust-badge"><b>Strong category performance</b><span>Stable buyer outcomes.</span></div><div class="trust-badge"><b>Reliable fulfilment</b><span>Consistent shipping outcomes.</span></div><div class="trust-badge"><b>Low issue incidence</b><span>Healthier post-order experience.</span></div></div>
       </div>
 
-      ${womenContext?femaleTrustBlock():''}
+      ${femaleTrustBlock()}
       <div class="info-card info-card-button" data-go="reviews" role="button" tabindex="0">
         ${sectionHeader('Customers say', 'Review scores by product attribute', 'Review intelligence', 'reviews')}
         ${reviewThemeCards(reviewThemes)}
-        <div class="buyer-avatar-row">${[1,2,3,4].map(i => `<img src="${buyerAvatar(i)}" alt="Verified buyer ${i}">`).join('')}<span>${womenContext?'Illustrative attribute ratings, not live reviews':'Verified buyer reviews'}</span></div>
+        <div class="buyer-avatar-row">${[1,2,3,4].map(i => `<img src="${buyerAvatar(i)}" alt="Illustrative buyer avatar ${i}">`).join('')}<span>Illustrative review themes · sample data</span></div>
       </div>
 
       <div class="info-card info-card-button" data-go="ugc-gallery" role="button" tabindex="0">
-        ${sectionHeader(womenContext?'Product photo references':'Buyer visual proof',womenContext?'Existing product photography; buyer photos will be added separately.':(isBlackShirt?'Verified buyer photos & videos':'Product and buyer evidence'),'View gallery','ugc-gallery')}
+        ${sectionHeader('Product & buyer photos','Photo examples in this prototype; use verified customer submissions in production.','View gallery','ugc-gallery')}
         <div class="ugc-row photo-ugc-row">
           ${isBlackShirt ? `<img src="${asset('reviews/ugc_black_shirt_01.webp')}" alt="Buyer wearing black shirt"><img src="${asset('reviews/ugc_black_shirt_video_cover.webp')}" alt="Buyer video cover"><img src="${asset('reviews/ugc_black_shirt_02.webp')}" alt="Buyer wearing black shirt outdoors">` : `<img src="${p.image}" alt="${p.title}"><img src="${p.image}" alt="Product view"><img src="${p.image}" alt="Product detail view">`}
         </div>
-        <div class="review-quote"><b>${womenContext?'Illustrative buyer comment':'Verified Purchase'}</b><p>“The product matched the listing and the order experience was straightforward.”</p></div>
+        <div class="review-quote"><b>Sample review · for demonstration</b><p>“The product matched the listing and the order experience was straightforward.”</p></div>
       </div>
 
       <div class="info-card info-card-button" data-go="certainty" role="button" tabindex="0">
@@ -1906,7 +1906,7 @@ function productDetailsScreen() {
       ${appBar({ brand: false, title: 'PRODUCT DETAILS', subtitle: p.title, searchText: 'Search product information', backRoute: 'pdp-core' })}
       <div class="list-card product-details-intro"><img class="details-product-photo" src="${p.image}" alt="${p.title}"><div><h4>${p.title}</h4><p class="body-copy">Decision-critical information is structured by category so the shopper does not have to infer important facts from images or description text.</p></div></div>
       <div class="list-card"><h4>Key information</h4><div class="details-grid">${details.map(([k,v]) => `<div class="detail-item"><b>${k}</b><span>${v}</span></div>`).join('')}</div></div>
-      ${p.kind === 'fashion' && !isHerShoppingContext() ? `<div class="list-card"><h4>Fit & construction proof</h4><div class="detail-proof-grid"><figure><img src="${asset(isBlackShirt ? 'products/shirt_size_guide.webp' : 'products/shirt_fit_side.webp')}" alt="Size and fit guide"><figcaption>Size & fit</figcaption></figure><figure><img src="${asset('products/shirt_fabric_macro.webp')}" alt="Fabric detail"><figcaption>Material detail</figcaption></figure><figure><img src="${asset('products/shirt_button_detail.webp')}" alt="Construction detail"><figcaption>Construction</figcaption></figure></div></div>` : `<div class="list-card"><h4>${state.persona==='female'?'Existing product references':'Package & usage proof'}</h4><div class="detail-proof-grid"><figure><img src="${p.image}" alt="Product view"><figcaption>Product photo</figcaption></figure><figure><img src="${state.persona==='female'?asset('categories/cat_womens_fashion.webp'):asset('mall/mall_grooming_banner.webp')}" alt="Category reference"><figcaption>Category reference</figcaption></figure></div></div>`}
+      ${p.kind === 'fashion' && !isHerShoppingContext() ? `<div class="list-card"><h4>Fit & construction proof</h4><div class="detail-proof-grid"><figure><img src="${asset(isBlackShirt ? 'products/shirt_size_guide.webp' : 'products/shirt_fit_side.webp')}" alt="Size and fit guide"><figcaption>Size & fit</figcaption></figure><figure><img src="${asset('products/shirt_fabric_macro.webp')}" alt="Fabric detail"><figcaption>Material detail</figcaption></figure><figure><img src="${asset('products/shirt_button_detail.webp')}" alt="Construction detail"><figcaption>Construction</figcaption></figure></div></div>` : `<div class="list-card"><h4>'Product reference photos'</h4><div class="detail-proof-grid"><figure><img src="${p.image}" alt="Product view"><figcaption>Product photo</figcaption></figure><figure><img src="${isHerShoppingContext()?asset('categories/cat_womens_fashion.webp'):asset('mall/mall_grooming_banner.webp')}" alt="Category reference"><figcaption>Category reference</figcaption></figure></div></div>`}
     `
   });
 }
@@ -1944,7 +1944,7 @@ function reviewsScreen() {
       ${appBar({ brand: false, title: 'REVIEW INTELLIGENCE', subtitle: p.title, searchText: 'Search reviews', backRoute: 'pdp-core' })}
       <div class="list-card"><h4>Review intelligence by attribute</h4>${reviewThemeCards(reviewThemes)}</div>
       <div class="list-card"><h4>Pros & watch-outs</h4><div class="two-up"><div class="mini-card"><h4>Pros</h4><p>Good value, clear listing information and a dependable first impression.</p></div><div class="mini-card"><h4>Watch-outs</h4><p>Check the selected variant and category-specific details before ordering.</p></div></div></div>
-      <div class="list-card"><h4>${isHerShoppingContext()?'Illustrative review examples':'Traceable reviews'}</h4><div class="review-feed">${[1,2,3].map((i) => `<article class="review-feed-card"><img class="reviewer-avatar" src="${buyerAvatar(i)}" alt="Verified buyer"><div><b>${isHerShoppingContext()?'Sample buyer':'Verified buyer'}</b><small>${isHerShoppingContext()?'Illustrative review, not verified':'Verified Purchase'}</small><p>${i===1?'“Matched the listing well and felt worth the price.”':i===2?'“The details helped me know what to expect before ordering.”':'“Delivery and packaging were straightforward.”'}</p></div>${isBlackShirt ? `<img class="review-proof-thumb" src="${asset(`reviews/ugc_black_shirt_0${i}.webp`)}" alt="Buyer proof">` : `<img class="review-proof-thumb" src="${p.image}" alt="${p.title}">`}</article>`).join('')}</div></div>
+      <div class="list-card"><h4>Illustrative reviews</h4><div class="review-feed">${[1,2,3].map((i) => `<article class="review-feed-card"><img class="reviewer-avatar" src="${buyerAvatar(i)}" alt="Illustrative buyer avatar"><div><b>Sample shopper</b><small>Example only · not verified</small><p>${i===1?'“Matched the listing well and felt worth the price.”':i===2?'“The details helped me know what to expect before ordering.”':'“Delivery and packaging were straightforward.”'}</p></div>${isBlackShirt ? `<img class="review-proof-thumb" src="${asset(`reviews/ugc_black_shirt_0${i}.webp`)}" alt="Buyer proof">` : `<img class="review-proof-thumb" src="${p.image}" alt="${p.title}">`}</article>`).join('')}</div></div>
     `
   });
 }
@@ -2176,7 +2176,7 @@ function inlineProductGrowthModules() {
   return `
     <section class="growth-module share-save-module inline-growth-section">
       <span class="growth-kicker">Share & Save</span>
-      ${sectionHeader('Shop together after you decide', 'Share this exact product with its reviews and trust context, then unlock the group price transparently.', '', '')}
+      ${sectionHeader('Shop together after you decide', 'Share the product after checking the details. The group price and conditions stay visible.', '', '')}
       <button class="share-save-card" data-action="create-group-inline">
         <img src="${asset('share_save_visual.webp')}" alt="Friends sharing a shopping link">
         <span class="share-save-copy"><b>Start a Share & Save group</b><small>Standard price ₹${p.price} · group price ₹${groupPrice}</small><em>${state.groupCreated ? 'Group created on this page ✓' : 'Create group on this page →'}</em></span>
@@ -2185,7 +2185,7 @@ function inlineProductGrowthModules() {
 
     <section class="growth-module inline-growth-section inline-group-module">
       <span class="growth-kicker">Group Created</span>
-      ${sectionHeader('Group status', 'The Share & Save confirmation stays inside the product page so the shopper never loses product context.', '', '')}
+      ${sectionHeader('Group status', 'Your group stays on this product page, alongside the price and product details.', '', '')}
       <div class="inline-group-state ${state.groupCreated ? 'is-created' : 'is-pending'}">${inlineGroupCreatedMarkup(p)}</div>
     </section>
 

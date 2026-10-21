@@ -3097,3 +3097,93 @@ img { display:block; max-width:100%; }
     grid-column:2;
   }
 }
+
+/* Judge demo responsiveness: retain the full device and its fixed controls. */
+html,body{max-width:100%;overflow-x:clip}
+.site-shell,.prototype-layout,.phone-stage,.persona-panel,.detail-panel{min-width:0}
+.device-canvas,.phone-shell,.screen-root,.screen-section,.top-appbar,
+.appbar-row,.appbar-title,.appbar-title-copy,.appbar-title-main,
+.section-heading,.section-heading h2,.hero-copy-card,.info-card{min-width:0}
+.appbar-title-main,.appbar-subtitle,.screen-section h2,.phone-shell h2,
+.product-detail-hero h2,.hero-copy-card h2,.detail-panel h2{
+  overflow-wrap:anywhere;
+}
+button,.nav-item,.cta-button,.mission-photo-card,.product-card,
+.trust-card,.region-occasion-card{
+  min-width:0;
+  overflow-wrap:break-word;
+}
+.phone-content{overscroll-behavior:contain;overflow-x:hidden;-webkit-overflow-scrolling:touch}
+.phone-shell .navbar{z-index:12}
+.phone-shell .bottom-cta{z-index:11}
+@media(min-width:1280px){
+ .site-shell{max-width:1500px;width:100%;padding:clamp(12px,1.35vw,20px)}
+ .prototype-layout{
+   grid-template-columns:minmax(250px,1fr) minmax(0,426px) minmax(280px,1.14fr);
+   gap:clamp(10px,1.3vw,20px);
+   align-items:start;
+ }
+ .device-canvas{max-width:100%}
+ .phone-shell{height:clamp(630px,calc(100dvh - 60px),845px)}
+ .persona-panel,.detail-panel{top:12px;max-height:calc(100dvh - 24px)}
+}
+@media(min-width:941px) and (max-width:1279px){
+ .site-shell{padding:16px;max-width:100%}
+ .prototype-layout{
+   display:grid;
+   grid-template-columns:minmax(0,1fr);
+   justify-items:stretch;
+   gap:14px;
+ }
+ .phone-stage{order:-1;width:100%;position:static}
+ .persona-panel,.detail-panel{
+   position:static;
+   width:100%;
+   max-height:none;
+   overflow:visible;
+   height:auto;
+ }
+ .device-canvas{width:min(426px,100%)}
+ .phone-shell{height:min(845px,calc(100dvh - 56px));min-height:600px}
+}
+@media(max-width:940px){
+ .site-shell{width:100%;max-width:100%;padding:12px}
+ .prototype-layout{display:flex;flex-direction:column;gap:14px;width:100%;align-items:stretch}
+ .phone-stage{order:-1;width:100%;position:static}
+ .persona-panel,.detail-panel{
+   width:100%;
+   max-height:none;
+   height:auto;
+   overflow:visible;
+   position:static;
+ }
+ .device-canvas{margin-inline:auto;width:min(426px,100%)}
+ .phone-shell{height:min(845px,calc(100dvh - 44px));min-height:0}
+}
+@media(max-width:560px){
+ :root{--phone-width:min(390px,calc(100vw - 36px))}
+ .site-shell{padding:8px}
+ .prototype-layout{gap:10px}
+ .device-canvas{padding:10px;width:100%;max-width:426px;border-radius:30px}
+ .phone-shell{width:var(--phone-width);height:calc(100dvh - 40px);min-height:0;border-radius:23px}
+ .phone-notch{width:90px}
+ .top-appbar{padding-inline:12px}
+ .appbar-row{gap:6px}
+ .appbar-title-copy{min-width:0;flex:1}
+ .brand-wordmark{font-size:clamp(1rem,4.8vw,1.3rem)}
+ .nav-item{gap:3px;font-size:clamp(.57rem,2.6vw,.7rem);white-space:normal;text-align:center}
+ .nav-glyph{font-size:clamp(.95rem,4vw,1.1rem)}
+ .navbar-grid{grid-template-columns:repeat(4,minmax(0,1fr))}
+ .cta-button{font-size:clamp(.65rem,2.8vw,.78rem);padding-inline:6px}
+ .two-up,.four-up,.style-mission-grid,.mission-photo-grid{
+   min-width:0;
+ }
+}
+@media(max-width:360px){
+ .phone-shell{border-radius:20px}
+ .device-canvas{border-radius:26px;padding:9px}
+ .top-appbar{padding-inline:9px}
+ .navbar-grid{gap:0}
+ .nav-item{font-size:.57rem}
+ .mission-photo-card span,.female-task,.product-card{overflow-wrap:anywhere}
+}

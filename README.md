@@ -1,166 +1,99 @@
-# Meesho Interactive Prototype
+# Meesho DICE Season 3 | Interactive product prototype
 
-[![Deploy GitHub Pages](https://github.com/Iron-sngh/Meesho_interactive/actions/workflows/pages.yml/badge.svg)](https://github.com/Iron-sngh/Meesho_interactive/actions/workflows/pages.yml)
+**[Open the live prototype](https://iron-sngh.github.io/Meesho_interactive/)** · **[Read the submission deck](https://drive.google.com/file/d/10sdDxFJ4x0P0fKoClPCTn7K5_KqDU4Vl/view?usp=sharing)** · **[Browser QA](https://github.com/Iron-sngh/Meesho_interactive/actions/workflows/browser-qa.yml)**
 
-**Live prototype:** https://iron-sngh.github.io/Meesho_interactive/  
-**Submission deck:** https://drive.google.com/file/d/10sdDxFJ4x0P0fKoClPCTn7K5_KqDU4Vl/view?usp=sharing
+Business Track · Team Alcheringa, IIT Guwahati
 
-Interactive product prototype for the **Meesho DICE Challenge Season 3 - Business Track**.
+## The idea in one minute
 
-The prototype explores how Meesho can make an uncertain first shopping session easier to navigate, evaluate and trust. The experience is built around one progression:
+Meesho does not need a separate men's storefront to win more male shoppers. It needs to make the **first purchase easier to find, evaluate and trust**. After that first order succeeds, better recommendations, bundles and household shopping can create reasons to return.
 
-**Context → Intent → Relevant Products → Trust → Proof → Order #1 → Next Mission**
+Our submission follows a simple sequence:
 
-## Prototype walkthrough
+**Find the need → Show relevant options → Explain the product and seller → Make delivery and returns clear → Earn Order #1 → Encourage the next useful purchase**
 
-The desktop presentation is split into three areas:
+The prototype shows how this could work inside a familiar Meesho interface. The changes are deliberate and incremental: clearer choices, evidence at the moment of decision, and optional growth features rather than a wholesale redesign.
 
-| Area | Purpose |
+## Why we focused here
+
+Our submitted research combines **198 survey responses across four languages** and **10+ qualitative interviews** with secondary evidence. The findings pointed to problems beyond price: uncertainty about quality, incomplete product information, weak seller confidence, difficulty finding relevant items and questions about returns or delivery.
+
+We grouped the work into three horizons:
+
+| Priority | What we propose | Where to see it |
+| --- | --- | --- |
+| **Build first — establish trust** | Review Intelligence and buyer photos; category-specific specifications; explainable seller and source trust | Product detail page, Reviews, Seller, Meesho Mall and MTrusted |
+| **Make choosing easier** | Need- and occasion-led discovery; clearer fulfilment and return information; regional context | Aarav's homepage, Assam / Chhath, Transaction Certainty |
+| **Test after confidence** | Complete-the-mission recommendations, Share & Save, group buying, next-best shopping missions | Lower half of the PDP, gift journeys and cart |
+
+This is a product proposal, not a claim that the illustrated changes have already increased conversion.
+
+## Start here: recommended walkthrough (3–5 minutes)
+
+Open the live prototype on desktop. The **left side** chooses a journey, the **centre phone** is clickable and scrollable, and the **right side** explains the screen and how it could be measured.
+
+1. Select **Everyday Needs Missions (Aarav)**. Choose **Grooming & Self-Care → Daily Face Care**, or **Fashion & Style → Office Wear**.
+2. Open a product. Review the specifications, seller details, Review Intelligence and photo examples. Note that Meesho Mall and MTrusted answer **different trust questions**.
+3. Scroll further down the *same product page* to Share & Save, Usually Bought Together, Complete Your Look and Suggested Products. These appear **after** the core product evidence.
+4. Open Cart, Checkout and Transaction Certainty to see how the purchase terms stay understandable.
+5. Briefly show **Ananya's familiar female shopping experience**, **Bihar / Chhath**, and **Assam**. These demonstrate inclusive and contextual discovery, not separate storefronts.
+
+Use **Show click map** to locate clickable areas and **Restart journey** to reset the selected use case. On a phone, the interactive device appears first; the journey switcher and explanation follow below.
+
+## Four shopper journeys
+
+| Journey | What the judge should notice |
 | --- | --- |
-| **Shopper journeys and trust screens** | Explore four shopper journeys and two separate trust destinations without leaving the prototype |
-| **Interactive phone** | Explore the actual mobile journey by clicking and scrolling inside the device |
-| **Screen rationale** | See the purpose of the current screen, its experience signals and the KPIs it is intended to influence |
+| **Aarav — Everyday Needs Missions** | Shop by fashion, grooming, home or electronics; choose a purpose; evaluate a manageable shortlist |
+| **Ananya — Familiar Shopping & Confidence** | Women's browsing remains familiar, while the same clearer product information and trust cues work for everyone; Gift for Him is optional |
+| **Rohit — Bihar / Chhath** | Festival preparation, clothing and gifting can be placed closer to the shopper's immediate need |
+| **Nayan — Assam / Regional Context** | Region and season can change which products appear first, without creating an unfamiliar version of Meesho |
 
-Use **Show click map** to reveal interactive regions. **Restart journey** returns the selected shopper journey or trust screen to its starting state.
+The non-female journeys also include **Shop for Her** on Home and Categories. The female journey retains **Gift for Him**. These are complementary household-shopping paths, not a change to Meesho's core audience.
 
-## Persona journeys
+## Two trust experiences, not two personas
 
-The left rail presents guided male first-order discovery, familiar female shopping, contextual regional/occasion journeys, and two shared trust experiences. The same app navigation and trust evidence are reused across journeys. A paired regional/seasonal section follows, then two **trust experiences** shared across journeys. Mall and MTrusted are not additional demographic personas: both are reachable directly through Categories and contextual entry points throughout the phone experience.
+**Meesho Mall — brand and source confidence.** Helps answer: *Do I recognise and trust where this product comes from?*
 
-### 1. Aarav — Everyday Needs Missions
-A value-conscious shopper exploring fashion, grooming, home essentials and electronics & accessories through purpose-led choices.
+**MTrusted — marketplace-quality confidence.** Helps answer: *What do seller, listing and fulfilment signals tell me about this particular product?*
 
-**Flow:** need → purpose → relevant shortlist → proof-first PDP → reviews / seller evidence → purchase or mission completion.
+Both are available from Categories and contextual product screens. Their sample assortments are illustrative; the prototype **does not verify real programme eligibility** or merchant performance.
 
-Four familiar need areas — Fashion & Style, Grooming & Self-Care, Home Essentials, Electronics & Accessories — each offer lightweight task choices instead of a forced new storefront.
+## Why the product page matters
 
-### 2. Ananya — Familiar Shopping & Confidence
-A returning female shopper whose familiar shopping habits and categories remain central while optional discovery and explainable trust improvements work for everyone.
+The PDP is designed around the question a hesitant first-time buyer asks: *What evidence do I have before paying?* The same scroll brings together product dimensions or material details, listing photos, buyer-review themes, seller information, delivery and return clarity. Once that decision feels credible, shoppers can consider sharing a product, adding a compatible item or starting another mission.
 
-**Everyday flow:** women's categories → optional purpose → product details, Review Intelligence, seller and trust evidence → purchase.
+The proposal favours **kept first orders**, not simply more clicks or bigger carts. Bundles and group mechanics should be tested for incremental contribution after discounts, with returns and customer issues tracked as guardrails.
 
-**Household flow:** Gift for Him → recipient selection → relevant gifts → proof-first PDP → optional bundle.
+## How to judge whether it works
 
-**Focus:** protect Meesho's existing female shopping experience while extending universal product and trust improvements.
+A sensible pilot would compare the current journey against a controlled treatment, beginning with selected categories and cohorts. Useful measures include:
 
-### Regional & Festive Discovery
+- Need selection → relevant product page → add to cart → **kept Order #1**
+- Product/seller trust comprehension; review and details engagement
+- Cancellation, returns, issue resolution and refund experience
+- Order #2, category breadth, repeat usage and incremental contribution over time
+- **Female-customer guardrails:** conversion, retained orders and overall shopping experience must not decline
 
-Lightweight region and occasion context prioritises relevant products without creating separate storefronts or replacing familiar navigation. The two journeys illustrate this through Bihar's Chhath needs and Assam's regional/seasonal edit.
+Our wider roadmap is **build and instrument → pilot and prove → scale winners → compound retention and LTV**. The UI shown here is the first testable layer of that strategy, not the entire long-term system.
 
-**Rohit — Chhath Festival Mission (Bihar)**  
-Regional seasonal shopping for Chhath needs, festive apparel, home preparation and household gifting.
+## Running and testing the prototype
 
-**Nayan — Assam Festive Mission**  
-Illustrative Assam regional and seasonal discovery, using contextual missions and product ordering.
+This is a static prototype built with HTML, CSS and vanilla JavaScript. It requires no API keys or application framework.
 
-### Shared trust experiences (not shopper personas)
+To run locally:
 
-**MTrusted — Marketplace-quality trust**  
-Explains seller, listing-quality and buyer-experience confidence.
-
-**Meesho Mall — Brand & provenance trust**  
-Explains brand identity and product-source assurance.
-
-Each destination opens its existing standalone walkthrough from the left rail. The same trust systems remain reachable from Categories in all four shopper journeys, with contextual products when entered from a category or mission.
-
-Across the non-female journeys, a secondary **Shop for Her** link appears on the homepage and Categories. Ananya retains the corresponding **Gift for Him** journey. Product merchandising and trust-program eligibility remain illustrative.
-
-## Product systems demonstrated
-
-### Mission-led discovery
-The homepage prioritises the shopper’s immediate need instead of relying on a long undifferentiated feed. Region and season can help with cold start; observed behaviour should increasingly drive personalisation after interaction begins.
-
-Aarav’s **Everyday Needs Missions** journey adds a lightweight two-step interaction: first select Fashion, Grooming, Home or Electronics & Accessories; then choose a clear purpose within that need. Fashion retains its four occasion-led edits, while the other categories offer similarly guided tasks and relevant product shortlists. Shoppers can change their purpose and continue into the same proof-first PDP and trust experience.
-
-This is a proposed discovery pattern, not a claim of measured recommendation performance. It is intentionally incremental: familiar categories, concise choices and clear product evidence rather than a major navigation redesign.
-
-### Distinct trust routes
-The prototype deliberately keeps the two trust systems separate:
-
-- **Meesho Mall - brand / provenance trust**
-- **MTrusted - seller + marketplace-quality trust**
-
-Both routes feed into the same product-evaluation experience rather than becoming isolated storefronts.
-
-**Categories** now provides direct Meesho Mall and MTrusted entry points in every persona. The selected category or guided mission carries into those existing trust destinations, with relevant illustrative fashion, grooming, festive, home, electronics and gifting products. Both preserve their distinct brand/source versus seller/listing-quality explanations and open the shared proof-first PDP. Selecting a trust destination in the left rail still opens its existing standalone screen. Product eligibility is illustrative, not verified live status.
-
-### Proof-first PDP
-The product page brings decision-critical evidence together before purchase:
-
-- category-specific product details
-- selected-variant pricing
-- seller credibility
-- review intelligence
-- verified buyer imagery / UGC
-- delivery visibility
-- return and replacement information
-- payment and refund certainty
-
-Seller information, reviews and buyer proof can also be opened as dedicated screens.
-
-### Growth after product confidence
-Once the shopper has enough evidence to evaluate the product, the PDP continues into:
-
-1. Share & Save
-2. Group Created
-3. Usually Bought Together
-4. Complete Your Look / Complete Your Routine
-5. Suggested Products
-
-These modules stay in the same scrollable product page so the shopper does not lose the context that established confidence.
-
-## Suggested judge path
-
-For the new everyday-needs experience, select **Aarav - Everyday Needs Missions** from the left panel, then follow:
-
-**Homepage → Choose a need → Choose a purpose → Relevant products → Proof-first PDP → Product Details / Seller / Reviews / UGC → Transaction Certainty → Share & Save → Cart → Checkout → Order Confirmation**
-
-Try **Fashion & Style → Office Wear** for the occasion-led fashion path, or **Grooming & Self-Care → Daily Face Care** to see the broader guided-discovery pattern. Home Essentials and Electronics & Accessories follow the same two-step approach.
-
-Other working areas include Mall and MTrusted explainers, category browsing, wishlist, My Orders, account, group creation, bundles and persona-specific recommendations.
-
-The phone’s **Home / Categories / My Orders / Account** navigation remains fixed while the phone content scrolls.
-
-## Technical setup
-
-The prototype is intentionally lightweight:
-
-- semantic HTML
-- CSS
-- vanilla JavaScript
-- responsive desktop presentation shell
-- compressed WebP commerce assets
-- GitHub Pages deployment through GitHub Actions
-- no framework or runtime dependency
-
-### Repository structure
-
-```text
-.
-├── index.html
-├── styles.css
-├── app.js
-├── assets/
-│   ├── assam/
-│   ├── categories/
-│   ├── chhath/
-│   ├── college/
-│   ├── mall/
-│   ├── mtrusted/
-│   ├── products/
-│   ├── profiles/
-│   ├── reviews/
-│   ├── seller/
-│   └── trust/
-└── .github/
-    └── workflows/
-        └── pages.yml
+```bash
+python3 -m http.server 4173
+# Open http://localhost:4173
 ```
+
+A [Chromium browser QA workflow](https://github.com/Iron-sngh/Meesho_interactive/actions/workflows/browser-qa.yml) checks core interactions and viewports, including desktop, tablet and narrow mobile sizes. Each run saves a report and screenshots as a GitHub Actions artifact. The workflow is repeatable; passing automated checks does not replace a final human visual review.
+
+GitHub Pages publishes `main` through [the deployment workflow](https://github.com/Iron-sngh/Meesho_interactive/actions/workflows/pages.yml).
 
 ## Scope and attribution
 
-This repository contains a **concept prototype**, not production Meesho software.
+This is an **illustrative challenge submission**, not an official Meesho release. Product prices, seller metrics, review examples, promotion rules, images and recommendation order are sample content unless explicitly marked otherwise. Generated photographs are demonstration assets, not verified buyer submissions. No badge in this prototype should be read as proof of live Meesho Mall or MTrusted qualification.
 
-Prices, seller metrics, recommendations, regional merchandising and some commerce imagery are illustrative. Fictional or generated assets are used where appropriate so the prototype does not imply real merchant performance or unsupported marketplace statistics.
-
-Meesho names, marks and product references are used only in the context of the challenge submission and remain the property of their respective owners.
+Meesho names and marks belong to their respective owners and are used solely to explain this product concept.
