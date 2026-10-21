@@ -1234,7 +1234,7 @@ const chhathRegionalNeeds={
     picks:[
       {title:'Printed Kurta Set',price:699,image:'chhath/chhath_kurta.webp'},
       {title:'Celebration Saree',price:799,image:'chhath/chhath_saree.webp'},
-      {title:'Assam Occasion Kurta',price:429,image:'assam/assam_kurta.webp'},
+      {title:'Analog Watch',price:399,image:'products/prod_watch.webp'},
       {title:'Travel Utility Pouch',price:199,image:'chhath/chhath_travel_pouch.webp'}
     ]
   },
