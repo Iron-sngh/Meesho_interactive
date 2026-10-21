@@ -1024,7 +1024,7 @@ function femaleCategoryScreen(){
    </section>
    <section class="screen-section">${sectionHeader(task[0]+' picks','Open any product to assess details, reviews and seller confidence.','','')}
      ${femaleProductGrid(task[1])}</section>
-   <section class="screen-section">${sectionHeader('Explore this department','Regular category browsing remains available.','','')}
+   <section class="screen-section">${sectionHeader('Explore this department','Browse more from this category.','','')}
      ${femaleProductGrid(all,'four-up')}</section>
    ${state.femaleCategory==='accessories'?femaleGiftTile():''}
  `});
@@ -1068,7 +1068,7 @@ function shopForHerTile(){
 }
 function shopForHerTeaser(){
   return `<section class="screen-section shop-her-home-section" aria-label="Shop for Her">
-    ${sectionHeader('Something for her','A thoughtful extra, without changing your shopping mission.','','')}
+    ${sectionHeader('Something for her','Gift ideas alongside your usual shopping.','','')}
     ${shopForHerTile()}
   </section>`;
 }
@@ -1085,7 +1085,7 @@ function shopForHerScreen(){
       </div>
     </section>
     <section class="screen-section">
-      ${sectionHeader('Who are you shopping for?','One optional tap to make the shortlist more relevant.','','')}
+      ${sectionHeader('Who are you shopping for?','Choose someone to see a few gift ideas.','','')}
       <div class="style-filter-grid shop-her-recipient-row">
         ${Object.entries(shopHerRecipients).map(([key,person])=>`
           <button type="button" class="style-filter-chip ${state.shopHerRecipient===key?'active':''}"
@@ -1100,7 +1100,7 @@ function shopForHerScreen(){
       <p class="shop-her-asset-note">Illustrative assortment using existing prototype product photography.</p>
     </section>
     <section class="screen-section">
-      ${sectionHeader('Explore more for her','Browse familiar everyday categories as well.','','')}
+      ${sectionHeader('Explore more for her','Or explore other everyday favourites.','','')}
       ${femaleProductGrid(['saree','fashion','care','home'],'four-up')}
     </section>
   `});
@@ -1139,7 +1139,7 @@ function collegeHome() {
       </section>
       <section class="screen-section">${trustTwinCards()}</section>
       <section class="screen-section">
-        ${sectionHeader('Pick what matters to you', 'Simple options, followed by the product and seller information needed for a confident order.', '', '')}
+        ${sectionHeader('Pick what matters to you', 'Explore a category, then compare products and sellers.', '', '')}
         <div class="four-up">
           ${productCard({ title: 'Regular Fit Trousers', price: 499, route: 'pdp-core', image: asset('products/prod_trousers.webp') })}
           ${productCard({ title: 'Shaving Kit', price: 329, route: 'pdp-core', image: asset('mall/mall_shaving_kit.webp') })}
@@ -1427,7 +1427,7 @@ function mallHome() {
         </button>
       </section>
       <section class="screen-section">
-        ${sectionHeader('Mall picks for you', 'Branded-looking assortment for grooming routines.', 'See all', 'category-grooming')}
+        ${sectionHeader('Mall picks for you', 'Daily grooming essentials to compare.', 'See all', 'category-grooming')}
         <div class="four-up">
           ${productCard({ title: 'Daily Face Wash', price: 199, route: 'pdp-core',  image: asset('mall/mall_facewash.webp') })}
           ${productCard({ title: 'Beard Oil', price: 249, route: 'pdp-core',  image: asset('mall/mall_beard_oil.webp') })}
@@ -1464,7 +1464,7 @@ function mtrustedHome() {
         </div>
       </section>
       <section class="screen-section">
-        ${sectionHeader('Evidence behind the signal', 'The user can inspect why a listing feels more dependable.', '', '')}
+        ${sectionHeader('Evidence behind the signal', 'See the information behind each seller and listing.', '', '')}
         <div class="evidence-photo-grid">
           <button class="evidence-photo-card" data-go="mtrusted-explainer"><img src="${asset('mtrusted/quality_check_fashion.webp')}" alt="Fashion quality check"><span><b>Listing & quality discipline</b><small>Better product information and inspection cues</small></span></button>
           <button class="evidence-photo-card" data-go="seller-profile"><img src="${asset('mtrusted/fulfilment_package.webp')}" alt="Reliable fulfilment"><span><b>Reliable fulfilment</b><small>Seller operations that reduce post-order uncertainty</small></span></button>
@@ -1482,7 +1482,7 @@ function mtrustedHome() {
         </div>
       </section>
       <section class="screen-section">
-        ${sectionHeader('MTrusted in men’s fashion', 'Qualified products based on seller and listing signals.', 'See all', 'category-fashion')}
+        ${sectionHeader('MTrusted in men’s fashion', 'Example listings to compare with seller and product details.', 'See all', 'category-fashion')}
         <div class="four-up">
           ${productCard({ title: 'Basic Polo T-Shirt', price: 239, route: 'pdp-core', badge: 'MTrusted', image: asset('products/prod_polo.webp') })}
           ${productCard({ title: 'Checked Shirt', price: 549, route: 'pdp-core', badge: 'MTrusted', image: asset('products/prod_checked_shirt.webp') })}
@@ -1522,12 +1522,12 @@ function categoryFashion() {
       })}
       <section class="screen-section">
         ${occasionJourney ? `
-          ${sectionHeader('Shop by occasion', 'Switch the mission to update the products shown.', '', '')}
+          ${sectionHeader('Shop by occasion', 'Choose the occasion you’re shopping for.', '', '')}
           <div class="style-filter-grid">
             ${Object.entries(styleMissions).map(([id,item]) => `<button class="style-filter-chip ${missionId === id ? 'active' : ''}" data-go="category-fashion" data-style-mission="${id}" aria-pressed="${missionId === id}">${item.title}</button>`).join('')}
           </div>
         ` : `
-          ${sectionHeader('Your style filters', 'Focused, explainable discovery rather than endless feed-first scrolling.', '', '')}
+          ${sectionHeader('Your style filters', 'Change the occasion to see a more useful shortlist.', '', '')}
           <div class="chip-row">
             ${['Casual', 'College', 'Everyday', 'Low to high price', 'Top rated', 'MTrusted first'].map(label => `<button class="filter-chip ${label === 'College' || label === 'MTrusted first' ? 'active' : ''}" data-go="category-fashion">${label}</button>`).join('')}
           </div>
@@ -1608,13 +1608,13 @@ function categoryGrooming() {
         backRoute: 'mall-home'
       })}
       <section class="screen-section">
-        ${sectionHeader('Need-based rails', 'Choose the exact grooming task you want to complete.', '', '')}
+        ${sectionHeader('Need-based rails', 'Choose what you need for your routine.', '', '')}
         <div class="four-up">
           ${['🪒','🧴','🧔','🌿'].map((icon, idx) => `<button class="need-tile" data-go="category-grooming"><div class="need-art">${icon}</div><b>${['Shaving','Face Care','Beard Care','Fragrance'][idx]}</b><span>${['Razors & cream','Wash & serum','Oils & balms','Freshness'][idx]}</span></button>`).join('')}
         </div>
       </section>
       <section class="screen-section">
-        ${sectionHeader('Branded bestsellers', 'Mall-aligned products with clear brand provenance.', '', '')}
+        ${sectionHeader('Branded bestsellers', 'Explore the products, then check the brand or source.', '', '')}
         <div class="two-up">
           ${productCard({ title: 'Foaming Face Wash', price: 199, art: '🧴', route: 'pdp-core', badge: 'Mall' })}
           ${productCard({ title: 'Shaving Essentials Kit', price: 349, art: '🪒', route: 'pdp-core', badge: 'Mall' })}
@@ -1632,7 +1632,7 @@ function categoryAssam() {
     content: `
       ${appBar({ brand: false, title: 'ASSAM FESTIVE PICKS', subtitle: 'Contextual category listing', searchText: 'Search festive picks in Assam', chips: [ {label: 'Festive'}, {label: 'Utility'} ], backRoute: 'assam-home' })}
       <section class="screen-section">
-        ${sectionHeader('Festive product clusters', 'Merchandised for seasonal discovery, with clear trust shortcuts.', '', '')}
+        ${sectionHeader('Festive product clusters', 'Shop for a celebration, then check the details.', '', '')}
         <div class="two-up">
           ${productCard({ title: 'Printed Festive Kurta', price: 499, art: '🧵', route: 'pdp-core', badge: 'Festive' })}
           ${productCard({ title: 'Glow Decor Set', price: 299, art: '✨', route: 'pdp-core' })}
@@ -1651,7 +1651,7 @@ function categoryChhath() {
     content: `
       ${appBar({ brand: false, title: 'CHHATH FESTIVE PICKS', subtitle: 'Occasion-led category', searchText: 'Search Chhath essentials', chips: [ {label: 'Fashion'}, {label: 'Puja'}, {label: 'Bundles'} ], backRoute: 'chhath-home' })}
       <section class="screen-section">
-        ${sectionHeader('Occasion-ready products', 'Fashion, puja and gifting picks brought together for a faster festive mission.', '', '')}
+        ${sectionHeader('Occasion-ready products', 'Clothing, puja preparation and gifts in one place.', '', '')}
         <div class="two-up">
           ${productCard({ title: 'Celebration Saree', price: 799, art: '👗', route: 'pdp-core', badge: 'Mall' })}
           ${productCard({ title: 'Kurtas Combo', price: 649, art: '👘', route: 'pdp-core', badge: 'MTrusted' })}
@@ -1861,7 +1861,7 @@ function pdpCore() {
       </div>
 
       <div class="info-card info-card-button" data-go="product-details" role="button" tabindex="0">
-        ${sectionHeader('Product details', 'Decision-critical information, standardised for this category.', 'View all details', 'product-details')}
+        ${sectionHeader('Product details', 'Check the materials, sizes and other essentials.', 'View all details', 'product-details')}
         <div class="details-grid">${details.map(([k,v]) => `<div class="detail-item"><b>${k}</b><span>${v}</span></div>`).join('')}</div>
       </div>
 
@@ -1942,8 +1942,8 @@ function reviewsScreen() {
     ctas: ctaBar({ label: 'Back to PDP', route: 'pdp-core' }, { label: 'See buyer gallery', route: 'ugc-gallery' }),
     content: `
       ${appBar({ brand: false, title: 'REVIEW INTELLIGENCE', subtitle: p.title, searchText: 'Search reviews', backRoute: 'pdp-core' })}
-      <div class="list-card"><h4>Review intelligence by attribute</h4>${reviewThemeCards(reviewThemes)}</div>
-      <div class="list-card"><h4>Pros & watch-outs</h4><div class="two-up"><div class="mini-card"><h4>Pros</h4><p>Good value, clear listing information and a dependable first impression.</p></div><div class="mini-card"><h4>Watch-outs</h4><p>Check the selected variant and category-specific details before ordering.</p></div></div></div>
+      <div class="list-card"><h4>What buyers mention</h4>${reviewThemeCards(reviewThemes)}</div>
+      <div class="list-card"><h4>What to check before buying</h4><div class="two-up"><div class="mini-card"><h4>Pros</h4><p>Good value, clear listing information and a dependable first impression.</p></div><div class="mini-card"><h4>Watch-outs</h4><p>Check the selected variant and category-specific details before ordering.</p></div></div></div>
       <div class="list-card"><h4>Illustrative reviews</h4><div class="review-feed">${[1,2,3].map((i) => `<article class="review-feed-card"><img class="reviewer-avatar" src="${buyerAvatar(i)}" alt="Illustrative buyer avatar"><div><b>Sample shopper</b><small>Example only · not verified</small><p>${i===1?'“Matched the listing well and felt worth the price.”':i===2?'“The details helped me know what to expect before ordering.”':'“Delivery and packaging were straightforward.”'}</p></div>${isBlackShirt ? `<img class="review-proof-thumb" src="${asset(`reviews/ugc_black_shirt_0${i}.webp`)}" alt="Buyer proof">` : `<img class="review-proof-thumb" src="${p.image}" alt="${p.title}">`}</article>`).join('')}</div></div>
     `
   });
@@ -2417,7 +2417,7 @@ function categoriesScreen() {
     content: `
       ${appBar({ brand: false, title: 'CATEGORIES', subtitle: 'Browse by mission or department', searchText: 'Search categories', backRoute: personas[state.persona].entryRoute })}
       <section class="screen-section">
-        ${sectionHeader('Popular categories', 'Everything here is interactive.', '', '')}
+        ${sectionHeader('Popular categories', 'Start with a category to see products.', '', '')}
         <div class="category-grid">
           ${categoryCard({ icon:'👔', title:'Men’s Fashion', subtitle:'Shirts · jeans', route:'category-fashion' })}
           ${categoryCard({ icon:'👗', title:'Women’s Fashion', subtitle:'Ethnic wear', route:'category-chhath' })}

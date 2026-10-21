@@ -155,6 +155,47 @@ try{
   if(vp.label==='mobile-390')await screen(desktop,'mobile-390');
   if(vp.label==='mobile-320')await screen(desktop,'mobile-320');
  }
+
+ // Render every registered route and collect its actual clickable targets and images.
+ await desktop.setViewportSize({width:1440,height:900});
+ const knownRoutes=await desktop.evaluate(()=>Object.keys(routes));
+ const visitedTargets=new Set();
+ const assetUrls=new Set();
+ for(const route of knownRoutes){
+   await visit(desktop,'route smoke '+route,async()=>{
+     await goto(desktop,route,'college');
+     assert.equal(await desktop.locator('.phone-shell').count(),1);
+     const data=await desktop.evaluate(()=>{
+       const targets=[...document.querySelectorAll('#device-canvas [data-go]')]
+         .map(e=>e.getAttribute('data-go')).filter(Boolean);
+       const images=[...document.querySelectorAll('#device-canvas img')]
+         .map(e=>e.getAttribute('src')).filter(Boolean);
+       return {targets,images,valid:Object.keys(routes)};
+     });
+     assert.deepEqual([...new Set(data.targets.filter(x=>!data.valid.includes(x)))],[],
+       'Unregistered route in '+route);
+     data.targets.forEach(x=>visitedTargets.add(x));
+     data.images.forEach(x=>assetUrls.add(x));
+   });
+ }
+ await visit(desktop,'assets referenced by every screen are available',async()=>{
+   const urls=[...assetUrls].filter(x=>!x.startsWith('data:'));
+   const failures=await desktop.evaluate(async srcs=>{
+      const list=await Promise.all(srcs.map(async src=>{
+        try {const resp=await fetch(src);return resp.ok?null:String(resp.status)+' '+src}
+        catch(err){return String(err)+' '+src}
+      }));
+      return list.filter(Boolean);
+   },urls);
+   assert.deepEqual(failures,[],'Broken asset URL(s)');
+ });
+ for(const route of visitedTargets){
+    await visit(desktop,'all navigation targets: '+route,async()=>{
+       await desktop.evaluate(target=>go(target),route);
+       assert(await desktop.locator('.phone-shell').count(),'Destination not rendered');
+    });
+ }
+
  await desktop.setViewportSize({width:1440,height:900});
  await visit(desktop,'restart restores current selected journey',async()=>{
   await goto(desktop,'reviews','college');
