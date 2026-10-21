@@ -599,11 +599,7 @@ function collegeHome() {
       ${appBar({
         brand: true,
         searchText: 'Search products, categories or needs',
-        chips: [
-          { label: 'Easy Returns', route: 'certainty' },
-          { label: 'Cash on Delivery', route: 'certainty' },
-          { label: 'Transparent Pricing', route: 'certainty' }
-        ]
+
       })}
       <section class="screen-section">
         ${sectionHeader('Shop by Category', 'Find what you need faster by entering through a relevant category.', 'See all', 'categories')}
@@ -670,11 +666,7 @@ function assamHome() {
       ${appBar({
         brand: true,
         searchText: 'Search products, categories or needs',
-        chips: [
-          { label: 'Assam · Seasonal', route: 'category-assam' },
-          { label: 'Language parity', route: 'search' },
-          { label: 'Trust shortcuts', route: 'mtrusted-explainer' }
-        ]
+
       })}
       <section class="screen-section">
         <div class="hero-banner photo-hero" ${heroStyle('assam/assam_festive_banner.webp', 'center')}>
@@ -718,11 +710,7 @@ function chhathHome() {
       ${appBar({
         brand: true,
         searchText: 'Search festive looks, gifting or puja needs',
-        chips: [
-          { label: 'Bihar · Chhath', route: 'category-chhath' },
-          { label: 'Seasonal offers', route: 'category-chhath' },
-          { label: 'Trusted picks', route: 'mtrusted-home' }
-        ]
+
       })}
       <section class="screen-section">
         <div class="hero-banner photo-hero" ${heroStyle('chhath/chhath_hero_banner.webp', 'center')}>
@@ -772,11 +760,7 @@ function mallHome() {
         title: 'MEN’S GROOMING',
         subtitle: 'Self care · Meesho Mall',
         searchText: 'Search in Men’s Grooming',
-        chips: [
-          { label: 'Meesho Mall', route: 'mall-home' },
-          { label: 'MTrusted', route: 'mtrusted-home' },
-          { label: 'Why Mall?', route: 'mall-explainer' }
-        ],
+
         backRoute: 'categories'
       })}
       <section class="screen-section">
@@ -833,11 +817,7 @@ function mtrustedHome() {
         title: 'MEN’S FASHION',
         subtitle: 'Fashion · MTrusted',
         searchText: 'Search in Men’s Fashion',
-        chips: [
-          { label: 'MTrusted', route: 'mtrusted-home' },
-          { label: 'Meesho Mall', route: 'mall-home' },
-          { label: 'Why MTrusted?', route: 'mtrusted-explainer' }
-        ],
+
         backRoute: 'category-fashion'
       })}
       <section class="screen-section">
