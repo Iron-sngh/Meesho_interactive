@@ -53,19 +53,32 @@ A first-time buyer who likes a product but is unsure about an unfamiliar seller 
 
 **MTrusted answers:** *“Is this seller or listing reliably good?”*
 
-### 5. Aarav - Men’s Style Missions
-A value-conscious male shopper whose needs change with the occasion: college essentials, office wear, everyday casuals and party plans.
+### 5. Aarav - Everyday Needs Missions
+A value-conscious shopper looking for a straightforward way to find products for different parts of everyday life, without having to browse a long generic feed.
 
-**Flow:** choose an occasion → mission-matched product shortlist → proof-first PDP → seller / review evidence → complete the look
+**Flow:** choose a shopping need → choose a specific purpose → relevant product shortlist → proof-first PDP → seller / review evidence → purchase or mission completion
 
-**Focus:** intent-led discovery rather than a demographic-specific storefront. Switching occasions changes the product shortlist while Mall, MTrusted, fit information, reviews and purchase certainty remain part of the same experience. All four edits use the existing product and lifestyle photography.
+The journey begins with four familiar choices:
+
+- **Fashion & Style:** College Essentials, Office Wear, Everyday Casuals, Party & Occasion
+- **Grooming & Self-Care:** Daily Face Care, Beard & Shaving, Stay Fresh, Complete My Routine
+- **Home Essentials:** Refresh My Space, Everyday Home Utility, Hosting & Gatherings, Thoughtful Home Gifts
+- **Electronics & Accessories:** Everyday Tech, Work & Study Setup, On-the-Go Accessories, Watches & Daily Add-ons
+
+Selecting a need opens a second set of visual, purpose-led cards. The fashion journey keeps the existing occasion cards; the other needs lead to focused shortlists where shoppers can switch purposes without starting over. Each product still connects to the shared details, reviews, seller evidence and trust journeys.
+
+**Focus:** practical, easy-to-understand choices that reduce discovery friction without introducing a separate demographic storefront or significantly changing Meesho’s familiar shopping experience. All imagery is reused from the existing asset library.
 
 > Regional merchandising shown in the prototype is illustrative. It demonstrates the interaction model rather than actual regional demand data.
 
 ## Product systems demonstrated
 
 ### Mission-led discovery
-The homepage prioritises the shopper’s immediate need instead of relying on a long undifferentiated feed. Region, season and category can help with cold start; observed behaviour should increasingly drive personalisation after interaction begins. The men’s style journey demonstrates this through four selectable occasions—College Essentials, Office Wear, Everyday Casuals and Party & Occasion—each with its own relevant product order.
+The homepage prioritises the shopper’s immediate need instead of relying on a long undifferentiated feed. Region and season can help with cold start; observed behaviour should increasingly drive personalisation after interaction begins.
+
+Aarav’s **Everyday Needs Missions** journey adds a lightweight two-step interaction: first select Fashion, Grooming, Home or Electronics & Accessories; then choose a clear purpose within that need. Fashion retains its four occasion-led edits, while the other categories offer similarly guided tasks and relevant product shortlists. Shoppers can change their purpose and continue into the same proof-first PDP and trust experience.
+
+This is a proposed discovery pattern, not a claim of measured recommendation performance. It is intentionally incremental: familiar categories, concise choices and clear product evidence rather than a major navigation redesign.
 
 ### Distinct trust routes
 The prototype deliberately keeps the two trust systems separate:
@@ -102,9 +115,11 @@ These modules stay in the same scrollable product page so the shopper does not l
 
 ## Suggested judge path
 
-A representative end-to-end flow is:
+For the new everyday-needs experience, select **Aarav - Everyday Needs Missions** from the left panel, then follow:
 
-**Homepage → Category → Product → Product Details / Seller / Reviews / UGC → Transaction Certainty → Share & Save → Cart → Checkout → Order Confirmation**
+**Homepage → Choose a need → Choose a purpose → Relevant products → Proof-first PDP → Product Details / Seller / Reviews / UGC → Transaction Certainty → Share & Save → Cart → Checkout → Order Confirmation**
+
+Try **Fashion & Style → Office Wear** for the occasion-led fashion path, or **Grooming & Self-Care → Daily Face Care** to see the broader guided-discovery pattern. Home Essentials and Electronics & Accessories follow the same two-step approach.
 
 Other working areas include Mall and MTrusted explainers, category browsing, wishlist, My Orders, account, group creation, bundles and persona-specific recommendations.
 
