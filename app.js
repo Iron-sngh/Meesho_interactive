@@ -1620,6 +1620,20 @@ function categoryHome(){return usefulCategoryPage({title:'HOME ESSENTIALS',subti
 function categoryElectronics(){return usefulCategoryPage({title:'ELECTRONICS & ACCESSORIES',subtitle:'Tech and everyday carry',category:'electronics'});}
 function categoryGifting(){return usefulCategoryPage({title:'GIFTING ESSENTIALS',subtitle:'Everyday gifts and occasions',category:'gifting'});}
 function searchScreen() {
+  if(state.persona==='female'){
+    return phoneTemplate({nav:'home',content:`
+      ${appBar({brand:false,title:'SEARCH',subtitle:'Relevant to your everyday shopping',
+        searchText:'Women’s fashion, care and home',backRoute:'female-home'})}
+      <section class="screen-section">
+        ${sectionHeader('Products you might be looking for','Familiar categories with review and seller proof.','','')}
+        ${femaleProductGrid(['saree','fashion','care','decor'])}
+      </section>
+      <section class="screen-section">
+        ${sectionHeader('Explore your needs','Choose any category to discover more.','','')}
+        ${femaleNeedTiles()}
+      </section>
+    `});
+  }
   return phoneTemplate({
     nav: 'home',
     content: `
@@ -2366,12 +2380,20 @@ function ordersScreen() {
     nav: 'orders',
     content: `
       ${appBar({ brand: false, title: 'MY ORDERS', subtitle: 'Track post-purchase progress', searchText: 'Search orders', backRoute: 'account' })}
-      <div class="list-card"><h4>Recent orders</h4><div class="order-line"><img src="${p.image}" alt="${p.title}"><span><b>${p.title}</b><small>Estimated delivery in 4–6 days</small></span><em class="order-state">Packed</em></div><div class="order-line"><img src="${asset('mall/mall_facewash.webp')}" alt="Face wash"><span><b>Daily Face Wash</b><small>Delivered last week</small></span><em class="order-state">Delivered</em></div><div class="order-line"><img src="${asset('products/prod_sneakers.webp')}" alt="Casual sneakers"><span><b>Casual Sneakers</b><small>Delivered 12 Sep</small></span><button class="qty-pill" data-go="pdp-core">Buy again</button></div></div>
+      <div class="list-card"><h4>Recent orders</h4><div class="order-line"><img src="${p.image}" alt="${p.title}"><span><b>${p.title}</b><small>Estimated delivery in 4–6 days</small></span><em class="order-state">Packed</em></div>${state.persona==='female'?`<div class="order-line"><img src="${asset('assam/assam_selfcare_gift.webp')}" alt="Self-care gift box"><span><b>Self-Care Gift Box</b><small>Delivered last week</small></span><em class="order-state">Delivered</em></div><div class="order-line"><img src="${asset('chhath/chhath_saree.webp')}" alt="Celebration saree"><span><b>Celebration Saree</b><small>Delivered earlier</small></span><button class="qty-pill" data-go="pdp-core" data-product-title="Celebration Saree" data-product-price="799" data-product-image="${asset('chhath/chhath_saree.webp')}" data-product-kind="fashion">Buy again</button></div>`:`<div class="order-line"><img src="${asset('mall/mall_facewash.webp')}" alt="Face wash"><span><b>Daily Face Wash</b><small>Delivered last week</small></span><em class="order-state">Delivered</em></div><div class="order-line"><img src="${asset('products/prod_sneakers.webp')}" alt="Casual sneakers"><span><b>Casual Sneakers</b><small>Delivered 12 Sep</small></span><button class="qty-pill" data-go="pdp-core">Buy again</button></div>`}</div>
     `
   });
 }
 
 function wishlistScreen() {
+  if(state.persona==='female')return phoneTemplate({nav:'account',content:`
+    ${appBar({brand:false,title:'WISHLIST',subtitle:'Your saved finds',
+      searchText:'Search saved items',backRoute:'account'})}
+    <section class="screen-section">
+      ${sectionHeader('Saved products','Familiar favourites to revisit later.','','')}
+      ${femaleProductGrid(['saree','care','decor','pouch'])}
+    </section>
+  `});
   return phoneTemplate({
     nav: 'account',
     content: `
