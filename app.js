@@ -2526,103 +2526,72 @@ const routes = {
 
 function renderPersonas() {
   const root = $('#persona-list');
-  // Presentation ordering only; existing persona routes and product flows stay intact.
-  const journeyCopy = {
-    college: {
-      title: 'Everyday Needs Missions',
-      subtitle: 'Aarav · Everyday shopper',
-      description: 'Shop by need and occasion, then check product details, reviews and seller proof before buying.',
-      tags: ['Guided discovery', 'Proof-first shopping'],
-      path: 'NEED → PURPOSE → CONFIDENT ORDER'
-    },
-    female: {
-      title: 'Familiar Shopping & Confidence',
-      subtitle: 'Ananya · Returning female shopper',
-      description: 'Keep familiar categories and shopping habits, with optional missions and clearer trust signals for everyone.',
-      tags: ['Familiar experience', 'Universal trust'],
-      path: 'FAMILIAR CHOICES → CLEARER PROOF'
-    },
-    chhath: {
-      title: 'Bihar · Chhath Festive Edit',
-      subtitle: 'Rohit · Festival-led shopping',
-      description: 'Puja preparation, festive wear and family gifting in one relevant seasonal journey.',
-      path: 'FESTIVAL NEED → FESTIVE PICKS'
-    },
-    assam: {
-      title: 'Assam · Regional Context',
-      subtitle: 'Nayan · Regional and seasonal shopping',
-      description: 'Regional context brings useful categories and seasonal picks forward without a separate storefront.',
-      path: 'LOCAL CONTEXT → RELEVANT PICKS'
-    }
+  const journeys = {
+    college: ['Everyday Needs Missions', 'Aarav · First-order shopper',
+      'Start with style, grooming, home or tech. Discover the right products, then check product facts, buyer reviews and seller proof before Order #1.',
+      'DISCOVER → VERIFY → ORDER #1', 'Mission-led discovery', 'Proof-first PDP'],
+    female: ['Familiar Shopping & Confidence', 'Ananya · Existing female shopper',
+      'Preserve familiar categories and habits. Optional missions and clearer product trust make the same Meesho useful for everyone.',
+      'FAMILIAR UX → UNIVERSAL TRUST', 'Protect female-first equity', 'Optional guidance'],
+    chhath: ['Bihar · Chhath Festive Mission', 'Rohit · Festive shopper',
+      'Puja preparation, occasion wear and family gifting make a more complete seasonal shopping mission.',
+      'OCCASION → FESTIVE BASKET'],
+    assam: ['Assam · Regional Discovery', 'Nayan · Contextual shopper',
+      'Regional and seasonal context brings relevant choices forward, without changing the underlying Meesho experience.',
+      'REGION → RELEVANT PICKS']
   };
-  const primaryIds = ['college', 'female'];
-  const regionalIds = ['chhath', 'assam'];
-  const trustScreens = [
-    { id: 'mtrusted', title: 'MTrusted', label: 'Marketplace-quality trust',
-      description: 'Evaluate seller and listing-quality signals.', mark: 'MT' },
-    { id: 'mall', title: 'Meesho Mall', label: 'Brand & source trust',
-      description: 'Understand brand and provenance assurance.', mark: 'M' }
-  ];
-
-  const journeyCard = (id, compact = false) => {
-    const persona = personas[id];
-    const copy = journeyCopy[id];
-    const active = state.persona === id;
-    return `
-      <button type="button" class="persona-card journey-card ${compact ? 'regional-journey-card' : 'primary-journey-card'} ${active ? 'active' : ''}"
-        data-persona="${id}" aria-pressed="${active}" aria-label="Open ${copy.title} journey">
-        <div class="persona-card-main">
-          <img class="persona-avatar" src="${asset(persona.avatar)}" alt="" loading="lazy">
-          <div class="persona-card-copy">
-            <div class="persona-top"><b>${copy.title}</b>
-              ${!compact ? `<span class="badge-pill">${active ? 'Viewing' : 'Explore'}</span>` : ''}
-            </div>
-            <p>${copy.subtitle}</p>
-            <span class="journey-description">${copy.description}</span>
+  const card = (id, compact = false) => {
+    const j = journeys[id], p = personas[id], active = state.persona === id;
+    return `<button type="button" class="persona-card journey-card ${compact ? 'regional-journey-card' : 'primary-journey-card'} ${active ? 'active' : ''}"
+      data-persona="${id}" aria-pressed="${active}" aria-label="Open ${j[0]} journey">
+      <div class="persona-card-main">
+        <img class="persona-avatar" src="${asset(p.avatar)}" alt="" loading="lazy">
+        <div class="persona-card-copy">
+          <div class="persona-top"><b>${j[0]}</b>
+            ${compact ? '' : `<span class="badge-pill">${active ? 'Viewing' : 'Explore'}</span>`}
           </div>
+          <p>${j[1]}</p><span class="journey-description">${j[2]}</span>
         </div>
-        ${compact ? `<span class="journey-route-label">${copy.path}</span>` : `
-          <div class="journey-footer">
-            <span class="journey-route-label">${copy.path}</span>
-            <div class="persona-tags">${copy.tags.map(tag => `<span class="persona-tag">${tag}</span>`).join('')}</div>
-          </div>`}
-      </button>`;
+      </div>
+      <div class="journey-footer ${compact ? 'journey-footer-compact' : ''}">
+        <span class="journey-route-label">${j[3]}</span>
+        ${compact ? '' : `<div class="persona-tags"><span class="persona-tag">${j[4]}</span><span class="persona-tag">${j[5]}</span></div>`}
+      </div>
+    </button>`;
   };
-
+  const trust = [
+    ['mtrusted', 'MTrusted', 'Seller & listing-quality trust', 'Seller performance, fulfilment and listing evidence.', 'MT'],
+    ['mall', 'Meesho Mall', 'Brand & provenance trust', 'Brand identity and confidence in product source.', 'M']
+  ];
   root.innerHTML = `
-    ${primaryIds.map(id => journeyCard(id)).join('')}
+    ${card('college')}
+    ${card('female')}
     <section class="regional-journey-group" aria-label="Regional and festive shopper journeys">
       <div class="regional-journey-heading">
-        <strong>Regional & Festive Discovery</strong>
-        <span>Relevant local and occasion-led picks, within the same Meesho experience.</span>
+        <strong>Regional & Occasion-Led Discovery</strong>
+        <span>Context improves relevance, without creating a new storefront.</span>
       </div>
-      <div class="regional-journey-cards">
-        ${regionalIds.map(id => journeyCard(id, true)).join('')}
-      </div>
+      <div class="regional-journey-cards">${card('chhath', true)}${card('assam', true)}</div>
     </section>
-    <section class="trust-destinations" aria-label="Trust destination screens">
+    <section class="trust-destinations" aria-label="Trust experience screens">
       <div class="trust-destinations-heading">
-        <strong>Trust Experiences</strong>
-        <span>Available from Categories and product journeys — not separate personas.</span>
+        <strong>Shared Trust Experiences</strong>
+        <span>Also accessible through Categories and PDPs; not personas.</span>
       </div>
       <div class="trust-destination-list">
-        ${trustScreens.map(screen => {
-          const active = ['mall-home', 'mtrusted-home'].includes(state.route)
-            ? state.route === personas[screen.id].entryRoute
-            : state.persona === screen.id;
+        ${trust.map(([id, title, label, description, mark])=>{
+          const active = ['mall-home','mtrusted-home'].includes(state.route)
+            ? state.route === personas[id].entryRoute : state.persona === id;
           return `<button type="button" class="trust-destination-item ${active ? 'active' : ''}"
-            data-trust-screen="${screen.id}" aria-pressed="${active}" aria-label="Open ${screen.title} trust experience">
-            <span class="trust-destination-mark" aria-hidden="true">${screen.mark}</span>
-            <span class="trust-destination-copy"><b>${screen.title}</b>
-              <small>${screen.label}</small>
-              <span class="trust-destination-explainer">${screen.description}</span>
-            </span>
-            <span class="trust-destination-arrow" aria-hidden="true">→</span>
+            data-trust-screen="${id}" aria-pressed="${active}" aria-label="Open ${title} trust screen">
+            <span class="trust-destination-mark" aria-hidden="true">${mark}</span>
+            <span class="trust-destination-copy"><b>${title}</b><small>${label}</small>
+              <span class="trust-destination-explainer">${description}</span>
+            </span><span class="trust-destination-arrow" aria-hidden="true">→</span>
           </button>`;
         }).join('')}
       </div>
-    </section>
-  `;
+    </section>`;
 }
 
 function renderDetails() {

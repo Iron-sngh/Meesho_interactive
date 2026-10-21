@@ -25,7 +25,7 @@ Use **Show click map** to reveal interactive regions. **Restart journey** return
 
 ## Persona journeys
 
-The left rail presents four shopper journeys in a space-efficient presentation layout, starting with everyday needs and familiar female shopping. A paired regional/seasonal section follows, then two **trust experiences** shared across journeys. Mall and MTrusted are not additional demographic personas: both are reachable directly through Categories and contextual entry points throughout the phone experience.
+The left rail presents guided male first-order discovery, familiar female shopping, contextual regional/occasion journeys, and two shared trust experiences. The same app navigation and trust evidence are reused across journeys. A paired regional/seasonal section follows, then two **trust experiences** shared across journeys. Mall and MTrusted are not additional demographic personas: both are reachable directly through Categories and contextual entry points throughout the phone experience.
 
 ### 1. Aarav — Everyday Needs Missions
 A value-conscious shopper exploring fashion, grooming, home essentials and electronics & accessories through purpose-led choices.
