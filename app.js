@@ -31,7 +31,7 @@ const personas = {
   },
   assam: {
     id: 'assam',
-    title: 'Assam Festive Context',
+    title: 'Assam Festive Mission',
     subtitle: 'Nayan · Assam seasonal shopper',
     summary: 'Contextual homepage with festive discovery, regional merchandising and trust-led progression into PDPs.',
     entryRoute: 'assam-home',
