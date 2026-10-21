@@ -1047,7 +1047,7 @@ function trustContextFromCategory() {
   const task=state.persona==='college'&&category===state.missionDomain&&category!=='fashion'
     &&missionDomains[category]?.tasks?.[state.missionTask]?state.missionTask:null;
   const occasion=state.persona==='college'&&category==='fashion'
-    &&(sourceRoute==='category-fashion'||state.missionDomain==='fashion')
+    &&sourceRoute==='category-fashion'
     &&styleMissions[state.styleMission]?state.styleMission:null;
   const label=task?missionDomains[category].tasks[task].title
     :occasion?styleMissions[occasion].title:trustPicks[category][0];
@@ -2459,6 +2459,13 @@ document.addEventListener('click', (event) => {
       else if(!navButton.hasAttribute('data-trust-retain'))state.trustContext=null;
     }
     if (route === state.route) {
+      // Leaving a contextual destination via its persona's Home tab must reset the page.
+      if ((route === 'mall-home' || route === 'mtrusted-home')
+          && !navButton.hasAttribute('data-contextual-trust')
+          && !navButton.hasAttribute('data-trust-retain')) {
+        renderRoute();
+        return;
+      }
       if (selectedAnotherProduct && route === 'pdp-core') {
         renderRoute();
         requestAnimationFrame(() => deviceCanvas.querySelector('.phone-content')?.scrollTo({ top: 0, behavior: 'smooth' }));
