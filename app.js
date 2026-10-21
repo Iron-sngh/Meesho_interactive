@@ -1058,15 +1058,18 @@ const shopHerRecipients={
   friend:{label:'Friend',products:['fashion','care','pouch','gift']}
 };
 function isHerShoppingContext(){return state.persona==='female'||state.shopForHerContext}
+function shopForHerTile(){
+  return `<button type="button" class="female-gift-tile shop-her-tile" data-go="shop-for-her" aria-label="Explore Shop for Her">
+    <img src="${asset('chhath/chhath_saree.webp')}" alt="Celebration saree" loading="lazy">
+    <span><small>BAS AISE HI · APNO KE LIYE</small><b>Shop for Her</b>
+      <em>Fashion, self-care and useful gifts for someone you care about.</em>
+      <strong>Explore her picks →</strong></span>
+  </button>`;
+}
 function shopForHerTeaser(){
   return `<section class="screen-section shop-her-home-section" aria-label="Shop for Her">
     ${sectionHeader('Something for her','A thoughtful extra, without changing your shopping mission.','','')}
-    <button type="button" class="female-gift-tile shop-her-tile" data-go="shop-for-her" aria-label="Explore Shop for Her">
-      <img src="${asset('chhath/chhath_saree.webp')}" alt="Celebration saree" loading="lazy">
-      <span><small>BAS AISE HI · APNO KE LIYE</small><b>Shop for Her</b>
-        <em>Fashion, self-care and useful gifts for someone you care about.</em>
-        <strong>Explore her picks →</strong></span>
-    </button>
+    ${shopForHerTile()}
   </section>`;
 }
 function shopForHerScreen(){
@@ -2425,6 +2428,9 @@ function categoriesScreen() {
           ${categoryCard({ icon:'🏠', title:'Home Utility', subtitle:'Useful home picks', route:'category-home' })}
           ${categoryCard({ icon:'🎁', title:'Gifting', subtitle:'Budget finds', route:'category-gifting' })}
         </div>
+      </section>
+      <section class="screen-section" aria-label="Shop for Her">
+        ${shopForHerTile()}
       </section>
     `
   });
