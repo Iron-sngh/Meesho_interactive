@@ -5,6 +5,7 @@ const state = {
   history: [],
   cartItems: [],
   groupCreated: false,
+  styleMission: 'casual',
   product: { title: 'Printed Kurta Set', price: 699, image: 'assets/chhath/chhath_kurta.webp', kind: 'fashion' }
 };
 
@@ -47,23 +48,23 @@ const personas = {
   },
   college: {
     id: 'college',
-    title: 'College Style Starter',
-    subtitle: 'Aarav · college-going value seeker',
-    summary: 'Mission-first homepage for a young shopper looking for affordable fashion, complete looks and proof before purchase.',
+    title: 'Men’s Style Missions',
+    subtitle: 'Aarav · occasion-led fashion shopper',
+    summary: 'Outfit discovery for college essentials, office wear, everyday casuals and party plans, with fit, seller and review proof before purchase.',
     entryRoute: 'college-home',
-    tags: ['Guided discovery', 'Men’s fashion', 'Proof-first PDP'],
+    tags: ['Shop by occasion', 'Outfit building', 'Proof-first PDP'],
     avatar: 'profiles/profile_avatar_aarav.webp'
   }
 };
 
 const routeMeta = {
   'college-home': {
-    label: 'Home · College Style',
-    title: 'College mission-first homepage',
-    persona: 'College Style Starter',
-    summary: 'Fresh from-scratch recreation of the reference college homepage. Every major module is clickable, from category entry points to curated rails and trust destinations.',
-    keySignals: ['Your Style Edit', 'Category-led discovery', 'Mall and MTrusted trust routes', 'Continue Exploring'],
-    kpi: ['Mission taps', 'PDP visits', 'PDP → ATC']
+    label: 'Home · Men’s Style Missions',
+    title: 'Men’s occasion-led discovery',
+    persona: 'Men’s Style Missions',
+    summary: 'Shopping starts with the occasion—college, office, casual days or parties—then narrows to relevant styles, seller confidence and product proof.',
+    keySignals: ['Four occasion-led entries', 'Mission-matched assortments', 'Mall and MTrusted trust routes', 'Outfit completion'],
+    kpi: ['Occasion selection', 'Relevant PDP visits', 'PDP → ATC']
   },
   'assam-home': {
     label: 'Home · Assam Festive',
@@ -377,7 +378,7 @@ function profileCopy() {
     assam: ['Nayan Das', 'Seasonal shopper · Assam · English + অসমীয়া'],
     mall: ['Kabir Mehta', 'Grooming shopper · Urban · English + Hindi'],
     mtrusted: ['Vivek Sharma', 'Proof-seeking shopper · English + Hindi'],
-    college: ['Aarav Sharma', 'Student shopper · Guwahati, Assam · English + Hindi']
+    college: ['Aarav Sharma', 'Value-conscious style shopper · Guwahati, Assam · English + Hindi']
   };
   return profiles[state.persona] || profiles.college;
 }
@@ -592,73 +593,122 @@ function trustTwinCards() {
   `;
 }
 
+// Session intent drives the men’s style journey; existing photographs are reused throughout.
+const styleMissions = {
+  college: {
+    title: 'College Essentials',
+    subtitle: 'Class days & commute',
+    image: 'products/prod_checked_shirt.webp',
+    description: 'Easy-to-wear essentials for class, commuting and everyday campus use.',
+    picks: [
+      { title: 'Casual Checked Shirt', price: 299, image: 'products/prod_checked_shirt.webp', badge: 'MTrusted' },
+      { title: 'Everyday Sneakers', price: 699, image: 'products/prod_sneakers.webp' },
+      { title: 'Minimal Backpack', price: 499, image: 'products/prod_backpack.webp' },
+      { title: 'Polo Tee', price: 349, image: 'products/prod_polo.webp' }
+    ]
+  },
+  office: {
+    title: 'Office Wear',
+    subtitle: 'Workdays & meetings',
+    image: 'products/prod_trousers.webp',
+    description: 'Neat, versatile pieces for workdays, meetings and the daily commute.',
+    picks: [
+      { title: 'Regular Fit Black Shirt', price: 329, image: 'products/prod_black_shirt_main.webp', badge: 'MTrusted' },
+      { title: 'Regular Fit Trousers', price: 499, image: 'products/prod_trousers.webp' },
+      { title: 'Analog Watch', price: 399, image: 'products/prod_watch.webp' },
+      { title: 'Minimal Backpack', price: 499, image: 'products/prod_backpack.webp' }
+    ]
+  },
+  casual: {
+    title: 'Everyday Casuals',
+    subtitle: 'Weekends & daily wear',
+    image: 'products/prod_polo.webp',
+    description: 'Comfortable everyday combinations for errands, outings and weekends.',
+    picks: [
+      { title: 'Polo Tee', price: 349, image: 'products/prod_polo.webp' },
+      { title: 'Casual Checked Shirt', price: 299, image: 'products/prod_checked_shirt.webp', badge: 'MTrusted' },
+      { title: 'Everyday Sneakers', price: 699, image: 'products/prod_sneakers.webp' },
+      { title: 'Regular Fit Trousers', price: 499, image: 'products/prod_trousers.webp' }
+    ]
+  },
+  party: {
+    title: 'Party & Occasion',
+    subtitle: 'Evenings & gatherings',
+    image: 'products/prod_black_shirt_main.webp',
+    description: 'Put-together pieces for celebrations, dinner plans and evenings out.',
+    picks: [
+      { title: 'Black Casual Shirt', price: 749, image: 'products/prod_black_shirt_main.webp', badge: 'Top rated' },
+      { title: 'Analog Watch', price: 399, image: 'products/prod_watch.webp' },
+      { title: 'Regular Fit Trousers', price: 499, image: 'products/prod_trousers.webp' },
+      { title: 'Everyday Sneakers', price: 699, image: 'products/prod_sneakers.webp' }
+    ]
+  }
+};
+
+function styleMissionButtons(className = 'style-mission-grid') {
+  return `<div class="${className}">${Object.entries(styleMissions).map(([id, mission]) => `
+    <button class="style-mission-card" data-go="category-fashion" data-style-mission="${id}" aria-label="Shop ${mission.title}">
+      <img src="${asset(mission.image)}" alt="${mission.title} picks" loading="lazy" decoding="async">
+      <span class="style-mission-copy"><b>${mission.title}</b><small>${mission.subtitle}</small></span>
+    </button>`).join('')}</div>`;
+}
+
 function collegeHome() {
   return phoneTemplate({
     nav: 'home',
     content: `
       ${appBar({
         brand: true,
-        searchText: 'Search products, categories or needs',
-
+        searchText: 'Search styles, occasions or essentials'
       })}
       <section class="screen-section">
-        ${sectionHeader('Shop by Category', 'Find what you need faster by entering through a relevant category.', 'See all', 'categories')}
-        <div class="category-grid">
-          ${categoryCard({ icon: '👔', title: 'Men’s Fashion', subtitle: 'Shirts · Jeans', route: 'category-fashion' })}
-          ${categoryCard({ icon: '👗', title: 'Women’s Fashion', subtitle: 'Ethnic · Fusion', route: 'category-chhath' })}
-          ${categoryCard({ icon: '👟', title: 'Footwear', subtitle: 'Casual · Sports', route: 'category-fashion' })}
-          ${categoryCard({ icon: '🧴', title: 'Grooming', subtitle: 'Skincare · Haircare', route: 'category-grooming' })}
-          ${categoryCard({ icon: '⌚', title: 'Electronics', subtitle: 'Accessories', route: 'search' })}
-          ${categoryCard({ icon: '🏋️', title: 'Sports & Fitness', subtitle: 'Active essentials', route: 'search' })}
-          ${categoryCard({ icon: '🏠', title: 'Home Utility', subtitle: 'Kitchen · Storage', route: 'search' })}
-          ${categoryCard({ icon: '🎁', title: 'Gifting', subtitle: 'Budget finds', route: 'search' })}
-        </div>
+        ${sectionHeader('What are you dressing for?', 'Start with your occasion, then find the right products and proof.', '', '')}
+        ${styleMissionButtons()}
       </section>
 
       <section class="screen-section">
-        ${sectionHeader('Your Style Edit', 'Casual · College · Office · Occasion', 'See all', 'category-fashion')}
+        ${sectionHeader('Style that fits your day', 'College · Office · Everyday · Occasion', 'Browse styles', 'category-fashion')}
         <div class="hero-banner photo-hero" ${heroStyle('college/college_hero_banner.webp', 'center')}>
           <div class="hero-copy-card">
-            <span class="eyebrow-inline">Curated for campus</span>
-            <h2>Upgrade your everyday style</h2>
-            <p>Affordable shirts, trousers, sneakers and accessories for class, hangouts and everyday dressing.</p>
-            <button class="hero-cta" data-go="category-fashion">Shop Your Style →</button>
+            <span class="eyebrow-inline">Dress for your plans</span>
+            <h2>Good style starts with the right fit</h2>
+            <p>Find dependable looks for busy days and weekend plans. Check fit, reviews and seller proof before you choose.</p>
+            <button class="hero-cta" data-go="category-fashion">Explore men's styles →</button>
           </div>
         </div>
       </section>
 
       <section class="screen-section">
         <button class="wide-promo-card" data-go="category-fashion">
-          <img src="${asset('promo_college_under499.webp')}" alt="College fashion picks under 499" loading="lazy">
-          <div class="wide-promo-copy"><span>COLLEGE READY</span><b>Everyday campus picks under ₹499</b><small>Shirts · basics · accessories</small></div>
+          <img src="${asset('promo_college_under499.webp')}" alt="Affordable everyday men's fashion picks" loading="lazy">
+          <div class="wide-promo-copy"><span>EVERYDAY VALUE</span><b>Style essentials under ₹499</b><small>Shirts · basics · accessories</small></div>
         </button>
       </section>
 
       <section class="screen-section">
-        ${sectionHeader('For Your Style', 'Recommended products aligned to your guided mission.', 'See all', 'category-fashion')}
+        ${sectionHeader('Versatile wardrobe picks', 'Useful pieces across college, work and casual days.', 'See all', 'category-fashion')}
         <div class="four-up">
           ${productCard({ title: 'Casual Checked Shirt', price: 299, oldPrice: 449, route: 'pdp-core', badge: 'MTrusted', image: asset('products/prod_checked_shirt.webp') })}
           ${productCard({ title: 'Regular Fit Trousers', price: 499, oldPrice: 699, route: 'pdp-core', image: asset('products/prod_trousers.webp') })}
           ${productCard({ title: 'Everyday Sneakers', price: 699, oldPrice: 999, route: 'pdp-core', badge: 'Top rated', image: asset('products/prod_sneakers.webp') })}
-          ${productCard({ title: 'Minimal Backpack', price: 499, oldPrice: 749, route: 'pdp-core', image: asset('products/prod_backpack.webp') })}
+          ${productCard({ title: 'Analog Watch', price: 399, oldPrice: 599, route: 'pdp-core', image: asset('products/prod_watch.webp') })}
         </div>
       </section>
 
       <section class="screen-section">${trustTwinCards()}</section>
 
       <section class="screen-section">
-        ${sectionHeader('Continue Exploring', 'Bundles, style adjacency and more budget-smart picks.', 'See all', 'search')}
+        ${sectionHeader('Finish your look', 'Layer essentials and accessories around a product you trust.', 'See all', 'category-fashion')}
         <div class="four-up">
-          ${productCard({ title: 'Analog Watch', price: 399, oldPrice: 599, route: 'pdp-core', image: asset('products/prod_watch.webp') })}
           ${productCard({ title: 'Black Casual Shirt', price: 749, oldPrice: 999, route: 'pdp-core', badge2: 'Less returned', image: asset('products/prod_black_shirt_main.webp') })}
-          ${productCard({ title: 'College Backpack', price: 329, route: 'pdp-core', image: asset('products/prod_backpack.webp') })}
           ${productCard({ title: 'Polo Tee', price: 349, route: 'pdp-core', image: asset('products/prod_polo.webp') })}
+          ${productCard({ title: 'Minimal Backpack', price: 499, route: 'pdp-core', image: asset('products/prod_backpack.webp') })}
+          ${productCard({ title: 'Everyday Sneakers', price: 699, route: 'pdp-core', image: asset('products/prod_sneakers.webp') })}
         </div>
       </section>
     `
   });
 }
-
 function assamHome() {
   return phoneTemplate({
     nav: 'home',
@@ -869,15 +919,18 @@ function mtrustedHome() {
 }
 
 function categoryFashion() {
+  const occasionJourney = state.persona === 'college';
+  const missionId = styleMissions[state.styleMission] ? state.styleMission : 'casual';
+  const mission = styleMissions[missionId];
   return phoneTemplate({
     nav: 'categories',
     content: `
       ${appBar({
         brand: false,
         title: 'MEN’S FASHION',
-        subtitle: 'Category · curated for your style mission',
+        subtitle: occasionJourney ? `${mission.title} · curated by occasion` : 'Category · curated for your style mission',
         searchText: 'Search in Men’s Fashion',
-        chips: [
+        chips: occasionJourney ? [] : [
           { label: 'Casual', route: 'category-fashion' },
           { label: 'Office', route: 'category-fashion' },
           { label: 'Meesho Mall', route: 'mall-home' },
@@ -886,28 +939,36 @@ function categoryFashion() {
         backRoute: personas[state.persona].entryRoute
       })}
       <section class="screen-section">
-        ${sectionHeader('Your style filters', 'Focused, explainable discovery rather than endless feed-first scrolling.', '', '')}
-        <div class="chip-row">
-          ${['Casual', 'College', 'Everyday', 'Low to high price', 'Top rated', 'MTrusted first'].map(label => `<button class="filter-chip ${label === 'College' || label === 'MTrusted first' ? 'active' : ''}" data-go="category-fashion">${label}</button>`).join('')}
-        </div>
+        ${occasionJourney ? `
+          ${sectionHeader('Shop by occasion', 'Switch the mission to update the products shown.', '', '')}
+          <div class="style-filter-grid">
+            ${Object.entries(styleMissions).map(([id,item]) => `<button class="style-filter-chip ${missionId === id ? 'active' : ''}" data-go="category-fashion" data-style-mission="${id}" aria-pressed="${missionId === id}">${item.title}</button>`).join('')}
+          </div>
+        ` : `
+          ${sectionHeader('Your style filters', 'Focused, explainable discovery rather than endless feed-first scrolling.', '', '')}
+          <div class="chip-row">
+            ${['Casual', 'College', 'Everyday', 'Low to high price', 'Top rated', 'MTrusted first'].map(label => `<button class="filter-chip ${label === 'College' || label === 'MTrusted first' ? 'active' : ''}" data-go="category-fashion">${label}</button>`).join('')}
+          </div>
+        `}
       </section>
       <section class="screen-section">
-        ${sectionHeader('Mission picks', 'Items aligned to casual/college intent.', '', '')}
+        ${sectionHeader(occasionJourney ? `${mission.title} picks` : 'Mission picks', occasionJourney ? mission.description : 'Items aligned to casual/college intent.', '', '')}
         <div class="two-up">
-          ${productCard({ title: 'Regular Fit Black Shirt', price: 313, art: '👔', route: 'pdp-core', badge: 'Top rated', badge2: 'Less returned' })}
-          ${productCard({ title: 'Regular Fit Trousers', price: 449, art: '👖', route: 'pdp-core' })}
-          ${productCard({ title: 'Casual Sneakers', price: 699, art: '👟', route: 'pdp-core' })}
-          ${productCard({ title: 'Linen Blend Shirt', price: 378, art: '🧵', route: 'pdp-core', badge: 'MTrusted' })}
+          ${occasionJourney ? mission.picks.map(item => productCard({ ...item, route: 'pdp-core', image: asset(item.image) })).join('') : `
+            ${productCard({ title: 'Regular Fit Black Shirt', price: 313, art: '👔', route: 'pdp-core', badge: 'Top rated', badge2: 'Less returned' })}
+            ${productCard({ title: 'Regular Fit Trousers', price: 449, art: '👖', route: 'pdp-core' })}
+            ${productCard({ title: 'Casual Sneakers', price: 699, art: '👟', route: 'pdp-core' })}
+            ${productCard({ title: 'Linen Blend Shirt', price: 378, art: '🧵', route: 'pdp-core', badge: 'MTrusted' })}
+          `}
         </div>
       </section>
       <section class="screen-section">
-        ${sectionHeader('Trust destinations', 'Jump into the right trust system based on what you need answered.', '', '')}
+        ${sectionHeader('Trust destinations', 'Find the right source and seller confidence for your needs.', '', '')}
         ${trustTwinCards()}
       </section>
     `
   });
 }
-
 function categoryGrooming() {
   return phoneTemplate({
     nav: 'categories',
@@ -1298,7 +1359,7 @@ function growthCatalog() {
     },
     college: {
       completeTitle: 'Complete Your Look',
-      completeSub: 'Finish the college outfit around the product you already trust, without returning to a generic feed.',
+      completeSub: 'Complete an outfit for the occasion you selected, with complementary pieces after checking the product proof.',
       complete: [
         { title: 'Black Casual Shirt', price: 329, image: asset('products/prod_black_shirt_main.webp') },
         { title: 'Regular Fit Trousers', price: 449, image: asset('products/prod_trousers.webp') },
@@ -1716,7 +1777,17 @@ function renderPersonas() {
 }
 
 function renderDetails() {
-  const meta = routeMeta[state.route] || { label: state.route, title: state.route, persona: personas[state.persona]?.title || '', summary: '', keySignals: [], kpi: [] };
+  const baseMeta = routeMeta[state.route] || { label: state.route, title: state.route, persona: personas[state.persona]?.title || '', summary: '', keySignals: [], kpi: [] };
+  const selectedMission = styleMissions[state.styleMission] || styleMissions.casual;
+  const meta = state.persona === 'college' && state.route === 'category-fashion' ? {
+    ...baseMeta,
+    label: `Category · ${selectedMission.title}`,
+    title: `${selectedMission.title} recommendations`,
+    persona: personas.college.title,
+    summary: `${selectedMission.description} Changing the occasion updates the product shortlist; trust and review evidence remains available for each pick.`,
+    keySignals: ['Occasion switching', 'Mission-matched product ordering', 'Mall and MTrusted routes', 'Proof-first PDP access'],
+    kpi: ['Mission-to-PDP CTR', 'Relevant PDP visits', 'PDP → ATC']
+  } : baseMeta;
   const signals = meta.keySignals || [];
   const kpis = meta.kpi || [];
   const signalRows = Math.max(1, Math.ceil(signals.length / 2));
@@ -1789,6 +1860,7 @@ function setPersona(personaId, preserveRoute = false) {
   state.history = [];
   state.cartItems = [];
   state.groupCreated = false;
+  state.styleMission = 'casual';
   state.product = defaultProductForPersona(personaId);
   state.route = preserveRoute ? state.route : personas[personaId].entryRoute;
   renderRoute();
@@ -1926,6 +1998,14 @@ document.addEventListener('click', (event) => {
 
   const navButton = event.target.closest('[data-go]');
   if (navButton) {
+    if (state.persona === 'college' && navButton.dataset.styleMission in styleMissions) {
+      state.styleMission = navButton.dataset.styleMission;
+      if (navButton.dataset.go === state.route) {
+        renderRoute();
+        showToast(`${styleMissions[state.styleMission].title} selected`);
+        return;
+      }
+    }
     const selectedAnotherProduct = Boolean(navButton.dataset.productTitle);
     if (selectedAnotherProduct) {
       state.product = {
@@ -1967,6 +2047,7 @@ $('#restart-button').addEventListener('click', () => {
   state.history = [];
   state.cartItems = [];
   state.groupCreated = false;
+  state.styleMission = 'casual';
   state.product = defaultProductForPersona(state.persona);
   state.route = personas[state.persona].entryRoute;
   renderRoute();
