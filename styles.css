@@ -2596,3 +2596,7 @@ img { display:block; max-width:100%; }
 .female-bundle-price small{font-size:.67rem;color:var(--muted)}
 .female-bundle-price b{font-size:.74rem;color:var(--brand-dark)}
 .female-bundle-price strong{font-size:.94rem;color:var(--text)}
+
+/* Distinguish optional mission shortcuts from the ordinary category grid. */
+.female-need-card[data-female-task-initial]{background:#fcf9fc;border-color:#e9d4e7}
+.female-need-card[data-female-task-initial] small{color:#78596f}

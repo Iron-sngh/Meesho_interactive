@@ -954,6 +954,21 @@ function femaleGiftTile(){
   <em>A useful gift for your brother, partner, father or friend.</em><strong>Explore gifts →</strong></span>
  </button>`;
 }
+
+function femaleQuickMissions(){
+ const cards=[
+  ['Everyday Wear','fashion','everyday','categories/cat_womens_fashion.webp'],
+  ['Daily Self-Care','beauty','everyday','assam/assam_selfcare_gift.webp'],
+  ['Refresh My Space','home','refresh','assam/assam_decor_set.webp'],
+  ['Gift for Him','accessories','him','products/prod_black_shirt_main.webp']
+ ];
+ return `<div class="female-need-grid">${cards.map(([title,domain,task,image])=>`
+  <button class="female-need-card" data-go="${task==='him'?'female-gifts':'female-category'}"
+    data-female-category="${domain}" data-female-task-initial="${task}">
+   <img src="${asset(image)}" alt="" loading="lazy">
+   <span><b>${title}</b><small>${task==='him'?'A thoughtful gifting mission':'Purpose-led picks →'}</small></span>
+  </button>`).join('')}</div>`;
+}
 function femaleHome(){
  return phoneTemplate({nav:'home',content:`
   ${appBar({brand:true,searchText:'Search fashion, beauty, home & more'})}
@@ -972,7 +987,7 @@ function femaleHome(){
   </section>
   <section class="screen-section">
     ${sectionHeader('What do you need today?','Optional guided choices, never a required step.','','')}
-    ${femaleNeedTiles()}
+    ${femaleQuickMissions()}
   </section>
   <section class="screen-section">
     ${sectionHeader('Thoughtful gifting','A secondary route for the people you care about.','','')}
@@ -1699,7 +1714,7 @@ function femaleOffer(product){
  const products=[{title:product.title,price:product.price,image:product.image},
    ...related.map(key=>({title:femaleProducts[key][0],price:femaleProducts[key][1],image:asset(femaleProducts[key][2])}))];
  const names=new Set();
- return {title:state.femaleGifting?'Gift for Him Combo':'Complete Her Occasion Bundle',
+ return {title:state.femaleGifting?'Gift for Him Combo':state.femaleCategory==='home'?'Home Refresh Bundle':state.femaleCategory==='beauty'?'Self-Care Essentials Bundle':state.femaleCategory==='accessories'?'Everyday Gift Bundle':'Complete Her Occasion Bundle',
    items:products.filter(p=>{if(names.has(p.title))return false;names.add(p.title);return true;})};
 }
 function femaleBundleSaving(items){
@@ -1766,7 +1781,7 @@ function pdpCore() {
       </div>
 
       <div class="info-card seller-module info-card-button" data-go="seller-profile" role="button" tabindex="0">
-        <div class="seller-inline-heading">${p.kind === 'fashion' ? `<img src="${asset('seller/seller_xyz_logo.webp')}" alt="Seller logo">` : `<span class="seller-generic-logo small">${p.kind === 'grooming' ? 'M' : '✓'}</span>`}<span><small>Sold by</small><b>${sellerName}</b></span><strong>View seller →</strong></div>
+        <div class="seller-inline-heading">${p.kind === 'fashion' && state.persona!=='female' ? `<img src="${asset('seller/seller_xyz_logo.webp')}" alt="Seller logo">` : `<span class="seller-generic-logo small">${p.kind === 'grooming' ? 'M' : '✓'}</span>`}<span><small>Sold by</small><b>${sellerName}</b></span><strong>View seller →</strong></div>
         <div class="trust-badges"><div class="trust-badge"><b>Strong category performance</b><span>Stable buyer outcomes.</span></div><div class="trust-badge"><b>Reliable fulfilment</b><span>Consistent shipping outcomes.</span></div><div class="trust-badge"><b>Low issue incidence</b><span>Healthier post-order experience.</span></div></div>
       </div>
 
@@ -1817,8 +1832,8 @@ function sellerProfile() {
   const sellerName = state.persona==='female'?'Illustrative Marketplace Seller':(isFashion?'XYZ Fashion':(p.kind==='grooming'?'Mall Partner Store':'Verified Marketplace Seller'));
   const category = state.persona==='female'?(state.femaleGifting?'Household Gifting':femaleNeeds[state.femaleCategory].name):(isFashion?'Fashion':(p.kind==='grooming'?'Men’s Grooming':'Marketplace Utility'));
   const cover = state.persona==='female'?asset('categories/cat_womens_fashion.webp'):(isFashion?asset('seller/seller_xyz_profile_banner.webp'):(p.kind==='grooming'?asset('mall/mall_grooming_banner.webp'):asset('mtrusted/fulfilment_package.webp')));
-  const ops = isFashion ? asset('seller/seller_xyz_packaging.webp') : asset('mtrusted/fulfilment_package.webp');
-  const identity = isFashion ? `<img class="seller-profile-logo" src="${asset('seller/seller_xyz_logo.webp')}" alt="XYZ Fashion logo">` : `<span class="seller-generic-logo">${p.kind === 'grooming' ? 'M' : '✓'}</span>`;
+  const ops = state.persona==='female'?asset('mtrusted/fulfilment_package.webp'):(isFashion?asset('seller/seller_xyz_packaging.webp'):asset('mtrusted/fulfilment_package.webp'));
+  const identity = isFashion && state.persona!=='female' ? `<img class="seller-profile-logo" src="${asset('seller/seller_xyz_logo.webp')}" alt="XYZ Fashion logo">` : `<span class="seller-generic-logo">${p.kind === 'grooming' ? 'M' : '✓'}</span>`;
   return phoneTemplate({
     nav: 'home',
     ctas: ctaBar({ label: 'Back to PDP', route: 'pdp-core' }, { label: 'View trusted picks', route: p.kind === 'grooming' ? 'mall-home' : 'mtrusted-home' }),
@@ -1860,7 +1875,7 @@ function ugcGalleryScreen() {
     ctas: ctaBar({ label: 'Back to PDP', route: 'pdp-core' }, { label: 'See reviews', route: 'reviews' }),
     content: `
       ${appBar({ brand: false, title: 'BUYER VISUAL PROOF', subtitle: p.title, searchText: 'Search buyer content', backRoute: 'pdp-core' })}
-      <div class="list-card"><h4>${isBlackShirt ? 'Verified purchase media' : 'Product proof gallery'}</h4><div class="ugc-gallery-grid">${gallery.map((src,i) => `<figure><img src="${src}" alt="Buyer proof ${i+1}"><figcaption>${isBlackShirt ? (i===4?'Video review':'Verified buyer') : 'Product view'}</figcaption></figure>`).join('')}</div></div>
+      <div class="list-card"><h4>${isBlackShirt && state.persona!=='female' ? 'Verified purchase media' : 'Product proof gallery'}</h4><div class="ugc-gallery-grid">${gallery.map((src,i) => `<figure><img src="${src}" alt="${state.persona==='female'?'Product photo '+(i+1):'Buyer proof '+(i+1)}"><figcaption>${isBlackShirt && state.persona!=='female' ? (i===4?'Video review':'Verified buyer') : 'Product view'}</figcaption></figure>`).join('')}</div></div>
       ${state.persona==='female'?'<div class="list-card"><p class="body-copy">Existing product photos only. Verified buyer-submitted visuals for these listings have not been added yet.</p></div>':''}
       <div class="list-card"><h4>Why visual proof matters</h4><div class="detail-list"><div class="detail-list-item"><b>Reality versus listing</b><span>Helps shoppers judge how closely the product matches expectations.</span></div><div class="detail-list-item"><b>Variant confidence</b><span>Provides a more tangible sense of the selected product.</span></div><div class="detail-list-item"><b>Traceability</b><span>Buyer content remains connected to verified purchase context.</span></div></div></div>
     `
@@ -2742,7 +2757,7 @@ document.addEventListener('click', (event) => {
     if(state.persona==='female'&&navButton.dataset.femaleCategory){
       const key=navButton.dataset.femaleCategory;
       if(!femaleNeeds[key])return;
-      state.femaleCategory=key;state.femaleTask=Object.keys(femaleNeeds[key].tasks)[0];
+      state.femaleCategory=key;state.femaleTask=femaleNeeds[key].tasks[navButton.dataset.femaleTaskInitial]?navButton.dataset.femaleTaskInitial:Object.keys(femaleNeeds[key].tasks)[0];
       state.femaleGifting=false;
     }
     if (state.persona === 'college' && navButton.dataset.missionTask) {
