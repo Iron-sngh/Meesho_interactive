@@ -17,7 +17,7 @@ The desktop presentation is split into three areas:
 
 | Area | Purpose |
 | --- | --- |
-| **Persona journeys** | Switch between the five use cases without leaving the prototype |
+| **Persona journeys** | Switch between the six use cases without leaving the prototype |
 | **Interactive phone** | Explore the actual mobile journey by clicking and scrolling inside the device |
 | **Screen rationale** | See the purpose of the current screen, its experience signals and the KPIs it is intended to influence |
 
@@ -53,7 +53,16 @@ A first-time buyer who likes a product but is unsure about an unfamiliar seller 
 
 **MTrusted answers:** *“Is this seller or listing reliably good?”*
 
-### 5. Aarav - Everyday Needs Missions
+### 5. Ananya - Everyday Meesho Shopper
+A returning female customer who continues to see familiar fashion, beauty, home and accessory categories first.
+
+**Everyday flow:** Female homepage → familiar categories → optional mission selection → proof-first PDP → category product facts, seller evidence, Review Intelligence and Mall / MTrusted explanations → cart / checkout.
+
+**Household flow:** Gift for Him → recipient choice → useful gifts → proof-first product page → optional mission bundle / Share & Save.
+
+**Focus:** preserve Meesho’s existing female-first experience while sharing universal trust, buyer evidence and optional mission-completion improvements.
+
+### 6. Aarav - Everyday Needs Missions
 A value-conscious shopper looking for a straightforward way to find products for different parts of everyday life, without having to browse a long generic feed.
 
 **Flow:** choose a shopping need → choose a specific purpose → relevant product shortlist → proof-first PDP → seller / review evidence → purchase or mission completion

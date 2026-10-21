@@ -2579,3 +2579,20 @@ img { display:block; max-width:100%; }
 .female-gift-intro span{display:flex;flex-direction:column;gap:7px}
 .female-gift-intro b{font-size:1rem;line-height:1.23}
 .female-gift-intro small{font-size:.69rem;color:var(--muted);line-height:1.36}
+
+/* Female persona: universal proof and transparent bundle pricing */
+.female-trust-pdp .female-trust-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.female-trust-grid button{display:flex;flex-direction:column;min-width:0;gap:6px;align-items:flex-start;text-align:left;background:#fff;border:1px solid #e9dce9;border-radius:12px;padding:11px;cursor:pointer}
+.female-trust-grid button:hover,.female-trust-grid button:focus-visible{background:#fff8fc;border-color:#b972a5}
+.female-trust-grid b{font-size:.76rem;color:var(--brand-dark)}
+.female-trust-grid strong{font-size:.67rem;color:var(--text);line-height:1.3}
+.female-trust-grid small{font-size:.65rem;color:var(--muted);line-height:1.3}
+.female-trust-pdp p,.female-bundle p{margin:10px 0;color:var(--muted);font-size:.63rem;line-height:1.4}
+.female-trust-links{display:flex;gap:8px}
+.female-trust-links button{border:1px solid #eadcea;background:#fff;color:var(--brand-dark);padding:8px;border-radius:9px;font-weight:750;font-size:.67rem;cursor:pointer}
+.female-bundle{border:1px solid #eadcea;border-radius:14px;background:#fdf9fc}
+.female-bundle-price{display:flex;justify-content:space-between;align-items:center;gap:10px;margin:10px 0}
+.female-bundle-price span{display:flex;flex-direction:column;gap:4px}
+.female-bundle-price small{font-size:.67rem;color:var(--muted)}
+.female-bundle-price b{font-size:.74rem;color:var(--brand-dark)}
+.female-bundle-price strong{font-size:.94rem;color:var(--text)}
