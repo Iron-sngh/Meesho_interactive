@@ -2594,6 +2594,171 @@ function renderPersonas() {
     </section>`;
 }
 
+
+/* Judge-facing annotations: explain intent and test logic, not simulated results. */
+const signalRationales={
+  'Festive picks':'A seasonal entry shelf brings occasion-relevant products forward instead of requiring a broad feed search.',
+  'What do you need today?':'An optional need prompt shortens cold-start discovery without forcing a new interface.',
+  'Trending in Assam':'An illustrative regional edit demonstrates context-aware ordering; no live local-demand ranking is claimed.',
+  'Mall + MTrusted routing':'Two separate trust routes help explain brand provenance versus seller/listing confidence.',
+  'Chhath picks':'Festival-specific clothing, essentials and gifts become easier to discover in one visit.',
+  'Offer-led urgency':'Occasion-led merchandising gives shoppers an entry point; eligibility and offers must remain transparent.',
+  'Mission bundles':'Complementary festive items help finish the occasion after the main product is evaluated.',
+  'Trust-qualified products':'The concept connects festive shopping to product and seller evidence, not a generic trusted badge.',
+  'Fashion, grooming, home and electronics':'Four familiar entry needs show that male discovery extends beyond fashion alone.',
+  'Progressive two-step discovery':'Choosing a need and then a purpose replaces open-ended scrolling with a small, useful decision.',
+  'Relevant shortlists':'Products are ordered around a stated mission before the shopper examines listing evidence.',
+  'Trust and product proof':'Each shortlist still leads to product facts, review insights and separate trust routes.',
+  'Four familiar needs':'The first choice stays recognisable: fashion, grooming, home or electronics.',
+  'Context-sensitive task cards':'The second step adapts to the chosen need without creating another storefront.',
+  'Original asset library':'Existing products illustrate mission relevance; no new product data is claimed.',
+  'Proof-first next steps':'A mission click leads to a listing with details, reviews, seller signals and transaction facts.',
+  'Purpose switching':'Shoppers can change intent without losing control of categories or search.',
+  'Need-matched product cards':'A bounded shortlist makes the selected task actionable, rather than extending the feed.',
+  'Product and seller proof':'Product details and merchant information remain visible at the decision point.',
+  'Trust destinations':'Mall and MTrusted answer distinct trust questions and are accessible without a new bottom tab.',
+  'Familiar categories':'The existing female shopping hierarchy is retained to avoid disrupting established behaviour.',
+  'Optional missions':'Guided choices are additive; normal category shopping continues to work.',
+  'Gift for Him':'Household gift discovery can bring another shopper into Meesho without replacing the core female feed.',
+  'Proof-first evaluation':'The same product, seller and buyer evidence improves decisions for every shopper.',
+  'Everyday products':'The ordinary women’s assortment remains visible alongside new discovery choices.',
+  'Purpose filters':'Optional intent filters narrow choices without hiding open exploration.',
+  'Review evidence':'Buyer themes and review references make product claims easier to inspect.',
+  'Recipient intent':'One recipient choice changes the gift shortlist rather than creating a demographic storefront.',
+  'Gift discovery':'Useful gifts are presented by relationship and purpose.',
+  'Trust evidence':'Gift purchases still use seller, brand and listing information before ordering.',
+  'Optional group buying':'Shared value appears as a choice after product consideration, not a condition to shop.',
+  'Recipient-led discovery':'Gift recommendations follow the selected recipient while regular categories remain available.',
+  'Women’s category products':'Existing women’s products illustrate cross-household shopping using the shared catalog.',
+  'Explainable trust':'Separate Mall and MTrusted explanations make each assurance easier to understand.',
+  'Proof-first PDP':'Structured facts, buyer evidence and seller context support evaluation before adding to cart.',
+  'Branded assortment':'Branded choices are organised for shoppers who value recognisable sources.',
+  'Mall value promise':'This destination speaks to brand and source assurance, distinct from marketplace-quality signals.',
+  'Shop by brand':'Source-sensitive shoppers can shortlist recognised brands directly.',
+  'Need-based navigation':'Shopping missions still guide discovery inside branded assortments.',
+  'Why MTrusted?':'A short explanation clarifies why seller and listing evidence matter.',
+  'Proof pillars':'Seller history, fulfilment and listing quality are surfaced as distinct evidence.',
+  'Qualified picks':'The proposed experience organises quality-sensitive products; illustrated listings are not verified eligible.',
+  'Seller evidence':'Merchant-specific signals help answer uncertainty about an unfamiliar seller.',
+  'Structured details':'Category-specific facts replace vague descriptions at the product decision point.',
+  'Verified buyer media':'Eligible buyer photos and videos can show real-world product appearance when genuinely verified.',
+  'Share & Save':'Optional social purchasing is considered after the core listing earns confidence.',
+  'Usually Bought Together':'Relevant complementary items help complete a broader shopping need.',
+  'Complete Your Look':'Useful style or occasion adjacencies extend an already-considered purchase.',
+  'Suggested Products':'A limited set of relevant alternatives gives a next useful choice, not endless scrolling.',
+  'Exact measurements':'Clear dimensions or sizing reduce fit uncertainty and avoidable returns.',
+  'Material and fit':'Fabric and construction details help match product expectations to real use.',
+  'Care and pack quantity':'Practical listing fields show exactly what the shopper receives and maintains.',
+  'Pros and cons':'Recurring buyer themes summarise strengths and limitations at a glance.',
+  'Theme summary':'Review intelligence turns scattered opinions into scannable attributes.',
+  'Review traceability':'Summary themes connect back to individual buyer evidence for inspection.',
+  'Seller history':'Category-specific merchant context helps shoppers evaluate credibility.',
+  'Fulfilment stats':'Past fulfilment patterns support confidence in delivery reliability.',
+  'Issue resolution':'Issue outcomes clarify what may happen when an order goes wrong.',
+  'Delivery date':'A visible estimate reduces uncertainty before purchase.',
+  'Returns':'Return eligibility and conditions support a reversible first purchase.',
+  'Refund status':'Refund clarity reduces anxiety about recovering money after a return.',
+  'Known brands':'Brand familiarity helps source-sensitive buyers narrow choices.',
+  'Clear source':'Product provenance answers whether the shopper recognises where an item comes from.',
+  'Value confidence':'Visible brand assurance supports a value claim beyond the lowest price.',
+  'Seller quality':'Evidence about a merchant’s category track record reduces seller investigation.',
+  'Fulfilment reliability':'Delivery and issue history contribute to marketplace-quality trust.',
+  'Listing completeness':'Detailed listing attributes make a product easier to judge.',
+  'Order value clarity':'The cart makes selected prices and discounts visible before payment.',
+  'Trust footer':'Lightweight trust reminders persist without obscuring price or checkout details.',
+  'Proceed to checkout':'An explicit next action reduces ambiguity at the purchase fork.',
+  'Address certainty':'A clear shipping address makes fulfilment expectations legible.',
+  'Payment choice':'Familiar payment options preserve control and confidence.',
+  'Delivery promise':'The final step communicates expected delivery rather than implying instant certainty.'
+};
+function signalRationale(label,route){
+  if(signalRationales[label])return signalRationales[label];
+  const s=label.toLowerCase();
+  if(/review|ugc|buyer|photo|media/.test(s))return 'Makes real buyer experience easier to assess and link back to supporting evidence.';
+  if(/mall|brand|provenance/.test(s))return 'Guides shoppers toward brand or source assurance when that is the unresolved question.';
+  if(/mtrusted|seller|listing|quality/.test(s))return 'Organises marketplace-quality and seller information into interpretable signals.';
+  if(/regional|region|festive|festival|occasion|trending/.test(s))return 'Uses light context to prioritise relevant items while keeping normal browsing available.';
+  if(/bundle|look|together|cart|share|group|gift/.test(s))return 'Helps complete a wider shopping mission after the original product earns consideration.';
+  if(/category|filter|search|purpose|mission|intent|navigation|shortlist|products/.test(s))return 'Reduces discovery effort while preserving choice and familiar category navigation.';
+  if(/return|refund|delivery|payment|checkout|order/.test(s))return 'Makes a transaction step clearer before the shopper commits to an order.';
+  if(/detail|fit|fabric|measure|care|pack|information/.test(s))return 'Surfaces the information needed to judge category fit before purchasing.';
+  return 'Keeps this part of the journey understandable and connected to the next product decision.';
+}
+const metricRationales={
+  'Category engagement':'Do more shoppers choose a category or mission instead of abandoning the feed?',
+  'Relevant PDP visits':'Are shoppers reaching product pages that match the selected need?',
+  'First-order conversion':'Does the treatment raise completed, kept first orders against a control?',
+  'Need-to-mission selection':'How often does an entry need lead to a purposeful second choice?',
+  'Mission-to-PDP CTR':'What share of guided shoppers open a relevant product page?',
+  'PDP → ATC':'Do stronger facts and trust signals increase add-to-cart after a PDP visit?',
+  'Trust comprehension':'Can shoppers correctly distinguish provenance from listing-quality trust?',
+  'Category CTR':'Are familiar category entry points being used without extra friction?',
+  'Female PDP → ATC':'Does the shared proof experience preserve or improve female add-to-cart?',
+  'Kept order rate':'Do completed orders stay successful after delivery, rather than just being placed?',
+  'Repeat':'Do returning shoppers find another useful mission after a successful order?',
+  'Gift CTR':'Does the gifting entry lead to relevant product exploration?',
+  'Gift entry CTR':'How often does the optional Shop for Her route get selected?',
+  'Basket value':'Does mission completion add genuinely useful items to an order?',
+  'Basket completion':'Does a selected household mission progress into checkout?',
+  'Purchase completion':'Do shoppers complete the purchase after reviewing proof?',
+  'Festive engagement':'Do festival missions lead into relevant product evaluation?',
+  'ATC':'Do evaluated products enter the cart more often?',
+  'AOV':'Does the completed basket become more useful without harming contribution?',
+  'Bundle engagement':'Do shoppers explore and select relevant additions?',
+  'Kept order #1':'Does a first purchase arrive and remain with the buyer?',
+  'Why-link CTR':'Do shoppers use explanations when a trust badge alone is insufficient?',
+  'Why-link usage':'Are trust explanations opened at the decision point?',
+  'Return confidence':'Do shoppers understand applicable return and refund conditions?',
+  'Mall → PDP':'Do brand-sensitive shoppers find relevant, inspectable listings?',
+  'Mall comprehension':'Do users correctly explain what Meesho Mall assures?',
+  'Brand clicks':'Are shoppers exploring recognisable brand/source routes?',
+  'Conversion lift':'Does the tested experience beat its control on kept purchases?',
+  'Trust uplift':'Does understanding rise when evidence is explained rather than badged?',
+  'ATC lift':'Does the clarified trust layer raise product consideration?',
+  'Lower returns':'Do clearer product expectations reduce post-purchase mismatches?',
+  'Time to confidence':'Can shoppers assess relevant buyer evidence more quickly?',
+  'Group completion':'Do enough participants join to meet the displayed condition?',
+  'Group creation':'Are eligible shoppers starting optional social baskets?',
+  'Items per order':'Does mission completion add relevant products after confidence?',
+  'Attach rate':'How often are useful complementary items added to an anchor SKU?',
+  'Repeat purchase':'Do satisfied customers return for a later shopping need?',
+  'Category breadth':'Do customers confidently enter a second product category?',
+  'Cart → Checkout':'What portion of initiated carts reach the payment step?',
+  'Checkout completion':'Do shoppers complete checkout once the final terms are clear?',
+  'Cancellation rate':'Do fulfilled expectations reduce avoidable cancellations?',
+  'Search reformulation':'Does guided discovery reduce repeated or revised searches?',
+  'Return visits':'Do customers come back after a credible first order?',
+  'Order completion':'Do placed orders become confirmed orders?'
+};
+function metricRationale(label){
+  if(metricRationales[label])return metricRationales[label];
+  const m=label.toLowerCase();
+  if(/ctr|click|tap|view|usage/.test(m))return 'Track meaningful entry-to-next-step actions against a comparable baseline.';
+  if(/return|issue|cancel|nqd/.test(m))return 'Use post-purchase quality outcomes as a safety guardrail.';
+  if(/order|checkout|conversion|atc/.test(m))return 'Compare conversion through a controlled test, with kept orders as the quality check.';
+  if(/basket|value|aov|revenue|items|attach|group/.test(m))return 'Measure incremental basket contribution, not just a larger displayed total.';
+  if(/repeat|retention|session/.test(m))return 'Follow later shopping behaviour after the original mission succeeds.';
+  return 'Track a defined behaviour change against a baseline before proposing scale.';
+}
+function panelFocus(route){
+  if(['female-home','female-category','female-gifts'].includes(route))return ['DESIGN GUARDRAIL','Protect the familiar female experience while extending universal proof and optional mission choices.'];
+  if(['assam-home','category-assam'].includes(route))return ['DISCOVERY FRICTION · P3 + P6','Use region and season as light relevance cues, not a separate storefront or asserted demand ranking.'];
+  if(['chhath-home','category-chhath'].includes(route))return ['MISSION FIT · P3 + P7','Show Chhath-related preparation, attire and gifting together while allowing normal navigation.'];
+  if(['college-home','mission-results','category-fashion','category-grooming','categories','search'].includes(route))return ['COLD START · P3','Reduce the effort from a broad category feed to a relevant shortlist, with proof before purchase.'];
+  if(/mall|mtrusted|seller|reviews|ugc|product-details/.test(route))return ['QUALITY + TRUST · P1 + P4 + P5','Make the exact source, seller or product evidence understandable rather than relying on more badges.'];
+  if(/pdp/.test(route))return ['PROOF BEFORE ORDER #1','Establish product and seller confidence first; introduce basket expansion only after evaluation.'];
+  if(/group|growth/.test(route))return ['MISSION COMPLETION · P7 + P9','Help users finish a useful mission after confidence, without making discounts or social steps mandatory.'];
+  if(/cart|checkout|certainty|order-placed/.test(route))return ['TRANSACTION CERTAINTY · P2','Make prices, fulfilment and recovery expectations clear at the final purchase decision.'];
+  return ['CONTINUITY + TRUST','Keep navigation familiar and make the next purchase decision easy to understand.'];
+}
+function panelValidation(route){
+  if(route.startsWith('female'))return 'Guardrail: track female kept-order conversion, returns and repeat alongside any male growth lift.';
+  if(route.includes('assam')||route.includes('chhath'))return 'Test: compare relevant PDP visits and kept first orders against the existing regional homepage.';
+  if(/mall|mtrusted|seller|reviews/.test(route))return 'Test: trust comprehension and PDP → ATC, with returns and issue rates as guardrails.';
+  if(/group|growth/.test(route))return 'Test: incremental basket value and contribution after incentive cost, not gross uptake alone.';
+  return 'North star: incremental kept Order #1; monitor returns and post-purchase issues.';
+}
+
 function renderDetails() {
   const baseMeta = routeMeta[state.route] || { label: state.route, title: state.route, persona: personas[state.persona]?.title || '', summary: '', keySignals: [], kpi: [] };
   const selectedMission = styleMissions[state.styleMission] || styleMissions.casual;
@@ -2651,6 +2816,7 @@ function renderDetails() {
   const signals = meta.keySignals || [];
   const kpis = meta.kpi || [];
   const signalRows = Math.max(1, Math.ceil(signals.length / 2));
+  const [focusLabel,focusDescription]=panelFocus(state.route);
   detailPanel.classList.toggle('has-dense-signals', signals.length > 4);
   detailPanel.innerHTML = `
     <div class="detail-block current-screen-block">
@@ -2662,6 +2828,10 @@ function renderDetails() {
         <div class="current-screen-copy">
           <h2>${meta.title}</h2>
           <p>${meta.summary}</p>
+          <div class="screen-focus-note">
+            <strong>${focusLabel}</strong>
+            <span>${focusDescription}</span>
+          </div>
         </div>
         <div class="screen-context-card">
           <span>${['mall-home','mtrusted-home'].includes(state.route) ? 'Experience' : 'Journey'}</span>
@@ -2680,8 +2850,9 @@ function renderDetails() {
         ${signals.map((item, index) => `
           <div class="detail-list-item">
             <span class="signal-index">${String(index + 1).padStart(2, '0')}</span>
-            <div>
+            <div class="signal-copy">
               <b>${item}</b>
+              <p>${signalRationale(item,state.route)}</p>
             </div>
           </div>`).join('')}
       </div>
@@ -2696,10 +2867,11 @@ function renderDetails() {
         ${kpis.map((item, index) => `
           <div class="detail-stat">
             <span class="kpi-index">${String(index + 1).padStart(2, '0')}</span>
-            <b>KPI</b>
-            <span>${item}</span>
+            <b>${item}</b>
+            <p>${metricRationale(item)}</p>
           </div>`).join('')}
       </div>
+      <p class="panel-validation-note">${panelValidation(state.route)}</p>
     </div>
   `;
   if (stageLabel) stageLabel.textContent = (meta.label || state.route).toUpperCase();
