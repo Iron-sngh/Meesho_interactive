@@ -2863,7 +2863,7 @@ function renderDetails() {
         <span class="panel-kicker">WHAT THIS SCREEN SHOULD IMPROVE</span>
         <span class="detail-section-meta">Screen outcomes</span>
       </div>
-      <div class="detail-stat-grid">
+      <div class="detail-stat-grid" style="--kpi-count: ${Math.max(1,kpis.length)}">
         ${kpis.map((item, index) => `
           <div class="detail-stat">
             <span class="kpi-index">${String(index + 1).padStart(2, '0')}</span>
