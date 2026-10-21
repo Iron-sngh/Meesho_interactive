@@ -88,6 +88,8 @@ The prototype deliberately keeps the two trust systems separate:
 
 Both routes feed into the same product-evaluation experience rather than becoming isolated storefronts.
 
+**Categories** now provides direct Meesho Mall and MTrusted entry points in every persona. The selected category or guided mission carries into those existing trust destinations, with relevant illustrative fashion, grooming, festive, home, electronics and gifting products. Both preserve their distinct brand/source versus seller/listing-quality explanations and open the shared proof-first PDP. Choosing a trust persona from the left rail still starts its original standalone journey. Product eligibility is illustrative, not verified live status.
+
 ### Proof-first PDP
 The product page brings decision-critical evidence together before purchase:
 

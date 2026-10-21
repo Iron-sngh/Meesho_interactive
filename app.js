@@ -8,6 +8,7 @@ const state = {
   styleMission: 'casual',
   missionDomain: null,
   missionTask: null,
+  trustContext: null,
   product: { title: 'Printed Kurta Set', price: 699, image: 'assets/chhath/chhath_kurta.webp', kind: 'fashion' }
 };
 
@@ -988,7 +989,128 @@ function chhathHome() {
   });
 }
 
+
+// Reuse the original trust destinations, tailoring their assortments to entry context.
+const trustCategoryRoutes = new Set(['categories','category-fashion','category-grooming',
+  'category-assam','category-chhath','category-home','category-electronics','category-gifting','mission-results']);
+function categoryTrustGateway() {
+  return `<section class="screen-section category-trust-section">
+    ${sectionHeader('Shop with more confidence','Choose the trust signal that matters for these products.','','')}
+    <div class="category-trust-grid">
+      <button class="category-trust-card" data-go="mall-home" data-contextual-trust="true">
+        <strong>Meesho Mall <span aria-hidden="true">↗</span></strong>
+        <b>Brand & source confidence</b><small>Source-focused picks in this category</small>
+      </button>
+      <button class="category-trust-card" data-go="mtrusted-home" data-contextual-trust="true">
+        <strong>MTrusted <span aria-hidden="true">↗</span></strong>
+        <b>Seller & listing-quality confidence</b><small>Quality-focused picks in this category</small>
+      </button>
+    </div>
+  </section>`;
+}
+// Every product entry is a title, example price and existing image asset.
+// These are not claims of real Mall or MTrusted qualification.
+const trustPicks = {
+  chhath:['Chhath festival','chhath/chhath_kurta.webp',[
+    ['Printed Kurta Set',699,'chhath/chhath_kurta.webp'],['Celebration Saree',799,'chhath/chhath_saree.webp'],
+    ['Festive Decor Pack',349,'chhath/chhath_decor_pack.webp'],['Gift Hamper',499,'chhath/chhath_gift_hamper.webp']]],
+  assam:['Assam festive shopping','assam/assam_kurta.webp',[
+    ['Assam Festive Kurta',429,'assam/assam_kurta.webp'],['Self-Care Gift Box',449,'assam/assam_selfcare_gift.webp'],
+    ['Festive Decor Set',299,'assam/assam_decor_set.webp'],['Travel Utility Kit',249,'assam/assam_travel_kit.webp']]],
+  fashion:['Men’s fashion','categories/cat_mens_fashion.webp',[
+    ['Black Casual Shirt',329,'products/prod_black_shirt_main.webp'],['Casual Checked Shirt',299,'products/prod_checked_shirt.webp'],
+    ['Regular Fit Trousers',499,'products/prod_trousers.webp'],['Everyday Sneakers',699,'products/prod_sneakers.webp']]],
+  grooming:['Men’s grooming','categories/cat_grooming.webp',[
+    ['Daily Face Wash',199,'mall/mall_facewash.webp'],['Shaving Kit',329,'mall/mall_shaving_kit.webp'],
+    ['Beard Grooming Oil',259,'mall/mall_beard_oil.webp'],['Body Spray',219,'mall/mall_deodorant.webp']]],
+  home:['Home essentials','categories/cat_home.webp',[
+    ['Home Decor Set',299,'assam/assam_decor_set.webp'],['Celebration Decor Pack',349,'chhath/chhath_decor_pack.webp'],
+    ['Everyday Home Essentials',399,'categories/cat_home.webp'],['Gift Hamper',499,'chhath/chhath_gift_hamper.webp']]],
+  electronics:['Electronics & accessories','categories/cat_electronics.webp',[
+    ['Everyday Tech Accessories',299,'categories/cat_electronics.webp'],['Analog Watch',399,'products/prod_watch.webp'],
+    ['Minimal Backpack',499,'products/prod_backpack.webp'],['Utility Pouch',199,'chhath/chhath_travel_pouch.webp']]],
+  gifting:['Gifting essentials','categories/cat_gifting.webp',[
+    ['Gift Hamper',499,'chhath/chhath_gift_hamper.webp'],['Self-Care Gift Box',449,'assam/assam_selfcare_gift.webp'],
+    ['Home Decor Set',299,'assam/assam_decor_set.webp'],['Travel Utility Kit',249,'assam/assam_travel_kit.webp']]],
+  everyday:['Everyday needs','categories/cat_mens_fashion.webp',[
+    ['Casual Checked Shirt',299,'products/prod_checked_shirt.webp'],['Daily Face Wash',199,'mall/mall_facewash.webp'],
+    ['Home Decor Set',299,'assam/assam_decor_set.webp'],['Analog Watch',399,'products/prod_watch.webp']]]
+};
+function trustContextFromCategory() {
+  const byRoute={'category-fashion':'fashion','category-grooming':'grooming','category-assam':'assam',
+    'category-chhath':'chhath','category-home':'home','category-electronics':'electronics','category-gifting':'gifting'};
+  const byPersona={chhath:'chhath',assam:'assam',mall:'grooming',mtrusted:'fashion',college:'everyday'};
+  const sourceRoute=state.route;
+  let category=byRoute[sourceRoute]||byPersona[state.persona]||'everyday';
+  if(state.persona==='college'&&['categories','mission-results'].includes(sourceRoute)
+     && missionDomains[state.missionDomain])category=state.missionDomain;
+  const task=state.persona==='college'&&category===state.missionDomain&&category!=='fashion'
+    &&missionDomains[category]?.tasks?.[state.missionTask]?state.missionTask:null;
+  const occasion=state.persona==='college'&&category==='fashion'
+    &&(sourceRoute==='category-fashion'||state.missionDomain==='fashion')
+    &&styleMissions[state.styleMission]?state.styleMission:null;
+  const label=task?missionDomains[category].tasks[task].title
+    :occasion?styleMissions[occasion].title:trustPicks[category][0];
+  return {category,label,task,occasion,sourceRoute};
+}
+function trustProductsFor(context){
+  if(context.task&&missionDomains[context.category]?.tasks?.[context.task])
+    return missionDomains[context.category].tasks[context.task].picks.map(p=>[p.title,p.price,p.image]);
+  if(context.occasion&&styleMissions[context.occasion])
+    return styleMissions[context.occasion].picks.map(p=>[p.title,p.price,p.image]);
+  return trustPicks[context.category][2];
+}
+function contextualTrustHome(type){
+  const context=state.trustContext, mall=type==='mall';
+  const items=trustProductsFor(context);
+  const picks=mall?items:[items[1],items[0],...items.slice(2)].filter(Boolean);
+  const meta=trustPicks[context.category]||trustPicks.everyday;
+  const title=mall?'Meesho Mall':'MTrusted', other=mall?'mtrusted-home':'mall-home',
+    explainer=mall?'mall-explainer':'mtrusted-explainer';
+  return phoneTemplate({
+    nav:'categories',
+    content:`
+      ${appBar({brand:false,title:title.toUpperCase(),subtitle:context.label,
+        searchText:'Search '+context.label.toLowerCase(),backRoute:context.sourceRoute})}
+      <section class="screen-section">
+        <div class="context-trust-hero">
+          <div class="context-trust-copy">
+            <span class="need-step-eyebrow">${mall?'BRAND / PROVENANCE TRUST':'MARKETPLACE-QUALITY TRUST'}</span>
+            <h3>${title} for ${context.label.toLowerCase()}</h3>
+            <p>${mall?'Browse relevant picks with brand and source confidence in mind.':
+              'Browse relevant picks with seller and listing-quality confidence in mind.'}</p>
+          </div>
+          <img src="${asset(meta[1])}" alt="" loading="lazy">
+        </div>
+      </section>
+      <section class="screen-section">
+        <div class="context-trust-actions">
+          <button data-go="${explainer}">${mall?'Why Mall?':'Why MTrusted?'} →</button>
+          <button data-go="${other}" data-trust-retain="true">${mall?'Compare MTrusted':'Explore Meesho Mall'} →</button>
+        </div>
+      </section>
+      <section class="screen-section">
+        ${sectionHeader(mall?'Source-focused picks':'Listing-quality-focused picks',
+          'Chosen for '+context.label.toLowerCase()+'.','','')}
+        <div class="two-up">${picks.map(p=>productCard({
+          title:p[0],price:p[1],image:asset(p[2]),route:'pdp-core'
+        })).join('')}</div>
+        <p class="context-trust-note">Illustrative products from existing assets. Their Mall/MTrusted eligibility is not verified.</p>
+      </section>
+      <section class="screen-section">
+        <div class="context-trust-proof">
+          <b>${mall?'Can I trust the brand or source?':'Can I trust the seller or listing quality?'}</b>
+          <p>${mall?'Mall explains brand/provenance confidence.':
+            'MTrusted explains marketplace-quality and buyer-experience signals.'}</p>
+          <button class="link-action" data-go="${explainer}">Understand trust signals →</button>
+        </div>
+      </section>
+    `
+  });
+}
+
 function mallHome() {
+  if(state.trustContext)return contextualTrustHome('mall');
   return phoneTemplate({
     nav: 'home',
     content: `
@@ -1046,6 +1168,7 @@ function mallHome() {
 }
 
 function mtrustedHome() {
+  if(state.trustContext)return contextualTrustHome('mtrusted');
   return phoneTemplate({
     nav: 'home',
     content: `
@@ -1119,9 +1242,7 @@ function categoryFashion() {
         searchText: 'Search in Men’s Fashion',
         chips: occasionJourney ? [] : [
           { label: 'Casual', route: 'category-fashion' },
-          { label: 'Office', route: 'category-fashion' },
-          { label: 'Meesho Mall', route: 'mall-home' },
-          { label: 'MTrusted', route: 'mtrusted-home' }
+          { label: 'Office', route: 'category-fashion' }
         ],
         backRoute: personas[state.persona].entryRoute
       })}
@@ -1208,9 +1329,7 @@ function categoryGrooming() {
         searchText: 'Search in Men’s Grooming',
         chips: [
           { label: 'Face care', route: 'category-grooming' },
-          { label: 'Shaving', route: 'category-grooming' },
-          { label: 'Meesho Mall', route: 'mall-home' },
-          { label: 'MTrusted', route: 'mtrusted-home' }
+          { label: 'Shaving', route: 'category-grooming' }
         ],
         backRoute: 'mall-home'
       })}
@@ -1237,7 +1356,7 @@ function categoryAssam() {
   return phoneTemplate({
     nav: 'categories',
     content: `
-      ${appBar({ brand: false, title: 'ASSAM FESTIVE PICKS', subtitle: 'Contextual category listing', searchText: 'Search festive picks in Assam', chips: [ {label: 'Festive'}, {label: 'Utility'}, {label: 'MTrusted', route:'mtrusted-home'} ], backRoute: 'assam-home' })}
+      ${appBar({ brand: false, title: 'ASSAM FESTIVE PICKS', subtitle: 'Contextual category listing', searchText: 'Search festive picks in Assam', chips: [ {label: 'Festive'}, {label: 'Utility'} ], backRoute: 'assam-home' })}
       <section class="screen-section">
         ${sectionHeader('Festive product clusters', 'Merchandised for seasonal discovery, with clear trust shortcuts.', '', '')}
         <div class="two-up">
@@ -1256,7 +1375,7 @@ function categoryChhath() {
   return phoneTemplate({
     nav: 'categories',
     content: `
-      ${appBar({ brand: false, title: 'CHHATH FESTIVE PICKS', subtitle: 'Occasion-led category', searchText: 'Search Chhath essentials', chips: [ {label: 'Fashion'}, {label: 'Puja'}, {label: 'Bundles'}, {label: 'Trusted', route:'mtrusted-home'} ], backRoute: 'chhath-home' })}
+      ${appBar({ brand: false, title: 'CHHATH FESTIVE PICKS', subtitle: 'Occasion-led category', searchText: 'Search Chhath essentials', chips: [ {label: 'Fashion'}, {label: 'Puja'}, {label: 'Bundles'} ], backRoute: 'chhath-home' })}
       <section class="screen-section">
         ${sectionHeader('Occasion-ready products', 'Fashion, puja and gifting picks brought together for a faster festive mission.', '', '')}
         <div class="two-up">
@@ -1277,6 +1396,25 @@ function categoryChhath() {
   });
 }
 
+
+function usefulCategoryPage({title,subtitle,category}){
+  const set=trustPicks[category];
+  return phoneTemplate({
+    nav:'categories',
+    content:`
+      ${appBar({brand:false,title,subtitle,searchText:'Search '+set[0].toLowerCase(),backRoute:'categories'})}
+      <section class="screen-section">
+        ${sectionHeader('Explore '+set[0].toLowerCase(),'A practical shortlist from existing assets.','','')}
+        <div class="two-up">
+          ${set[2].map(p=>productCard({title:p[0],price:p[1],image:asset(p[2]),route:'pdp-core'})).join('')}
+        </div>
+      </section>
+    `
+  });
+}
+function categoryHome(){return usefulCategoryPage({title:'HOME ESSENTIALS',subtitle:'Daily home needs',category:'home'});}
+function categoryElectronics(){return usefulCategoryPage({title:'ELECTRONICS & ACCESSORIES',subtitle:'Tech and everyday carry',category:'electronics'});}
+function categoryGifting(){return usefulCategoryPage({title:'GIFTING ESSENTIALS',subtitle:'Everyday gifts and occasions',category:'gifting'});}
 function searchScreen() {
   return phoneTemplate({
     nav: 'home',
@@ -1907,9 +2045,9 @@ function categoriesScreen() {
           ${categoryCard({ icon:'🧴', title:'Men’s Grooming', subtitle:'Face care', route:'category-grooming' })}
           ${categoryCard({ icon:'🎉', title:'Assam Festive', subtitle:'Regional picks', route:'category-assam' })}
           ${categoryCard({ icon:'🪔', title:'Chhath Festive', subtitle:'Occasion shopping', route:'category-chhath' })}
-          ${categoryCard({ icon:'⌚', title:'Electronics', subtitle:'Accessories', route:'search' })}
-          ${categoryCard({ icon:'🏠', title:'Home Utility', subtitle:'Kitchen & more', route:'search' })}
-          ${categoryCard({ icon:'🎁', title:'Gifting', subtitle:'Budget finds', route:'search' })}
+          ${categoryCard({ icon:'⌚', title:'Electronics', subtitle:'Accessories', route:'category-electronics' })}
+          ${categoryCard({ icon:'🏠', title:'Home Utility', subtitle:'Useful home picks', route:'category-home' })}
+          ${categoryCard({ icon:'🎁', title:'Gifting', subtitle:'Budget finds', route:'category-gifting' })}
         </div>
       </section>
     `
@@ -1966,6 +2104,9 @@ const routes = {
   'category-fashion': categoryFashion,
   'mission-results': missionResults,
   'category-grooming': categoryGrooming,
+  'category-home': categoryHome,
+  'category-electronics': categoryElectronics,
+  'category-gifting': categoryGifting,
   'category-assam': categoryAssam,
   'category-chhath': categoryChhath,
   search: searchScreen,
@@ -2032,6 +2173,20 @@ function renderDetails() {
       keySignals: ['Occasion switching', 'Mission-matched product ordering', 'Mall and MTrusted routes', 'Proof-first PDP access'],
       kpi: ['Mission-to-PDP CTR', 'Relevant PDP visits', 'PDP → ATC']
     };
+
+  } else if(['mall-home','mtrusted-home'].includes(state.route)&&state.trustContext){
+    const isMall=state.route==='mall-home',context=state.trustContext;
+    meta={
+      ...baseMeta,
+      label:(isMall?'Mall':'MTrusted')+' · '+context.label,
+      title:(isMall?'Meesho Mall':'MTrusted')+' for '+context.label,
+      persona:personas[state.persona].title,
+      summary:'Context-aware '+(isMall?'brand/source':'seller/listing-quality')+
+        ' trust destination with relevant '+context.label.toLowerCase()+
+        ' products. Illustrative only, not verified trust-program eligibility.',
+      keySignals:['Category continuity',isMall?'Brand / provenance trust':'Seller / marketplace-quality trust','Proof-first PDP','Trust explanation'],
+      kpi:['Category → trust CTR','Relevant PDP visits','Trust comprehension']
+    };
   }
   const signals = meta.keySignals || [];
   const kpis = meta.kpi || [];
@@ -2093,6 +2248,7 @@ function renderDetails() {
 function renderRoute() {
   const renderer = routes[state.route] || chhathHome;
   deviceCanvas.innerHTML = renderer();
+  if(trustCategoryRoutes.has(state.route))deviceCanvas.querySelector('.top-appbar')?.insertAdjacentHTML('afterend',categoryTrustGateway());
   renderDetails();
   renderPersonas();
   if (state.hotspotMode) deviceCanvas.classList.add('hotspot-mode');
@@ -2108,6 +2264,7 @@ function setPersona(personaId, preserveRoute = false) {
   state.styleMission = 'casual';
   state.missionDomain = null;
   state.missionTask = null;
+  state.trustContext = null;
   state.product = defaultProductForPersona(personaId);
   state.route = preserveRoute ? state.route : personas[personaId].entryRoute;
   renderRoute();
@@ -2297,6 +2454,10 @@ document.addEventListener('click', (event) => {
       state.cartItems = [];
     }
     const route = navButton.dataset.go;
+    if(route==='mall-home'||route==='mtrusted-home'){
+      if(navButton.hasAttribute('data-contextual-trust'))state.trustContext=trustContextFromCategory();
+      else if(!navButton.hasAttribute('data-trust-retain'))state.trustContext=null;
+    }
     if (route === state.route) {
       if (selectedAnotherProduct && route === 'pdp-core') {
         renderRoute();
@@ -2329,6 +2490,7 @@ $('#restart-button').addEventListener('click', () => {
   state.styleMission = 'casual';
   state.missionDomain = null;
   state.missionTask = null;
+  state.trustContext = null;
   state.product = defaultProductForPersona(state.persona);
   state.route = personas[state.persona].entryRoute;
   renderRoute();
