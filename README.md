@@ -25,19 +25,19 @@ Use **Show click map** to reveal interactive regions. **Restart journey** return
 
 ## Persona journeys
 
-### 1. Rohit - Chhath Festival Mission
-A Bihar festive shopper whose session starts with a clear seasonal need.
+### 1. Rohit - Bihar Chhath Festive Mission
+A shopper in Bihar preparing for Chhath Puja. This is intentionally a regional **and festive** shopping edit rather than a year-round Bihar storefront.
 
-**Flow:** Chhath homepage → festive mission → relevant products → trusted PDP → cart / checkout
+**Flow:** Bihar Chhath homepage → puja/home preparation, festive wear, family gifting or travel → mission-specific festive picks → proof-first PDP and optional combinations → checkout.
 
-**Focus:** regional and seasonal context, occasion-led discovery, festive basket completion and trust-qualified merchandising.
+**Focus:** actionable festival preparation, basket completion and clear product/seller proof without asserting verified trust-program eligibility.
 
-### 2. Nayan - Assam Festive Context
-A shopper entering during a seasonal shopping period in Assam.
+### 2. Nayan - Assam Regional Discovery
+An everyday shopper in Assam, not a festival-only shopper. The region informs the starting order of useful products while the underlying Meesho experience remains familiar.
 
-**Flow:** Assam homepage → mission choice → regional / seasonal products → Mall or MTrusted → trusted PDP
+**Flow:** Assam region-focused homepage → everyday need (style, care, home, travel or optional occasions) → relevant regional edit → contextual Mall / MTrusted → proof-first PDP.
 
-**Focus:** region, language and season as lightweight first-session context, followed by behaviour-led personalisation.
+**Focus:** lightweight regional relevance and mission-led choice for everyday needs. Regional ordering is illustrative, not a claim of actual Assam demand or a permanently separate storefront.
 
 ### 3. Kabir - Meesho Mall for Brands
 A brand-conscious grooming shopper who wants clearer confidence in product source and provenance.

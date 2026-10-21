@@ -8,6 +8,8 @@ const state = {
   styleMission: 'casual',
   missionDomain: null,
   missionTask: null,
+  assamNeed: 'everyday',
+  chhathNeed: 'all',
   trustContext: null,
   femaleCategory: 'fashion',
   femaleTask: 'everyday',
@@ -22,20 +24,20 @@ const state = {
 const personas = {
   chhath: {
     id: 'chhath',
-    title: 'Chhath Festival Mission',
-    subtitle: 'Rohit · Bihar festive shopper',
-    summary: 'Regional seasonal discovery that starts from Chhath needs and routes into trusted festive shopping journeys.',
+    title: 'Bihar Chhath Festive Mission',
+    subtitle: 'Rohit · Bihar shopper preparing for Chhath',
+    summary: 'A Bihar-specific seasonal edit built around Chhath Puja preparation, celebration wear, family gifting and travel while preserving the standard Meesho flow.',
     entryRoute: 'chhath-home',
-    tags: ['Regional relevance', 'Festive homepage', 'Basket completion'],
+    tags: ['Bihar + Chhath context', 'Festival preparation', 'Basket completion'],
     avatar: 'profiles/profile_avatar_rohit.webp'
   },
   assam: {
     id: 'assam',
-    title: 'Assam Festive Context',
-    subtitle: 'Nayan · Assam seasonal shopper',
-    summary: 'Contextual homepage with festive discovery, regional merchandising and trust-led progression into PDPs.',
+    title: 'Assam Regional Discovery',
+    subtitle: 'Nayan · everyday shopper in Assam',
+    summary: 'Year-round, Assam-aware discovery that adjusts the order of everyday needs without creating a separate regional storefront or claiming measured local demand.',
     entryRoute: 'assam-home',
-    tags: ['Assam relevance', 'Mission-led home', 'Mall + MTrusted'],
+    tags: ['Assam regional context', 'Everyday missions', 'Trust continuity'],
     avatar: 'profiles/profile_avatar_nayan.webp'
   },
   mall: {
@@ -116,20 +118,20 @@ const routeMeta = {
     kpi: ['Mission-to-PDP CTR', 'Relevant PDP visits', 'PDP → ATC']
   },
   'assam-home': {
-    label: 'Home · Assam Festive',
-    title: 'Assam contextual homepage',
-    persona: 'Assam Festive Context',
-    summary: 'Illustrative Assam festive home that uses context, utility missions and trending products to reduce cold-start friction.',
-    keySignals: ['Festive picks', 'What do you need today?', 'Trending in Assam', 'Mall + MTrusted routing'],
-    kpi: ['Category engagement', 'Relevant PDP visits', 'First-order conversion']
+    label: 'Home · Assam Region',
+    title: 'Assam region-focused homepage',
+    persona: 'Assam Regional Discovery',
+    summary: 'Year-round everyday shopping with Assam as a light contextual signal. The product order adapts to needs without a forced festive feed or a different Meesho interface.',
+    keySignals: ['Assam context cue', 'Everyday missions', 'Illustrative regional edit', 'Common trust pathways'],
+    kpi: ['Context → category CTR', 'Relevant PDP visits', 'Kept-order conversion']
   },
   'chhath-home': {
-    label: 'Home · Bihar Chhath',
-    title: 'Bihar Chhath festive homepage',
-    persona: 'Chhath Festival Mission',
-    summary: 'Built from scratch in the same system to showcase how region and festival can drive more relevant merchandising and quicker mission completion.',
-    keySignals: ['Chhath picks', 'Offer-led urgency', 'Mission bundles', 'Trust-qualified products'],
-    kpi: ['Festive engagement', 'ATC', 'Basket size']
+    label: 'Home · Bihar / Chhath',
+    title: 'Bihar Chhath regional festive homepage',
+    persona: 'Bihar Chhath Festive Mission',
+    summary: 'An optional, occasion-led regional edit for Chhath Puja. Preparation, festive wear, gifting and travel connect to useful bundles and explainable product proof.',
+    keySignals: ['Chhath occasion context', 'Preparation-first missions', 'Useful festive baskets', 'Mall + MTrusted access'],
+    kpi: ['Festive mission → PDP CTR', 'Basket completion', 'Kept-order conversion']
   },
   'mall-home': {
     label: 'Destination · Meesho Mall',
@@ -164,20 +166,20 @@ const routeMeta = {
     kpi: ['Need tile CTR', 'Brand CTR', 'PDP visits']
   },
   'category-assam': {
-    label: 'Category · Assam Festive',
-    title: 'Assam festive product listing',
-    persona: 'Assam Festive Context',
-    summary: 'A regionally contextual category page for the Assam use case, tying trending needs to qualified products.',
-    keySignals: ['Utility segments', 'Trending lists', 'Trust-qualified products'],
-    kpi: ['Scroll depth', 'ATC', 'Repeat session relevance']
+    label: 'Category · Assam Region',
+    title: 'Assam contextual product shortlist',
+    persona: 'Assam Regional Discovery',
+    summary: 'An Assam-aware selection of year-round everyday products. Need-based switching updates the assortment; any regional ordering is illustrative rather than measured.',
+    keySignals: ['Everyday intent switching', 'Region-informed ordering', 'Product proof', 'Optional trust pathways'],
+    kpi: ['Need change CTR', 'Relevant PDP visits', 'ATC']
   },
   'category-chhath': {
-    label: 'Category · Chhath Festive',
-    title: 'Chhath festive product listing',
-    persona: 'Chhath Festival Mission',
-    summary: 'A festive category view linking apparel, décor, puja essentials and gifting into one occasion-driven journey.',
-    keySignals: ['Occasion segmentation', 'Bundles', 'Offer strips'],
-    kpi: ['Bundle engagement', 'AOV', 'Kept order #1']
+    label: 'Category · Bihar Chhath',
+    title: 'Chhath Puja preparation and festive picks',
+    persona: 'Bihar Chhath Festive Mission',
+    summary: 'A seasonal Bihar-led edit: puja and home preparation, celebration wear, gifts and travel each produce a relevant shortlist and optional mission combination.',
+    keySignals: ['Specific festive purpose', 'Contextual product shortlist', 'Mission combinations', 'Trust + reviews'],
+    kpi: ['Festival need → PDP CTR', 'Bundle engagement', 'Kept-order conversion']
   },
   search: {
     label: 'Search · Guided',
@@ -1151,100 +1153,239 @@ function collegeHome() {
     `
   });
 }
-function assamHome() {
-  return phoneTemplate({
-    nav: 'home',
-    content: `
-      ${appBar({
-        brand: true,
-        searchText: 'Search products, categories or needs',
 
-      })}
-      <section class="screen-section">
-        <div class="hero-banner photo-hero" ${heroStyle('assam/assam_festive_banner.webp', 'center')}>
-          <div class="hero-copy-card">
-            <span class="eyebrow-inline">Festive picks for Assam</span>
-            <h2>Celebration looks, gifting and home essentials for the season</h2>
-            <p>Regional context changes ordering — not the underlying Meesho experience.</p>
-            <button class="hero-cta" data-go="category-assam">Explore festive picks →</button>
-          </div>
-        </div>
-      </section>
-
-      <section class="screen-section">
-        ${sectionHeader('What do you need today?', 'Choose a mission, discover faster — or browse freely.', '', '')}
-        <div class="mission-photo-grid">
-          <button class="mission-photo-card featured" data-go="category-assam"><img src="${asset('assam/assam_kurta.webp')}" alt="Festive style"><span><b>Festive Style</b><small>Celebration looks under ₹699</small></span></button>
-          <button class="mission-photo-card" data-go="category-grooming"><img src="${asset('assam/assam_selfcare_gift.webp')}" alt="Self care"><span><b>Self-Care</b><small>Grooming and gifting picks</small></span></button>
-          <button class="mission-photo-card" data-go="search"><img src="${asset('assam/assam_travel_kit.webp')}" alt="Travel utility"><span><b>Travel & Utility</b><small>Practical seasonal essentials</small></span></button>
-          <button class="mission-photo-card" data-go="category-assam"><img src="${asset('assam/assam_decor_set.webp')}" alt="Home decor"><span><b>Home & Gifting</b><small>Festive accents and useful picks</small></span></button>
-        </div>
-      </section>
-
-      <section class="screen-section">
-        ${sectionHeader('Trending in Assam', 'Illustrative regional ordering, not a demand-data claim.', 'See all', 'category-assam')}
-        <div class="four-up">
-          ${productCard({ title: 'Assam Festive Kurta', price: 429, route: 'pdp-core', badge: 'Festive', image: asset('assam/assam_kurta.webp') })}
-          ${productCard({ title: 'Festive Decor Set', price: 299, route: 'pdp-core', image: asset('assam/assam_decor_set.webp') })}
-          ${productCard({ title: 'Self-Care Gift Box', price: 449, route: 'pdp-core', badge: 'Mall', image: asset('assam/assam_selfcare_gift.webp') })}
-          ${productCard({ title: 'Travel Utility Kit', price: 249, route: 'pdp-core', image: asset('assam/assam_travel_kit.webp') })}
-        </div>
-      </section>
-      <section class="screen-section">${trustTwinCards()}</section>
-      ${shopForHerTeaser()}
-    `
-  });
+const assamRegionalNeeds={
+  everyday:{
+    label:'Everyday essentials',desc:'A practical starting point for different daily needs.',
+    picks:[
+      {title:'Travel Utility Kit',price:249,image:'assam/assam_travel_kit.webp'},
+      {title:'Home Decor Set',price:299,image:'assam/assam_decor_set.webp'},
+      {title:'Casual Checked Shirt',price:299,image:'products/prod_checked_shirt.webp'},
+      {title:'Daily Face Wash',price:199,image:'mall/mall_facewash.webp'}
+    ]
+  },
+  style:{
+    label:'Style & everyday wear',desc:'Comfortable daily outfits and optional occasion wear.',
+    picks:[
+      {title:'Casual Checked Shirt',price:299,image:'products/prod_checked_shirt.webp'},
+      {title:'Polo Tee',price:349,image:'products/prod_polo.webp'},
+      {title:'Regular Fit Trousers',price:449,image:'products/prod_trousers.webp'},
+      {title:'Assam Occasion Kurta',price:429,image:'assam/assam_kurta.webp'}
+    ]
+  },
+  care:{
+    label:'Personal care',desc:'Simple care routines and helpful self-care finds.',
+    picks:[
+      {title:'Self-Care Gift Box',price:449,image:'assam/assam_selfcare_gift.webp'},
+      {title:'Daily Face Wash',price:199,image:'mall/mall_facewash.webp'},
+      {title:'Shaving Kit',price:329,image:'mall/mall_shaving_kit.webp'},
+      {title:'Body Spray',price:219,image:'mall/mall_deodorant.webp'}
+    ]
+  },
+  home:{
+    label:'Home & utility',desc:'Home, storage and useful daily products.',
+    picks:[
+      {title:'Home Decor Set',price:299,image:'assam/assam_decor_set.webp'},
+      {title:'Everyday Home Essentials',price:399,image:'categories/cat_home.webp'},
+      {title:'Travel Utility Kit',price:249,image:'assam/assam_travel_kit.webp'},
+      {title:'Travel Utility Pouch',price:199,image:'chhath/chhath_travel_pouch.webp'}
+    ]
+  },
+  travel:{
+    label:'Travel & tech',desc:'Handy finds for commuting and going out.',
+    picks:[
+      {title:'Travel Utility Kit',price:249,image:'assam/assam_travel_kit.webp'},
+      {title:'Minimal Backpack',price:499,image:'products/prod_backpack.webp'},
+      {title:'Everyday Tech Accessories',price:299,image:'categories/cat_electronics.webp'},
+      {title:'Analog Watch',price:399,image:'products/prod_watch.webp'}
+    ]
+  },
+  occasion:{
+    label:'Occasions near you',desc:'Optional cultural and seasonal needs, not the default Assam feed.',
+    picks:[
+      {title:'Assam Occasion Kurta',price:429,image:'assam/assam_kurta.webp'},
+      {title:'Self-Care Gift Box',price:449,image:'assam/assam_selfcare_gift.webp'},
+      {title:'Home Decor Set',price:299,image:'assam/assam_decor_set.webp'},
+      {title:'Gift Hamper',price:499,image:'chhath/chhath_gift_hamper.webp'}
+    ]
+  }
+};
+const chhathRegionalNeeds={
+  all:{
+    label:'Chhath essentials',desc:'A concise edit for preparing, dressing and sharing.',
+    picks:[
+      {title:'Puja & Decor Pack',price:349,image:'chhath/chhath_decor_pack.webp'},
+      {title:'Printed Kurta Set',price:699,image:'chhath/chhath_kurta.webp'},
+      {title:'Celebration Saree',price:799,image:'chhath/chhath_saree.webp'},
+      {title:'Gift Hamper',price:499,image:'chhath/chhath_gift_hamper.webp'}
+    ]
+  },
+  puja:{
+    label:'Puja & home preparation',desc:'Plan the celebration space and useful household essentials.',
+    picks:[
+      {title:'Puja & Decor Pack',price:349,image:'chhath/chhath_decor_pack.webp'},
+      {title:'Home Decor Set',price:299,image:'assam/assam_decor_set.webp'},
+      {title:'Everyday Home Essentials',price:399,image:'categories/cat_home.webp'},
+      {title:'Travel Utility Pouch',price:199,image:'chhath/chhath_travel_pouch.webp'}
+    ]
+  },
+  wear:{
+    label:'Festive wear',desc:'Occasion-ready clothing with fit and product detail proof.',
+    picks:[
+      {title:'Printed Kurta Set',price:699,image:'chhath/chhath_kurta.webp'},
+      {title:'Celebration Saree',price:799,image:'chhath/chhath_saree.webp'},
+      {title:'Assam Occasion Kurta',price:429,image:'assam/assam_kurta.webp'},
+      {title:'Travel Utility Pouch',price:199,image:'chhath/chhath_travel_pouch.webp'}
+    ]
+  },
+  gifting:{
+    label:'Family gifts',desc:'Thoughtful picks for festive visits and loved ones.',
+    picks:[
+      {title:'Gift Hamper',price:499,image:'chhath/chhath_gift_hamper.webp'},
+      {title:'Self-Care Gift Box',price:449,image:'assam/assam_selfcare_gift.webp'},
+      {title:'Celebration Saree',price:799,image:'chhath/chhath_saree.webp'},
+      {title:'Home Decor Set',price:299,image:'assam/assam_decor_set.webp'}
+    ]
+  },
+  travel:{
+    label:'Travel & visits',desc:'Helpful extras for visiting family or carrying essentials.',
+    picks:[
+      {title:'Travel Utility Pouch',price:199,image:'chhath/chhath_travel_pouch.webp'},
+      {title:'Travel Utility Kit',price:249,image:'assam/assam_travel_kit.webp'},
+      {title:'Minimal Backpack',price:499,image:'products/prod_backpack.webp'},
+      {title:'Gift Hamper',price:499,image:'chhath/chhath_gift_hamper.webp'}
+    ]
+  }
+};
+function regionProductCards(items,layout='two-up'){
+  return `<div class="${layout}">${items.map(item=>productCard({
+    title:item.title,price:item.price,image:asset(item.image),route:'pdp-core'
+  })).join('')}</div>`;
 }
+function regionNeedChips(catalog,current,route,region){
+  return `<div class="region-mission-tabs" role="group" aria-label="Select shopping purpose">
+    ${Object.entries(catalog).map(([key,info])=>`
+      <button type="button" class="region-mission-chip ${current===key?'active':''}"
+        data-go="${route}" data-regional-need="${key}" data-regional-persona="${region}"
+        aria-pressed="${current===key}">${info.label}</button>`).join('')}
+  </div>`;
+}
+
+
+function assamHome() {
+  const preview=assamRegionalNeeds.everyday.picks;
+  return phoneTemplate({nav:'home',content:`
+    ${appBar({brand:true,searchText:'Search daily needs, products or categories'})}
+    <section class="screen-section">
+      <div class="region-context-line">
+        <span><b>ASSAM</b><small>Regional shopping context</small></span>
+        <span class="region-context-pill">Everyday · Year-round</span>
+      </div>
+      <div class="region-assam-hero">
+        <div class="region-assam-hero-copy">
+          <span class="region-eyebrow">ASSAM · EVERYDAY DISCOVERY</span>
+          <h2>Find what fits your day</h2>
+          <p>Style, care and useful essentials — a familiar Meesho experience with a more relevant starting order.</p>
+          <button type="button" class="region-main-cta" data-go="category-assam" data-regional-need="everyday" data-regional-persona="assam">Explore everyday picks →</button>
+        </div>
+        <div class="region-assam-hero-photos" aria-hidden="true">
+          <img src="${asset('assam/assam_travel_kit.webp')}" alt="">
+          <img src="${asset('assam/assam_decor_set.webp')}" alt="">
+        </div>
+      </div>
+      <p class="region-context-note">Regional signals guide what appears first, not a separate Assam storefront. Product ordering is illustrative, not measured local demand.</p>
+    </section>
+    <section class="screen-section">
+      ${sectionHeader('What do you need today?','Choose a familiar purpose or keep browsing freely.','','')}
+      <div class="mission-photo-grid region-need-grid">
+        <button class="mission-photo-card featured" data-go="category-assam" data-regional-need="style" data-regional-persona="assam">
+          <img src="${asset('products/prod_checked_shirt.webp')}" alt="Casual shirt"><span><b>Everyday Style</b><small>Wear for different days</small></span>
+        </button>
+        <button class="mission-photo-card" data-go="category-assam" data-regional-need="care" data-regional-persona="assam">
+          <img src="${asset('assam/assam_selfcare_gift.webp')}" alt="Self-care products"><span><b>Personal Care</b><small>Daily grooming & care</small></span>
+        </button>
+        <button class="mission-photo-card" data-go="category-assam" data-regional-need="home" data-regional-persona="assam">
+          <img src="${asset('assam/assam_decor_set.webp')}" alt="Home decor items"><span><b>Home & Utility</b><small>Useful household finds</small></span>
+        </button>
+        <button class="mission-photo-card" data-go="category-assam" data-regional-need="travel" data-regional-persona="assam">
+          <img src="${asset('assam/assam_travel_kit.webp')}" alt="Travel essentials"><span><b>Travel & Tech</b><small>For commuting and going out</small></span>
+        </button>
+      </div>
+    </section>
+    <section class="screen-section">
+      ${sectionHeader('An Assam-aware everyday edit','Illustrative assortment; region influences relevance, not the overall app.', 'Browse all', 'category-assam')}
+      ${regionProductCards(preview,'four-up')}
+    </section>
+    <section class="screen-section">
+      <button class="region-occasion-card" data-go="category-assam" data-regional-need="occasion" data-regional-persona="assam">
+        <img src="${asset('assam/assam_kurta.webp')}" alt="Occasion-ready regional kurta" loading="lazy">
+        <span><small>WHEN THE OCCASION CALLS</small><b>Regional Style & Occasions</b>
+          <em>Optional occasion picks — everyday shopping stays the default.</em><strong>Explore occasion picks →</strong></span>
+      </button>
+    </section>
+    <section class="screen-section">${trustTwinCards()}</section>
+    ${shopForHerTeaser()}
+  `});
+}
+
 
 function chhathHome() {
-  return phoneTemplate({
-    nav: 'home',
-    content: `
-      ${appBar({
-        brand: true,
-        searchText: 'Search festive looks, gifting or puja needs',
-
-      })}
-      <section class="screen-section">
-        <div class="hero-banner photo-hero" ${heroStyle('chhath/chhath_hero_banner.webp', 'center')}>
-          <div class="hero-copy-card">
-            <span class="eyebrow-inline">Chhath special</span>
-            <h2>Festive offers for the Chhath season</h2>
-            <p>Occasion-led shopping for outfits, puja preparation, gifting and useful essentials.</p>
-            <button class="hero-cta" data-go="category-chhath">Shop Chhath picks →</button>
-          </div>
+  return phoneTemplate({nav:'home',content:`
+    ${appBar({brand:true,searchText:'Search Chhath essentials, outfits and gifts'})}
+    <section class="screen-section">
+      <div class="region-context-line region-festival-line">
+        <span><b>BIHAR · CHHATH PUJA</b><small>Regional festive shopping edit</small></span>
+        <span class="region-context-pill">Occasion-led</span>
+      </div>
+      <div class="hero-banner photo-hero" ${heroStyle('chhath/chhath_hero_banner.webp','center')}>
+        <div class="hero-copy-card">
+          <span class="eyebrow-inline">CHHATH PUJA · BIHAR</span>
+          <h2>Celebrate with the essentials covered</h2>
+          <p>Prepare your home, find occasion wear and choose thoughtful gifts in one familiar journey.</p>
+          <button class="hero-cta" data-go="category-chhath" data-regional-need="all" data-regional-persona="chhath">Explore Chhath edit →</button>
         </div>
-      </section>
-      <section class="screen-section">
-        ${sectionHeader('Shop by need', 'Start with the mission you want to complete.', '', '')}
-        <div class="mission-photo-grid">
-          <button class="mission-photo-card featured" data-go="category-chhath"><img src="${asset('chhath/chhath_saree.webp')}" alt="Festive fashion"><span><b>Festive Fashion</b><small>Sarees, kurtas and celebration looks</small></span></button>
-          <button class="mission-photo-card" data-go="category-chhath"><img src="${asset('chhath/chhath_decor_pack.webp')}" alt="Puja and home decor"><span><b>Puja & Home</b><small>Decor and useful home preparation</small></span></button>
-          <button class="mission-photo-card" data-go="search"><img src="${asset('chhath/chhath_gift_hamper.webp')}" alt="Gift picks"><span><b>Gift Picks</b><small>Easy gifts for family visits</small></span></button>
-          <button class="mission-photo-card" data-go="search"><img src="${asset('chhath/chhath_travel_pouch.webp')}" alt="Travel utility"><span><b>Travel & Utility</b><small>Seasonal travel essentials</small></span></button>
-        </div>
-      </section>
-      <section class="screen-section">
-        <button class="wide-promo-card warm" data-go="category-chhath">
-          <img src="${asset('promo_festive_under699.webp')}" alt="Festive products under 699" loading="lazy">
-          <div class="wide-promo-copy"><span>FESTIVE VALUE</span><b>Celebration picks under ₹699</b><small>Fashion · gifting · home</small></div>
+      </div>
+      <p class="region-context-note">A seasonal edit for relevant festival missions — not a separate storefront or a permanent default.</p>
+    </section>
+    <section class="screen-section">
+      ${sectionHeader('What are you preparing for Chhath?','Start with a festive task and find a focused shortlist.','','')}
+      <div class="mission-photo-grid region-need-grid">
+        <button class="mission-photo-card featured" data-go="category-chhath" data-regional-need="puja" data-regional-persona="chhath">
+          <img src="${asset('chhath/chhath_decor_pack.webp')}" alt="Puja decoration items"><span><b>Puja & Home Prep</b><small>Ready the celebration space</small></span>
         </button>
-      </section>
-      <section class="screen-section">
-        ${sectionHeader('Festive favourites', 'Qualified listings with value-led merchandising.', 'See all', 'category-chhath')}
-        <div class="four-up">
-          ${productCard({ title: 'Printed Kurta Set', price: 699, oldPrice: 999, route: 'pdp-core', badge: 'Mall', image: asset('chhath/chhath_kurta.webp') })}
-          ${productCard({ title: 'Celebration Saree', price: 799, route: 'pdp-core', image: asset('chhath/chhath_saree.webp') })}
-          ${productCard({ title: 'Puja & Decor Pack', price: 249, route: 'pdp-core', badge2: 'Top rated', image: asset('chhath/chhath_decor_pack.webp') })}
-          ${productCard({ title: 'Gift Hamper', price: 299, route: 'pdp-core', image: asset('chhath/chhath_gift_hamper.webp') })}
-        </div>
-      </section>
-      <section class="screen-section">${trustTwinCards()}</section>
-      ${shopForHerTeaser()}
-    `
-  });
+        <button class="mission-photo-card" data-go="category-chhath" data-regional-need="wear" data-regional-persona="chhath">
+          <img src="${asset('chhath/chhath_kurta.webp')}" alt="Festive clothing"><span><b>Festive Wear</b><small>Outfits for family gatherings</small></span>
+        </button>
+        <button class="mission-photo-card" data-go="category-chhath" data-regional-need="gifting" data-regional-persona="chhath">
+          <img src="${asset('chhath/chhath_gift_hamper.webp')}" alt="Gift hamper"><span><b>Family Gifting</b><small>Thoughtful picks for loved ones</small></span>
+        </button>
+        <button class="mission-photo-card" data-go="category-chhath" data-regional-need="travel" data-regional-persona="chhath">
+          <img src="${asset('chhath/chhath_travel_pouch.webp')}" alt="Travel pouch"><span><b>Travel & Visits</b><small>Carry the useful extras</small></span>
+        </button>
+      </div>
+    </section>
+    <section class="screen-section">
+      ${sectionHeader('Chhath essentials in one place','An example of regional and festival context changing product ordering.', 'View edit', 'category-chhath')}
+      ${regionProductCards(chhathRegionalNeeds.all.picks,'four-up')}
+    </section>
+    <section class="screen-section">
+      <button class="wide-promo-card warm" data-go="category-chhath" data-regional-need="puja" data-regional-persona="chhath">
+        <img src="${asset('promo_festive_under699.webp')}" alt="Chhath occasion and preparation products" loading="lazy">
+        <div class="wide-promo-copy"><span>PREPARATION FIRST</span><b>Build your Chhath basket</b><small>Home preparation · attire · gifting</small></div>
+      </button>
+    </section>
+    <section class="screen-section">
+      ${sectionHeader('Why these picks?','Finish the festive mission, then review details, seller evidence and returns.','','')}
+      <div class="region-checklist">
+        <button data-go="category-chhath" data-regional-need="puja" data-regional-persona="chhath"><b>01 · Prepare</b><small>Puja & home essentials</small></button>
+        <button data-go="category-chhath" data-regional-need="wear" data-regional-persona="chhath"><b>02 · Dress</b><small>Occasion wear & fit proof</small></button>
+        <button data-go="category-chhath" data-regional-need="gifting" data-regional-persona="chhath"><b>03 · Share</b><small>Gifts and family picks</small></button>
+      </div>
+    </section>
+    <section class="screen-section">${trustTwinCards()}</section>
+    ${shopForHerTeaser()}
+  `});
 }
-
 
 // Reuse the original trust destinations, tailoring their assortments to entry context.
 const trustCategoryRoutes = new Set(['shop-for-her','categories','category-fashion','category-grooming',
@@ -1270,9 +1411,9 @@ const trustPicks = {
   chhath:['Chhath festival','chhath/chhath_kurta.webp',[
     ['Printed Kurta Set',699,'chhath/chhath_kurta.webp'],['Celebration Saree',799,'chhath/chhath_saree.webp'],
     ['Festive Decor Pack',349,'chhath/chhath_decor_pack.webp'],['Gift Hamper',499,'chhath/chhath_gift_hamper.webp']]],
-  assam:['Assam festive shopping','assam/assam_kurta.webp',[
-    ['Assam Festive Kurta',429,'assam/assam_kurta.webp'],['Self-Care Gift Box',449,'assam/assam_selfcare_gift.webp'],
-    ['Festive Decor Set',299,'assam/assam_decor_set.webp'],['Travel Utility Kit',249,'assam/assam_travel_kit.webp']]],
+  assam:['Assam everyday essentials','assam/assam_travel_kit.webp',[
+    ['Travel Utility Kit',249,'assam/assam_travel_kit.webp'],['Home Decor Set',299,'assam/assam_decor_set.webp'],
+    ['Casual Checked Shirt',299,'products/prod_checked_shirt.webp'],['Self-Care Gift Box',449,'assam/assam_selfcare_gift.webp']]],
   fashion:['Men’s fashion','categories/cat_mens_fashion.webp',[
     ['Black Casual Shirt',329,'products/prod_black_shirt_main.webp'],['Casual Checked Shirt',299,'products/prod_checked_shirt.webp'],
     ['Regular Fit Trousers',499,'products/prod_trousers.webp'],['Everyday Sneakers',699,'products/prod_sneakers.webp']]],
@@ -1318,14 +1459,25 @@ function trustContextFromCategory() {
      && missionDomains[state.missionDomain])category=state.missionDomain;
   const task=state.persona==='college'&&category===state.missionDomain&&category!=='fashion'
     &&missionDomains[category]?.tasks?.[state.missionTask]?state.missionTask:null;
+  const regionalNeed=sourceRoute==='category-assam'&&state.persona==='assam'
+    ?(assamRegionalNeeds[state.assamNeed]?state.assamNeed:'everyday')
+    :sourceRoute==='category-chhath'&&state.persona==='chhath'
+      ?(chhathRegionalNeeds[state.chhathNeed]?state.chhathNeed:'all'):null;
   const occasion=state.persona==='college'&&category==='fashion'
     &&sourceRoute==='category-fashion'
     &&styleMissions[state.styleMission]?state.styleMission:null;
   const label=task?missionDomains[category].tasks[task].title
-    :occasion?styleMissions[occasion].title:trustPicks[category][0];
-  return {category,label,task,occasion,sourceRoute};
+    :occasion?styleMissions[occasion].title
+    :regionalNeed&&category==='assam'?assamRegionalNeeds[regionalNeed].label
+    :regionalNeed&&category==='chhath'?chhathRegionalNeeds[regionalNeed].label
+    :trustPicks[category][0];
+  return {category,label,task,occasion,regionalNeed,sourceRoute};
 }
 function trustProductsFor(context){
+  if(context.regionalNeed&&context.category==='assam'&&assamRegionalNeeds[context.regionalNeed])
+    return assamRegionalNeeds[context.regionalNeed].picks.map(p=>[p.title,p.price,p.image]);
+  if(context.regionalNeed&&context.category==='chhath'&&chhathRegionalNeeds[context.regionalNeed])
+    return chhathRegionalNeeds[context.regionalNeed].picks.map(p=>[p.title,p.price,p.image]);
   if(context.task&&missionDomains[context.category]?.tasks?.[context.task])
     return missionDomains[context.category].tasks[context.task].picks.map(p=>[p.title,p.price,p.image]);
   if(context.occasion&&styleMissions[context.occasion])
@@ -1626,50 +1778,67 @@ function categoryGrooming() {
   });
 }
 
+
 function categoryAssam() {
-  return phoneTemplate({
-    nav: 'categories',
-    content: `
-      ${appBar({ brand: false, title: 'ASSAM FESTIVE PICKS', subtitle: 'Contextual category listing', searchText: 'Search festive picks in Assam', chips: [ {label: 'Festive'}, {label: 'Utility'} ], backRoute: 'assam-home' })}
-      <section class="screen-section">
-        ${sectionHeader('Festive product clusters', 'Merchandised for seasonal discovery, with clear trust shortcuts.', '', '')}
-        <div class="two-up">
-          ${productCard({ title: 'Printed Festive Kurta', price: 499, art: '🧵', route: 'pdp-core', badge: 'Festive' })}
-          ${productCard({ title: 'Glow Decor Set', price: 299, art: '✨', route: 'pdp-core' })}
-          ${productCard({ title: 'Self-care gift box', price: 449, art: '🎁', route: 'pdp-core', badge: 'Mall' })}
-          ${productCard({ title: 'Travel Utility Kit', price: 249, art: '🧳', route: 'pdp-core' })}
-        </div>
-      </section>
-      <section class="screen-section">${trustTwinCards()}</section>
-    `
-  });
+  const selected=assamRegionalNeeds[state.assamNeed]||assamRegionalNeeds.everyday;
+  return phoneTemplate({nav:'categories',content:`
+    ${appBar({brand:false,title:'ASSAM REGIONAL PICKS',subtitle:'Year-round everyday shopping',
+      searchText:'Search everyday needs in Assam',backRoute:'assam-home'})}
+    <section class="screen-section">
+      ${sectionHeader('Choose a shopping need','Regional context helps your starting point; your purpose sets the shortlist.','','')}
+      ${regionNeedChips(assamRegionalNeeds,state.assamNeed,'category-assam','assam')}
+    </section>
+    <section class="screen-section">
+      ${sectionHeader(selected.label,selected.desc,'','')}
+      ${regionProductCards(selected.picks)}
+      <p class="region-context-note">Illustrative product selection, not a claim of verified Assam popularity or ranking.</p>
+    </section>
+    <section class="screen-section">
+      ${sectionHeader('More ways to explore','Relevant everyday departments stay accessible.','','')}
+      <div class="region-shortcuts">
+        <button data-go="category-fashion">Men’s Fashion →</button>
+        <button data-go="category-grooming">Grooming →</button>
+        <button data-go="category-home">Home Essentials →</button>
+        <button data-go="category-electronics">Electronics →</button>
+      </div>
+    </section>
+  `});
 }
+
 
 function categoryChhath() {
-  return phoneTemplate({
-    nav: 'categories',
-    content: `
-      ${appBar({ brand: false, title: 'CHHATH FESTIVE PICKS', subtitle: 'Occasion-led category', searchText: 'Search Chhath essentials', chips: [ {label: 'Fashion'}, {label: 'Puja'}, {label: 'Bundles'} ], backRoute: 'chhath-home' })}
-      <section class="screen-section">
-        ${sectionHeader('Occasion-ready products', 'Fashion, puja and gifting picks brought together for a faster festive mission.', '', '')}
-        <div class="two-up">
-          ${productCard({ title: 'Celebration Saree', price: 799, art: '👗', route: 'pdp-core', badge: 'Mall' })}
-          ${productCard({ title: 'Kurtas Combo', price: 649, art: '👘', route: 'pdp-core', badge: 'MTrusted' })}
-          ${productCard({ title: 'Décor Essentials Pack', price: 349, art: '🪔', route: 'pdp-core' })}
-          ${productCard({ title: 'Gift Hamper', price: 299, art: '🎁', route: 'pdp-core' })}
-        </div>
-      </section>
-      <section class="screen-section">
-        ${sectionHeader('Festival bundles', 'Complete the mission, not just one item.', '', '')}
-        <div class="two-up">
-          <button class="promo-card" data-go="pdp-core"><h4>Chhath home prep bundle</h4><p>Decor, serving and hosting essentials in one easy-to-add cluster.</p></button>
-          <button class="promo-card" data-go="pdp-core"><h4>Celebration look bundle</h4><p>Apparel plus footwear and accessories for the full festive outfit.</p></button>
-        </div>
-      </section>
-    `
-  });
+  const selected=chhathRegionalNeeds[state.chhathNeed]||chhathRegionalNeeds.all;
+  return phoneTemplate({nav:'categories',content:`
+    ${appBar({brand:false,title:'BIHAR · CHHATH FESTIVE EDIT',subtitle:'Preparation · occasion wear · gifting',
+      searchText:'Search Chhath essentials',backRoute:'chhath-home'})}
+    <section class="screen-section">
+      ${sectionHeader('Choose your Chhath mission','Focus on one festive purpose, or view the full seasonal edit.','','')}
+      ${regionNeedChips(chhathRegionalNeeds,state.chhathNeed,'category-chhath','chhath')}
+    </section>
+    <section class="screen-section">
+      ${sectionHeader(selected.label,selected.desc,'','')}
+      ${regionProductCards(selected.picks)}
+    </section>
+    <section class="screen-section">
+      ${sectionHeader('Complete a Chhath mission','Start with an anchor product, inspect the proof, then add compatible items.','','')}
+      <div class="region-bundle-grid">
+        <button class="region-bundle-card" data-go="pdp-core"
+          data-product-title="Puja & Decor Pack" data-product-price="349"
+          data-product-image="${asset('chhath/chhath_decor_pack.webp')}" data-product-kind="utility">
+          <img src="${asset('chhath/chhath_decor_pack.webp')}" alt="Chhath decor pack">
+          <span><b>Puja & home preparation</b><small>Evaluate the décor pack, then explore useful additions</small><strong>View product & combinations →</strong></span>
+        </button>
+        <button class="region-bundle-card" data-go="pdp-core"
+          data-product-title="Printed Kurta Set" data-product-price="699"
+          data-product-image="${asset('chhath/chhath_kurta.webp')}" data-product-kind="fashion">
+          <img src="${asset('chhath/chhath_kurta.webp')}" alt="Printed festive kurta">
+          <span><b>Celebration outfit</b><small>Check fit and details before adding complementary finds</small><strong>View product & combinations →</strong></span>
+        </button>
+      </div>
+      <p class="region-context-note">Illustrative Chhath recommendations. No festival discount or verified trust qualification is implied.</p>
+    </section>
+  `});
 }
-
 
 function usefulCategoryPage({title,subtitle,category}){
   const set=trustPicks[category];
@@ -2422,7 +2591,7 @@ function categoriesScreen() {
           ${categoryCard({ icon:'👔', title:'Men’s Fashion', subtitle:'Shirts · jeans', route:'category-fashion' })}
           ${categoryCard({ icon:'👗', title:'Women’s Fashion', subtitle:'Ethnic wear', route:'category-chhath' })}
           ${categoryCard({ icon:'🧴', title:'Men’s Grooming', subtitle:'Face care', route:'category-grooming' })}
-          ${categoryCard({ icon:'🎉', title:'Assam Festive', subtitle:'Regional picks', route:'category-assam' })}
+          ${categoryCard({ icon:'🎉',  title:'Assam Region', subtitle:'Everyday edits', route:'category-assam' })}
           ${categoryCard({ icon:'🪔', title:'Chhath Festive', subtitle:'Occasion shopping', route:'category-chhath' })}
           ${categoryCard({ icon:'⌚', title:'Electronics', subtitle:'Accessories', route:'category-electronics' })}
           ${categoryCard({ icon:'🏠', title:'Home Utility', subtitle:'Useful home picks', route:'category-home' })}
@@ -2546,7 +2715,15 @@ function renderDetails() {
   const chosenDomain = missionDomains[state.missionDomain];
   const chosenTask = chosenDomain?.tasks?.[state.missionTask];
   let meta = baseMeta;
-  if(state.route==='shop-for-her'){
+  if(state.route==='category-assam'&&state.persona==='assam'){
+    const need=assamRegionalNeeds[state.assamNeed]||assamRegionalNeeds.everyday;
+    meta={...baseMeta,title:'Assam · '+need.label,
+      summary:'A region-aware everyday edit focused on '+need.label.toLowerCase()+'. Assortment and ordering are illustrative; the familiar Meesho trust and PDP flows continue.'};
+  }else if(state.route==='category-chhath'&&state.persona==='chhath'){
+    const need=chhathRegionalNeeds[state.chhathNeed]||chhathRegionalNeeds.all;
+    meta={...baseMeta,title:'Chhath · '+need.label,
+      summary:'A Bihar festival-specific mission focused on '+need.label.toLowerCase()+'. Product evaluation and optional mission combinations follow without adding a new storefront.'};
+  }else if(state.route==='shop-for-her'){
     const choice=shopHerRecipients[state.shopHerRecipient]||shopHerRecipients.sister;
     meta={...baseMeta,persona:personas[state.persona].title,title:'Shop for Her · '+choice.label,
       summary:'A secondary household-shopping journey. Familiar categories remain available and products use the same proof-first experience.'};
@@ -2667,6 +2844,8 @@ function setPersona(personaId, preserveRoute = false) {
   state.styleMission = 'casual';
   state.missionDomain = null;
   state.missionTask = null;
+  state.assamNeed='everyday';
+  state.chhathNeed='all';
   state.trustContext = null;
   state.femaleCategory='fashion';
   state.femaleTask='everyday';
@@ -2866,6 +3045,21 @@ document.addEventListener('click', (event) => {
 
   const navButton = event.target.closest('[data-go]');
   if (navButton) {
+    if(navButton.dataset.regionalNeed){
+      const targetPersona=navButton.dataset.regionalPersona;
+      const need=navButton.dataset.regionalNeed;
+      if(targetPersona==='assam'&&state.persona==='assam'&&assamRegionalNeeds[need]){
+        state.assamNeed=need;
+      }else if(targetPersona==='chhath'&&state.persona==='chhath'&&chhathRegionalNeeds[need]){
+        state.chhathNeed=need;
+      }else return;
+      if(navButton.dataset.go===state.route){
+        const top=deviceCanvas.querySelector('.phone-content')?.scrollTop||0;
+        renderRoute();
+        requestAnimationFrame(()=>{const c=deviceCanvas.querySelector('.phone-content');if(c)c.scrollTop=top});
+        return;
+      }
+    }
     if(state.persona==='female'&&navButton.dataset.femaleCategory){
       const key=navButton.dataset.femaleCategory;
       if(!femaleNeeds[key])return;
@@ -2957,6 +3151,8 @@ $('#restart-button').addEventListener('click', () => {
   state.styleMission = 'casual';
   state.missionDomain = null;
   state.missionTask = null;
+  state.assamNeed='everyday';
+  state.chhathNeed='all';
   state.trustContext = null;
   state.femaleCategory='fashion';
   state.femaleTask='everyday';
