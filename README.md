@@ -53,19 +53,19 @@ A first-time buyer who likes a product but is unsure about an unfamiliar seller 
 
 **MTrusted answers:** *“Is this seller or listing reliably good?”*
 
-### 5. Aarav - College Style Starter
-A value-conscious college shopper looking for affordable everyday fashion.
+### 5. Aarav - Men’s Style Missions
+A value-conscious male shopper whose needs change with the occasion: college essentials, office wear, everyday casuals and party plans.
 
-**Flow:** mission-guided home → Men’s Fashion → PDP → seller / review proof → Complete Your Look
+**Flow:** choose an occasion → mission-matched product shortlist → proof-first PDP → seller / review evidence → complete the look
 
-**Focus:** guided discovery, proof-first evaluation and post-confidence basket expansion.
+**Focus:** intent-led discovery rather than a demographic-specific storefront. Switching occasions changes the product shortlist while Mall, MTrusted, fit information, reviews and purchase certainty remain part of the same experience. All four edits use the existing product and lifestyle photography.
 
 > Regional merchandising shown in the prototype is illustrative. It demonstrates the interaction model rather than actual regional demand data.
 
 ## Product systems demonstrated
 
 ### Mission-led discovery
-The homepage prioritises the shopper’s immediate need instead of relying on a long undifferentiated feed. Region, season and category can help with cold start; observed behaviour should increasingly drive personalisation after interaction begins.
+The homepage prioritises the shopper’s immediate need instead of relying on a long undifferentiated feed. Region, season and category can help with cold start; observed behaviour should increasingly drive personalisation after interaction begins. The men’s style journey demonstrates this through four selectable occasions—College Essentials, Office Wear, Everyday Casuals and Party & Occasion—each with its own relevant product order.
 
 ### Distinct trust routes
 The prototype deliberately keeps the two trust systems separate:
