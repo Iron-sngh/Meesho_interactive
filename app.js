@@ -1,6 +1,6 @@
 const state = {
-  persona: 'chhath',
-  route: 'chhath-home',
+  persona: 'college',
+  route: 'college-home',
   hotspotMode: false,
   history: [],
   cartItems: [],
@@ -16,7 +16,7 @@ const state = {
   femaleBundleActive: false,
   shopHerRecipient: 'sister',
   shopForHerContext: false,
-  product: { title: 'Printed Kurta Set', price: 699, image: 'assets/chhath/chhath_kurta.webp', kind: 'fashion' }
+  product: { title: 'Casual Checked Shirt', price: 299, image: 'assets/products/prod_checked_shirt.webp', kind: 'fashion' }
 };
 
 const personas = {
@@ -58,11 +58,11 @@ const personas = {
   },
   female: {
     id: 'female',
-    title: 'Everyday Meesho Shopper',
+    title: 'Familiar Shopping & Confidence',
     subtitle: 'Ananya · returning female shopper',
-    summary: 'Familiar shopping with optional missions, explainable trust, review intelligence and Gift for Him.',
+    summary: 'Her familiar categories remain central while optional missions, Review Intelligence and explainable trust build confidence without disrupting existing habits.',
     entryRoute: 'female-home',
-    tags: ['Protect female equity', 'Everyday shopping', 'Gift for Him'],
+    tags: ['Female experience safeguard', 'Familiar navigation', 'Universal trust'],
     avatar: 'profiles/buyer_avatar_03.webp'
   },
   college: {
@@ -84,17 +84,17 @@ const routeMeta = {
     kpi:['Gift entry CTR','Relevant PDP views','Basket completion']},
 
   'female-home': {label:'Home · Ananya',title:'Familiar female-first shopping',
-    persona:'Everyday Meesho Shopper',
+    persona:'Familiar Shopping & Confidence',
     summary:'Standard categories remain prominent. Optional mission prompts, universal trust and a secondary Gift for Him route expand useful choices.',
     keySignals:['Familiar categories','Optional missions','Gift for Him','Proof-first evaluation'],
     kpi:['Female PDP → ATC','Kept order rate','Repeat']},
   'female-category': {label:'Category · Women’s shopping',title:'Women’s needs and occasions',
-    persona:'Everyday Meesho Shopper',
+    persona:'Familiar Shopping & Confidence',
     summary:'A familiar category list with optional purpose filters, proof-first products and Mall/MTrusted routes.',
     keySignals:['Everyday products','Purpose filters','Trust destinations','Review evidence'],
     kpi:['Category CTR','PDP → ATC','Trust comprehension']},
   'female-gifts': {label:'Gifting · Apno Ke Liye',title:'Gift for Him',
-    persona:'Everyday Meesho Shopper',
+    persona:'Familiar Shopping & Confidence',
     summary:'Household gift discovery introduces relevant men’s products without changing the default women’s feed.',
     keySignals:['Recipient intent','Gift discovery','Trust evidence','Optional group buying'],
     kpi:['Gift CTR','Basket value','Purchase completion']},
@@ -2526,18 +2526,68 @@ const routes = {
 
 function renderPersonas() {
   const root = $('#persona-list');
-  root.innerHTML = Object.values(personas).map(persona => `
-    <button class="persona-card ${state.persona === persona.id ? 'active' : ''}" data-persona="${persona.id}">
-      <div class="persona-card-main">
-        <img class="persona-avatar" src="${asset(persona.avatar)}" alt="${persona.title}">
-        <div class="persona-card-copy">
-          <div class="persona-top"><b>${persona.title}</b><span class="badge-pill">${persona.id === state.persona ? 'Active' : 'Switch'}</span></div>
-          <p>${persona.subtitle}<br>${persona.summary}</p>
+  const primaryIds = ['college', 'female'];
+  const regionalIds = ['chhath', 'assam'];
+  const trustScreens = [
+    { id: 'mtrusted', title: 'MTrusted', label: 'Marketplace-quality trust',
+      description: 'Seller and listing-quality signals', mark: 'MT' },
+    { id: 'mall', title: 'Meesho Mall', label: 'Brand & provenance trust',
+      description: 'Brand and source confidence', mark: 'M' }
+  ];
+
+  const journeyCard = (id, compact = false) => {
+    const persona = personas[id];
+    const active = state.persona === id;
+    return `
+      <button type="button" class="persona-card journey-card ${compact ? 'regional-journey-card' : 'primary-journey-card'} ${active ? 'active' : ''}"
+        data-persona="${id}" aria-pressed="${active}" aria-label="Open ${persona.title} journey">
+        <div class="persona-card-main">
+          <img class="persona-avatar" src="${asset(persona.avatar)}" alt="" loading="lazy">
+          <div class="persona-card-copy">
+            <div class="persona-top"><b>${persona.title}</b>
+              ${!compact ? `<span class="badge-pill">${active ? 'Viewing' : 'Explore'}</span>` : ''}
+            </div>
+            <p>${persona.subtitle}</p>
+            ${!compact ? `<span class="journey-description">${persona.summary}</span>` : ''}
+          </div>
         </div>
+        ${!compact ? `<div class="persona-tags">${persona.tags.slice(0, 2).map(tag => `<span class="persona-tag">${tag}</span>`).join('')}</div>` : ''}
+      </button>`;
+  };
+
+  root.innerHTML = `
+    ${primaryIds.map(id => journeyCard(id)).join('')}
+    <section class="regional-journey-group" aria-label="Regional and festive shopper journeys">
+      <div class="regional-journey-heading">
+        <strong>Regional & Festive Discovery</strong>
+        <span>Context-led homepages · familiar Meesho flow</span>
       </div>
-      <div class="persona-tags">${persona.tags.map(tag => `<span class="persona-tag">${tag}</span>`).join('')}</div>
-    </button>
-  `).join('');
+      <div class="regional-journey-cards">
+        ${regionalIds.map(id => journeyCard(id, true)).join('')}
+      </div>
+    </section>
+    <section class="trust-destinations" aria-label="Trust destination screens">
+      <div class="trust-destinations-heading">
+        <strong>Trust Destinations</strong>
+        <span>Also accessible through Categories</span>
+      </div>
+      <div class="trust-destination-list">
+        ${trustScreens.map(screen => {
+          const active = ['mall-home', 'mtrusted-home'].includes(state.route)
+            ? state.route === personas[screen.id].entryRoute
+            : state.persona === screen.id;
+          return `<button type="button" class="trust-destination-item ${active ? 'active' : ''}"
+            data-trust-screen="${screen.id}" aria-pressed="${active}" aria-label="Open ${screen.title} trust destination">
+            <span class="trust-destination-mark" aria-hidden="true">${screen.mark}</span>
+            <span class="trust-destination-copy"><b>${screen.title}</b>
+              <small>${screen.label}</small>
+            </span>
+            <span class="trust-destination-arrow" aria-hidden="true">→</span>
+          </button>`;
+        }).join('')}
+      </div>
+    </section>
+  `;
 }
 
 function renderDetails() {
@@ -2591,6 +2641,9 @@ function renderDetails() {
       kpi:['Category → trust CTR','Relevant PDP visits','Trust comprehension']
     };
   }
+  if (['mall-home', 'mtrusted-home'].includes(state.route)) {
+    meta = { ...meta, persona: 'Trust destination · ' + (state.route === 'mall-home' ? 'Brand / source' : 'Marketplace quality') };
+  }
   const signals = meta.keySignals || [];
   const kpis = meta.kpi || [];
   const signalRows = Math.max(1, Math.ceil(signals.length / 2));
@@ -2607,7 +2660,7 @@ function renderDetails() {
           <p>${meta.summary}</p>
         </div>
         <div class="screen-context-card">
-          <span>Journey</span>
+          <span>${['mall-home','mtrusted-home'].includes(state.route) ? 'Experience' : 'Journey'}</span>
           <b>${meta.persona}</b>
           <em>${meta.label}</em>
         </div>
@@ -2678,7 +2731,7 @@ function setPersona(personaId, preserveRoute = false) {
   state.product = defaultProductForPersona(personaId);
   state.route = preserveRoute ? state.route : personas[personaId].entryRoute;
   renderRoute();
-  showToast(`${personas[personaId].title} activated`);
+  if (!['mall', 'mtrusted'].includes(personaId)) showToast(`${personas[personaId].title} journey opened`);
 }
 
 function homeRoute() {
@@ -2761,6 +2814,15 @@ document.addEventListener('keydown', (event) => {
 });
 
 document.addEventListener('click', (event) => {
+  const trustDestinationButton = event.target.closest('[data-trust-screen]');
+  if (trustDestinationButton) {
+    const screenId = trustDestinationButton.dataset.trustScreen;
+    if (!['mall', 'mtrusted'].includes(screenId)) return;
+    // Preserve the existing dedicated screen implementation without presenting it as a shopper persona.
+    setPersona(screenId);
+    showToast(screenId === 'mall' ? 'Meesho Mall trust screen opened' : 'MTrusted trust screen opened');
+    return;
+  }
   const personaButton = event.target.closest('[data-persona]');
   if (personaButton) {
     setPersona(personaButton.dataset.persona);

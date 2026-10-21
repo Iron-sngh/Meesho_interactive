@@ -17,70 +17,53 @@ The desktop presentation is split into three areas:
 
 | Area | Purpose |
 | --- | --- |
-| **Persona journeys** | Switch between the six use cases without leaving the prototype |
+| **Shopper journeys and trust screens** | Explore four shopper journeys and two separate trust destinations without leaving the prototype |
 | **Interactive phone** | Explore the actual mobile journey by clicking and scrolling inside the device |
 | **Screen rationale** | See the purpose of the current screen, its experience signals and the KPIs it is intended to influence |
 
-Use **Show click map** to reveal interactive regions. **Restart journey** returns the active persona to its starting screen.
+Use **Show click map** to reveal interactive regions. **Restart journey** returns the selected shopper journey or trust screen to its starting state.
 
 ## Persona journeys
 
-### 1. Rohit - Chhath Festival Mission
-A Bihar festive shopper whose session starts with a clear seasonal need.
+The left rail presents four shopper journeys in the order recommended for the DICE walkthrough, followed by two **trust destination screens**. Mall and MTrusted are not additional demographic personas: both are reachable directly through Categories and contextual entry points throughout the phone experience.
 
-**Flow:** Chhath homepage → festive mission → relevant products → trusted PDP → cart / checkout
+### 1. Aarav — Everyday Needs Missions
+A value-conscious shopper exploring fashion, grooming, home essentials and electronics & accessories through purpose-led choices.
 
-**Focus:** regional and seasonal context, occasion-led discovery, festive basket completion and trust-qualified merchandising.
+**Flow:** need → purpose → relevant shortlist → proof-first PDP → reviews / seller evidence → purchase or mission completion.
 
-### 2. Nayan - Assam Festive Context
-A shopper entering during a seasonal shopping period in Assam.
+Four familiar need areas — Fashion & Style, Grooming & Self-Care, Home Essentials, Electronics & Accessories — each offer lightweight task choices instead of a forced new storefront.
 
-**Flow:** Assam homepage → mission choice → regional / seasonal products → Mall or MTrusted → trusted PDP
+### 2. Ananya — Familiar Shopping & Confidence
+A returning female shopper whose familiar shopping habits and categories remain central while optional discovery and explainable trust improvements work for everyone.
 
-**Focus:** region, language and season as lightweight first-session context, followed by behaviour-led personalisation.
+**Everyday flow:** women's categories → optional purpose → product details, Review Intelligence, seller and trust evidence → purchase.
 
-### 3. Kabir - Meesho Mall for Brands
-A brand-conscious grooming shopper who wants clearer confidence in product source and provenance.
+**Household flow:** Gift for Him → recipient selection → relevant gifts → proof-first PDP → optional bundle.
 
-**Flow:** Meesho Mall → shop by brand / need → branded product → proof-first PDP → purchase
+**Focus:** protect Meesho's existing female shopping experience while extending universal product and trust improvements.
 
-**Meesho Mall answers:** *“Is this the brand or source I trust?”*
+### Regional & Festive Discovery
 
-### 4. Vivek - MTrusted Confidence
-A first-time buyer who likes a product but is unsure about an unfamiliar seller or listing.
+Two regional/occasion-led examples share one group because both demonstrate how lightweight context can help product discovery without changing the fundamental Meesho interface.
 
-**Flow:** MTrusted destination → explainable evidence → qualified product → seller profile → PDP
+**Rohit — Chhath Festival Mission (Bihar)**  
+Regional seasonal shopping for Chhath needs, festive apparel, home preparation and household gifting.
 
-**MTrusted answers:** *“Is this seller or listing reliably good?”*
+**Nayan — Assam Festive Mission**  
+Illustrative Assam regional and seasonal discovery, using contextual missions and product ordering.
 
-### 5. Ananya - Everyday Meesho Shopper
-A returning female customer who continues to see familiar fashion, beauty, home and accessory categories first.
+### Trust destination screens (not shopper personas)
 
-**Everyday flow:** Female homepage → familiar categories → optional mission selection → proof-first PDP → category product facts, seller evidence, Review Intelligence and Mall / MTrusted explanations → cart / checkout.
+**MTrusted — Marketplace-quality trust**  
+Explains seller, listing-quality and buyer-experience confidence.
 
-**Household flow:** Gift for Him → recipient choice → useful gifts → proof-first product page → optional mission bundle / Share & Save.
+**Meesho Mall — Brand & provenance trust**  
+Explains brand identity and product-source assurance.
 
-**Focus:** preserve Meesho’s existing female-first experience while sharing universal trust, buyer evidence and optional mission-completion improvements.
+Each destination opens its existing standalone walkthrough from the left rail. The same trust systems remain reachable from Categories in all four shopper journeys, with contextual products when entered from a category or mission.
 
-### 6. Aarav - Everyday Needs Missions
-A value-conscious shopper looking for a straightforward way to find products for different parts of everyday life, without having to browse a long generic feed.
-
-**Flow:** choose a shopping need → choose a specific purpose → relevant product shortlist → proof-first PDP → seller / review evidence → purchase or mission completion
-
-The journey begins with four familiar choices:
-
-- **Fashion & Style:** College Essentials, Office Wear, Everyday Casuals, Party & Occasion
-- **Grooming & Self-Care:** Daily Face Care, Beard & Shaving, Stay Fresh, Complete My Routine
-- **Home Essentials:** Refresh My Space, Everyday Home Utility, Hosting & Gatherings, Thoughtful Home Gifts
-- **Electronics & Accessories:** Everyday Tech, Work & Study Setup, On-the-Go Accessories, Watches & Daily Add-ons
-
-Selecting a need opens a second set of visual, purpose-led cards. The fashion journey keeps the existing occasion cards; the other needs lead to focused shortlists where shoppers can switch purposes without starting over. Each product still connects to the shared details, reviews, seller evidence and trust journeys.
-
-**Focus:** practical, easy-to-understand choices that reduce discovery friction without introducing a separate demographic storefront or significantly changing Meesho’s familiar shopping experience. All imagery is reused from the existing asset library.
-
-> Regional merchandising shown in the prototype is illustrative. It demonstrates the interaction model rather than actual regional demand data.
-
-Across the five non-female personas, a secondary **Shop for Her** entry appears on the homepage and in **Categories**, using the same gifting-card pattern as Ananya’s **Gift for Him** entry without replacing the main mission. Visitors can choose Sister, Partner, Mother or Friend, explore relevant products using existing assets, and open the shared proof-first PDP with explainable Mall and MTrusted routes. Ananya’s existing Gift for Him journey remains unchanged.
+Across the non-female journeys, a secondary **Shop for Her** link appears on the homepage and Categories. Ananya retains the corresponding **Gift for Him** journey. Product merchandising and trust-program eligibility remain illustrative.
 
 ## Product systems demonstrated
 
@@ -99,7 +82,7 @@ The prototype deliberately keeps the two trust systems separate:
 
 Both routes feed into the same product-evaluation experience rather than becoming isolated storefronts.
 
-**Categories** now provides direct Meesho Mall and MTrusted entry points in every persona. The selected category or guided mission carries into those existing trust destinations, with relevant illustrative fashion, grooming, festive, home, electronics and gifting products. Both preserve their distinct brand/source versus seller/listing-quality explanations and open the shared proof-first PDP. Choosing a trust persona from the left rail still starts its original standalone journey. Product eligibility is illustrative, not verified live status.
+**Categories** now provides direct Meesho Mall and MTrusted entry points in every persona. The selected category or guided mission carries into those existing trust destinations, with relevant illustrative fashion, grooming, festive, home, electronics and gifting products. Both preserve their distinct brand/source versus seller/listing-quality explanations and open the shared proof-first PDP. Selecting a trust destination in the left rail still opens its existing standalone screen. Product eligibility is illustrative, not verified live status.
 
 ### Proof-first PDP
 The product page brings decision-critical evidence together before purchase:
