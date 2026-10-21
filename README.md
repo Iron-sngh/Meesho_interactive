@@ -80,6 +80,8 @@ Selecting a need opens a second set of visual, purpose-led cards. The fashion jo
 
 > Regional merchandising shown in the prototype is illustrative. It demonstrates the interaction model rather than actual regional demand data.
 
+Across the five non-female personas, a secondary **Shop for Her** entry supports household shopping without replacing the main mission. Visitors can choose Sister, Partner, Mother or Friend, explore relevant products using existing assets, and open the shared proof-first PDP with explainable Mall and MTrusted routes. Ananya’s existing Gift for Him journey remains unchanged.
+
 ## Product systems demonstrated
 
 ### Mission-led discovery

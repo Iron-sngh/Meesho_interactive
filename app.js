@@ -14,6 +14,8 @@ const state = {
   femaleRecipient: 'brother',
   femaleGifting: false,
   femaleBundleActive: false,
+  shopHerRecipient: 'sister',
+  shopForHerContext: false,
   product: { title: 'Printed Kurta Set', price: 699, image: 'assets/chhath/chhath_kurta.webp', kind: 'fashion' }
 };
 
@@ -75,6 +77,12 @@ const personas = {
 };
 
 const routeMeta = {
+  'shop-for-her': {label:'Household shopping · Shop for Her',title:'Shop for Her · Apno Ke Liye',
+    persona:'Shared household shopping',
+    summary:'An optional shopping route for women’s everyday favourites and meaningful gifts. Primary persona missions remain unchanged.',
+    keySignals:['Recipient-led discovery','Women’s category products','Explainable trust','Proof-first PDP'],
+    kpi:['Gift entry CTR','Relevant PDP views','Basket completion']},
+
   'female-home': {label:'Home · Ananya',title:'Familiar female-first shopping',
     persona:'Everyday Meesho Shopper',
     summary:'Standard categories remain prominent. Optional mission prompts, universal trust and a secondary Gift for Him route expand useful choices.',
@@ -480,7 +488,7 @@ function selectedProduct() {
 }
 
 function productDetailsFor(kind = 'fashion', p = null) {
-  if(state.persona==='female'&&p){
+  if(isHerShoppingContext()&&p){
     if(/saree/i.test(p.title))return [
       ['Category','Women’s saree'],['Fabric','Check selected listing'],
       ['Length','Confirm measurements'],['Blouse piece','Confirm inclusion'],
@@ -1042,6 +1050,59 @@ function femaleGiftsScreen(){
  `});
 }
 
+
+const shopHerRecipients={
+  sister:{label:'Sister',products:['fashion','care','saree','pouch']},
+  partner:{label:'Partner',products:['saree','care','gift','decor']},
+  mother:{label:'Mother',products:['saree','home','decor','care']},
+  friend:{label:'Friend',products:['fashion','care','pouch','gift']}
+};
+function isHerShoppingContext(){return state.persona==='female'||state.shopForHerContext}
+function shopForHerTeaser(){
+  return `<section class="screen-section shop-her-home-section" aria-label="Shop for Her">
+    ${sectionHeader('Something for her','A thoughtful extra, without changing your shopping mission.','','')}
+    <button type="button" class="female-gift-tile shop-her-tile" data-go="shop-for-her" aria-label="Explore Shop for Her">
+      <img src="${asset('chhath/chhath_saree.webp')}" alt="Celebration saree" loading="lazy">
+      <span><small>BAS AISE HI · APNO KE LIYE</small><b>Shop for Her</b>
+        <em>Fashion, self-care and useful gifts for someone you care about.</em>
+        <strong>Explore her picks →</strong></span>
+    </button>
+  </section>`;
+}
+function shopForHerScreen(){
+  const selected=shopHerRecipients[state.shopHerRecipient]||shopHerRecipients.sister;
+  return phoneTemplate({nav:'categories',content:`
+    ${appBar({brand:false,title:'SHOP FOR HER',subtitle:'Bas Aise Hi · Apno Ke Liye',
+      searchText:'Search gifts and everyday favourites',backRoute:homeRoute()})}
+    <section class="screen-section">
+      <div class="shop-her-intro">
+        <img src="${asset('chhath/chhath_saree.webp')}" alt="Women’s festive fashion" loading="lazy">
+        <span><small>THOUGHTFUL SHOPPING</small><b>Something for her, chosen with care</b>
+          <em>Explore her favourites in the Meesho you already know.</em></span>
+      </div>
+    </section>
+    <section class="screen-section">
+      ${sectionHeader('Who are you shopping for?','One optional tap to make the shortlist more relevant.','','')}
+      <div class="style-filter-grid shop-her-recipient-row">
+        ${Object.entries(shopHerRecipients).map(([key,person])=>`
+          <button type="button" class="style-filter-chip ${state.shopHerRecipient===key?'active':''}"
+            data-shop-her-recipient="${key}" aria-pressed="${state.shopHerRecipient===key}">${person.label}</button>
+        `).join('')}
+      </div>
+    </section>
+    <section class="screen-section">
+      ${sectionHeader('Picks for your '+selected.label.toLowerCase(),
+        'Fashion, care and everyday gifts, with product facts and reviews one tap away.','','')}
+      ${femaleProductGrid(selected.products)}
+      <p class="shop-her-asset-note">Illustrative assortment using existing prototype product photography.</p>
+    </section>
+    <section class="screen-section">
+      ${sectionHeader('Explore more for her','Browse familiar everyday categories as well.','','')}
+      ${femaleProductGrid(['saree','fashion','care','home'],'four-up')}
+    </section>
+  `});
+}
+
 function collegeHome() {
   return phoneTemplate({
     nav: 'home',
@@ -1083,6 +1144,7 @@ function collegeHome() {
           ${productCard({ title: 'Everyday Home Essentials', price: 399, route: 'pdp-core', image: asset('categories/cat_home.webp') })}
         </div>
       </section>
+      ${shopForHerTeaser()}
     `
   });
 }
@@ -1126,6 +1188,7 @@ function assamHome() {
         </div>
       </section>
       <section class="screen-section">${trustTwinCards()}</section>
+      ${shopForHerTeaser()}
     `
   });
 }
@@ -1174,13 +1237,14 @@ function chhathHome() {
         </div>
       </section>
       <section class="screen-section">${trustTwinCards()}</section>
+      ${shopForHerTeaser()}
     `
   });
 }
 
 
 // Reuse the original trust destinations, tailoring their assortments to entry context.
-const trustCategoryRoutes = new Set(['categories','category-fashion','category-grooming',
+const trustCategoryRoutes = new Set(['shop-for-her','categories','category-fashion','category-grooming',
   'category-assam','category-chhath','category-home','category-electronics','category-gifting','mission-results','female-category','female-gifts']);
 function categoryTrustGateway() {
   return `<section class="screen-section category-trust-section">
@@ -1241,6 +1305,7 @@ function trustContextFromCategory() {
   const byPersona={chhath:'chhath',assam:'assam',mall:'grooming',mtrusted:'fashion',female:'women',college:'everyday'};
   const sourceRoute=state.route;
   let category=byRoute[sourceRoute]||byPersona[state.persona]||'everyday';
+  if(sourceRoute==='shop-for-her'||(sourceRoute==='pdp-core'&&state.shopForHerContext))category='women';
   if(state.persona==='female'){
     const map={fashion:'women',beauty:'beauty',home:'home',accessories:'gifting'};
     if(sourceRoute==='female-gifts'||(sourceRoute==='pdp-core'&&state.femaleGifting))category='gifting';
@@ -1367,6 +1432,7 @@ function mallHome() {
           ${productCard({ title: 'Deodorant Body Spray', price: 179, route: 'pdp-core', badge: 'Mall', image: asset('mall/mall_deodorant.webp') })}
         </div>
       </section>
+      ${shopForHerTeaser()}
     `
   });
 }
@@ -1428,6 +1494,7 @@ function mtrustedHome() {
           <strong>→</strong>
         </button>
       </section>
+      ${shopForHerTeaser()}
     `
   });
 }
@@ -1675,7 +1742,7 @@ const reviewPhrases = {
   Listing:['Closely matches the listing','Mostly as described','Generally matches the listing','Listing-match feedback varies']
 };
 function getReviewThemes(product) {
-  const samples = state.persona==='female'&&product.kind==='fashion'?reviewSamples.female:product.kind === 'grooming' ? reviewSamples.grooming
+  const samples = isHerShoppingContext()&&product.kind==='fashion'?reviewSamples.female:product.kind === 'grooming' ? reviewSamples.grooming
     : product.kind === 'utility' ? reviewSamples.utility
     : reviewSamples[state.persona] || reviewSamples.mtrusted;
   return Object.entries(samples).map(([label, ratings]) => {
@@ -1724,19 +1791,19 @@ function femaleTrustBlock(){
  </div>`;
 }
 function femaleOffer(product){
- const related=state.femaleGifting?['watch','wash']:['care','decor'];
+ const related=state.shopForHerContext?['care','pouch']:(state.femaleGifting?['watch','wash']:['care','decor']);
  const products=[{title:product.title,price:product.price,image:product.image},
    ...related.map(key=>({title:femaleProducts[key][0],price:femaleProducts[key][1],image:asset(femaleProducts[key][2])}))];
  const names=new Set();
- return {title:state.femaleGifting?'Gift for Him Combo':state.femaleCategory==='home'?'Home Refresh Bundle':state.femaleCategory==='beauty'?'Self-Care Essentials Bundle':state.femaleCategory==='accessories'?'Everyday Gift Bundle':'Complete Her Occasion Bundle',
+ return {title:state.shopForHerContext?'Shop for Her Bundle':state.femaleGifting?'Gift for Him Combo':state.femaleCategory==='home'?'Home Refresh Bundle':state.femaleCategory==='beauty'?'Self-Care Essentials Bundle':state.femaleCategory==='accessories'?'Everyday Gift Bundle':'Complete Her Occasion Bundle',
    items:products.filter(p=>{if(names.has(p.title))return false;names.add(p.title);return true;})};
 }
 function femaleBundleSaving(items){
- if(state.persona!=='female'||!state.femaleBundleActive||items.length<2)return 0;
+ if(!isHerShoppingContext()||!state.femaleBundleActive||items.length<2)return 0;
  return items.reduce((sum,item)=>sum+Number(item.price||0),0)>=999?50:0;
 }
 function femaleBundleModule(p){
- if(state.persona!=='female')return '';
+ if(!isHerShoppingContext())return '';
  const offer=femaleOffer(p),original=offer.items.reduce((a,x)=>a+x.price,0);
  const saving=original>=999?50:0;
  return `<section class="growth-module inline-growth-section female-bundle">
@@ -1766,12 +1833,13 @@ function pdpCore() {
       ]
     : [[p.image.replace(/^assets\//,''), 'Product view', 'product-details']];
   const reviewThemes = getReviewThemes(p);
-  const sellerName = state.persona==='female'?'Illustrative Marketplace Seller':(p.kind==='grooming'?'Mall Partner Store':'XYZ Fashion');
+  const womenContext=isHerShoppingContext();
+  const sellerName = womenContext?'Illustrative Marketplace Seller':(p.kind==='grooming'?'Mall Partner Store':'XYZ Fashion');
   return phoneTemplate({
     nav: 'home',
     ctas: ctaBar({ label: 'Buy now', route: 'checkout' }, { label: 'Add to cart', route: 'cart' }),
     content: `
-      ${appBar({ brand: false, title: 'PRODUCT', subtitle: 'Proof-first product detail page', searchText: 'Search related products', backRoute: state.persona === 'mall' ? 'category-grooming' : (state.persona === 'chhath' ? 'category-chhath' : state.persona === 'assam' ? 'category-assam' : state.persona==='female'?(state.femaleGifting?'female-gifts':'female-category'):'category-fashion') })}
+      ${appBar({ brand: false, title: 'PRODUCT', subtitle: 'Proof-first product detail page', searchText: 'Search related products', backRoute: state.shopForHerContext?'shop-for-her':state.persona === 'mall' ? 'category-grooming' : (state.persona === 'chhath' ? 'category-chhath' : state.persona === 'assam' ? 'category-assam' : state.persona==='female'?(state.femaleGifting?'female-gifts':'female-category'):'category-fashion') })}
       <div class="product-detail-hero realistic-pdp-hero">
         <div>
           <button class="pdp-main-image" data-go="product-details" aria-label="Open product details"><img src="${p.image}" alt="${p.title}"></button>
@@ -1780,12 +1848,12 @@ function pdpCore() {
           </div>
         </div>
         <div class="info-stack">
-          <div class="trust-line"><span class="badge-pill">${state.persona==='female'?'Product evidence':(state.persona==='mall'||p.kind==='grooming'?'Meesho Mall':'MTrusted')}</span><span class="tiny-pill">${state.persona==='female'?'Illustrative product':'Top rated'}</span></div>
+          <div class="trust-line"><span class="badge-pill">${womenContext?'Product evidence':(state.persona==='mall'||p.kind==='grooming'?'Meesho Mall':'MTrusted')}</span><span class="tiny-pill">${womenContext?'Illustrative product':'Top rated'}</span></div>
           <h2>${p.title}</h2>
           <div class="info-subline">${p.kind === 'grooming' ? 'Daily-use grooming essential' : p.kind === 'utility' ? 'Everyday value pick' : 'Popular selected variant'}</div>
           <div class="hero-price"><span class="price">₹${p.price}</span></div>
           <div class="info-subline">Free delivery on eligible orders</div>
-          ${p.kind === 'fashion' ? `<div class="size-label">Size</div><div class="size-grid"><button class="size-pill" data-go="pdp-core">S</button><button class="size-pill" data-go="pdp-core">M</button><button class="size-pill active" data-go="pdp-core">L</button><button class="size-pill" data-go="pdp-core">XL</button></div>` : ''}
+          ${p.kind === 'fashion' && !/saree|fashion edit/i.test(p.title) ? `<div class="size-label">Size</div><div class="size-grid"><button class="size-pill" data-go="pdp-core">S</button><button class="size-pill" data-go="pdp-core">M</button><button class="size-pill active" data-go="pdp-core">L</button><button class="size-pill" data-go="pdp-core">XL</button></div>` : ''}
         </div>
       </div>
 
@@ -1795,23 +1863,23 @@ function pdpCore() {
       </div>
 
       <div class="info-card seller-module info-card-button" data-go="seller-profile" role="button" tabindex="0">
-        <div class="seller-inline-heading">${p.kind === 'fashion' && state.persona!=='female' ? `<img src="${asset('seller/seller_xyz_logo.webp')}" alt="Seller logo">` : `<span class="seller-generic-logo small">${p.kind === 'grooming' ? 'M' : '✓'}</span>`}<span><small>Sold by</small><b>${sellerName}</b></span><strong>View seller →</strong></div>
+        <div class="seller-inline-heading">${p.kind === 'fashion' && !womenContext ? `<img src="${asset('seller/seller_xyz_logo.webp')}" alt="Seller logo">` : `<span class="seller-generic-logo small">${p.kind === 'grooming' ? 'M' : '✓'}</span>`}<span><small>Sold by</small><b>${sellerName}</b></span><strong>View seller →</strong></div>
         <div class="trust-badges"><div class="trust-badge"><b>Strong category performance</b><span>Stable buyer outcomes.</span></div><div class="trust-badge"><b>Reliable fulfilment</b><span>Consistent shipping outcomes.</span></div><div class="trust-badge"><b>Low issue incidence</b><span>Healthier post-order experience.</span></div></div>
       </div>
 
-      ${state.persona==='female'?femaleTrustBlock():''}
+      ${womenContext?femaleTrustBlock():''}
       <div class="info-card info-card-button" data-go="reviews" role="button" tabindex="0">
         ${sectionHeader('Customers say', 'Review scores by product attribute', 'Review intelligence', 'reviews')}
         ${reviewThemeCards(reviewThemes)}
-        <div class="buyer-avatar-row">${[1,2,3,4].map(i => `<img src="${buyerAvatar(i)}" alt="Verified buyer ${i}">`).join('')}<span>${state.persona==='female'?'Illustrative attribute ratings, not live reviews':'Verified buyer reviews'}</span></div>
+        <div class="buyer-avatar-row">${[1,2,3,4].map(i => `<img src="${buyerAvatar(i)}" alt="Verified buyer ${i}">`).join('')}<span>${womenContext?'Illustrative attribute ratings, not live reviews':'Verified buyer reviews'}</span></div>
       </div>
 
       <div class="info-card info-card-button" data-go="ugc-gallery" role="button" tabindex="0">
-        ${sectionHeader(state.persona==='female'?'Product photo references':'Buyer visual proof',state.persona==='female'?'Existing product photography; buyer photos will be added separately.':(isBlackShirt?'Verified buyer photos & videos':'Product and buyer evidence'),'View gallery','ugc-gallery')}
+        ${sectionHeader(womenContext?'Product photo references':'Buyer visual proof',womenContext?'Existing product photography; buyer photos will be added separately.':(isBlackShirt?'Verified buyer photos & videos':'Product and buyer evidence'),'View gallery','ugc-gallery')}
         <div class="ugc-row photo-ugc-row">
           ${isBlackShirt ? `<img src="${asset('reviews/ugc_black_shirt_01.webp')}" alt="Buyer wearing black shirt"><img src="${asset('reviews/ugc_black_shirt_video_cover.webp')}" alt="Buyer video cover"><img src="${asset('reviews/ugc_black_shirt_02.webp')}" alt="Buyer wearing black shirt outdoors">` : `<img src="${p.image}" alt="${p.title}"><img src="${p.image}" alt="Product view"><img src="${p.image}" alt="Product detail view">`}
         </div>
-        <div class="review-quote"><b>${state.persona==='female'?'Illustrative buyer comment':'Verified Purchase'}</b><p>“The product matched the listing and the order experience was straightforward.”</p></div>
+        <div class="review-quote"><b>${womenContext?'Illustrative buyer comment':'Verified Purchase'}</b><p>“The product matched the listing and the order experience was straightforward.”</p></div>
       </div>
 
       <div class="info-card info-card-button" data-go="certainty" role="button" tabindex="0">
@@ -1835,7 +1903,7 @@ function productDetailsScreen() {
       ${appBar({ brand: false, title: 'PRODUCT DETAILS', subtitle: p.title, searchText: 'Search product information', backRoute: 'pdp-core' })}
       <div class="list-card product-details-intro"><img class="details-product-photo" src="${p.image}" alt="${p.title}"><div><h4>${p.title}</h4><p class="body-copy">Decision-critical information is structured by category so the shopper does not have to infer important facts from images or description text.</p></div></div>
       <div class="list-card"><h4>Key information</h4><div class="details-grid">${details.map(([k,v]) => `<div class="detail-item"><b>${k}</b><span>${v}</span></div>`).join('')}</div></div>
-      ${p.kind === 'fashion' && state.persona!=='female' ? `<div class="list-card"><h4>Fit & construction proof</h4><div class="detail-proof-grid"><figure><img src="${asset(isBlackShirt ? 'products/shirt_size_guide.webp' : 'products/shirt_fit_side.webp')}" alt="Size and fit guide"><figcaption>Size & fit</figcaption></figure><figure><img src="${asset('products/shirt_fabric_macro.webp')}" alt="Fabric detail"><figcaption>Material detail</figcaption></figure><figure><img src="${asset('products/shirt_button_detail.webp')}" alt="Construction detail"><figcaption>Construction</figcaption></figure></div></div>` : `<div class="list-card"><h4>${state.persona==='female'?'Existing product references':'Package & usage proof'}</h4><div class="detail-proof-grid"><figure><img src="${p.image}" alt="Product view"><figcaption>Product photo</figcaption></figure><figure><img src="${state.persona==='female'?asset('categories/cat_womens_fashion.webp'):asset('mall/mall_grooming_banner.webp')}" alt="Category reference"><figcaption>Category reference</figcaption></figure></div></div>`}
+      ${p.kind === 'fashion' && !isHerShoppingContext() ? `<div class="list-card"><h4>Fit & construction proof</h4><div class="detail-proof-grid"><figure><img src="${asset(isBlackShirt ? 'products/shirt_size_guide.webp' : 'products/shirt_fit_side.webp')}" alt="Size and fit guide"><figcaption>Size & fit</figcaption></figure><figure><img src="${asset('products/shirt_fabric_macro.webp')}" alt="Fabric detail"><figcaption>Material detail</figcaption></figure><figure><img src="${asset('products/shirt_button_detail.webp')}" alt="Construction detail"><figcaption>Construction</figcaption></figure></div></div>` : `<div class="list-card"><h4>${state.persona==='female'?'Existing product references':'Package & usage proof'}</h4><div class="detail-proof-grid"><figure><img src="${p.image}" alt="Product view"><figcaption>Product photo</figcaption></figure><figure><img src="${state.persona==='female'?asset('categories/cat_womens_fashion.webp'):asset('mall/mall_grooming_banner.webp')}" alt="Category reference"><figcaption>Category reference</figcaption></figure></div></div>`}
     `
   });
 }
@@ -1843,14 +1911,14 @@ function productDetailsScreen() {
 function sellerProfile() {
   const p = selectedProduct();
   const isFashion = p.kind === 'fashion';
-  const sellerName = state.persona==='female'?'Illustrative Marketplace Seller':(isFashion?'XYZ Fashion':(p.kind==='grooming'?'Mall Partner Store':'Verified Marketplace Seller'));
-  const category = state.persona==='female'?(state.femaleGifting?'Household Gifting':femaleNeeds[state.femaleCategory].name):(isFashion?'Fashion':(p.kind==='grooming'?'Men’s Grooming':'Marketplace Utility'));
-  const cover = state.persona==='female'?asset('categories/cat_womens_fashion.webp'):(isFashion?asset('seller/seller_xyz_profile_banner.webp'):(p.kind==='grooming'?asset('mall/mall_grooming_banner.webp'):asset('mtrusted/fulfilment_package.webp')));
-  const ops = state.persona==='female'?asset('mtrusted/fulfilment_package.webp'):(isFashion?asset('seller/seller_xyz_packaging.webp'):asset('mtrusted/fulfilment_package.webp'));
-  const identity = isFashion && state.persona!=='female' ? `<img class="seller-profile-logo" src="${asset('seller/seller_xyz_logo.webp')}" alt="XYZ Fashion logo">` : `<span class="seller-generic-logo">${p.kind === 'grooming' ? 'M' : '✓'}</span>`;
+  const sellerName = isHerShoppingContext()?'Illustrative Marketplace Seller':(isFashion?'XYZ Fashion':(p.kind==='grooming'?'Mall Partner Store':'Verified Marketplace Seller'));
+  const category = isHerShoppingContext()?(state.shopForHerContext?'Shop for Her':state.femaleGifting?'Household Gifting':femaleNeeds[state.femaleCategory].name):(isFashion?'Fashion':(p.kind==='grooming'?'Men’s Grooming':'Marketplace Utility'));
+  const cover = isHerShoppingContext()?asset('categories/cat_womens_fashion.webp'):(isFashion?asset('seller/seller_xyz_profile_banner.webp'):(p.kind==='grooming'?asset('mall/mall_grooming_banner.webp'):asset('mtrusted/fulfilment_package.webp')));
+  const ops = isHerShoppingContext()?asset('mtrusted/fulfilment_package.webp'):(isFashion?asset('seller/seller_xyz_packaging.webp'):asset('mtrusted/fulfilment_package.webp'));
+  const identity = isFashion && !isHerShoppingContext() ? `<img class="seller-profile-logo" src="${asset('seller/seller_xyz_logo.webp')}" alt="XYZ Fashion logo">` : `<span class="seller-generic-logo">${p.kind === 'grooming' ? 'M' : '✓'}</span>`;
   return phoneTemplate({
     nav: 'home',
-    ctas: ctaBar({ label: 'Back to PDP', route: 'pdp-core' }, { label: 'View trusted picks', route: p.kind === 'grooming' ? 'mall-home' : 'mtrusted-home' }),
+    ctas: ctaBar({label:'Back to PDP',route:'pdp-core'},state.shopForHerContext?{label:'More for Her',route:'shop-for-her'}:{label:'View trusted picks',route:p.kind==='grooming'?'mall-home':'mtrusted-home'}),
     content: `
       ${appBar({ brand: false, title: 'SELLER PROFILE', subtitle: 'Trust evidence made legible', searchText: 'Search this seller', backRoute: 'pdp-core' })}
       <div class="seller-cover"><img src="${cover}" alt="${sellerName} seller operation"></div>
@@ -1873,7 +1941,7 @@ function reviewsScreen() {
       ${appBar({ brand: false, title: 'REVIEW INTELLIGENCE', subtitle: p.title, searchText: 'Search reviews', backRoute: 'pdp-core' })}
       <div class="list-card"><h4>Review intelligence by attribute</h4>${reviewThemeCards(reviewThemes)}</div>
       <div class="list-card"><h4>Pros & watch-outs</h4><div class="two-up"><div class="mini-card"><h4>Pros</h4><p>Good value, clear listing information and a dependable first impression.</p></div><div class="mini-card"><h4>Watch-outs</h4><p>Check the selected variant and category-specific details before ordering.</p></div></div></div>
-      <div class="list-card"><h4>${state.persona==='female'?'Illustrative review examples':'Traceable reviews'}</h4><div class="review-feed">${[1,2,3].map((i) => `<article class="review-feed-card"><img class="reviewer-avatar" src="${buyerAvatar(i)}" alt="Verified buyer"><div><b>${state.persona==='female'?'Sample buyer':'Verified buyer'}</b><small>${state.persona==='female'?'Illustrative review, not verified':'Verified Purchase'}</small><p>${i===1?'“Matched the listing well and felt worth the price.”':i===2?'“The details helped me know what to expect before ordering.”':'“Delivery and packaging were straightforward.”'}</p></div>${isBlackShirt ? `<img class="review-proof-thumb" src="${asset(`reviews/ugc_black_shirt_0${i}.webp`)}" alt="Buyer proof">` : `<img class="review-proof-thumb" src="${p.image}" alt="${p.title}">`}</article>`).join('')}</div></div>
+      <div class="list-card"><h4>${isHerShoppingContext()?'Illustrative review examples':'Traceable reviews'}</h4><div class="review-feed">${[1,2,3].map((i) => `<article class="review-feed-card"><img class="reviewer-avatar" src="${buyerAvatar(i)}" alt="Verified buyer"><div><b>${isHerShoppingContext()?'Sample buyer':'Verified buyer'}</b><small>${isHerShoppingContext()?'Illustrative review, not verified':'Verified Purchase'}</small><p>${i===1?'“Matched the listing well and felt worth the price.”':i===2?'“The details helped me know what to expect before ordering.”':'“Delivery and packaging were straightforward.”'}</p></div>${isBlackShirt ? `<img class="review-proof-thumb" src="${asset(`reviews/ugc_black_shirt_0${i}.webp`)}" alt="Buyer proof">` : `<img class="review-proof-thumb" src="${p.image}" alt="${p.title}">`}</article>`).join('')}</div></div>
     `
   });
 }
@@ -1889,8 +1957,8 @@ function ugcGalleryScreen() {
     ctas: ctaBar({ label: 'Back to PDP', route: 'pdp-core' }, { label: 'See reviews', route: 'reviews' }),
     content: `
       ${appBar({ brand: false, title: 'BUYER VISUAL PROOF', subtitle: p.title, searchText: 'Search buyer content', backRoute: 'pdp-core' })}
-      <div class="list-card"><h4>${isBlackShirt && state.persona!=='female' ? 'Verified purchase media' : 'Product proof gallery'}</h4><div class="ugc-gallery-grid">${gallery.map((src,i) => `<figure><img src="${src}" alt="${state.persona==='female'?'Product photo '+(i+1):'Buyer proof '+(i+1)}"><figcaption>${isBlackShirt && state.persona!=='female' ? (i===4?'Video review':'Verified buyer') : 'Product view'}</figcaption></figure>`).join('')}</div></div>
-      ${state.persona==='female'?'<div class="list-card"><p class="body-copy">Existing product photos only. Verified buyer-submitted visuals for these listings have not been added yet.</p></div>':''}
+      <div class="list-card"><h4>${isBlackShirt && !isHerShoppingContext() ? 'Verified purchase media' : 'Product proof gallery'}</h4><div class="ugc-gallery-grid">${gallery.map((src,i) => `<figure><img src="${src}" alt="${isHerShoppingContext()?'Product photo '+(i+1):'Buyer proof '+(i+1)}"><figcaption>${isBlackShirt && !isHerShoppingContext() ? (i===4?'Video review':'Verified buyer') : 'Product view'}</figcaption></figure>`).join('')}</div></div>
+      ${isHerShoppingContext()?'<div class="list-card"><p class="body-copy">Existing product photos only. Verified buyer-submitted visuals for these listings have not been added yet.</p></div>':''}
       <div class="list-card"><h4>Why visual proof matters</h4><div class="detail-list"><div class="detail-list-item"><b>Reality versus listing</b><span>Helps shoppers judge how closely the product matches expectations.</span></div><div class="detail-list-item"><b>Variant confidence</b><span>Provides a more tangible sense of the selected product.</span></div><div class="detail-list-item"><b>Traceability</b><span>Buyer content remains connected to verified purchase context.</span></div></div></div>
     `
   });
@@ -2035,7 +2103,7 @@ function growthCatalog() {
     }
   };
 
-  const catalog = catalogs[state.persona] || catalogs.college;
+  const catalog = state.shopForHerContext?catalogs.female:(catalogs[state.persona]||catalogs.college);
   const dedupe = (items, max = 4) => {
     const seen = new Set();
     return items.filter(item => {
@@ -2412,6 +2480,7 @@ function wishlistScreen() {
 }
 
 const routes = {
+  'shop-for-her': shopForHerScreen,
   'female-home': femaleHome,
   'female-category': femaleCategoryScreen,
   'female-gifts': femaleGiftsScreen,
@@ -2471,7 +2540,11 @@ function renderDetails() {
   const chosenDomain = missionDomains[state.missionDomain];
   const chosenTask = chosenDomain?.tasks?.[state.missionTask];
   let meta = baseMeta;
-  if(state.persona==='female'&&state.route==='female-category'){
+  if(state.route==='shop-for-her'){
+    const choice=shopHerRecipients[state.shopHerRecipient]||shopHerRecipients.sister;
+    meta={...baseMeta,persona:personas[state.persona].title,title:'Shop for Her · '+choice.label,
+      summary:'A secondary household-shopping journey. Familiar categories remain available and products use the same proof-first experience.'};
+  }else if(state.persona==='female'&&state.route==='female-category'){
     const c=femaleNeeds[state.femaleCategory];const t=c.tasks[state.femaleTask];
     meta={...baseMeta,title:c.name+' · '+t[0],
       persona:personas.female.title,
@@ -2594,6 +2667,8 @@ function setPersona(personaId, preserveRoute = false) {
   state.femaleRecipient='brother';
   state.femaleGifting=false;
   state.femaleBundleActive=false;
+  state.shopHerRecipient='sister';
+  state.shopForHerContext=false;
   state.product = defaultProductForPersona(personaId);
   state.route = preserveRoute ? state.route : personas[personaId].entryRoute;
   renderRoute();
@@ -2714,7 +2789,7 @@ document.addEventListener('click', (event) => {
       go('checkout');
       return;
     }
-    if(actionButton.dataset.action==='female-bundle-cart'&&state.persona==='female'){
+    if(actionButton.dataset.action==='female-bundle-cart'&&isHerShoppingContext()){
       state.cartItems=femaleOffer(selectedProduct()).items.map(item=>({...item,kind:productKind(item.title)}));
       state.femaleBundleActive=true;
       go('cart');
@@ -2739,6 +2814,15 @@ document.addEventListener('click', (event) => {
     }
   }
 
+  const herRecipientButton=event.target.closest('[data-shop-her-recipient]');
+  if(herRecipientButton&&state.persona!=='female'){
+    const id=herRecipientButton.dataset.shopHerRecipient;
+    if(!shopHerRecipients[id])return;
+    const previousTop=deviceCanvas.querySelector('.phone-content')?.scrollTop||0;
+    state.shopHerRecipient=id;renderRoute();
+    requestAnimationFrame(()=>{const el=deviceCanvas.querySelector('.phone-content');if(el)el.scrollTop=previousTop});
+    return;
+  }
   const femaleRecipientButton=event.target.closest('[data-female-recipient]');
   if(femaleRecipientButton&&state.persona==='female'){
     if(!femaleRecipients[femaleRecipientButton.dataset.femaleRecipient])return;
@@ -2806,8 +2890,13 @@ document.addEventListener('click', (event) => {
       }
     }
     if(state.persona==='female'&&navButton.dataset.go==='female-gifts')state.femaleGifting=true;
+    if(navButton.dataset.go==='shop-for-her'&&state.persona!=='female')state.shopForHerContext=true;
     const selectedAnotherProduct = Boolean(navButton.dataset.productTitle);
     if (selectedAnotherProduct) {
+      if(state.persona!=='female'){
+        state.shopForHerContext=state.route==='shop-for-her'||
+          (['mall-home','mtrusted-home'].includes(state.route)&&state.trustContext?.sourceRoute==='shop-for-her');
+      }
       state.product = {
         title: navButton.dataset.productTitle,
         price: Number(navButton.dataset.productPrice || 313),
@@ -2868,6 +2957,8 @@ $('#restart-button').addEventListener('click', () => {
   state.femaleRecipient='brother';
   state.femaleGifting=false;
   state.femaleBundleActive=false;
+  state.shopHerRecipient='sister';
+  state.shopForHerContext=false;
   state.product = defaultProductForPersona(state.persona);
   state.route = personas[state.persona].entryRoute;
   renderRoute();

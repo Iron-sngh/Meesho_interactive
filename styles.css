@@ -2600,3 +2600,16 @@ img { display:block; max-width:100%; }
 /* Distinguish optional mission shortcuts from the ordinary category grid. */
 .female-need-card[data-female-task-initial]{background:#fcf9fc;border-color:#e9d4e7}
 .female-need-card[data-female-task-initial] small{color:#78596f}
+
+/* Secondary household-shopping module; shares styling with the existing gift entry. */
+.shop-her-tile{background:#fcf8fb}
+.shop-her-tile:hover,.shop-her-tile:focus-visible{border-color:#bc78a9;background:#fff5fb;outline-offset:2px}
+.shop-her-intro{display:flex;align-items:center;gap:12px;padding:13px;border:1px solid #eadbea;border-radius:14px;background:#fdf8fc}
+.shop-her-intro img{width:94px;height:112px;object-fit:contain;background:#fff;border-radius:11px}
+.shop-her-intro span{display:flex;flex:1;min-width:0;flex-direction:column;gap:6px}
+.shop-her-intro small{font-size:.59rem;font-weight:850;letter-spacing:.04em;color:var(--brand-dark)}
+.shop-her-intro b{font-size:.96rem;line-height:1.25;color:var(--text)}
+.shop-her-intro em{font-size:.67rem;line-height:1.4;font-style:normal;color:var(--muted)}
+.shop-her-recipient-row{display:flex;flex-wrap:wrap;gap:7px}
+.shop-her-recipient-row .style-filter-chip{flex:1;min-width:66px;white-space:normal}
+.shop-her-asset-note{margin:10px 0 0;font-size:.61rem;line-height:1.4;color:var(--muted)}
