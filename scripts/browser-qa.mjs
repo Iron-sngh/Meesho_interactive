@@ -189,6 +189,30 @@ try{
    },urls);
    assert.deepEqual(failures,[],'Broken asset URL(s)');
  });
+ // Exercise clickable route controls from the screen on which each appears.
+ for(const originRoute of knownRoutes){
+   const persona=originRoute.startsWith('female-')?'female':
+     originRoute.includes('assam')?'assam':
+     originRoute.includes('chhath')?'chhath':
+     originRoute.startsWith('mall-')?'mall':
+     originRoute.startsWith('mtrusted-')?'mtrusted':'college';
+   await goto(desktop,originRoute,persona);
+   const activeTargets=await desktop.locator('#device-canvas button[data-go]').evaluateAll(els=>
+     [...new Set(els.filter(el=>el.getClientRects().length>0)
+       .map(el=>el.getAttribute('data-go')).filter(Boolean))]
+   );
+   for(const target of activeTargets){
+     await visit(desktop,'click '+originRoute+' → '+target,async()=>{
+       await goto(desktop,originRoute,persona);
+       const selector='#device-canvas button[data-go="'+target+'"]';
+       const choice=desktop.locator(selector).first();
+       if(!(await choice.count()))throw Error('Visible target not found');
+       await choice.click({timeout:4000,force:true});
+       assert(await desktop.locator('.phone-shell').count(),'Click produced an empty screen');
+     });
+   }
+ }
+
  for(const route of visitedTargets){
     await visit(desktop,'all navigation targets: '+route,async()=>{
        await desktop.evaluate(target=>go(target),route);
