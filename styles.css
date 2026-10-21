@@ -2760,3 +2760,182 @@ img { display:block; max-width:100%; }
   .persona-panel .primary-journey-card {padding:12px}
   .persona-panel .regional-journey-group {padding:12px}
 }
+
+/* Left-rail space usage: proportional rows replace the earlier space-between gaps. */
+.persona-panel .persona-list{
+  display:grid;
+  grid-template-rows:minmax(0,1.12fr) minmax(0,1.12fr) minmax(0,2.03fr) minmax(0,1.67fr);
+  align-content:stretch;
+  justify-content:stretch;
+  gap:11px;
+  width:100%;
+  min-width:0;
+}
+.persona-panel .primary-journey-card{
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+  gap:7px;
+  min-width:0;
+  min-height:0;
+  padding:13px 15px;
+  overflow:hidden;
+}
+.persona-panel .primary-journey-card .persona-card-main{
+  grid-template-columns:42px minmax(0,1fr);
+  gap:11px;
+  align-items:start;
+}
+.persona-panel .primary-journey-card .persona-avatar{width:42px;height:42px}
+.persona-panel .primary-journey-card .journey-description{font-size:.72rem;line-height:1.32;margin-top:5px}
+.persona-panel .journey-footer{display:flex;flex-direction:column;gap:6px;margin-top:auto;min-width:0}
+.persona-panel .journey-footer .persona-tags{display:flex;gap:5px;margin:0;padding:0;flex-wrap:wrap}
+.persona-panel .journey-route-label{
+  display:block;
+  font-size:.60rem;
+  letter-spacing:.055em;
+  font-weight:850;
+  line-height:1.2;
+  color:var(--brand-dark);
+}
+.persona-panel .regional-journey-group{
+  display:flex;
+  flex-direction:column;
+  gap:9px;
+  min-height:0;
+  padding:13px;
+  overflow:hidden;
+}
+.persona-panel .regional-journey-heading{flex:0 0 auto;gap:4px}
+.persona-panel .regional-journey-heading strong{font-size:.86rem}
+.persona-panel .regional-journey-heading span{font-size:.69rem;line-height:1.3}
+.persona-panel .regional-journey-cards{
+  flex:1 1 auto;
+  display:grid;
+  grid-template-rows:repeat(2,minmax(0,1fr));
+  min-height:0;
+  gap:8px;
+}
+.persona-panel .regional-journey-card{
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  gap:5px;
+  min-height:0;
+  padding:10px 12px;
+  overflow:hidden;
+}
+.persona-panel .regional-journey-card .persona-card-main{
+  grid-template-columns:36px minmax(0,1fr);
+  gap:10px;
+  align-items:center;
+}
+.persona-panel .regional-journey-card .persona-avatar{width:36px;height:36px}
+.persona-panel .regional-journey-card .persona-top b{font-size:.80rem;line-height:1.2}
+.persona-panel .regional-journey-card .persona-card p{font-size:.65rem}
+.persona-panel .regional-journey-card .journey-description{
+  display:block;
+  font-size:.67rem;
+  line-height:1.27;
+  margin-top:3px;
+}
+.persona-panel .regional-journey-card .journey-route-label{
+  margin-left:46px;
+  font-size:.58rem;
+  line-height:1.18;
+}
+.persona-panel .trust-destinations{
+  display:flex;
+  flex-direction:column;
+  min-height:0;
+  gap:8px;
+  padding:11px 2px 0;
+  overflow:hidden;
+}
+.persona-panel .trust-destinations-heading{flex:0 0 auto;gap:4px}
+.persona-panel .trust-destinations-heading strong{font-size:.86rem}
+.persona-panel .trust-destinations-heading span{font-size:.68rem;line-height:1.32}
+.persona-panel .trust-destination-list{
+  flex:1 1 auto;
+  display:grid;
+  grid-template-rows:repeat(2,minmax(0,1fr));
+  min-height:0;
+  gap:8px;
+}
+.persona-panel .trust-destination-item{
+  display:flex;
+  align-items:center;
+  min-height:0;
+  padding:9px 11px;
+  gap:10px;
+}
+.persona-panel .trust-destination-copy{gap:3px}
+.persona-panel .trust-destination-copy b{font-size:.79rem}
+.persona-panel .trust-destination-copy small{font-size:.68rem;line-height:1.22}
+.persona-panel .trust-destination-explainer{
+  display:block;
+  font-size:.64rem;
+  line-height:1.25;
+  color:var(--muted);
+}
+@media(min-width:1280px) and (min-height:760px){
+  .persona-panel .persona-list{
+    display:grid;
+    grid-template-rows:minmax(0,1.12fr) minmax(0,1.12fr) minmax(0,2.03fr) minmax(0,1.67fr);
+    justify-content:stretch;
+    align-content:stretch;
+    gap:clamp(8px,1.2vh,13px);
+  }
+  .persona-panel .primary-journey-card{
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+    gap:7px;
+    padding:13px 15px;
+  }
+  .persona-panel .primary-journey-card .persona-card-main{grid-template-columns:42px minmax(0,1fr)}
+  .persona-panel .primary-journey-card .journey-description{font-size:clamp(.66rem,.62vw,.75rem)}
+  .persona-panel .regional-journey-group{padding:13px;gap:9px}
+  .persona-panel .regional-journey-cards{grid-template-rows:repeat(2,minmax(0,1fr))}
+  .persona-panel .regional-journey-card{display:flex;flex-direction:column;justify-content:center;padding:10px 12px}
+  .persona-panel .regional-journey-card .persona-card-main{grid-template-columns:36px minmax(0,1fr)}
+  .persona-panel .trust-destinations{padding-top:11px;gap:8px}
+  .persona-panel .trust-destination-list{grid-template-rows:repeat(2,minmax(0,1fr))}
+  .persona-panel .trust-destination-item{padding:9px 11px}
+}
+@media(min-width:1280px) and (min-height:760px) and (max-height:850px){
+  .persona-panel .persona-list{gap:7px;grid-template-rows:minmax(0,1.17fr) minmax(0,1.17fr) minmax(0,2.06fr) minmax(0,1.58fr)}
+  .persona-panel .primary-journey-card{padding:9px 11px;gap:4px}
+  .persona-panel .primary-journey-card .persona-card-main{grid-template-columns:35px minmax(0,1fr);gap:8px}
+  .persona-panel .primary-journey-card .persona-avatar{width:35px;height:35px}
+  .persona-panel .primary-journey-card .journey-description{font-size:.63rem;line-height:1.22;margin-top:3px}
+  .persona-panel .journey-route-label{font-size:.55rem}
+  .persona-panel .journey-footer{gap:4px}
+  .persona-panel .regional-journey-group{padding:9px;gap:6px}
+  .persona-panel .regional-journey-heading strong{font-size:.79rem}
+  .persona-panel .regional-journey-heading span{font-size:.61rem;line-height:1.19}
+  .persona-panel .regional-journey-cards{gap:5px}
+  .persona-panel .regional-journey-card{padding:7px 9px;gap:3px}
+  .persona-panel .regional-journey-card .persona-card-main{grid-template-columns:29px minmax(0,1fr);gap:8px}
+  .persona-panel .regional-journey-card .persona-avatar{width:29px;height:29px}
+  .persona-panel .regional-journey-card .persona-top b{font-size:.72rem}
+  .persona-panel .regional-journey-card p{font-size:.60rem}
+  .persona-panel .regional-journey-card .journey-description{font-size:.61rem;line-height:1.18;margin-top:2px}
+  .persona-panel .regional-journey-card .journey-route-label{margin-left:37px;font-size:.53rem}
+  .persona-panel .trust-destinations{padding-top:7px;gap:5px}
+  .persona-panel .trust-destinations-heading strong{font-size:.78rem}
+  .persona-panel .trust-destinations-heading span{font-size:.60rem}
+  .persona-panel .trust-destination-list{gap:5px}
+  .persona-panel .trust-destination-item{padding:6px 9px;gap:7px}
+  .persona-panel .trust-destination-mark{width:27px;height:27px;flex-basis:27px}
+  .persona-panel .trust-destination-copy b{font-size:.73rem}
+  .persona-panel .trust-destination-copy small{font-size:.62rem}
+  .persona-panel .trust-destination-explainer{font-size:.58rem;line-height:1.14}
+}
+@media(max-width:1279px){
+  .persona-panel .persona-list{display:flex;flex-direction:column;gap:11px}
+  .persona-panel .regional-journey-cards{display:grid;grid-template-rows:none}
+  .persona-panel .regional-journey-card{padding:11px 12px}
+  .persona-panel .trust-destination-list{display:grid;grid-template-rows:none}
+  .persona-panel .trust-destination-item{padding:11px 12px}
+}

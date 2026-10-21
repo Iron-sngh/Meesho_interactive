@@ -25,7 +25,7 @@ Use **Show click map** to reveal interactive regions. **Restart journey** return
 
 ## Persona journeys
 
-The left rail presents four shopper journeys in the order recommended for the DICE walkthrough, followed by two **trust destination screens**. Mall and MTrusted are not additional demographic personas: both are reachable directly through Categories and contextual entry points throughout the phone experience.
+The left rail presents four shopper journeys in a space-efficient presentation layout, starting with everyday needs and familiar female shopping. A paired regional/seasonal section follows, then two **trust experiences** shared across journeys. Mall and MTrusted are not additional demographic personas: both are reachable directly through Categories and contextual entry points throughout the phone experience.
 
 ### 1. Aarav — Everyday Needs Missions
 A value-conscious shopper exploring fashion, grooming, home essentials and electronics & accessories through purpose-led choices.
@@ -45,7 +45,7 @@ A returning female shopper whose familiar shopping habits and categories remain 
 
 ### Regional & Festive Discovery
 
-Two regional/occasion-led examples share one group because both demonstrate how lightweight context can help product discovery without changing the fundamental Meesho interface.
+Lightweight region and occasion context prioritises relevant products without creating separate storefronts or replacing familiar navigation. The two journeys illustrate this through Bihar's Chhath needs and Assam's regional/seasonal edit.
 
 **Rohit — Chhath Festival Mission (Bihar)**  
 Regional seasonal shopping for Chhath needs, festive apparel, home preparation and household gifting.
@@ -53,7 +53,7 @@ Regional seasonal shopping for Chhath needs, festive apparel, home preparation a
 **Nayan — Assam Festive Mission**  
 Illustrative Assam regional and seasonal discovery, using contextual missions and product ordering.
 
-### Trust destination screens (not shopper personas)
+### Shared trust experiences (not shopper personas)
 
 **MTrusted — Marketplace-quality trust**  
 Explains seller, listing-quality and buyer-experience confidence.

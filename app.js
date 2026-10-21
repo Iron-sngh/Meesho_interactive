@@ -2526,32 +2526,66 @@ const routes = {
 
 function renderPersonas() {
   const root = $('#persona-list');
+  // Presentation ordering only; existing persona routes and product flows stay intact.
+  const journeyCopy = {
+    college: {
+      title: 'Everyday Needs Missions',
+      subtitle: 'Aarav · Everyday shopper',
+      description: 'Shop by need and occasion, then check product details, reviews and seller proof before buying.',
+      tags: ['Guided discovery', 'Proof-first shopping'],
+      path: 'NEED → PURPOSE → CONFIDENT ORDER'
+    },
+    female: {
+      title: 'Familiar Shopping & Confidence',
+      subtitle: 'Ananya · Returning female shopper',
+      description: 'Keep familiar categories and shopping habits, with optional missions and clearer trust signals for everyone.',
+      tags: ['Familiar experience', 'Universal trust'],
+      path: 'FAMILIAR CHOICES → CLEARER PROOF'
+    },
+    chhath: {
+      title: 'Bihar · Chhath Festive Edit',
+      subtitle: 'Rohit · Festival-led shopping',
+      description: 'Puja preparation, festive wear and family gifting in one relevant seasonal journey.',
+      path: 'FESTIVAL NEED → FESTIVE PICKS'
+    },
+    assam: {
+      title: 'Assam · Regional Context',
+      subtitle: 'Nayan · Regional and seasonal shopping',
+      description: 'Regional context brings useful categories and seasonal picks forward without a separate storefront.',
+      path: 'LOCAL CONTEXT → RELEVANT PICKS'
+    }
+  };
   const primaryIds = ['college', 'female'];
   const regionalIds = ['chhath', 'assam'];
   const trustScreens = [
     { id: 'mtrusted', title: 'MTrusted', label: 'Marketplace-quality trust',
-      description: 'Seller and listing-quality signals', mark: 'MT' },
-    { id: 'mall', title: 'Meesho Mall', label: 'Brand & provenance trust',
-      description: 'Brand and source confidence', mark: 'M' }
+      description: 'Evaluate seller and listing-quality signals.', mark: 'MT' },
+    { id: 'mall', title: 'Meesho Mall', label: 'Brand & source trust',
+      description: 'Understand brand and provenance assurance.', mark: 'M' }
   ];
 
   const journeyCard = (id, compact = false) => {
     const persona = personas[id];
+    const copy = journeyCopy[id];
     const active = state.persona === id;
     return `
       <button type="button" class="persona-card journey-card ${compact ? 'regional-journey-card' : 'primary-journey-card'} ${active ? 'active' : ''}"
-        data-persona="${id}" aria-pressed="${active}" aria-label="Open ${persona.title} journey">
+        data-persona="${id}" aria-pressed="${active}" aria-label="Open ${copy.title} journey">
         <div class="persona-card-main">
           <img class="persona-avatar" src="${asset(persona.avatar)}" alt="" loading="lazy">
           <div class="persona-card-copy">
-            <div class="persona-top"><b>${persona.title}</b>
+            <div class="persona-top"><b>${copy.title}</b>
               ${!compact ? `<span class="badge-pill">${active ? 'Viewing' : 'Explore'}</span>` : ''}
             </div>
-            <p>${persona.subtitle}</p>
-            ${!compact ? `<span class="journey-description">${persona.summary}</span>` : ''}
+            <p>${copy.subtitle}</p>
+            <span class="journey-description">${copy.description}</span>
           </div>
         </div>
-        ${!compact ? `<div class="persona-tags">${persona.tags.slice(0, 2).map(tag => `<span class="persona-tag">${tag}</span>`).join('')}</div>` : ''}
+        ${compact ? `<span class="journey-route-label">${copy.path}</span>` : `
+          <div class="journey-footer">
+            <span class="journey-route-label">${copy.path}</span>
+            <div class="persona-tags">${copy.tags.map(tag => `<span class="persona-tag">${tag}</span>`).join('')}</div>
+          </div>`}
       </button>`;
   };
 
@@ -2560,7 +2594,7 @@ function renderPersonas() {
     <section class="regional-journey-group" aria-label="Regional and festive shopper journeys">
       <div class="regional-journey-heading">
         <strong>Regional & Festive Discovery</strong>
-        <span>Context-led homepages · familiar Meesho flow</span>
+        <span>Relevant local and occasion-led picks, within the same Meesho experience.</span>
       </div>
       <div class="regional-journey-cards">
         ${regionalIds.map(id => journeyCard(id, true)).join('')}
@@ -2568,8 +2602,8 @@ function renderPersonas() {
     </section>
     <section class="trust-destinations" aria-label="Trust destination screens">
       <div class="trust-destinations-heading">
-        <strong>Trust Destinations</strong>
-        <span>Also accessible through Categories</span>
+        <strong>Trust Experiences</strong>
+        <span>Available from Categories and product journeys — not separate personas.</span>
       </div>
       <div class="trust-destination-list">
         ${trustScreens.map(screen => {
@@ -2577,10 +2611,11 @@ function renderPersonas() {
             ? state.route === personas[screen.id].entryRoute
             : state.persona === screen.id;
           return `<button type="button" class="trust-destination-item ${active ? 'active' : ''}"
-            data-trust-screen="${screen.id}" aria-pressed="${active}" aria-label="Open ${screen.title} trust destination">
+            data-trust-screen="${screen.id}" aria-pressed="${active}" aria-label="Open ${screen.title} trust experience">
             <span class="trust-destination-mark" aria-hidden="true">${screen.mark}</span>
             <span class="trust-destination-copy"><b>${screen.title}</b>
               <small>${screen.label}</small>
+              <span class="trust-destination-explainer">${screen.description}</span>
             </span>
             <span class="trust-destination-arrow" aria-hidden="true">→</span>
           </button>`;
