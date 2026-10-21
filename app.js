@@ -1026,6 +1026,56 @@ function searchScreen() {
   });
 }
 
+// Prototype sample ratings: eight illustrative buyer responses per attribute.
+// These are calculated examples, not a live Meesho review dataset.
+const reviewSamples = {
+  chhath: {Fit:[5,4,4,5,4,3,5,4],Material:[4,4,5,4,4,3,5,4],Colour:[5,4,5,5,4,4,5,4],Quality:[4,5,5,4,4,4,5,4]},
+  assam: {Fit:[4,5,4,4,5,4,4,5],Material:[4,4,4,5,4,4,3,5],Colour:[4,5,4,4,4,5,4,4],Quality:[5,4,5,4,4,5,4,5]},
+  mtrusted: {Fit:[4,5,4,4,4,5,4,5],Material:[5,4,4,4,4,5,4,4],Colour:[4,4,5,4,4,3,4,4],Quality:[4,5,4,5,4,4,5,4]},
+  college: {Fit:[4,4,3,5,4,4,4,4],Material:[4,4,4,3,5,4,3,4],Colour:[4,5,4,4,4,4,5,4],Quality:[5,4,4,4,4,5,4,4]},
+  grooming: {Packaging:[5,4,5,4,5,4,5,4],Usage:[4,5,4,4,5,4,4,4],Quality:[4,5,5,4,5,4,5,4],Value:[4,4,4,5,4,4,3,5]},
+  utility: {Function:[4,5,4,4,4,5,4,4],Build:[4,4,4,5,3,4,4,4],Listing:[5,4,4,5,4,4,4,4],Value:[4,4,5,4,4,3,5,4]}
+};
+const reviewPhrases = {
+  Fit:['Consistently true to size','Mostly true to size','Generally fits as expected','Fit varies across buyers'],
+  Material:['Fabric gets strong feedback','Mostly matches the listing','Generally meets expectations','Mixed feedback on fabric'],
+  Colour:['Colour matches photos closely','Mostly matches the photos','Usually similar to photos','Colour feedback varies'],
+  Quality:['Quality is highly rated','Quality is mostly positive','Generally positive quality feedback','Quality feedback is mixed'],
+  Packaging:['Packaging is consistently praised','Usually arrives well packed','Generally packed well','Packaging feedback varies'],
+  Usage:['Easy to use for most buyers','Works well for daily use','Generally easy to use','Usage feedback is mixed'],
+  Value:['Excellent value feedback','Good value for the price','Generally seen as fair value','Opinions on value vary'],
+  Function:['Works very consistently','Works as expected for most','Generally performs as expected','Function feedback varies'],
+  Build:['Build quality gets strong praise','Build feels mostly reliable','Generally acceptable construction','Build feedback is mixed'],
+  Listing:['Closely matches the listing','Mostly as described','Generally matches the listing','Listing-match feedback varies']
+};
+function getReviewThemes(product) {
+  const samples = product.kind === 'grooming' ? reviewSamples.grooming
+    : product.kind === 'utility' ? reviewSamples.utility
+    : reviewSamples[state.persona] || reviewSamples.mtrusted;
+  return Object.entries(samples).map(([label, ratings]) => {
+    const rating = ratings.reduce((total, n) => total + n, 0) / ratings.length;
+    const phrases = reviewPhrases[label];
+    const summary = phrases[rating >= 4.5 ? 0 : rating >= 4.1 ? 1 : rating >= 3.7 ? 2 : 3];
+    return {label, rating, count:ratings.length, summary};
+  });
+}
+function reviewThemeCards(themes) {
+  return `
+    <div class="review-pill-grid">
+      ${themes.map(item => `
+        <div class="review-pill">
+          <b>${item.label}</b>
+          <div class="review-rating-line">
+            <span class="review-rating-stars" style="--review-fill:${(item.rating / 5) * 100}%" aria-label="${item.rating.toFixed(1)} out of 5 stars">★★★★★</span>
+            <strong class="review-rating-score">${item.rating.toFixed(1)}/5</strong>
+          </div>
+          <span class="review-rating-summary">${item.summary}</span>
+        </div>`).join('')}
+    </div>
+    <p class="review-sample-note">Illustrative prototype data · ${themes[0]?.count || 0} sample ratings per attribute, not live Meesho reviews.</p>
+  `;
+}
+
 function pdpCore() {
   const p = selectedProduct();
   const isBlackShirt = /black.*shirt|shirt.*black|regular fit casual shirt/i.test(p.title) || p.image.includes('prod_black_shirt');
@@ -1038,9 +1088,7 @@ function pdpCore() {
         ['products/shirt_button_detail.webp', 'Construction detail', 'product-details']
       ]
     : [[p.image.replace(/^assets\//,''), 'Product view', 'product-details']];
-  const reviewThemes = p.kind === 'grooming'
-    ? [['Packaging','Arrived well packed'],['Usage','Easy everyday routine'],['Quality','Mostly positive'],['Value','Good for the price']]
-    : [['Fit','Mostly true to size'],['Material','Matches listing well'],['Colour','Generally matches images'],['Quality','Mostly positive']];
+  const reviewThemes = getReviewThemes(p);
   const sellerName = p.kind === 'grooming' ? 'Mall Partner Store' : 'XYZ Fashion';
   return phoneTemplate({
     nav: 'home',
@@ -1075,8 +1123,8 @@ function pdpCore() {
       </div>
 
       <div class="info-card info-card-button" data-go="reviews" role="button" tabindex="0">
-        ${sectionHeader('Customers say', 'Summarised from verified buyer feedback', 'Review intelligence', 'reviews')}
-        <div class="review-pill-grid">${reviewThemes.map(([k,v]) => `<div class="review-pill"><b>${k}</b><span>${v}</span></div>`).join('')}</div>
+        ${sectionHeader('Customers say', 'Review scores by product attribute', 'Review intelligence', 'reviews')}
+        ${reviewThemeCards(reviewThemes)}
         <div class="buyer-avatar-row">${[1,2,3,4].map(i => `<img src="${buyerAvatar(i)}" alt="Verified buyer ${i}">`).join('')}<span>Verified buyer reviews</span></div>
       </div>
 
@@ -1138,13 +1186,14 @@ function sellerProfile() {
 
 function reviewsScreen() {
   const p = selectedProduct();
+  const reviewThemes = getReviewThemes(p);
   const isBlackShirt = /black.*shirt|shirt.*black|regular fit casual shirt/i.test(p.title) || p.image.includes('prod_black_shirt');
   return phoneTemplate({
     nav: 'home',
     ctas: ctaBar({ label: 'Back to PDP', route: 'pdp-core' }, { label: 'See buyer gallery', route: 'ugc-gallery' }),
     content: `
       ${appBar({ brand: false, title: 'REVIEW INTELLIGENCE', subtitle: p.title, searchText: 'Search reviews', backRoute: 'pdp-core' })}
-      <div class="list-card"><h4>What verified buyers are saying</h4><div class="detail-tags"><span class="detail-tag">Quality: mostly positive</span><span class="detail-tag">Value: good for price</span><span class="detail-tag">Listing match: strong</span><span class="detail-tag">Delivery: generally reliable</span></div></div>
+      <div class="list-card"><h4>Review intelligence by attribute</h4>${reviewThemeCards(reviewThemes)}</div>
       <div class="list-card"><h4>Pros & watch-outs</h4><div class="two-up"><div class="mini-card"><h4>Pros</h4><p>Good value, clear listing information and a dependable first impression.</p></div><div class="mini-card"><h4>Watch-outs</h4><p>Check the selected variant and category-specific details before ordering.</p></div></div></div>
       <div class="list-card"><h4>Traceable reviews</h4><div class="review-feed">${[1,2,3].map((i) => `<article class="review-feed-card"><img class="reviewer-avatar" src="${buyerAvatar(i)}" alt="Verified buyer"><div><b>Verified buyer</b><small>Verified Purchase</small><p>${i===1?'“Matched the listing well and felt worth the price.”':i===2?'“The details helped me know what to expect before ordering.”':'“Delivery and packaging were straightforward.”'}</p></div>${isBlackShirt ? `<img class="review-proof-thumb" src="${asset(`reviews/ugc_black_shirt_0${i}.webp`)}" alt="Buyer proof">` : `<img class="review-proof-thumb" src="${p.image}" alt="${p.title}">`}</article>`).join('')}</div></div>
     `

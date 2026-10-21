@@ -2415,3 +2415,21 @@ img { display:block; max-width:100%; }
   .detail-panel #detail-panel .kpi-index { margin-bottom: 3px; }
   .detail-panel #detail-panel .detail-stat > span:last-child { font-size: .72rem; }
 }
+
+/* Attribute-level review intelligence, shared by PDP and the reviews screen. */
+.review-pill { min-width: 0; }
+.review-rating-line { display:flex; align-items:center; gap:7px; flex-wrap:nowrap; margin-top:7px; }
+.review-rating-stars {
+  display:inline-block; flex:0 0 auto; font-size:.88rem; line-height:1; letter-spacing:-.065em;
+  background:linear-gradient(90deg,#da9720 var(--review-fill),#ded5e1 var(--review-fill));
+  background-clip:text; -webkit-background-clip:text; color:transparent; -webkit-text-fill-color:transparent;
+}
+.review-rating-score {
+  flex:0 0 auto; color:#392744; font-size:.7rem; line-height:1.1;
+  font-weight:800; font-variant-numeric:tabular-nums;
+}
+.review-pill .review-rating-summary {
+  display:block; margin-top:7px; color:var(--muted); font-size:.68rem;
+  line-height:1.3; overflow-wrap:break-word;
+}
+.review-sample-note { margin:8px 0 0; color:var(--muted); font-size:.61rem; line-height:1.35; }
