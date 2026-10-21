@@ -6,6 +6,8 @@ const state = {
   cartItems: [],
   groupCreated: false,
   styleMission: 'casual',
+  missionDomain: null,
+  missionTask: null,
   product: { title: 'Printed Kurta Set', price: 699, image: 'assets/chhath/chhath_kurta.webp', kind: 'fashion' }
 };
 
@@ -48,23 +50,31 @@ const personas = {
   },
   college: {
     id: 'college',
-    title: 'Men’s Style Missions',
-    subtitle: 'Aarav · occasion-led fashion shopper',
-    summary: 'Outfit discovery for college essentials, office wear, everyday casuals and party plans, with fit, seller and review proof before purchase.',
+    title: 'Everyday Needs Missions',
+    subtitle: 'Aarav · purpose-led everyday shopper',
+    summary: 'Guided discovery across fashion, grooming, home essentials and electronics & accessories, with proof-first evaluation before purchase.',
     entryRoute: 'college-home',
-    tags: ['Shop by occasion', 'Outfit building', 'Proof-first PDP'],
+    tags: ['Shop by need', 'Guided missions', 'Proof-first PDP'],
     avatar: 'profiles/profile_avatar_aarav.webp'
   }
 };
 
 const routeMeta = {
   'college-home': {
-    label: 'Home · Men’s Style Missions',
-    title: 'Men’s occasion-led discovery',
-    persona: 'Men’s Style Missions',
-    summary: 'Shopping starts with the occasion—college, office, casual days or parties—then narrows to relevant styles, seller confidence and product proof.',
-    keySignals: ['Four occasion-led entries', 'Mission-matched assortments', 'Mall and MTrusted trust routes', 'Outfit completion'],
-    kpi: ['Occasion selection', 'Relevant PDP visits', 'PDP → ATC']
+    label: 'Home · Everyday Needs Missions',
+    title: 'Choose a need, then a purpose',
+    persona: 'Everyday Needs Missions',
+    summary: 'Four familiar shopping needs lead into simple purpose-led choices. Product shortlists connect to the existing proof-first PDP, review intelligence and explainable trust destinations.',
+    keySignals: ['Fashion, grooming, home and electronics', 'Progressive two-step discovery', 'Relevant shortlists', 'Trust and product proof'],
+    kpi: ['Need-to-mission selection', 'Mission-to-PDP CTR', 'PDP → ATC']
+  },
+  'mission-results': {
+    label: 'Results · Guided mission',
+    title: 'Need-matched product shortlist',
+    persona: 'Everyday Needs Missions',
+    summary: 'A selected everyday purpose narrows the illustrative assortment while keeping product evaluation and trust routes available.',
+    keySignals: ['Purpose-specific shortlist', 'Easy mission switching', 'Proof-first PDP', 'Mall and MTrusted explanation'],
+    kpi: ['Mission-to-PDP CTR', 'Relevant PDP visits', 'PDP → ATC']
   },
   'assam-home': {
     label: 'Home · Assam Festive',
@@ -653,57 +663,234 @@ function styleMissionButtons(className = 'style-mission-grid') {
     </button>`).join('')}</div>`;
 }
 
+
+// A two-step mission entry: first the everyday need, then the purpose.
+// Products and photography below deliberately reuse assets already in this repo.
+const missionDomains = {
+  fashion: {
+    title: 'Fashion & Style', subtitle: 'Dress for college, work and occasions',
+    image: 'categories/cat_mens_fashion.webp',
+    question: 'What are you dressing for?',
+    helper: 'Choose an occasion to narrow the looks and keep fit and review proof close.',
+    tasks: styleMissions
+  },
+  grooming: {
+    title: 'Grooming & Self-Care', subtitle: 'Everyday routines, simplified',
+    image: 'categories/cat_grooming.webp',
+    question: 'What does your routine need?',
+    helper: 'Choose a grooming task, then compare the right product details and source confidence.',
+    tasks: {
+      face: {
+        title: 'Daily Face Care', subtitle: 'Freshen up your routine',
+        image: 'mall/mall_facewash.webp',
+        description: 'Straightforward face-care essentials with pack, usage and source information to check.',
+        picks: [
+          { title: 'Daily Face Wash', price: 199, image: 'mall/mall_facewash.webp' },
+          { title: 'Shaving Kit', price: 329, image: 'mall/mall_shaving_kit.webp' },
+          { title: 'Beard Grooming Oil', price: 259, image: 'mall/mall_beard_oil.webp' }
+        ]
+      },
+      shave: {
+        title: 'Beard & Shaving', subtitle: 'Keep a neat routine',
+        image: 'mall/mall_shaving_kit.webp',
+        description: 'Shaving and beard-care products selected for an easy, repeatable routine.',
+        picks: [
+          { title: 'Shaving Kit', price: 329, image: 'mall/mall_shaving_kit.webp' },
+          { title: 'Beard Grooming Oil', price: 259, image: 'mall/mall_beard_oil.webp' },
+          { title: 'Daily Face Wash', price: 199, image: 'mall/mall_facewash.webp' }
+        ]
+      },
+      fresh: {
+        title: 'Stay Fresh', subtitle: 'Workdays & active days',
+        image: 'mall/mall_deodorant.webp',
+        description: 'Everyday freshness products, with pack and usage details visible before purchase.',
+        picks: [
+          { title: 'Body Spray', price: 219, image: 'mall/mall_deodorant.webp' },
+          { title: 'Daily Face Wash', price: 199, image: 'mall/mall_facewash.webp' },
+          { title: 'Beard Grooming Oil', price: 259, image: 'mall/mall_beard_oil.webp' }
+        ]
+      },
+      routine: {
+        title: 'Complete My Routine', subtitle: 'Useful grooming combinations',
+        image: 'mall/mall_grooming_banner.webp',
+        description: 'A small, practical shortlist for building a consistent grooming routine.',
+        picks: [
+          { title: 'Daily Face Wash', price: 199, image: 'mall/mall_facewash.webp' },
+          { title: 'Body Spray', price: 219, image: 'mall/mall_deodorant.webp' },
+          { title: 'Shaving Kit', price: 329, image: 'mall/mall_shaving_kit.webp' },
+          { title: 'Beard Grooming Oil', price: 259, image: 'mall/mall_beard_oil.webp' }
+        ]
+      }
+    }
+  },
+  home: {
+    title: 'Home Essentials', subtitle: 'Useful finds for your space',
+    image: 'categories/cat_home.webp',
+    question: 'What are you preparing at home?',
+    helper: 'Start with a practical home need instead of sorting through an endless feed.',
+    tasks: {
+      refresh: {
+        title: 'Refresh My Space', subtitle: 'Simple room updates',
+        image: 'assam/assam_decor_set.webp',
+        description: 'Accessible decor picks for a small room refresh.',
+        picks: [
+          { title: 'Home Decor Set', price: 299, image: 'assam/assam_decor_set.webp' },
+          { title: 'Celebration Decor Pack', price: 349, image: 'chhath/chhath_decor_pack.webp' },
+          { title: 'Everyday Home Essentials', price: 399, image: 'categories/cat_home.webp' }
+        ]
+      },
+      utility: {
+        title: 'Everyday Home Utility', subtitle: 'Practical daily needs',
+        image: 'categories/cat_home.webp',
+        description: 'Useful home and storage-friendly everyday finds.',
+        picks: [
+          { title: 'Everyday Home Essentials', price: 399, image: 'categories/cat_home.webp' },
+          { title: 'Travel Utility Kit', price: 249, image: 'assam/assam_travel_kit.webp' },
+          { title: 'Utility Pouch', price: 199, image: 'chhath/chhath_travel_pouch.webp' }
+        ]
+      },
+      hosting: {
+        title: 'Hosting & Gatherings', subtitle: 'Prepare for visitors',
+        image: 'chhath/chhath_decor_pack.webp',
+        description: 'A focused mix of decor and gifting picks for hosting at home.',
+        picks: [
+          { title: 'Celebration Decor Pack', price: 349, image: 'chhath/chhath_decor_pack.webp' },
+          { title: 'Home Decor Set', price: 299, image: 'assam/assam_decor_set.webp' },
+          { title: 'Gift Hamper', price: 499, image: 'chhath/chhath_gift_hamper.webp' }
+        ]
+      },
+      gifting: {
+        title: 'Thoughtful Home Gifts', subtitle: 'Useful gifts & small occasions',
+        image: 'chhath/chhath_gift_hamper.webp',
+        description: 'Practical gifts that can be evaluated by contents, photos and seller information.',
+        picks: [
+          { title: 'Gift Hamper', price: 499, image: 'chhath/chhath_gift_hamper.webp' },
+          { title: 'Self-Care Gift Box', price: 449, image: 'assam/assam_selfcare_gift.webp' },
+          { title: 'Home Decor Set', price: 299, image: 'assam/assam_decor_set.webp' }
+        ]
+      }
+    }
+  },
+  electronics: {
+    title: 'Electronics & Accessories', subtitle: 'Tech, work and everyday carry',
+    image: 'categories/cat_electronics.webp',
+    question: 'What would help your day?',
+    helper: 'Find the right accessories for daily routines, work or going out.',
+    tasks: {
+      tech: {
+        title: 'Everyday Tech', subtitle: 'Small useful accessories',
+        image: 'categories/cat_electronics.webp',
+        description: 'An introductory tech-accessories edit; check compatibility and specifications on the listing.',
+        picks: [
+          { title: 'Everyday Tech Accessories', price: 299, image: 'categories/cat_electronics.webp' },
+          { title: 'Minimal Backpack', price: 499, image: 'products/prod_backpack.webp' },
+          { title: 'Analog Watch', price: 399, image: 'products/prod_watch.webp' }
+        ]
+      },
+      work: {
+        title: 'Work & Study Setup', subtitle: 'Keep essentials at hand',
+        image: 'categories/cat_electronics.webp',
+        description: 'Daily setup and carry essentials for work or study.',
+        picks: [
+          { title: 'Everyday Tech Accessories', price: 299, image: 'categories/cat_electronics.webp' },
+          { title: 'Minimal Backpack', price: 499, image: 'products/prod_backpack.webp' },
+          { title: 'Analog Watch', price: 399, image: 'products/prod_watch.webp' }
+        ]
+      },
+      carry: {
+        title: 'On-the-Go Accessories', subtitle: 'Commute & travel',
+        image: 'products/prod_backpack.webp',
+        description: 'Compact everyday accessories for a commute or an overnight trip.',
+        picks: [
+          { title: 'Minimal Backpack', price: 499, image: 'products/prod_backpack.webp' },
+          { title: 'Utility Pouch', price: 199, image: 'chhath/chhath_travel_pouch.webp' },
+          { title: 'Analog Watch', price: 399, image: 'products/prod_watch.webp' }
+        ]
+      },
+      watches: {
+        title: 'Watches & Daily Add-ons', subtitle: 'Finish your everyday setup',
+        image: 'products/prod_watch.webp',
+        description: 'Straightforward wearable and carry accessories for day-to-day use.',
+        picks: [
+          { title: 'Analog Watch', price: 399, image: 'products/prod_watch.webp' },
+          { title: 'Minimal Backpack', price: 499, image: 'products/prod_backpack.webp' },
+          { title: 'Everyday Tech Accessories', price: 299, image: 'categories/cat_electronics.webp' }
+        ]
+      }
+    }
+  }
+};
+
+function missionDomainButtons() {
+  return `<div class="need-domain-grid">${Object.entries(missionDomains).map(([id,domain]) => `
+    <button type="button" class="need-domain-card ${state.missionDomain === id ? 'active' : ''}" data-mission-domain="${id}" aria-pressed="${state.missionDomain === id}" aria-controls="mission-step-two">
+      <img src="${asset(domain.image)}" alt="" loading="lazy" decoding="async">
+      <span class="need-domain-copy"><b>${domain.title}</b><small>${domain.subtitle}</small></span>
+    </button>`).join('')}</div>`;
+}
+
+function missionTaskButtons(domainId) {
+  if (domainId === 'fashion') return styleMissionButtons();
+  const domain = missionDomains[domainId];
+  return `<div class="style-mission-grid">${Object.entries(domain.tasks).map(([id,task]) => `
+    <button class="style-mission-card" data-go="mission-results" data-mission-task="${id}" aria-label="Explore ${task.title}">
+      <img src="${asset(task.image)}" alt="" loading="lazy" decoding="async">
+      <span class="style-mission-copy"><b>${task.title}</b><small>${task.subtitle}</small></span>
+    </button>`).join('')}</div>`;
+}
+
+function missionStepPanel() {
+  const domain = missionDomains[state.missionDomain];
+  if (!domain) return '';
+  return `<section class="screen-section" id="mission-step-two" aria-label="Choose your shopping mission">
+    <div class="need-step-panel">
+      <div class="need-step-eyebrow">STEP 2 OF 2 · CHOOSE YOUR PURPOSE</div>
+      ${sectionHeader(domain.question, domain.helper, '', '')}
+      ${missionTaskButtons(state.missionDomain)}
+      <p class="need-step-footnote">Next: see relevant picks and open product details, reviews and seller evidence.</p>
+    </div>
+  </section>`;
+}
+
 function collegeHome() {
   return phoneTemplate({
     nav: 'home',
     content: `
-      ${appBar({
-        brand: true,
-        searchText: 'Search styles, occasions or essentials'
-      })}
+      ${appBar({ brand: true, searchText: 'Search by need, product or occasion' })}
       <section class="screen-section">
-        ${sectionHeader('What are you dressing for?', 'Start with your occasion, then find the right products and proof.', '', '')}
-        ${styleMissionButtons()}
+        <div class="need-step-eyebrow">STEP 1 OF 2 · CHOOSE A SHOPPING NEED</div>
+        ${sectionHeader('What do you need today?', 'Start with a need. We’ll help you narrow it to a useful shortlist.', '', '')}
+        ${missionDomainButtons()}
       </section>
-
+      ${missionStepPanel()}
       <section class="screen-section">
-        ${sectionHeader('Style that fits your day', 'College · Office · Everyday · Occasion', 'Browse styles', 'category-fashion')}
+        ${sectionHeader('Essentials for different plans', 'From what you wear to what you use every day.', 'Browse fashion', 'category-fashion')}
         <div class="hero-banner photo-hero" ${heroStyle('college/college_hero_banner.webp', 'center')}>
           <div class="hero-copy-card">
-            <span class="eyebrow-inline">Dress for your plans</span>
-            <h2>Good style starts with the right fit</h2>
-            <p>Find dependable looks for busy days and weekend plans. Check fit, reviews and seller proof before you choose.</p>
-            <button class="hero-cta" data-go="category-fashion">Explore men's styles →</button>
+            <span class="eyebrow-inline">Purpose-led discovery</span>
+            <h2>Choose for the day ahead</h2>
+            <p>Find relevant essentials first. Check fit, product facts, reviews and seller proof before buying.</p>
+            <button class="hero-cta" data-go="category-fashion">Explore fashion missions →</button>
           </div>
         </div>
       </section>
-
       <section class="screen-section">
-        <button class="wide-promo-card" data-go="category-fashion">
-          <img src="${asset('promo_college_under499.webp')}" alt="Affordable everyday men's fashion picks" loading="lazy">
-          <div class="wide-promo-copy"><span>EVERYDAY VALUE</span><b>Style essentials under ₹499</b><small>Shirts · basics · accessories</small></div>
-        </button>
-      </section>
-
-      <section class="screen-section">
-        ${sectionHeader('Versatile wardrobe picks', 'Useful pieces across college, work and casual days.', 'See all', 'category-fashion')}
+        ${sectionHeader('Useful picks across needs', 'Everyday fashion, care, home and accessories in one experience.', '', '')}
         <div class="four-up">
-          ${productCard({ title: 'Casual Checked Shirt', price: 299, oldPrice: 449, route: 'pdp-core', badge: 'MTrusted', image: asset('products/prod_checked_shirt.webp') })}
-          ${productCard({ title: 'Regular Fit Trousers', price: 499, oldPrice: 699, route: 'pdp-core', image: asset('products/prod_trousers.webp') })}
-          ${productCard({ title: 'Everyday Sneakers', price: 699, oldPrice: 999, route: 'pdp-core', badge: 'Top rated', image: asset('products/prod_sneakers.webp') })}
-          ${productCard({ title: 'Analog Watch', price: 399, oldPrice: 599, route: 'pdp-core', image: asset('products/prod_watch.webp') })}
+          ${productCard({ title: 'Casual Checked Shirt', price: 299, oldPrice: 449, route: 'pdp-core', image: asset('products/prod_checked_shirt.webp') })}
+          ${productCard({ title: 'Daily Face Wash', price: 199, route: 'pdp-core', image: asset('mall/mall_facewash.webp') })}
+          ${productCard({ title: 'Home Decor Set', price: 299, route: 'pdp-core', image: asset('assam/assam_decor_set.webp') })}
+          ${productCard({ title: 'Analog Watch', price: 399, route: 'pdp-core', image: asset('products/prod_watch.webp') })}
         </div>
       </section>
-
       <section class="screen-section">${trustTwinCards()}</section>
-
       <section class="screen-section">
-        ${sectionHeader('Finish your look', 'Layer essentials and accessories around a product you trust.', 'See all', 'category-fashion')}
+        ${sectionHeader('Pick what matters to you', 'Simple options, followed by the product and seller information needed for a confident order.', '', '')}
         <div class="four-up">
-          ${productCard({ title: 'Black Casual Shirt', price: 749, oldPrice: 999, route: 'pdp-core', badge2: 'Less returned', image: asset('products/prod_black_shirt_main.webp') })}
-          ${productCard({ title: 'Polo Tee', price: 349, route: 'pdp-core', image: asset('products/prod_polo.webp') })}
-          ${productCard({ title: 'Minimal Backpack', price: 499, route: 'pdp-core', image: asset('products/prod_backpack.webp') })}
-          ${productCard({ title: 'Everyday Sneakers', price: 699, route: 'pdp-core', image: asset('products/prod_sneakers.webp') })}
+          ${productCard({ title: 'Regular Fit Trousers', price: 499, route: 'pdp-core', image: asset('products/prod_trousers.webp') })}
+          ${productCard({ title: 'Shaving Kit', price: 329, route: 'pdp-core', image: asset('mall/mall_shaving_kit.webp') })}
+          ${productCard({ title: 'Everyday Tech Accessories', price: 299, route: 'pdp-core', image: asset('categories/cat_electronics.webp') })}
+          ${productCard({ title: 'Everyday Home Essentials', price: 399, route: 'pdp-core', image: asset('categories/cat_home.webp') })}
         </div>
       </section>
     `
@@ -969,6 +1156,47 @@ function categoryFashion() {
     `
   });
 }
+function missionResults() {
+  const domain = missionDomains[state.missionDomain];
+  const task = domain?.tasks?.[state.missionTask];
+  if (!domain || !task || state.missionDomain === 'fashion') return collegeHome();
+  return phoneTemplate({
+    nav: 'categories',
+    content: `
+      ${appBar({
+        brand: false,
+        title: domain.title.toUpperCase(),
+        subtitle: task.title + ' · guided picks',
+        searchText: 'Search ' + domain.title.toLowerCase(),
+        backRoute: 'college-home'
+      })}
+      <section class="screen-section">
+        <div class="need-result-brief">
+          <span class="need-step-eyebrow">YOUR SELECTED MISSION</span>
+          <h3>${task.title}</h3>
+          <p>${task.description}</p>
+        </div>
+      </section>
+      <section class="screen-section">
+        ${sectionHeader('Change your purpose', 'Switch tasks without starting your search again.', '', '')}
+        <div class="style-filter-grid">
+          ${Object.entries(domain.tasks).map(([id,item]) => `<button class="style-filter-chip ${state.missionTask === id ? 'active' : ''}" data-go="mission-results" data-mission-task="${id}" aria-pressed="${state.missionTask === id}">${item.title}</button>`).join('')}
+        </div>
+      </section>
+      <section class="screen-section">
+        ${sectionHeader('Picks for ' + task.title.toLowerCase(), 'Illustrative shortlist using existing prototype products and photography.', '', '')}
+        <div class="two-up">
+          ${task.picks.map(item => productCard({ ...item, route: 'pdp-core', image: asset(item.image) })).join('')}
+        </div>
+      </section>
+      <section class="screen-section">
+        ${sectionHeader('Check the proof before you buy', 'Open a product to review its details, buyer evidence and seller information.', '', '')}
+        ${trustTwinCards()}
+      </section>
+    `
+  });
+}
+
 function categoryGrooming() {
   return phoneTemplate({
     nav: 'categories',
@@ -1736,6 +1964,7 @@ const routes = {
   'mall-home': mallHome,
   'mtrusted-home': mtrustedHome,
   'category-fashion': categoryFashion,
+  'mission-results': missionResults,
   'category-grooming': categoryGrooming,
   'category-assam': categoryAssam,
   'category-chhath': categoryChhath,
@@ -1779,15 +2008,31 @@ function renderPersonas() {
 function renderDetails() {
   const baseMeta = routeMeta[state.route] || { label: state.route, title: state.route, persona: personas[state.persona]?.title || '', summary: '', keySignals: [], kpi: [] };
   const selectedMission = styleMissions[state.styleMission] || styleMissions.casual;
-  const meta = state.persona === 'college' && state.route === 'category-fashion' ? {
-    ...baseMeta,
-    label: `Category · ${selectedMission.title}`,
-    title: `${selectedMission.title} recommendations`,
-    persona: personas.college.title,
-    summary: `${selectedMission.description} Changing the occasion updates the product shortlist; trust and review evidence remains available for each pick.`,
-    keySignals: ['Occasion switching', 'Mission-matched product ordering', 'Mall and MTrusted routes', 'Proof-first PDP access'],
-    kpi: ['Mission-to-PDP CTR', 'Relevant PDP visits', 'PDP → ATC']
-  } : baseMeta;
+  const chosenDomain = missionDomains[state.missionDomain];
+  const chosenTask = chosenDomain?.tasks?.[state.missionTask];
+  let meta = baseMeta;
+  if (state.persona === 'college' && state.route === 'college-home' && chosenDomain) {
+    meta = {
+      ...baseMeta, title: chosenDomain.title + ' · choose a purpose',
+      summary: 'The shopper selected ' + chosenDomain.title + '. The second step now offers clear tasks rather than an unexplained product feed.',
+      keySignals: ['Four familiar needs', 'Context-sensitive task cards', 'Original asset library', 'Proof-first next steps']
+    };
+  } else if (state.persona === 'college' && state.route === 'mission-results' && chosenDomain && chosenTask) {
+    meta = {
+      ...baseMeta, label: 'Results · ' + chosenTask.title,
+      title: chosenTask.title + ' recommendations', persona: personas.college.title,
+      summary: chosenTask.description + ' This shortlist links to existing product, reviews and trust screens.',
+      keySignals: ['Purpose switching', 'Need-matched product cards', 'Product and seller proof', 'Trust destinations']
+    };
+  } else if (state.persona === 'college' && state.route === 'category-fashion') {
+    meta = {
+      ...baseMeta, label: 'Category · ' + selectedMission.title,
+      title: selectedMission.title + ' recommendations', persona: personas.college.title,
+      summary: selectedMission.description + ' Changing the occasion updates the product shortlist; trust and review evidence remains available for each pick.',
+      keySignals: ['Occasion switching', 'Mission-matched product ordering', 'Mall and MTrusted routes', 'Proof-first PDP access'],
+      kpi: ['Mission-to-PDP CTR', 'Relevant PDP visits', 'PDP → ATC']
+    };
+  }
   const signals = meta.keySignals || [];
   const kpis = meta.kpi || [];
   const signalRows = Math.max(1, Math.ceil(signals.length / 2));
@@ -1861,6 +2106,8 @@ function setPersona(personaId, preserveRoute = false) {
   state.cartItems = [];
   state.groupCreated = false;
   state.styleMission = 'casual';
+  state.missionDomain = null;
+  state.missionTask = null;
   state.product = defaultProductForPersona(personaId);
   state.route = preserveRoute ? state.route : personas[personaId].entryRoute;
   renderRoute();
@@ -1996,8 +2243,40 @@ document.addEventListener('click', (event) => {
     }
   }
 
+  const missionDomainButton = event.target.closest('[data-mission-domain]');
+  if (missionDomainButton && state.persona === 'college') {
+    const domainId = missionDomainButton.dataset.missionDomain;
+    if (!missionDomains[domainId]) return;
+    const content = deviceCanvas.querySelector('.phone-content');
+    const previousTop = content?.scrollTop || 0;
+    state.missionDomain = domainId;
+    state.missionTask = null;
+    renderRoute();
+    requestAnimationFrame(() => {
+      const currentContent = deviceCanvas.querySelector('.phone-content');
+      if (currentContent) currentContent.scrollTop = previousTop;
+      deviceCanvas.querySelector('#mission-step-two')?.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+    });
+    return;
+  }
+
   const navButton = event.target.closest('[data-go]');
   if (navButton) {
+    if (state.persona === 'college' && navButton.dataset.missionTask) {
+      const taskId = navButton.dataset.missionTask;
+      if (!missionDomains[state.missionDomain]?.tasks?.[taskId] || state.missionDomain === 'fashion') return;
+      state.missionTask = taskId;
+      if (navButton.dataset.go === state.route) {
+        const previousTop = deviceCanvas.querySelector('.phone-content')?.scrollTop || 0;
+        renderRoute();
+        requestAnimationFrame(() => {
+          const currentContent = deviceCanvas.querySelector('.phone-content');
+          if (currentContent) currentContent.scrollTop = previousTop;
+        });
+        showToast(missionDomains[state.missionDomain].tasks[taskId].title + ' selected');
+        return;
+      }
+    }
     if (state.persona === 'college' && navButton.dataset.styleMission in styleMissions) {
       state.styleMission = navButton.dataset.styleMission;
       if (navButton.dataset.go === state.route) {
@@ -2048,6 +2327,8 @@ $('#restart-button').addEventListener('click', () => {
   state.cartItems = [];
   state.groupCreated = false;
   state.styleMission = 'casual';
+  state.missionDomain = null;
+  state.missionTask = null;
   state.product = defaultProductForPersona(state.persona);
   state.route = personas[state.persona].entryRoute;
   renderRoute();

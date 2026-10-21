@@ -2477,3 +2477,61 @@ img { display:block; max-width:100%; }
 .style-filter-chip:not(.active):hover,.style-filter-chip:focus-visible {
   border-color:#c7a5c8;background:#fcf8fc;
 }
+
+/* Everyday-needs persona: focused, progressive mission discovery. */
+.need-domain-grid {
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:9px;
+}
+.need-domain-card {
+  display:flex;flex-direction:column;min-width:0;padding:0;
+  border:1px solid #eae2ed;border-radius:14px;
+  background:#fff;overflow:hidden;text-align:left;cursor:pointer;
+  transition:border-color .15s,box-shadow .15s;
+}
+.need-domain-card img {
+  display:block;width:100%;height:88px;object-fit:contain;
+  object-position:center;background:#faf7fb;
+}
+.need-domain-copy {display:block;padding:10px;min-width:0;}
+.need-domain-copy b {
+  display:block;font-size:.75rem;line-height:1.24;color:var(--text);
+  overflow-wrap:break-word;
+}
+.need-domain-copy small {
+  display:block;margin-top:4px;color:var(--muted);
+  font-size:.63rem;line-height:1.28;overflow-wrap:break-word;
+}
+.need-domain-card.active,.need-domain-card:hover,.need-domain-card:focus-visible {
+  border-color:#af478f;box-shadow:0 0 0 2px rgba(159,32,137,.07);
+}
+.need-domain-card.active .need-domain-copy {background:#fff5fa;}
+.need-step-eyebrow {
+  display:block;margin-bottom:8px;font-size:.61rem;
+  line-height:1.3;font-weight:800;letter-spacing:.075em;
+  color:var(--brand-dark);
+}
+.need-step-panel {
+  padding:13px;border:1px solid #ecdce9;border-radius:15px;
+  background:#fdf9fc;
+}
+.need-step-panel .section-header {align-items:start;margin-bottom:12px;}
+.need-step-panel .section-header h3 {font-size:.98rem;line-height:1.18;}
+.need-step-panel .style-mission-card {background:#fff;}
+.need-step-footnote {
+  margin:10px 1px 0;font-size:.65rem;line-height:1.35;color:var(--muted);
+}
+.need-result-brief {
+  border:1px solid #ebdce9;border-radius:14px;
+  padding:13px;background:#fdf9fc;
+}
+.need-result-brief h3 {
+  margin:0 0 5px;font-size:1.04rem;line-height:1.2;color:var(--text);
+}
+.need-result-brief p {
+  margin:0;color:var(--muted);font-size:.72rem;line-height:1.45;
+}
+@media (prefers-reduced-motion:reduce) {
+  .need-domain-card {transition:none;}
+}
