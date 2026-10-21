@@ -1,6 +1,6 @@
 # Meesho DICE Season 3 | Interactive product prototype
 
-**[Open the live prototype](https://iron-sngh.github.io/Meesho_interactive/)** · **[Read the submission deck](https://drive.google.com/file/d/10sdDxFJ4x0P0fKoClPCTn7K5_KqDU4Vl/view?usp=sharing)** · **[Browser QA](https://github.com/Iron-sngh/Meesho_interactive/actions/workflows/browser-qa.yml)**
+**[Open the live prototype](https://iron-sngh.github.io/Meesho_interactive/)** · **[Read the submission deck](https://drive.google.com/file/d/10sdDxFJ4x0P0fKoClPCTn7K5_KqDU4Vl/view?usp=sharing)**
 
 Business Track · Team Alcheringa, IIT Guwahati
 
@@ -22,7 +22,7 @@ We grouped the work into three horizons:
 
 | Priority | What we propose | Where to see it |
 | --- | --- | --- |
-| **Build first — establish trust** | Review Intelligence and buyer photos; category-specific specifications; explainable seller and source trust | Product detail page, Reviews, Seller, Meesho Mall and MTrusted |
+| **Build first - establish trust** | Review Intelligence and buyer photos; category-specific specifications; explainable seller and source trust | Product detail page, Reviews, Seller, Meesho Mall and MTrusted |
 | **Make choosing easier** | Need- and occasion-led discovery; clearer fulfilment and return information; regional context | Aarav's homepage, Assam / Chhath, Transaction Certainty |
 | **Test after confidence** | Complete-the-mission recommendations, Share & Save, group buying, next-best shopping missions | Lower half of the PDP, gift journeys and cart |
 
@@ -44,18 +44,18 @@ Use **Show click map** to locate clickable areas and **Restart journey** to rese
 
 | Journey | What the judge should notice |
 | --- | --- |
-| **Aarav — Everyday Needs Missions** | Shop by fashion, grooming, home or electronics; choose a purpose; evaluate a manageable shortlist |
-| **Ananya — Familiar Shopping & Confidence** | Women's browsing remains familiar, while the same clearer product information and trust cues work for everyone; Gift for Him is optional |
-| **Rohit — Bihar / Chhath** | Festival preparation, clothing and gifting can be placed closer to the shopper's immediate need |
-| **Nayan — Assam / Regional Context** | Region and season can change which products appear first, without creating an unfamiliar version of Meesho |
+| **Aarav - Everyday Needs Missions** | Shop by fashion, grooming, home or electronics; choose a purpose; evaluate a manageable shortlist |
+| **Ananya - Familiar Shopping & Confidence** | Women's browsing remains familiar, while the same clearer product information and trust cues work for everyone; Gift for Him is optional |
+| **Rohit - Bihar / Chhath** | Festival preparation, clothing and gifting can be placed closer to the shopper's immediate need |
+| **Nayan - Assam / Regional Context** | Region and season can change which products appear first, without creating an unfamiliar version of Meesho |
 
 The non-female journeys also include **Shop for Her** on Home and Categories. The female journey retains **Gift for Him**. These are complementary household-shopping paths, not a change to Meesho's core audience.
 
 ## Two trust experiences, not two personas
 
-**Meesho Mall — brand and source confidence.** Helps answer: *Do I recognise and trust where this product comes from?*
+**Meesho Mall - brand and source confidence.** Helps answer: *Do I recognise and trust where this product comes from?*
 
-**MTrusted — marketplace-quality confidence.** Helps answer: *What do seller, listing and fulfilment signals tell me about this particular product?*
+**MTrusted - marketplace-quality confidence.** Helps answer: *What do seller, listing and fulfilment signals tell me about this particular product?*
 
 Both are available from Categories and contextual product screens. Their sample assortments are illustrative; the prototype **does not verify real programme eligibility** or merchant performance.
 
