@@ -9,6 +9,11 @@ const state = {
   missionDomain: null,
   missionTask: null,
   trustContext: null,
+  femaleCategory: 'fashion',
+  femaleTask: 'everyday',
+  femaleRecipient: 'brother',
+  femaleGifting: false,
+  femaleBundleActive: false,
   product: { title: 'Printed Kurta Set', price: 699, image: 'assets/chhath/chhath_kurta.webp', kind: 'fashion' }
 };
 
@@ -49,6 +54,15 @@ const personas = {
     tags: ['Seller confidence', 'Explainable trust', 'Trust routing'],
     avatar: 'profiles/profile_avatar_vivek.webp'
   },
+  female: {
+    id: 'female',
+    title: 'Everyday Meesho Shopper',
+    subtitle: 'Ananya · returning female shopper',
+    summary: 'Familiar shopping with optional missions, explainable trust, review intelligence and Gift for Him.',
+    entryRoute: 'female-home',
+    tags: ['Protect female equity', 'Everyday shopping', 'Gift for Him'],
+    avatar: 'profiles/buyer_avatar_03.webp'
+  },
   college: {
     id: 'college',
     title: 'Everyday Needs Missions',
@@ -61,6 +75,22 @@ const personas = {
 };
 
 const routeMeta = {
+  'female-home': {label:'Home · Ananya',title:'Familiar female-first shopping',
+    persona:'Everyday Meesho Shopper',
+    summary:'Standard categories remain prominent. Optional mission prompts, universal trust and a secondary Gift for Him route expand useful choices.',
+    keySignals:['Familiar categories','Optional missions','Gift for Him','Proof-first evaluation'],
+    kpi:['Female PDP → ATC','Kept order rate','Repeat']},
+  'female-category': {label:'Category · Women’s shopping',title:'Women’s needs and occasions',
+    persona:'Everyday Meesho Shopper',
+    summary:'A familiar category list with optional purpose filters, proof-first products and Mall/MTrusted routes.',
+    keySignals:['Everyday products','Purpose filters','Trust destinations','Review evidence'],
+    kpi:['Category CTR','PDP → ATC','Trust comprehension']},
+  'female-gifts': {label:'Gifting · Apno Ke Liye',title:'Gift for Him',
+    persona:'Everyday Meesho Shopper',
+    summary:'Household gift discovery introduces relevant men’s products without changing the default women’s feed.',
+    keySignals:['Recipient intent','Gift discovery','Trust evidence','Optional group buying'],
+    kpi:['Gift CTR','Basket value','Purchase completion']},
+
   'college-home': {
     label: 'Home · Everyday Needs Missions',
     title: 'Choose a need, then a purpose',
@@ -306,7 +336,7 @@ function money(v) { return `₹${v}`; }
 
 const ASSET_ROOT = 'assets/';
 const asset = (path) => `${ASSET_ROOT}${path}`;
-const PERSONA_NAMES = { chhath: 'Rohit', assam: 'Nayan', mall: 'Kabir', mtrusted: 'Vivek', college: 'Aarav' };
+const PERSONA_NAMES = { chhath:'Rohit', assam:'Nayan', mall:'Kabir', mtrusted:'Vivek', female:'Ananya', college:'Aarav' };
 
 function personaAvatar(id = state.persona) {
   return asset(personas[id]?.avatar || personas.college.avatar);
@@ -389,6 +419,7 @@ function profileCopy() {
     assam: ['Nayan Das', 'Seasonal shopper · Assam · English + অসমীয়া'],
     mall: ['Kabir Mehta', 'Grooming shopper · Urban · English + Hindi'],
     mtrusted: ['Vivek Sharma', 'Proof-seeking shopper · English + Hindi'],
+    female: ['Ananya Sharma', 'Returning shopper · Everyday essentials'],
     college: ['Aarav Sharma', 'Value-conscious style shopper · Guwahati, Assam · English + Hindi']
   };
   return profiles[state.persona] || profiles.college;
@@ -435,6 +466,7 @@ function defaultProductForPersona(id = state.persona) {
     assam: { title: 'Assam Festive Kurta', price: 429, image: asset('assam/assam_kurta.webp'), kind: 'fashion' },
     mall: { title: 'Daily Face Wash', price: 199, image: asset('mall/mall_facewash.webp'), kind: 'grooming' },
     mtrusted: { title: 'Black Casual Shirt', price: 299, image: asset('products/prod_black_shirt_main.webp'), kind: 'fashion' },
+    female: { title:'Celebration Saree',price:799,image:asset('chhath/chhath_saree.webp'),kind:'fashion' },
     college: { title: 'Casual Checked Shirt', price: 299, image: asset('products/prod_checked_shirt.webp'), kind: 'fashion' }
   };
   return { ...(defaults[id] || defaults.college) };
@@ -539,7 +571,7 @@ function appBar({ brand = true, title = '', subtitle = '', searchText = 'Search 
 
 function bottomNav(active = 'home') {
   const items = [
-    { id: 'home', label: 'Home', icon: '⌂', route: state.persona === 'assam' ? 'assam-home' : state.persona === 'chhath' ? 'chhath-home' : state.persona === 'mall' ? 'mall-home' : state.persona === 'mtrusted' ? 'mtrusted-home' : 'college-home' },
+    { id: 'home', label: 'Home', icon: '⌂', route: personas[state.persona]?.entryRoute || 'chhath-home' },
     { id: 'categories', label: 'Categories', icon: '▦', route: 'categories' },
     { id: 'orders', label: 'My Orders', icon: '☰', route: 'orders' },
     { id: 'account', label: 'Account', icon: '◎', route: 'account' }
@@ -853,6 +885,134 @@ function missionStepPanel() {
   </section>`;
 }
 
+
+const femaleProducts={
+  saree:['Celebration Saree',799,'chhath/chhath_saree.webp'],
+  fashion:['Women’s Fashion Edit',449,'categories/cat_womens_fashion.webp'],
+  care:['Self-Care Gift Box',449,'assam/assam_selfcare_gift.webp'],
+  decor:['Home Decor Set',299,'assam/assam_decor_set.webp'],
+  festive:['Celebration Decor Pack',349,'chhath/chhath_decor_pack.webp'],
+  home:['Everyday Home Essentials',399,'categories/cat_home.webp'],
+  gift:['Gift Hamper',499,'chhath/chhath_gift_hamper.webp'],
+  pouch:['Travel Utility Pouch',199,'chhath/chhath_travel_pouch.webp'],
+  travel:['Travel Utility Kit',249,'assam/assam_travel_kit.webp'],
+  shirt:['Black Casual Shirt',329,'products/prod_black_shirt_main.webp'],
+  watch:['Analog Watch',399,'products/prod_watch.webp'],
+  wash:['Daily Face Wash',199,'mall/mall_facewash.webp'],
+  backpack:['Minimal Backpack',499,'products/prod_backpack.webp']
+};
+const femaleNeeds={
+  fashion:{name:'Women’s Fashion',image:'categories/cat_womens_fashion.webp',desc:'Everyday & occasion wear',
+    tasks:{everyday:['Everyday Wear',['fashion','saree','pouch','care']],festive:['Festive & Occasion',['saree','fashion','decor','care']],
+    work:['Workday Essentials',['fashion','pouch','saree','care']],out:['Going Out',['saree','fashion','pouch','gift']]}},
+  beauty:{name:'Beauty & Self-Care',image:'assam/assam_selfcare_gift.webp',desc:'Everyday care & gifting',
+    tasks:{everyday:['Daily Self-Care',['care','pouch','travel','gift']],gifts:['Thoughtful Self-Care Gifts',['care','gift','pouch','decor']],
+    refresh:['Refresh & Relax',['care','travel','gift','decor']],travel:['On-the-Go Essentials',['travel','pouch','care','gift']]}},
+  home:{name:'Home & Living',image:'categories/cat_home.webp',desc:'Practical finds & decor',
+    tasks:{everyday:['Everyday Utility',['home','travel','decor','pouch']],refresh:['Refresh My Space',['decor','festive','home','gift']],
+    host:['Hosting & Gatherings',['festive','decor','gift','care']],gifts:['Gifts for Home',['gift','decor','festive','care']]}},
+  accessories:{name:'Accessories & Gifts',image:'categories/cat_gifting.webp',desc:'Useful gifts & everyday carry',
+    tasks:{everyday:['Everyday Carry',['pouch','travel','care','fashion']],gifts:['Gifting Essentials',['gift','care','decor','pouch']],
+    occasions:['Small Celebrations',['gift','festive','care','saree']],him:['Gift for Him',['shirt','watch','wash','backpack']]}}
+};
+const femaleRecipients={
+  brother:['Brother',['shirt','watch','backpack','wash']],
+  partner:['Partner',['shirt','wash','watch','backpack']],
+  father:['Father',['watch','shirt','wash','backpack']],
+  friend:['Friend',['backpack','watch','shirt','wash']]
+};
+function femaleProductGrid(keys,layout='two-up'){
+ return `<div class="${layout}">${keys.map(key=>{
+   const p=femaleProducts[key];return productCard({title:p[0],price:p[1],image:asset(p[2])});
+ }).join('')}</div>`;
+}
+function femaleNeedTiles(){
+ return `<div class="female-need-grid">${Object.entries(femaleNeeds).map(([key,v])=>`
+   <button class="female-need-card" data-go="female-category" data-female-category="${key}">
+     <img src="${asset(v.image)}" alt="" loading="lazy">
+     <span><b>${v.name}</b><small>${v.desc}</small></span>
+   </button>`).join('')}</div>`;
+}
+function femaleGiftTile(){
+ return `<button class="female-gift-tile" data-go="female-gifts">
+  <img src="${asset('products/prod_black_shirt_main.webp')}" alt="Men’s shirt gift">
+  <span><small>BAS AISE HI · APNO KE LIYE</small><b>Gift for Him</b>
+  <em>A useful gift for your brother, partner, father or friend.</em><strong>Explore gifts →</strong></span>
+ </button>`;
+}
+function femaleHome(){
+ return phoneTemplate({nav:'home',content:`
+  ${appBar({brand:true,searchText:'Search fashion, beauty, home & more'})}
+  <section class="screen-section">
+    <div class="hero-banner photo-hero" ${heroStyle('promo_festive_under699.webp','center')}>
+      <div class="hero-copy-card"><span class="eyebrow-inline">Everyday Meesho</span>
+        <h2>Find something you love</h2><p>Familiar favourites. Clearer product proof.</p>
+        <button class="hero-cta" data-go="female-category" data-female-category="fashion">Shop women’s fashion →</button>
+      </div>
+    </div>
+  </section>
+  <section class="screen-section">${sectionHeader('Shop by Category','Your familiar everyday departments.','','')}${femaleNeedTiles()}</section>
+  <section class="screen-section">
+    ${sectionHeader('Recommended for You','Women’s fashion, self-care and home.','','')}
+    ${femaleProductGrid(['saree','fashion','care','decor'],'four-up')}
+  </section>
+  <section class="screen-section">
+    ${sectionHeader('What do you need today?','Optional guided choices, never a required step.','','')}
+    ${femaleNeedTiles()}
+  </section>
+  <section class="screen-section">
+    ${sectionHeader('Thoughtful gifting','A secondary route for the people you care about.','','')}
+    ${femaleGiftTile()}
+  </section>
+  <section class="screen-section">
+    ${sectionHeader('Popular everyday picks','Shop your usual way.','','')}
+    ${femaleProductGrid(['gift','pouch','home','festive'],'four-up')}
+  </section>
+  <section class="screen-section">${trustTwinCards()}</section>
+ `});
+}
+function femaleCategoryScreen(){
+ const domain=femaleNeeds[state.femaleCategory]||femaleNeeds.fashion;
+ const task=domain.tasks[state.femaleTask]||Object.values(domain.tasks)[0];
+ const all=[...new Set(Object.values(domain.tasks).flatMap(item=>item[1]))].slice(0,4);
+ return phoneTemplate({nav:'categories',content:`
+   ${appBar({brand:false,title:domain.name.toUpperCase(),subtitle:'Familiar category · choose an optional purpose',
+     searchText:'Search '+domain.name.toLowerCase(),backRoute:'female-home'})}
+   <section class="screen-section">
+    ${sectionHeader('What are you shopping for?','Choose a purpose or browse products directly.','','')}
+    <div class="style-mission-grid">${Object.entries(domain.tasks).map(([key,t])=>`
+     <button class="female-task ${state.femaleTask===key?'active':''}" data-female-task="${key}">
+      <b>${t[0]}</b><small>Explore relevant products →</small>
+     </button>`).join('')}</div>
+   </section>
+   <section class="screen-section">${sectionHeader(task[0]+' picks','Open any product to assess details, reviews and seller confidence.','','')}
+     ${femaleProductGrid(task[1])}</section>
+   <section class="screen-section">${sectionHeader('Explore this department','Regular category browsing remains available.','','')}
+     ${femaleProductGrid(all,'four-up')}</section>
+   ${state.femaleCategory==='accessories'?femaleGiftTile():''}
+ `});
+}
+function femaleGiftsScreen(){
+ const recipient=femaleRecipients[state.femaleRecipient]||femaleRecipients.brother;
+ return phoneTemplate({nav:'categories',content:`
+  ${appBar({brand:false,title:'GIFT FOR HIM',subtitle:'Bas Aise Hi, Apno Ke Liye',
+      searchText:'Search gift ideas',backRoute:'female-home'})}
+  <section class="screen-section">
+   <div class="female-gift-intro"><img src="${asset('products/prod_black_shirt_main.webp')}" alt="Casual shirt">
+    <span><b>Thoughtful picks for him</b><small>Buy for someone else without changing your usual Meesho feed.</small></span>
+   </div>
+  </section>
+  <section class="screen-section">
+   ${sectionHeader('Who are you shopping for?','Just one tap to adjust the ideas.','','')}
+   <div class="style-filter-grid">${Object.entries(femaleRecipients).map(([key,v])=>`
+    <button class="style-filter-chip ${state.femaleRecipient===key?'active':''}"
+     data-female-recipient="${key}">${v[0]}</button>`).join('')}</div>
+  </section>
+  <section class="screen-section">${sectionHeader('Gifts for your '+recipient[0].toLowerCase(),'Useful picks that open the same proof-first product page.','','')}
+    ${femaleProductGrid(recipient[1])}</section>
+ `});
+}
+
 function collegeHome() {
   return phoneTemplate({
     nav: 'home',
@@ -992,7 +1152,7 @@ function chhathHome() {
 
 // Reuse the original trust destinations, tailoring their assortments to entry context.
 const trustCategoryRoutes = new Set(['categories','category-fashion','category-grooming',
-  'category-assam','category-chhath','category-home','category-electronics','category-gifting','mission-results']);
+  'category-assam','category-chhath','category-home','category-electronics','category-gifting','mission-results','female-category','female-gifts']);
 function categoryTrustGateway() {
   return `<section class="screen-section category-trust-section">
     ${sectionHeader('Shop with more confidence','Choose the trust signal that matters for these products.','','')}
@@ -1032,6 +1192,16 @@ const trustPicks = {
   gifting:['Gifting essentials','categories/cat_gifting.webp',[
     ['Gift Hamper',499,'chhath/chhath_gift_hamper.webp'],['Self-Care Gift Box',449,'assam/assam_selfcare_gift.webp'],
     ['Home Decor Set',299,'assam/assam_decor_set.webp'],['Travel Utility Kit',249,'assam/assam_travel_kit.webp']]],
+  women:['Women’s fashion','categories/cat_womens_fashion.webp',[
+   ['Celebration Saree',799,'chhath/chhath_saree.webp'],
+   ['Women’s Fashion Edit',449,'categories/cat_womens_fashion.webp'],
+   ['Self-Care Gift Box',449,'assam/assam_selfcare_gift.webp'],
+   ['Travel Utility Pouch',199,'chhath/chhath_travel_pouch.webp']]],
+  beauty:['Beauty & self-care','assam/assam_selfcare_gift.webp',[
+   ['Self-Care Gift Box',449,'assam/assam_selfcare_gift.webp'],
+   ['Travel Utility Kit',249,'assam/assam_travel_kit.webp'],
+   ['Gift Hamper',499,'chhath/chhath_gift_hamper.webp'],
+   ['Travel Utility Pouch',199,'chhath/chhath_travel_pouch.webp']]],
   everyday:['Everyday needs','categories/cat_mens_fashion.webp',[
     ['Casual Checked Shirt',299,'products/prod_checked_shirt.webp'],['Daily Face Wash',199,'mall/mall_facewash.webp'],
     ['Home Decor Set',299,'assam/assam_decor_set.webp'],['Analog Watch',399,'products/prod_watch.webp']]]
@@ -1039,9 +1209,14 @@ const trustPicks = {
 function trustContextFromCategory() {
   const byRoute={'category-fashion':'fashion','category-grooming':'grooming','category-assam':'assam',
     'category-chhath':'chhath','category-home':'home','category-electronics':'electronics','category-gifting':'gifting'};
-  const byPersona={chhath:'chhath',assam:'assam',mall:'grooming',mtrusted:'fashion',college:'everyday'};
+  const byPersona={chhath:'chhath',assam:'assam',mall:'grooming',mtrusted:'fashion',female:'women',college:'everyday'};
   const sourceRoute=state.route;
   let category=byRoute[sourceRoute]||byPersona[state.persona]||'everyday';
+  if(state.persona==='female'){
+    const map={fashion:'women',beauty:'beauty',home:'home',accessories:'gifting'};
+    if(sourceRoute==='female-gifts'||(sourceRoute==='pdp-core'&&state.femaleGifting))category='gifting';
+    else if(['female-category','pdp-core'].includes(sourceRoute))category=map[state.femaleCategory]||'women';
+  }
   if(state.persona==='college'&&['categories','mission-results'].includes(sourceRoute)
      && missionDomains[state.missionDomain])category=state.missionDomain;
   const task=state.persona==='college'&&category===state.missionDomain&&category!=='fashion'
@@ -1501,7 +1676,7 @@ function pdpCore() {
     nav: 'home',
     ctas: ctaBar({ label: 'Buy now', route: 'checkout' }, { label: 'Add to cart', route: 'cart' }),
     content: `
-      ${appBar({ brand: false, title: 'PRODUCT', subtitle: 'Proof-first product detail page', searchText: 'Search related products', backRoute: state.persona === 'mall' ? 'category-grooming' : (state.persona === 'chhath' ? 'category-chhath' : state.persona === 'assam' ? 'category-assam' : 'category-fashion') })}
+      ${appBar({ brand: false, title: 'PRODUCT', subtitle: 'Proof-first product detail page', searchText: 'Search related products', backRoute: state.persona === 'mall' ? 'category-grooming' : (state.persona === 'chhath' ? 'category-chhath' : state.persona === 'assam' ? 'category-assam' : state.persona==='female'?(state.femaleGifting?'female-gifts':'female-category'):'category-fashion') })}
       <div class="product-detail-hero realistic-pdp-hero">
         <div>
           <button class="pdp-main-image" data-go="product-details" aria-label="Open product details"><img src="${p.image}" alt="${p.title}"></button>
@@ -2033,6 +2208,20 @@ function orderPlacedScreen() {
 }
 
 function categoriesScreen() {
+  if(state.persona==='female')return phoneTemplate({nav:'categories',content:`
+   ${appBar({brand:false,title:'CATEGORIES',subtitle:'Shop by department',
+      searchText:'Search categories',backRoute:'female-home'})}
+   <section class="screen-section">${sectionHeader('Shop by Category','Familiar favourites remain easy to reach.','','')}
+     ${femaleNeedTiles()}</section>
+   <section class="screen-section">${femaleGiftTile()}</section>
+   <section class="screen-section">${sectionHeader('Explore more','All departments stay open.','','')}
+    <div class="category-grid">
+     ${categoryCard({icon:'👔',title:'Men’s Fashion',subtitle:'Shirts & more',route:'category-fashion'})}
+     ${categoryCard({icon:'⌚',title:'Electronics',subtitle:'Accessories',route:'category-electronics'})}
+     ${categoryCard({icon:'🎉',title:'Festive picks',subtitle:'Occasions',route:'category-assam'})}
+    </div>
+   </section>
+  `});
   return phoneTemplate({
     nav: 'categories',
     content: `
@@ -2096,6 +2285,9 @@ function wishlistScreen() {
 }
 
 const routes = {
+  'female-home': femaleHome,
+  'female-category': femaleCategoryScreen,
+  'female-gifts': femaleGiftsScreen,
   'college-home': collegeHome,
   'assam-home': assamHome,
   'chhath-home': chhathHome,
@@ -2152,7 +2344,12 @@ function renderDetails() {
   const chosenDomain = missionDomains[state.missionDomain];
   const chosenTask = chosenDomain?.tasks?.[state.missionTask];
   let meta = baseMeta;
-  if (state.persona === 'college' && state.route === 'college-home' && chosenDomain) {
+  if(state.persona==='female'&&state.route==='female-category'){
+    const c=femaleNeeds[state.femaleCategory];const t=c.tasks[state.femaleTask];
+    meta={...baseMeta,title:c.name+' · '+t[0],
+      persona:personas.female.title,
+      summary:'Female category browsing retains familiar products while a lightweight intent filter and universal trust make evaluation easier.'};
+  }else if (state.persona === 'college' && state.route === 'college-home' && chosenDomain) {
     meta = {
       ...baseMeta, title: chosenDomain.title + ' · choose a purpose',
       summary: 'The shopper selected ' + chosenDomain.title + '. The second step now offers clear tasks rather than an unexplained product feed.',
@@ -2265,6 +2462,11 @@ function setPersona(personaId, preserveRoute = false) {
   state.missionDomain = null;
   state.missionTask = null;
   state.trustContext = null;
+  state.femaleCategory='fashion';
+  state.femaleTask='everyday';
+  state.femaleRecipient='brother';
+  state.femaleGifting=false;
+  state.femaleBundleActive=false;
   state.product = defaultProductForPersona(personaId);
   state.route = preserveRoute ? state.route : personas[personaId].entryRoute;
   renderRoute();
@@ -2400,6 +2602,24 @@ document.addEventListener('click', (event) => {
     }
   }
 
+  const femaleRecipientButton=event.target.closest('[data-female-recipient]');
+  if(femaleRecipientButton&&state.persona==='female'){
+    if(!femaleRecipients[femaleRecipientButton.dataset.femaleRecipient])return;
+    const top=deviceCanvas.querySelector('.phone-content')?.scrollTop||0;
+    state.femaleRecipient=femaleRecipientButton.dataset.femaleRecipient;
+    renderRoute();requestAnimationFrame(()=>{const c=deviceCanvas.querySelector('.phone-content');if(c)c.scrollTop=top});
+    return;
+  }
+  const femaleTaskButton=event.target.closest('[data-female-task]');
+  if(femaleTaskButton&&state.persona==='female'){
+    const key=femaleTaskButton.dataset.femaleTask;
+    if(!femaleNeeds[state.femaleCategory]?.tasks?.[key])return;
+    state.femaleTask=key;
+    if(key==='him'){state.femaleGifting=true;go('female-gifts');return;}
+    const top=deviceCanvas.querySelector('.phone-content')?.scrollTop||0;
+    renderRoute();requestAnimationFrame(()=>{const c=deviceCanvas.querySelector('.phone-content');if(c)c.scrollTop=top});
+    return;
+  }
   const missionDomainButton = event.target.closest('[data-mission-domain]');
   if (missionDomainButton && state.persona === 'college') {
     const domainId = missionDomainButton.dataset.missionDomain;
@@ -2419,6 +2639,12 @@ document.addEventListener('click', (event) => {
 
   const navButton = event.target.closest('[data-go]');
   if (navButton) {
+    if(state.persona==='female'&&navButton.dataset.femaleCategory){
+      const key=navButton.dataset.femaleCategory;
+      if(!femaleNeeds[key])return;
+      state.femaleCategory=key;state.femaleTask=Object.keys(femaleNeeds[key].tasks)[0];
+      state.femaleGifting=false;
+    }
     if (state.persona === 'college' && navButton.dataset.missionTask) {
       const taskId = navButton.dataset.missionTask;
       if (!missionDomains[state.missionDomain]?.tasks?.[taskId] || state.missionDomain === 'fashion') return;
@@ -2442,6 +2668,7 @@ document.addEventListener('click', (event) => {
         return;
       }
     }
+    if(state.persona==='female'&&navButton.dataset.go==='female-gifts')state.femaleGifting=true;
     const selectedAnotherProduct = Boolean(navButton.dataset.productTitle);
     if (selectedAnotherProduct) {
       state.product = {
@@ -2498,6 +2725,11 @@ $('#restart-button').addEventListener('click', () => {
   state.missionDomain = null;
   state.missionTask = null;
   state.trustContext = null;
+  state.femaleCategory='fashion';
+  state.femaleTask='everyday';
+  state.femaleRecipient='brother';
+  state.femaleGifting=false;
+  state.femaleBundleActive=false;
   state.product = defaultProductForPersona(state.persona);
   state.route = personas[state.persona].entryRoute;
   renderRoute();
